@@ -59,7 +59,9 @@ export const Scene02: React.FC = () => {
   const rest: [number, number] = [bx - 70 * S, 1316 - 168 * S];
   const lift: [number, number] = [bx - 120 * S, 1316 - 300 * S];
   const grab: [number, number] = [radio[0] + 6, radio[1] + 8];
-  const hand = pull > 0 ? mixP(grab, lift, pull) : mixP(rest, grab, reach);
+  const ear: [number, number] = [bx - 40 * S, 1316 - 372 * S];
+  const toEar = ci(f, [92, 112], [0, 1], Easing.inOut(Easing.cubic)); // listens to the radio after the warning
+  const hand = pull > 0 ? mixP(mixP(grab, lift, pull), ear, toEar) : mixP(rest, grab, reach);
   return (
     <Stage cam={cam}>
       <AbsoluteFill style={{ filter: "blur(5px)", transform: "scale(1.15)" }}>
@@ -261,7 +263,7 @@ export const Scene04: React.FC = () => {
           </AbsoluteFill>
           <Plane p={1}>
             <Character id="s4bat" kind="batman" x={1180} y={1640} scale={2.9} facing={-1} lightSide={-1} silhouette={0.3} capeWind={0.8} glowEyes={0.9} prop="radio"
-              pose={{ armNear: [62 - 30 * ci(f, [14, 34], [0, 1], EZ), 104 - 40 * ci(f, [14, 34], [0, 1], EZ)], handNear: "grip", head: 4 - 8 * ci(f, [16, 30], [0, 1], EZ), eyeX: ci(f, [16, 30], [0.2, -0.6]), brow: -1, blink: blinkAt(f, 100, 30), bob: breathe(f, 0.25, 2), lean: 4 - 3 * ci(f, [30, 60], [0, 1], EZ) }} />
+              pose={{ armNear: [62 - 50 * ci(f, [14, 34], [0, 1], EZ), 104 + 26 * ci(f, [14, 34], [0, 1], EZ)], handNear: "grip", head: 4 - 8 * ci(f, [16, 30], [0, 1], EZ), eyeX: ci(f, [16, 30], [0.2, -0.6]), brow: -1, blink: blinkAt(f, 100, 30), bob: breathe(f, 0.25, 2), lean: 4 - 3 * ci(f, [30, 60], [0, 1], EZ) }} />
             <Glow x={560} y={430} r={120} color="255,40,40" opacity={led ? 0.35 : 0.08} />
           </Plane>
           <ForegroundRain />
