@@ -285,7 +285,9 @@ export const ToyCop: React.FC<{ x: number; y: number; s?: number; keyRot?: numbe
    4 layers: (1) far interior + rear window city  (2) occupants (children)  (3) dashboard, windshield frame, wheel  (4) rain/wipers */
 export const CruiserCabin: React.FC<{ children?: React.ReactNode; dark?: number; signal?: number; dawn?: number; wipe?: boolean; speed?: number }> = ({ children, dark = 0, signal = 0, dawn = 0, wipe = true, speed = 1 }) => {
   const f = useCurrentFrame();
-  const wa = wipe ? Math.sin(f * 0.11) * 46 : -40;
+  // v15: intermittent wipers - one quick sweep every ~3 s, then they PARK flat along the bottom of the glass (no blade parked across faces)
+  const wcyc = (f % 96) / 30;
+  const wa = wipe && wcyc < 1 ? -84 + Math.sin(wcyc * Math.PI) * 150 : -84;
   return (
     <AbsoluteFill>
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
@@ -330,7 +332,7 @@ export const CruiserCabin: React.FC<{ children?: React.ReactNode; dark?: number;
         <g transform="translate(600 1020)"><ellipse cx={0} cy={0} rx={190} ry={60} fill="none" stroke="#141518" strokeWidth={30} /><path d="M-60 -10 L0 30 L60 -10" stroke="#141518" strokeWidth={22} fill="none" /></g>
         {/* rain + wipers */}
         {Array.from({ length: 60 }).map((_, i) => { const x = 240 + rand(i) * 1440, y = 140 + rand(i * 3) * 700; const life = ((f + i * 7) % 60) / 60; return <ellipse key={i} cx={x} cy={y + life * 30} rx={3} ry={5} fill="#cfe0ff" opacity={0.35 * (1 - life)} />; })}
-        {[520, 1260].map((px, k) => <g key={px} transform={`translate(${px} 900) rotate(${wa + (k ? 0 : -10)})`}><path d="M0 0 L0 -560" stroke="#0a0a0c" strokeWidth={8} /><path d="M-4 -560 L-4 -120" stroke="#141418" strokeWidth={12} /></g>)}
+        {[520, 1260].map((px, k) => <g key={px} transform={`translate(${px} 890) rotate(${wa + (k ? 0 : -4)})`}><path d="M0 0 L0 -480" stroke="#0a0a0c" strokeWidth={6} /><path d="M-3 -480 L-3 -110" stroke="#141418" strokeWidth={9} /></g>)}
       </svg>
     </AbsoluteFill>
   );

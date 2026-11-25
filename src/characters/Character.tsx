@@ -200,12 +200,20 @@ export const Character: React.FC<CharProps> = (props) => {
           <path d={`M${r * 0.7} ${r * 0.35} Q${r * 1.45} ${r * 0.85} ${r * 1.1} ${r * 1.5} Q${r * 0.75} ${r * 1.55} ${r * 0.6} ${r * 1.1}`} fill={col} {...st} />
         </g>
       );
-    // open hand: palm + four fingers + thumb
+    // v15 open hand: fingers FAN from the knuckle arc (slight spread, tapered, middle longest, soft curl at the tips),
+    // splayed thumb, knuckle creases - no parallel "rake" of identical rectangles
+    const FING: [number, number, number, number][] = [[-0.6, -13, 1.0, 0.4], [-0.2, -4, 1.22, 0.43], [0.2, 4, 1.15, 0.42], [0.58, 12, 0.9, 0.36]];
     return (
       <g>
-        {[-0.62, -0.2, 0.22, 0.62].map((fx, i) => <rect key={i} x={r * fx - r * 0.24} y={r * 1.3} width={r * 0.48} height={r * (1.25 - Math.abs(fx) * 0.35)} rx={r * 0.24} fill={col} {...st} />)}
-        <path d={`M${-r * 0.95} 0 Q${-r * 1.1} ${r * 1.0} ${-r * 0.85} ${r * 1.6} H${r * 0.9} Q${r * 1.1} ${r * 0.9} ${r * 0.9} 0 Z`} fill={col} {...st} />
-        <path d={`M${r * 0.8} ${r * 0.3} Q${r * 1.6} ${r * 0.6} ${r * 1.55} ${r * 1.3} Q${r * 1.2} ${r * 1.4} ${r * 0.85} ${r * 1.0}`} fill={col} {...st} />
+        {FING.map(([fx, ang, len, w], i) => (
+          <g key={i} transform={`translate(${r * fx} ${r * 1.35}) rotate(${-ang})`}>
+            <path d={`M${-r * w * 0.5} 0 L${-r * w * 0.42} ${r * len * 0.8} Q${-r * w * 0.4} ${r * len * 1.02} ${r * w * 0.04} ${r * len * 1.02} Q${r * w * 0.46} ${r * len * 0.98} ${r * w * 0.42} ${r * len * 0.76} L${r * w * 0.5} 0 Z`} fill={col} {...st} />
+            <path d={`M${-r * w * 0.3} ${r * len * 0.5} q${r * w * 0.3} ${r * 0.06} ${r * w * 0.6} 0`} stroke={outline} strokeWidth={sw * 0.45} fill="none" opacity={0.45} />
+          </g>
+        ))}
+        <path d={`M${-r * 0.95} 0 Q${-r * 1.12} ${r * 0.95} ${-r * 0.82} ${r * 1.5} Q${0} ${r * 1.72} ${r * 0.82} ${r * 1.5} Q${r * 1.08} ${r * 0.85} ${r * 0.9} 0 Z`} fill={col} {...st} />
+        <path d={`M${-r * 0.55} ${r * 1.32} Q0 ${r * 1.46} ${r * 0.55} ${r * 1.32}`} stroke={outline} strokeWidth={sw * 0.5} fill="none" opacity={0.4} />
+        <path d={`M${r * 0.78} ${r * 0.35} Q${r * 1.5} ${r * 0.5} ${r * 1.7} ${r * 1.15} Q${r * 1.72} ${r * 1.42} ${r * 1.45} ${r * 1.4} Q${r * 1.2} ${r * 1.1} ${r * 0.82} ${r * 1.05} Z`} fill={col} {...st} />
       </g>
     );
   };

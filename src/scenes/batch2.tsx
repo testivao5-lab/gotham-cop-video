@@ -163,7 +163,9 @@ export const Scene14: React.FC = () => {
           pose={{ legNear: [82, 92], legFar: [78, 96], lean: 14 - rel * 12, head: 18 - rel * 30, eyeY: 0.6 - rel, armNear: [40 + rel * 20, 70 + rel * 30], armFar: [34, 76], brow: 0.6 - rel * 0.2, smile: -0.4 + rel * 0.5 }} />
         <Character id="s14alex" kind="alex" x={720} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.25} shoulderRadio prop="bottle" pose={{ head: 6 - rel * 4 + Math.sin(f * 0.05) * 3, eyeX: 0.6, handNear: "grip", armNear: [10 + ci(f, [24, 40, cA, cA + 14], [0, 55, 55, 0]), 30 + ci(f, [24, 40, cA, cA + 14], [0, 20, 20, 0])], lean: ci(f, [24, 40, cA, cA + 14], [0, 8, 8, 0]), smile: 0.3 * rel }} />
         <Character id="s14mara" kind="mara" x={mx} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.25} shoulderRadio
-          pose={f < 90 ? { ...walkDist(1900 - mx, "mara", S, 0.8) } : { head: 12, eyeY: 0.6, smile: 0.25 * rel, lean: 6 }} />
+          pose={f < 90 ? { ...walkDist(1900 - mx, "mara", S, 0.8) } : { head: 12 + Math.sin(f * 0.06) * 3, eyeY: 0.6, smile: 0.35 * rel, brow: 0.5 - 0.3 * rel,
+            lean: 6 + ci(f, [90, 110], [0, 10]), bob: ci(f, [90, 110], [0, 36]), legNear: [ci(f, [90, 110], [5, 36]), ci(f, [90, 110], [4, 70])], legFar: [ci(f, [90, 110], [-4, -16]), ci(f, [90, 110], [4, 50])],
+            armNear: [ci(f, [100, 120], [10, 64]), 30 + Math.sin(f * 0.05) * 6], handNear: "open" }} />
       </Plane>
       <Plane p={1.15}><Rain count={90} opacity={0.16} /></Plane>
       <Post />
@@ -325,9 +327,12 @@ export const Scene18: React.FC = () => {
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><rect x={-400} y={880} width={2720} height={800} fill="#121420" /></svg>
         <Cruiser x={ci(f, [0, 60], [2200, 1300], Easing.out(Easing.cubic))} y={990 - 164 * M.car(990)} scale={M.car(990)} />
         <Character id="s18alex" kind="alex" x={ci(f, [50, 110], [1700, 1220])} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.25} shoulderRadio
-          pose={f < 110 ? { ...walkDist(1700 - ci(f, [50, 110], [1700, 1220]), "alex", S, 1) } : { head: -14, eyeY: -0.8 }} />
+          pose={f < 110 ? { ...walkDist(1700 - ci(f, [50, 110], [1700, 1220]), "alex", S, 1) } : { /* v15: stops dead, looks up, then points at the hanging man */
+            head: ci(f, [110, 124], [-2, -18]) + Math.sin(f * 0.06) * 2, eyeY: -0.8, brow: 0.8, smile: ci(f, [140, 170], [0, 0.25]), lean: ci(f, [110, 120], [4, -4]),
+            armNear: f > 130 ? [150, 8] : [12, 22], handNear: f > 130 ? "point" : "relaxed" }} />
         <Character id="s18mara" kind="mara" x={ci(f, [60, 120], [1800, 1420])} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.25} shoulderRadio
-          pose={f < 120 ? { ...walkDist(1800 - ci(f, [60, 120], [1800, 1420]), "mara", S, 1) } : { head: -8, eyeY: -0.5 }} />
+          reachNear={f > 136 ? anchor("mara", 1420, G, S, -1, "radio") : undefined}
+          pose={f < 120 ? { ...walkDist(1800 - ci(f, [60, 120], [1800, 1420]), "mara", S, 1) } : { head: ci(f, [120, 132], [0, -12]) + Math.sin(f * 0.07) * 3, eyeY: -0.6, brow: 0.6, handNear: "grip", smile: 0.15 }} />
         <Glow x={1300 + 220} y={860} r={240} color={Math.floor(f / 6) % 2 ? "255,40,40" : "60,90,255"} opacity={0.3 * arr} />
       </Plane>
       <Plane p={1.1}><Rain count={120} opacity={0.18} /></Plane>
@@ -649,11 +654,11 @@ export const Scene25: React.FC = () => {
           return (
             <>
               <Character id="s25bg" kind="reporter" x={bx} y={1000} scale={S} facing={1} lightSide={1} nightTint={0.35} pose={{ head: 6, ...walkDist(bx - 1500, "reporter", S, 0.7), armFar: [30, 90], handFar: "grip" }} />
-              <Character id="s25alex" kind="alex" x={900} y={1000} scale={S} facing={turned ? 1 : -1} lightSide={1} nightTint={0.12} shoulderRadio
+              <Character id="s25alex" kind="alex" x={ci(f, [cM + 50, D], [900, 300])} y={1000} scale={S} facing={turned && f < cM + 50 ? 1 : -1} lightSide={1} nightTint={0.12} shoulderRadio
                 reachNear={turned ? undefined : [640, 730]}
-                pose={{ head: turned ? ci(f, [cM - 14, cM + 6], [12, 2]) : 14 + Math.sin(f * 0.05) * 2, eyeY: turned ? 0.2 : 0.8, eyeX: turned ? 0.6 : 0.3, brow: 0.6, lean: turned ? 0 : 10, smile: f > cM + 20 ? 0.15 : -0.2, handNear: turned ? undefined : "open" }} />
+                pose={f > cM + 50 ? { ...walkDist(900 - ci(f, [cM + 50, D], [900, 300]), "alex", S, 0.7), head: 6, brow: 0.5, smile: 0.1 } : { head: turned ? ci(f, [cM - 14, cM + 6, cM + 20, cM + 30], [12, 2, 10, 2]) : 14 + Math.sin(f * 0.05) * 2, eyeY: turned ? 0.2 : 0.8, eyeX: turned ? 0.6 : 0.3, brow: 0.6, lean: turned ? 0 : 10, smile: f > cM + 20 ? 0.15 : -0.2, handNear: turned ? undefined : "open" }} />
               <Character id="s25mara" kind="mara" x={mx} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.12} shoulderRadio
-                reachNear={f > cM ? anchor("alex", 900, 1000, S, 1, "shoulderFar") : undefined}
+                reachNear={f > cM && f < cM + 46 ? anchor("alex", 900, 1000, S, 1, "shoulderFar") : undefined}
                 pose={{ head: 6, smile: f > cM ? 0.3 : 0, brow: 0.4, eyeX: 0.5, ...(mw ? walkDist(1560 - mx, "mara", S, 0.8) : { lean: f > cM ? 6 : 0 }) }} />
             </>
           );

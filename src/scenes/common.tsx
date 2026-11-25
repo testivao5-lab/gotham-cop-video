@@ -89,8 +89,10 @@ export const Caption: React.FC<{ text: string; from: number; to: number; x?: num
   if (title)
     return (
       <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: 110, opacity: out }}>
-        <div style={{ fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.22, color: "#f3dfb2", textShadow: "0 0 24px rgba(255,190,90,0.35), 0 3px 0 rgba(0,0,0,0.85)", paddingLeft: fs * 0.22 }}>{glyphs}</div>
-        <div style={{ height: 3, width: 420 * rule, marginTop: 6, background: "linear-gradient(90deg, rgba(217,178,74,0), #d9b24a, rgba(217,178,74,0))" }} />
+        {/* v15: soft vignette plate behind centred titles so busy sets (shop shelves, clocks) never cut through the letters */}
+        <div style={{ position: "absolute", top: 40, left: "50%", width: 1300, height: 300, marginLeft: -650, background: "radial-gradient(ellipse at 50% 50%, rgba(3,5,10,0.78) 0%, rgba(3,5,10,0.5) 45%, rgba(3,5,10,0) 72%)", opacity: rule }} />
+        <div style={{ position: "relative", fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.22, color: "#f3dfb2", textShadow: "0 0 24px rgba(255,190,90,0.35), 0 3px 0 rgba(0,0,0,0.85)", paddingLeft: fs * 0.22 }}>{glyphs}</div>
+        <div style={{ position: "relative", height: 3, width: 420 * rule, marginTop: 6, background: "linear-gradient(90deg, rgba(217,178,74,0), #d9b24a, rgba(217,178,74,0))" }} />
       </AbsoluteFill>
     );
   const R = align === "right";

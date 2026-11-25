@@ -16,6 +16,11 @@ import { Hospital, Ambulance, Parapet, Phone, EZ, cq } from "./kit";
 /* metric of the bus street set (BusStreetSet: bus scale 0.95, wheels on ground 785): 77 px/m at the bus, horizon 600 */
 const BM = metric(600, 166);
 const G = 1000, S = BM.human(G);
+/* v15: bus-street MID shots - centre the camera on the acting group (world x cx) at zoom z so figures read at ~30% frame height, not 12-20% */
+const mid = (f: number, D: number, cx0: number, cx1: number, z0: number, z1: number, extra: { shakeY?: number } = {}) => {
+  const z = ci(f, [0, D], [z0, z1], EZ);
+  return { floor: G, x: z * (ci(f, [0, D], [cx0, cx1]) - 960), y: 0, zoom: z, ...extra };
+};
 const cop = (f: number) => (Math.floor(f / 7) % 2 ? "255,40,40" : "60,90,255");
 
 /* ---------------- school bus interior, side view from the aisle (opposite wall + its seats) ----------------
@@ -124,14 +129,19 @@ export const Scene30: React.FC = () => {
   const cL = cq(30, "locked", 0.8);
   const shake = Math.sin(f * 1.7) * 1.6;
   return (
-    <Stage cam={{ x: ci(f, [0, D], [-40, 50]), y: 0, zoom: ci(f, [0, D], [1.0, 1.1], EZ) }}>
+    <Stage cam={mid(f, D, 700, 760, 1.65, 1.8)}>
       <BusStreetSet fog={0.5} nia sky="storm" lamp={0} blackout={1} busX={1060} />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
         <Character id="s30drv" kind="driver" x={980} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.3}
           pose={{ lean: shake, head: 6 + shake, brow: 0.9, smile: -0.4, armNear: f > cP ? [60 + Math.sin(f * 0.25) * 30, 70] : [20, 80], armFar: f > cL ? [120, 30] : [30, 60], handFar: f > cL ? "point" : "open", eyeX: f > cL ? 0.8 : -0.4 }} />
-        <Character id="s30alex" kind="alex" x={560} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 4, brow: 0.6, eyeX: f > cL ? 0.8 : 0.3 }} />
-        <Character id="s30mara" kind="mara" x={380} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio reachNear={f > cL ? anchor("mara", 380, G, S, 1, "radio") : undefined} pose={{ head: 2, brow: 0.5, handNear: "grip" }} />
+        <Character id="s30alex" kind="alex" x={ci(f, [0, 30], [500, 640], EZ)} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio
+          reachFar={f > 30 && f < cL ? anchor("driver", 980, G, S, -1, "shoulderNear") : undefined}
+          pose={{ /* v15: steps in, steadies the shaking driver with a hand on his arm, nods while he talks */
+            head: 4 + (f > cP && f < cL ? Math.sin(f * 0.18) * 4 : 0), brow: 0.6, eyeX: f > cL ? 0.8 : 0.3, lean: f > 30 && f < cL ? 7 : 0, handFar: "open",
+            ...(f < 30 ? walkDist(ci(f, [0, 30], [500, 640], EZ) - 500, "alex", S, 0.7) : {}) }} />
+        <Character id="s30mara" kind="mara" x={430} y={G} scale={S} facing={f > cP && f < cL ? -1 : 1} lightSide={-1} nightTint={0.3} shoulderRadio reachNear={f > cL ? anchor("mara", 430, G, S, 1, "radio") : undefined}
+          pose={{ head: f > cP && f < cL ? -8 : 4, eyeY: f > cP && f < cL ? -0.4 : 0, brow: 0.6, handNear: "grip", eyeX: 0.6 }} />
       </Plane>
       <ForegroundRain />
       <Post />
@@ -157,7 +167,10 @@ export const Scene31: React.FC = () => {
         <Character id="s31drv" kind="driver" x={1200} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={-1} nightTint={0.3}
           reachNear={out > 0 ? [1000 - out * 60, 700 - out * 160] : undefined} prop={out > 0.4 ? "phone" : "none"} propOn={f > cR ? 1 : 0}
           pose={{ head: 10, eyeY: 0.6, brow: 0.9, handNear: "grip", lean: Math.sin(f * 1.7) * 1.2 }} />
-        <Character id="s31alex" kind="alex" x={520} y={1530} crop="waist" scale={3.2} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 8, eyeY: 0.5, brow: 0.6 }} />
+        <Character id="s31alex" kind="alex" x={520} y={1530} crop="waist" scale={3.2} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio
+          reachNear={f > cR + 10 ? [ci(f, [cR + 10, cR + 26], [700, 860], EZ), ci(f, [cR + 10, cR + 26], [880, 760], EZ)] : undefined}
+          pose={{ /* v15: hears the ring, turns to the pocket, holds his palm out for the phone */
+            head: f > cR ? 12 : 4 + Math.sin(f * 0.06) * 3, eyeY: f > cR ? 0.7 : 0.2, eyeX: 0.7, brow: f > cR ? 0.9 : 0.5, lean: f > cR + 10 ? 6 : 0, handNear: "open", armFar: [6, 24], handFar: "relaxed" }} />
       </Plane>
       {out < 0.4 && <Phone x={1080} y={1000} s={0.6} ring={f > cR ? 1 : 0} />}
       <ForegroundRain />
@@ -179,7 +192,7 @@ export const Scene32: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cG + 10}>
-        <Stage cam={{ x: ci(f, [0, cG], [-30, 40]), y: 0, zoom: ci(f, [0, cG], [1.0, 1.08]) }}>
+        <Stage cam={mid(f, cG + 10, 820, 900, 1.6, 1.72)}>
           <BusStreetSet fog={0.55} nia niaPound={f > cG - 20 ? 1 : 0} sky="storm" lamp={0} blackout={1} busX={1060} />
           <Plane p={1}>
             <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
@@ -306,7 +319,7 @@ export const Scene36: React.FC = () => {
   const cT = cq(36, "step", 0.85);
   const st = ci(f, [cT, cT + 26], [0, 1], EZ);
   return (
-    <Stage cam={{ floor: G, x: ci(f, [0, D], [-20, 60]), y: 0, zoom: ci(f, [0, D], [1.0, 1.12], EZ) + st * 0.05 }}>
+    <Stage cam={mid(f, D, 600, 680 + st * 80, 1.65, 1.8)}>
       <BusStreetSet fog={ci(f, [0, D], [0.6, 0.85])} nia sky="storm" lamp={0} blackout={1} busX={1060} />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
@@ -343,10 +356,23 @@ export const Scene37: React.FC = () => {
               {Array.from({ length: 24 }).map((_, i) => <path key={i} d={`M-200 ${600 + i * 40} H2120`} stroke="#000" strokeOpacity={0.2} />)}
               <rect x={240} y={540} width={1440} height={30} fill="#3a2a2e" stroke="#0a0a0e" strokeWidth={3} />
             </svg>
-            <Character id="s37batRoof" kind="batman" x={960} y={560 - (1 - land) * 600} scale={0.9} facing={1} lightSide={1} nightTint={0.4} silhouette={0.7} rim="#9fb6dc" capeWind={1.4 - land * 1.2} crop="transit"
-              pose={{ legNear: land >= 1 ? [40, 80] : [10, 10], legFar: land >= 1 ? [-20, 60] : [-10, 10], lean: land >= 1 ? 14 : 0, head: 12, armNear: [30, 40], armFar: [-30, 40] }} />
+            {(() => {
+              /* v15: a readable landing - feet plant on the ledge, a three-point crouch (hand on the roof), cape settles, he rises and RUNS along the edge */
+              const kneel = ci(f, [cL + 10, cL + 14, cL + 34, cL + 44], [0, 1, 1, 0], EZ);
+              const run = Math.max(0, f - (cL + 44));
+              const bx = 960 + run * 15;
+              return <Character id="s37batRoof" kind="batman" x={bx} y={560 - (1 - land) * 600} groundY={560} scale={0.9} facing={1} lightSide={1} nightTint={0.4} silhouette={0.7} rim="#9fb6dc" capeWind={land < 1 ? 1.4 : run > 0 ? 1.5 : 0.4 + kneel * 0.2} crop="transit"
+                reachNear={kneel > 0.5 ? [bx + 70, 556] : undefined}
+                pose={run > 0 ? { ...walkDist(run * 15, "batman", 0.9, 1.3), lean: 14, head: 6, brow: 0.6 } : land < 1 ? { legNear: [24, 40], legFar: [-14, 30], armNear: [70, 30], armFar: [-50, 30], head: 8 } : {
+                  lean: 10 + kneel * 18, bob: kneel * 70, legNear: [20 + kneel * 50, 20 + kneel * 100], legFar: [-10 - kneel * 30, 10 + kneel * 110], head: 10 - kneel * 6, armFar: [-40 * kneel, 30], handNear: "open" }} />;
+            })()}
           </Plane>
-          <Plane p={1}><Character id="s37alexA" kind="alex" x={360} y={1600} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} shoulderRadio pose={{ head: -24, neck: -14, eyeY: -1, brow: 0.9 }} /></Plane>
+          <Plane p={1}><Character id="s37alexA" kind="alex" x={360} y={1600} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} shoulderRadio
+            reachNear={f > cL + 30 ? anchor("alex", 360, 1600, 3.2, 1, "radio") : undefined}
+            pose={{ /* v15: startles at the thud (flinch back), then tracks him and keys the radio */
+              head: ci(f, [0, cL + 8, cL + 14], [-6, -10, -26]) + Math.sin(f * 0.05) * 2, neck: ci(f, [cL + 8, cL + 14], [-4, -14]), eyeY: ci(f, [cL + 8, cL + 14], [-0.3, -1]),
+              eyeX: f > cL + 44 ? 0.8 : 0.3, lean: ci(f, [cL + 10, cL + 16, cL + 40], [0, -10, -4]), brow: 0.9, handNear: "grip",
+              armFar: f > cL + 10 && f < cL + 30 ? [60, 90] : [6, 20], handFar: f > cL + 10 && f < cL + 30 ? "open" : "relaxed" }} /></Plane>
           <ForegroundRain />
           <Post />
         </Stage>
@@ -392,7 +418,7 @@ export const Scene38: React.FC = () => {
   const batMouth: [number, number] = anchor("batman", BX, G, S, -1, "radio");
   const radioPos: [number, number] = [radioAlex[0] + (batMouth[0] - 10 - radioAlex[0]) * toMouth, radioAlex[1] + (batMouth[1] - 30 - radioAlex[1]) * toMouth];
   return (
-    <Stage cam={{ floor: G, x: ci(f, [0, D], [80, -20]), y: 0, zoom: ci(f, [0, cD], [1.25, 1.4], EZ) + ci(f, [cM, D], [0, -0.2], EZ) }}>
+    <Stage cam={{ ...mid(f, D, 820, 780, 1.6, 1.75), zoom: ci(f, [0, cD], [1.6, 1.78], EZ) + ci(f, [cM, D], [0, -0.15], EZ), x: (ci(f, [0, cD], [1.6, 1.78], EZ) + ci(f, [cM, D], [0, -0.15], EZ)) * (ci(f, [0, D], [820, 780]) - 960) }}>
       <BusStreetSet fog={0.8} nia sky="storm" lamp={0} blackout={1} busX={1160} wire led />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
@@ -501,8 +527,10 @@ export const Scene41: React.FC = () => {
     <Stage cam={{ x: 0, y: 0, zoom: ci(f, [0, D], [1.3, 1.45], EZ) }}>
       <Plane p={0.3}><AbsoluteFill style={{ background: "radial-gradient(circle at 30% 30%, #1a2034, #04050a)" }} /></Plane>
       <Plane p={1}>
-        <Character id="s41bat" kind="batman" x={860} y={2050} crop="closeup" scale={4.2} facing={1} lightSide={1} nightTint={0.35} rim="#9fb6dc" capeWind={0.3}
-          reachNear={f < cE ? anchor("batman", 860, 2050, 4.2, 1, "radio") : [1000, 1400]} prop="phone" propOn={f < cE ? 1 : 0} pose={{ head: 12, eyeY: 0.4, brow: 0.8, handNear: "grip" }} />
+        <Character id="s41bat" kind="batman" x={860} y={2050} crop="closeup" scale={4.2} facing={1} lightSide={1} nightTint={0.35} rim="#9fb6dc"
+          reachNear={f < cE ? anchor("batman", 860, 2050, 4.2, 1, "radio") : [1000, 1400]} prop="phone" propOn={f < cE ? 1 : 0} capeWind={0.3 + Math.max(0, Math.sin(f * 0.05)) * 0.6}
+          pose={{ /* v15: not a statue - listens, jaw sets, slow turn of the cowl toward the bus, breath in the rain */
+            head: 12 + ci(f, [0, 30, 60, 90, cE], [0, -6, -6, 4, 8]) + Math.sin(f * 0.04) * 2, eyeY: 0.4, eyeX: ci(f, [0, 60, 90], [0.4, -0.6, 0.6]), brow: ci(f, [0, cE], [0.6, 1]), lean: Math.sin(f * 0.035) * 2.5, bob: Math.sin(f * 0.12) * 3, handNear: "grip", armFar: [8, 24 + Math.sin(f * 0.05) * 6], handFar: "fist" }} />
       </Plane>
       
       <ForegroundRain amt={0.6} />
@@ -519,7 +547,7 @@ export const Scene42: React.FC = () => {
   const D = sceneDur(42);
   const cR = cq(42, "report", 0.35);
   return (
-    <Stage cam={{ floor: G, x: ci(f, [0, D], [-40, 40]), y: 0, zoom: ci(f, [0, D], [1.2, 1.3], EZ) }}>
+    <Stage cam={mid(f, D, 870, 910, 1.85, 2.0)}>
       <BusStreetSet fog={0.85} nia sky="storm" lamp={0} blackout={1} busX={1160} />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
@@ -542,7 +570,7 @@ export const Scene43: React.FC = () => {
   const cW = cq(43, "wire", 0.75);
   const point = ci(f, [cW - 6, cW + 8], [0, 1], EZ);
   return (
-    <Stage cam={{ floor: G, x: ci(f, [0, D], [60, -20]), y: 0, zoom: ci(f, [0, D], [1.1, 1.22], EZ) }}>
+    <Stage cam={mid(f, D, 640, 600, 1.6, 1.75)}>
       <BusStreetSet fog={0.85} nia sky="storm" lamp={0} blackout={1} busX={1060} wire led />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />

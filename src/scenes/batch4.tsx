@@ -171,7 +171,7 @@ export const Scene49: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cX - 6}>
-        <Stage cam={{ x: ci(f, [0, cX], [100, 420], EZ), y: ci(f, [0, cX], [0, -40]), zoom: ci(f, [0, cX], [1.3, 1.75], EZ) }}>
+        <Stage cam={{ x: ci(f, [0, cX], [100, 420], EZ), y: ci(f, [0, cX], [0, -40]), zoom: ci(f, [0, cX], [1.55, 1.85], EZ) }}>
           <BusStreetSet fog={0.4} nia={door < 0.5} sky="storm" lamp={0} blackout={1} busX={BX} busY={BY} />
           <Plane p={1}>
             <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.18} />
@@ -208,7 +208,9 @@ export const Scene50: React.FC = () => {
   return (
     <Stage cam={{ x: 0, y: ci(f, [0, D], [0, -30]), zoom: ci(f, [0, D], [1.0, 1.06]) }}>
       <Plane p={0.15}><Sky variant="night" seed={50} horizonY={800} /></Plane>
-      <Plane p={1}><Hospital power={ci(f, [6, D - 10], [0.05, 1])} /><Ambulance x={880} y={884} s={0.5} facing={1} lights={1} /></Plane>
+      <Plane p={1}><Hospital power={ci(f, [6, D - 10], [0.05, 1])} />
+        {/* v15: the ambulance ARRIVES into the bay (decelerates), rear doors swing open */}
+        <Ambulance x={ci(f, [0, 70], [1900, 880], Easing.out(Easing.cubic))} y={884} s={0.5} facing={-1} lights={1} open={ci(f, [80, 100], [0, 1])} /></Plane>
       <Post />
       <EdgeFade dur={D} inF={6} outF={6} />
       <Sfx name="switch" at={8} gain={0.4} />
@@ -291,8 +293,8 @@ export const Scene54: React.FC = () => {
       <Plane p={1}>
         <ShopFront baseY={940} lamp={0} doorLight={0.8} />
         <WetStreet horizonY={940} curbY={970} laneY={1060} reflections={[{ x: 960, color: "#f0c090", w: 140, strength: 0.4 }]} seed={54} asphalt="#2a2a34" />
-        <Character id="s54alex" kind="alex" x={ax} y={1000} scale={s} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio
-          pose={f < 130 ? { ...walkDist(ax + 120, "alex", s, 0.75) } : { head: ci(f, [130, 146, 186, 204], [-4, -16, -16, 2]), eyeY: ci(f, [130, 146, 186, 204], [0, -0.8, -0.8, 0]), eyeX: 0.6, brow: ci(f, [140, 170], [0.2, 0.7]), smile: ci(f, [186, 210], [0, 0.3]), lean: ci(f, [186, 204], [0, 4]), bob: Math.sin(f * 0.09) * 3 }} />
+        <Character id="s54alex" kind="alex" x={ax + ci(f, [210, 250], [0, 120], EZ)} y={1000} scale={s} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio
+          pose={f < 130 ? { ...walkDist(ax + 120, "alex", s, 0.75) } : f > 210 && f < 250 ? { ...walkDist(ci(f, [210, 250], [0, 120], EZ), "alex", s, 0.6), head: 2, smile: 0.3 } : { armNear: f >= 250 ? [ci(f, [250, 262], [12, 70]), 50] : [12, 20], handNear: f >= 250 ? "grip" : "relaxed", head: ci(f, [130, 146, 186, 204], [-4, -16, -16, 2]), eyeY: ci(f, [130, 146, 186, 204], [0, -0.8, -0.8, 0]), eyeX: 0.6, brow: ci(f, [140, 170], [0.2, 0.7]), smile: ci(f, [186, 210], [0, 0.3]), lean: ci(f, [186, 204], [0, 4]), bob: Math.sin(f * 0.09) * 3 }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.1} vignette={0.5} />
       <EdgeFade dur={D} inF={8} outF={6} />
@@ -474,7 +476,7 @@ export const Scene60: React.FC = () => {
         <WetStreet horizonY={860} curbY={890} laneY={1000} reflections={[{ x: 960, color: "#f0c090", w: 260, strength: 0.5 }]} seed={60} asphalt="#2a2a34" />
       </Plane>
       <Plane p={1.15}>
-        <Character id="s60alex" kind="alex" x={1400} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: ci(f, [0, 40, 70, D], [-10, -10, 6, 10], EZ), lean: ci(f, [0, D], [0, 3]) }} />
+        <Character id="s60alex" kind="alex" x={ci(f, [0, D], [1400, 1320])} y={ci(f, [0, D], [1530, 1380], EZ)} crop="waist" scale={ci(f, [0, D], [3.2, 2.6], EZ)} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: ci(f, [0, 40, 70, D], [-10, -10, 6, 10], EZ), lean: ci(f, [0, D], [0, 3]), ...walkDist(f * 3, "alex", 3, 0.6) }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.5} />
       <AbsoluteFill style={{ background: "rgba(5,6,10,0.45)", opacity: ci(f, [10, 40], [0, 1]) }} />
