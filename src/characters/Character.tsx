@@ -90,7 +90,7 @@ export const Character: React.FC<CharProps> = (props) => {
   const hsh = hashStr(id);
   if (!props.noLife) {
     if (props.pose?.blink === undefined) p.blink = blinkAt(f, 76 + (hsh % 44), hsh % 53);
-    p.bob += breathe(f + hsh, 0.27, 1.3);
+    p.bob += breathe(f + hsh, 0.27, 2.0);
     p.head += Math.sin((f + hsh) * 0.045) * 0.6 + Math.sin((f + hsh) * 0.017) * 0.5;
     // ---- ACTING LAYER (v14): nobody is ever a frozen puppet ----
     const A = acting(kind, id, f, {
@@ -811,18 +811,18 @@ export const acting = (kind: Kind, id: string, f: number, o: ActIn): ActOut => {
     return out;
   }
   // --- look beats: hold, then a quick eased head turn; eyes arrive 4 frames before the head
-  const LB = 64 + (seed % 40);
+  const LB = 44 + (seed % 30);
   const k = Math.floor((f + seed) / LB), t = ((f + seed) % LB);
-  const tgt = (i: number) => (rnd(seed, i) - 0.5) * 9;
+  const tgt = (i: number) => (rnd(seed, i) - 0.5) * 13;
   const hT = ease(t / 9), eT = ease((t + 4) / 6);
   out.head = tgt(k - 1) + (tgt(k) - tgt(k - 1)) * easeBack(Math.min(1, t / 10)) * (hT > 0 ? 1 : 0);
-  out.eyeX = ((tgt(k - 1) + (tgt(k) - tgt(k - 1)) * eT) / 9) * 0.5;
+  out.eyeX = ((tgt(k - 1) + (tgt(k) - tgt(k - 1)) * eT) / 13) * 0.5;
   // --- weight shift every 4-7 s (hips settle, lean follows)
-  const WP = 110 + (seed % 60);
+  const WP = 84 + (seed % 50);
   const wk = Math.floor((f + seed * 3) / WP), wt = ((f + seed * 3) % WP) / 22;
   const side = (i: number) => (i % 2 === 0 ? 1 : -1);
   const w = side(wk - 1) + (side(wk) - side(wk - 1)) * easeBack(Math.min(1, wt));
-  out.lean = w * 1.4;
+  out.lean = w * 2.0;
   out.bob = -Math.sin(Math.min(1, wt) * Math.PI) * 2.2; // small dip while the weight transfers
   if (!o.legsGiven) {
     const a = (w + 1) / 2; // 1 = weight on near leg
@@ -833,7 +833,7 @@ export const acting = (kind: Kind, id: string, f: number, o: ActIn): ActOut => {
   const sway = (ph: number, amp: number) => Math.sin((f + seed + ph) * 0.06) * amp + Math.sin((f + seed * 2 + ph) * 0.023) * amp * 0.7;
   if (!o.armsGiven && !o.reach) {
     const set = RESTSET[kind] ?? ["hang"];
-    const RP = 150 + (seed % 90);
+    const RP = 110 + (seed % 70);
     const rk = Math.floor((f + seed * 5) / RP), rt = ((f + seed * 5) % RP) / 16;
     const pick = (i: number) => REST[set[Math.floor(rnd(seed + 7, i) * set.length) % set.length]];
     const A0 = pick(rk - 1), A1 = pick(rk), e = easeBack(Math.min(1, rt));

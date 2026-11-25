@@ -992,8 +992,16 @@ export const Scene10: React.FC = () => {
       <Plane p={0.35}><DecoSkyline seed={61} baseY={840} hMin={460} hMax={760} haze={0.45} /></Plane>
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
-        <Character id="s10mara" kind="mara" x={1010} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: (f > 50 ? 4 : 0) + 9 * Math.sin(Math.PI * ci(f, [88, 104], [0, 1])) + 9 * Math.sin(Math.PI * ci(f, [104, 118], [0, 1])) * 0.6, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
+        {/* v14b: no mirrored door-guards - Mara comes DOWN the plaza to meet him, then a quick wave + grin */}
+        {(() => {
+          const mx = ci(f, [8, 80], [1240, 960], Easing.inOut(Easing.sin));
+          const mw = f > 8 && f < 80;
+          const wave = ci(f, [88, 96, 116, 124], [0, 1, 1, 0]);
+          return <Character id="s10mara" kind="mara" x={mx} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
+            pose={mw ? { ...walkDist(1240 - mx, "mara", S, 0.85), head: 4, eyeX: 0.5, smile: 0.2 } : {
+              armNear: [12 + wave * 140, 30 + wave * (20 + Math.sin(f * 0.6) * 18)], armFar: [-8, 26], handNear: "open", handFar: "relaxed",
+              head: 6 + wave * 4, brow: 0.3, smile: f > 85 ? 0.45 : 0.2, eyeY: 0.1, eyeX: 0.6, bob: breathe(f, 0.3) }} />;
+        })()}
         <Character id="s10alex" kind="alex" x={ax} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4 + 10 * Math.sin(Math.PI * ci(f, [100, 116], [0, 1])), smile: 0.35, brow: 0.3, bob: breathe(f) }} />
       </Plane>

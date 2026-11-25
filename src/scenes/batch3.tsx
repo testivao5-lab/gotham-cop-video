@@ -101,10 +101,10 @@ export const Scene29: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cS} to={D + 1}>
-        <Stage cam={{ floor: BI.floor, x: ci(f, [cS, D], [-40, 60]), y: ci(f, [cS, D], [0, -20]), zoom: ci(f, [cS, D], [1.0, 1.25], EZ) }}>
+        <Stage cam={{ floor: BI.floor, x: ci(f, [cS, D], [600, 700], EZ), y: 300, zoom: ci(f, [cS, D], [1.75, 1.95], EZ) }}>
           <BusInterior dark={0.6}>
             {/* she presses the small torch against the back window: lens toward the glass */}
-            <NiaSeated reach={NIA_REACH} pose={{ head: -6, eyeX: 0.6, brow: 0.6 }} />
+            <NiaSeated reach={NIA_REACH} pose={{ head: ci(f, [cS, cS + 30, cS + 40, cS + 70, cS + 80], [-6, -6, 10, 10, -6]), eyeX: ci(f, [cS + 30, cS + 40, cS + 70, cS + 80], [0.6, -0.9, -0.9, 0.6]), brow: 0.8, smile: -0.3, bob: Math.sin(f * 0.2) * 2 }} />
           </BusInterior>
           <Glow x={NIA_REACH[0] + 40} y={NIA_REACH[1] - 50} r={120} color="255,240,200" opacity={0.45} />
           <Post tintOpacity={0.2} />
@@ -278,7 +278,7 @@ export const Scene35: React.FC = () => {
   const drop = ci(f, [cS, cS + 14], [0, 1], Easing.in(Easing.quad));
   const roll = ci(f, [cS + 14, cS + 60], [0, 1], Easing.out(Easing.cubic));
   return (
-    <Stage cam={{ floor: BI.floor, x: ci(f, [0, D], [40, -20]), y: ci(f, [cS, cS + 40], [0, 60], EZ), zoom: ci(f, [0, D], [1.2, 1.35], EZ) }}>
+    <Stage cam={{ floor: BI.floor, x: ci(f, [0, D], [640, 560]), y: 300, zoom: ci(f, [0, D], [1.7, 1.85], EZ) }}>
       <BusInterior dark={0.75} front={drop > 0 ? (
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           {/* the small torch falls, bounces, rolls under the bench (beam spins across the floor) */}
@@ -289,7 +289,7 @@ export const Scene35: React.FC = () => {
           </g>
         </svg>
       ) : undefined}>
-        <NiaSeated prop={drop === 0} flash={1} reach={drop === 0 ? NIA_REACH : [1350, 520]} pose={{ head: -4, eyeX: 0.6, brow: 0.7, handNear: drop > 0 ? "open" : "grip", handFar: "open" }} />
+        <NiaSeated prop={drop === 0} flash={1} reach={drop === 0 ? NIA_REACH : [1350, 520]} pose={{ head: drop > 0 ? ci(f, [cS, cS + 10], [-4, 14]) : -4, eyeX: drop > 0 ? -0.3 : 0.6, eyeY: drop > 0 ? 0.8 : 0, brow: drop > 0 ? 1 : 0.7, smile: drop > 0 ? -0.6 : -0.2, lean: drop > 0 ? 12 : 0, handNear: drop > 0 ? "open" : "grip", handFar: "open" }} />
       </BusInterior>
       <Post tintOpacity={0.2} />
       <EdgeFade dur={D} outF={6} />
@@ -356,7 +356,11 @@ export const Scene37: React.FC = () => {
           <BusStreetSet fog={0.8} nia sky="storm" lamp={0} blackout={1} busX={1160} />
           <Plane p={1}>
             <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
-            <Character id="s37drv" kind="driver" x={ci(f, [cN, cN + 30], [300, 220])} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} pose={{ head: -6, brow: 0.9, lean: -8 }} />
+            <Character id="s37drv" kind="driver" x={ci(f, [cN, cN + 30], [300, 220])} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3}
+              pose={{ head: -6, brow: 0.9, lean: f > cN && f < cN + 30 ? -14 : -8, eyeY: -0.5, mouth: f > cN && f < cN + 30 ? 0.6 : 0.15,
+                /* v14b: a startled RECOIL (two short back-steps, hands up), not a frozen slide */
+                ...(f > cN && f < cN + 30 ? { legNear: [-18 + Math.sin(((f - cN) / 15) * Math.PI) * 26, 12], legFar: [16 - Math.sin(((f - cN) / 15) * Math.PI) * 22, 18] } : {}),
+                armNear: f > cN ? [105, 95] : [12, 20], armFar: f > cN ? [92, 108] : [8, 18], handNear: f > cN ? "open" : undefined, handFar: f > cN ? "open" : undefined }} />
             <Character id="s37mara" kind="mara" x={500} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: f > cN + 20 ? -14 : 0, eyeY: f > cN + 20 ? -0.8 : 0, brow: 0.8 }} />
             <Character id="s37alex" kind="alex" x={760} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 0, brow: 0.9, lean: -4 }} />
             <Character id="s37bat" kind="batman" x={1080} y={G - (1 - drop) * 900} groundY={G} scale={S} facing={-1} lightSide={-1} nightTint={0.35} rim="#9fb6dc" capeWind={drop < 1 ? 1.6 : 0.6} crop={drop < 1 ? "transit" : undefined}

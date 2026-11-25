@@ -95,9 +95,12 @@ export const Scene12: React.FC = () => {
         {/* the employee sits on the bank's granite step (seat = hip height 0.4 m): feet on the pavement at G, y = G + thigh * scale */}
         <SeatBlock x={860} w={260} top={G - 92 * S} bottom={G} />
         <Character id="s12emp" kind="employee" x={980} y={G + 94 * S} groundY={G} scale={S} facing={-1} lightSide={-1} nightTint={0.3}
-          pose={{ legNear: [82, 92], legFar: [78, 96], lean: 14, head: 22, neck: 8, eyeY: 0.9, armNear: [40, 70], armFar: [34, 76], handNear: "open", handFar: "open", brow: 0.6, smile: -0.4 }} />
+          pose={{ /* v14b: she is crying - shoulders hitch in bursts, head rocks; lifts her face when Mara arrives */
+            legNear: [82, 92], legFar: [78, 96], lean: 14 + Math.max(0, Math.sin(f * 0.07)) * 4, head: 22 - ci(f, [stop, stop + 20], [0, 14]) + Math.sin(f * 0.11) * 3, neck: 8,
+            bob: Math.max(0, Math.sin(f * 0.07)) * Math.sin(f * 0.9) * 4, eyeY: 0.9 - ci(f, [stop, stop + 20], [0, 0.8]),
+            armNear: [40 + Math.sin(f * 0.07) * 8, 70 + Math.max(0, Math.sin(f * 0.07)) * 30], armFar: [34, 76], handNear: "open", handFar: "open", brow: 0.8, smile: -0.5 }} />
         <Character id="s12mara" kind="mara" x={mx} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.25} shoulderRadio
-          pose={f < stop ? { ...walkDist(mx + 120, "mara", S, 0.8), head: 4 } : { head: 10 + ci(f, [cB, cB + 20], [0, 6]), eyeY: 0.6, brow: 0.5, lean: ci(f, [stop, stop + 30], [0, 6]) }} />
+          pose={f < stop ? { ...walkDist(mx + 120, "mara", S, 0.8), head: 4 } : { head: 10 + ci(f, [cB, cB + 20], [0, 6]) + Math.sin(f * 0.06) * 3, eyeY: 0.6, brow: 0.6, lean: ci(f, [stop, stop + 30], [0, 16]), bob: ci(f, [stop, stop + 30], [0, 40]), armNear: [ci(f, [stop, stop + 30], [10, 70]), 40], handNear: "open", legNear: [ci(f, [stop, stop + 30], [5, 40]), ci(f, [stop, stop + 30], [4, 80])], legFar: [ci(f, [stop, stop + 30], [-4, -20]), ci(f, [stop, stop + 30], [4, 60])] }} />
       </Plane>
       <Plane p={1.15}><Rain count={110} opacity={0.18} /></Plane>
       <Post />
@@ -158,7 +161,7 @@ export const Scene14: React.FC = () => {
         <SeatBlock x={860} w={260} top={G - 92 * S} bottom={G} />
         <Character id="s14emp" kind="employee" x={980} y={G + 94 * S} groundY={G} scale={S} facing={1} lightSide={-1} nightTint={0.3}
           pose={{ legNear: [82, 92], legFar: [78, 96], lean: 14 - rel * 12, head: 18 - rel * 30, eyeY: 0.6 - rel, armNear: [40 + rel * 20, 70 + rel * 30], armFar: [34, 76], brow: 0.6 - rel * 0.2, smile: -0.4 + rel * 0.5 }} />
-        <Character id="s14alex" kind="alex" x={720} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.25} shoulderRadio prop="bottle" pose={{ head: 6 - rel * 4, eyeX: 0.6, handNear: "grip", armNear: [10, 30] }} />
+        <Character id="s14alex" kind="alex" x={720} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.25} shoulderRadio prop="bottle" pose={{ head: 6 - rel * 4 + Math.sin(f * 0.05) * 3, eyeX: 0.6, handNear: "grip", armNear: [10 + ci(f, [24, 40, cA, cA + 14], [0, 55, 55, 0]), 30 + ci(f, [24, 40, cA, cA + 14], [0, 20, 20, 0])], lean: ci(f, [24, 40, cA, cA + 14], [0, 8, 8, 0]), smile: 0.3 * rel }} />
         <Character id="s14mara" kind="mara" x={mx} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.25} shoulderRadio
           pose={f < 90 ? { ...walkDist(1900 - mx, "mara", S, 0.8) } : { head: 12, eyeY: 0.6, smile: 0.25 * rel, lean: 6 }} />
       </Plane>
@@ -235,7 +238,8 @@ export const Scene16: React.FC = () => {
       <Plane p={1}>
         <Parapet y={1000} />
         <Character id="s16alex" kind="alex" x={420} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio viewAngle="back"
-          pose={{ head: -18, neck: -10, eyeY: -1 }} />
+          pose={{ /* v14b: watches the traffic below, then the sky lights - head lifts with the tilt, he steps up to the parapet */
+            head: ci(f, [0, 20, 50], [14, 14, -18]) + Math.sin(f * 0.05) * 2, neck: ci(f, [20, 50], [4, -10]), eyeY: ci(f, [20, 46], [0.6, -1]), lean: ci(f, [50, 80], [4, -3]), bob: Math.sin(f * 0.12) * 2 }} />
       </Plane>
       <Plane p={1.1}><Rain count={50} opacity={0.12} /></Plane>
       <Post />
@@ -361,7 +365,11 @@ export const Scene19: React.FC = () => {
       </Plane>
       <Plane p={1}>
         <Character id="s19alex" kind="alex" x={380} y={1610} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio
-          pose={{ head: -24, neck: -14, eyeY: -1, brow: f > cC + 10 ? 0.7 : 0.2, mouth: 0 }} />
+          reachNear={f > cC + 16 ? anchor("alex", 380, 1610, 3.2, 1, "radio") : undefined}
+          pose={{ /* v14b: alive - scanning the rooftops, snaps UP at the sound, then grabs the radio */
+            head: ci(f, [0, 20, 34, cC - 20, cC - 8], [4, -6, 2, -4, -26]) + Math.sin(f * 0.07) * 2, neck: ci(f, [cC - 20, cC - 8], [-2, -14]),
+            eyeX: ci(f, [0, 20, 34], [0.6, -0.4, 0.5]), eyeY: ci(f, [cC - 20, cC - 8], [0, -1]), lean: ci(f, [cC, cC + 12], [0, -5]),
+            brow: f > cC + 10 ? 0.8 : 0.25, handNear: f > cC + 16 ? "grip" : "relaxed", bob: Math.sin(f * 0.16) * 2.5 }} />
       </Plane>
       <Plane p={1.1}><Rain count={70} opacity={0.14} /></Plane>
       <Post />
@@ -396,8 +404,32 @@ export const Scene20: React.FC = () => {
         <Character id="s20rob" kind="robber" x={820} y={G + 100 * S} groundY={G} scale={S} facing={1} lightSide={1} nightTint={0.25}
           reachNear={[930, G - 205 * S]} reachFar={[905, G - 212 * S]}
           pose={{ legNear: [84, 90], legFar: [76, 96], lean: -6 + Math.sin(f * 0.3) * 3, head: 12 + Math.sin(f * 0.4) * 5, eyeX: 0.6, brow: 0.9, smile: -0.6, handNear: "open", handFar: "grip" }} />
-        <Character id="s20alex" kind="alex" x={420} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio pose={{ head: 4, smile: f > cS ? 0.35 : 0, eyeX: 0.4, brow: f < cS ? 0.4 : 0 }} />
-        <Character id="s20mara" kind="mara" x={560} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio pose={{ head: f > cS ? -8 : 2, eyeX: f > cS ? -0.6 : 0.4, brow: 0.3 }} />
+        {/* v14b: two DIFFERENT jobs, not twins - Alex jogs in and lights the injured arm with his torch (lens aims at the wrist);
+            Mara stands off, turned to the street, calling it in on her shoulder radio; on "smile" she glances back */}
+        {(() => {
+          const ax = ci(f, [0, 34], [150, 430], EZ);
+          const walking = f < 34;
+          const tx = 935, ty = G - 206 * S;
+          const shx = ax - 26 * S, shy = G - 326 * S;
+          const ang = Math.atan2(ty - shy, tx - shx);
+          const hand: [number, number] = [shx + Math.cos(ang) * 138 * S, shy + Math.sin(ang) * 138 * S];
+          const lens: [number, number] = [hand[0] + Math.cos(ang) * 22 * S, hand[1] + Math.sin(ang) * 22 * S];
+          const tOn = ci(f, [30, 40], [0, 1]);
+          const mFace: 1 | -1 = f > cS && f < cS + 50 ? 1 : -1;
+          return (
+            <>
+              <Character id="s20mara" kind="mara" x={250} y={G} scale={S} facing={mFace} lightSide={1} nightTint={0.25} shoulderRadio
+                reachNear={mFace === -1 ? anchor("mara", 250, G, S, -1, "radio") : undefined}
+                pose={{ head: mFace === 1 ? 6 : -4 + Math.sin(f * 0.09) * 3, eyeX: mFace === 1 ? 0.6 : 0.2, brow: 0.55, smile: mFace === 1 ? 0.3 : -0.1, lean: 3, handNear: mFace === -1 ? "grip" : undefined, armFar: [24, 38] }} />
+              <Character id="s20alex" kind="alex" x={ax} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio
+                prop="flashlight" propOn={tOn} flashBeam={0} reachNear={walking ? undefined : hand} aimAt={walking ? undefined : [tx, ty]}
+                pose={{ lean: walking ? 8 : 10 + Math.sin(f * 0.06) * 1.5, head: 10, eyeX: 0.7, eyeY: 0.4, smile: f > cS ? 0.35 : -0.1, brow: f < cS ? 0.7 : 0.1,
+                  handNear: "grip", ...(walking ? walkDist(ax - 150, "alex", S, 1) : { legNear: [-6, 10], legFar: [12, 18] }) }} />
+              {tOn > 0 && <LightCone id="s20b" x={lens[0]} y={lens[1]} angle={(Math.atan2(ty - lens[1], tx - lens[0]) * 180) / Math.PI - 90} length={Math.hypot(tx - lens[0], ty - lens[1]) + 30} spread={70} opacity={0.3 * tOn} />}
+              {tOn > 0 && <Glow x={tx} y={ty} r={60} color="255,240,200" opacity={0.45 * tOn} />}
+            </>
+          );
+        })()}
         {/* paramedic KNEELS (rear knee on the asphalt), both hands on the robber's forearm/wrist = readable contact */}
         <Character id="s20med" kind="medic" x={1040} y={G} scale={S} facing={-1} lightSide={1} nightTint={0.2} reachNear={[938, G - 208 * S]} reachFar={[952, G - 200 * S]}
           pose={{ lean: 16 + Math.sin(f * 0.05) * 2, head: 14, eyeY: 0.6, bob: 100, legNear: [88, 70], legFar: [-10, 110], handNear: "grip", handFar: "grip" }} />
@@ -535,7 +567,11 @@ export const Scene23: React.FC = () => {
       <Plane p={1}>
         {/* bomb-squad specialist BEHIND the table: winds the key, then lets go (table top hides him below the chest) */}
         <Character id="s23spec" kind="specialist" x={560} y={1060} crop="closeup" scale={1.6} facing={1} lightSide={1} nightTint={0.1}
-          reachNear={f < cR ? [736, 650] : [660, 640]} reachFar={f < cR ? [700, 680] : [620, 690]} pose={{ head: 16, eyeY: 0.8, handNear: f < cR ? "grip" : "open", handFar: "open" }} />
+          reachNear={f < cR ? [736 + Math.cos(f * 0.45) * 16, 650 + Math.sin(f * 0.45) * 16] : [ci(f, [cR, cR + 10], [736, 640]), ci(f, [cR, cR + 10], [650, 600])]}
+          reachFar={f < cR ? [700, 680 + Math.sin(f * 0.45) * 4] : [620, 690]}
+          pose={{ /* v14b: actually WINDS the key (hand circles), then pulls back and watches it march; flinches at the fall */
+            head: f < cR ? 16 + Math.sin(f * 0.45) * 2 : ci(f, [cR, cF, cF + 8], [14, 6 + march * 8, -4]), eyeY: 0.8, eyeX: f > cR ? 0.4 + march * 0.5 : 0,
+            lean: f > cF ? ci(f, [cF, cF + 8], [0, -6]) : f > cR ? -3 : 4, brow: f > cF ? 0.9 : 0.5, handNear: f < cR ? "grip" : "open", handFar: "open" }} />
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           {/* metal table (0.75 m), back-stop wall block at the far end */}
           <rect x={-200} y={700} width={2320} height={40} fill="#8a909c" stroke="#0a0a0e" strokeWidth={3} />
@@ -543,7 +579,7 @@ export const Scene23: React.FC = () => {
           <rect x={1340} y={560} width={60} height={140} fill="#5a4c40" stroke="#0a0a0e" strokeWidth={3} />
         </svg>
         <GiftBox x={380} y={700} s={0.7} lid={lid} />
-        <ToyCop x={march > 0 ? Math.min(tx, 1318) : 760} y={700} s={2.4} keyRot={march > 0 && tip < 1 ? -f * 18 : 0} step={march > 0 && tip < 0.1 ? f * 0.9 : 0} tip={tip} />
+        <ToyCop x={march > 0 ? Math.min(tx, 1318) : 760} y={700} s={2.4} keyRot={tip < 1 ? -f * (march > 0 ? 18 : 10) : 0} step={march > 0 && tip < 0.1 ? f * 0.9 : 0} tip={tip} />
 
       </Plane>
       <Post tintOpacity={0.08} />
@@ -604,9 +640,24 @@ export const Scene25: React.FC = () => {
         </svg>
       </Plane>
       <Plane p={1}>
-        <Character id="s25alex" kind="alex" x={900} y={1000} scale={S} facing={1} lightSide={1} nightTint={0.12} shoulderRadio pose={{ head: f < cM ? 10 : 2, eyeY: f < cM ? 0.8 : 0, eyeX: f < cM ? -0.6 : 0.5, brow: 0.4 }} />
-        <Character id="s25mara" kind="mara" x={1240} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.12} shoulderRadio reachNear={f > cM ? anchor("alex", 900, 1000, S, 1, "shoulderFar") : undefined} pose={{ head: 4, smile: f > cM ? 0.2 : 0, brow: 0.3 }} />
-        <Character id="s25bg" kind="reporter" x={1680} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.3} pose={{ head: 20, eyeY: 0.8, eyeX: -0.8 }} />
+        {/* v14b: Alex stares at the bagged toy (back to us, hand on the desk), Mara walks over, he turns as she squeezes his shoulder; a clerk crosses behind */}
+        {(() => {
+          const turned = f > cM - 14;
+          const mx = ci(f, [0, cM - 10], [1560, 1240], EZ);
+          const mw = f < cM - 10;
+          const bx = ci(f, [0, D], [1500, 2250]);
+          return (
+            <>
+              <Character id="s25bg" kind="reporter" x={bx} y={1000} scale={S} facing={1} lightSide={1} nightTint={0.35} pose={{ head: 6, ...walkDist(bx - 1500, "reporter", S, 0.7), armFar: [30, 90], handFar: "grip" }} />
+              <Character id="s25alex" kind="alex" x={900} y={1000} scale={S} facing={turned ? 1 : -1} lightSide={1} nightTint={0.12} shoulderRadio
+                reachNear={turned ? undefined : [640, 730]}
+                pose={{ head: turned ? ci(f, [cM - 14, cM + 6], [12, 2]) : 14 + Math.sin(f * 0.05) * 2, eyeY: turned ? 0.2 : 0.8, eyeX: turned ? 0.6 : 0.3, brow: 0.6, lean: turned ? 0 : 10, smile: f > cM + 20 ? 0.15 : -0.2, handNear: turned ? undefined : "open" }} />
+              <Character id="s25mara" kind="mara" x={mx} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.12} shoulderRadio
+                reachNear={f > cM ? anchor("alex", 900, 1000, S, 1, "shoulderFar") : undefined}
+                pose={{ head: 6, smile: f > cM ? 0.3 : 0, brow: 0.4, eyeX: 0.5, ...(mw ? walkDist(1560 - mx, "mara", S, 0.8) : { lean: f > cM ? 6 : 0 }) }} />
+            </>
+          );
+        })()}
       </Plane>
       <Post tintOpacity={0.12} />
       <EdgeFade dur={D} outF={8} />

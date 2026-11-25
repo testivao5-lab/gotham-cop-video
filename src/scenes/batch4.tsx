@@ -243,7 +243,7 @@ export const Scene52: React.FC = () => {
     <Stage cam={{ x: ci(f, [0, D], [80, -40]), y: 0, zoom: ci(f, [0, D], [1.0, 1.15], EZ) }}>
       <Plane p={0.9}><TVDebate cityMorning={ci(f, [0, D], [0.6, 1])} /></Plane>
       <Plane p={1.15}>
-        <Character id="s52alex" kind="alex" x={1640} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={-1} nightTint={0.1} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: 4 }} />
+        <Character id="s52alex" kind="alex" x={1640} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={-1} nightTint={0.1} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: 4 + Math.sin(f * 0.035) * 6 + ci(f, [0.6 * D, 0.6 * D + 12], [0, -8]), lean: ci(f, [0, D], [-2, 6]), bob: Math.sin(f * 0.11) * 2 }} />
       </Plane>
       <Post tintColor="#3a2a20" tintOpacity={0.08} />
       <EdgeFade dur={D} inF={10} outF={8} />
@@ -265,10 +265,10 @@ export const Scene53: React.FC = () => {
       <Plane p={0.6}><StreetFacades seed={53} baseY={720} litP={0.1} heightMin={560} heightMax={800} dark={0.05} /></Plane>
       <Plane p={1}>
         <WetStreet horizonY={720} curbY={770} laneY={930} reflections={[{ x: 1200, color: "#f0c090", w: 200, strength: 0.4 }]} seed={53} asphalt="#2a2a34" />
-        <Character id="s53mom" kind="mother" x={960} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" reachNear={anchor("mara", 640, 1000, s, 1, "chest")} pose={{ head: 4, smile: 0.5, brow: 0.3, handNear: "open" }} />
-        <Character id="s53nia" kind="nia" x={1120} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" reachNear={anchor("mother", 960, 1000, s, -1, "waist")} pose={{ head: -6, smile: 0.4, armFar: [150, 20], handFar: "open" }} />
-        <Character id="s53mara" kind="mara" x={640} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio pose={{ head: 2, smile: 0.3 }} />
-        <Character id="s53spec" kind="specialist" x={420} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} pose={{ head: 0, smile: 0.25 }} />
+        <Character id="s53mom" kind="mother" x={960} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" reachNear={[anchor("mara", 640, 1000, s, 1, "chest")[0], anchor("mara", 640, 1000, s, 1, "chest")[1] + 30 + (f < 70 ? Math.sin(f * 0.4) * 10 : 0)]} pose={{ head: 4 + Math.sin(f * 0.07) * 4, smile: 0.55, brow: 0.3, lean: 6, handNear: "grip" }} />
+        <Character id="s53nia" kind="nia" x={1120} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" reachNear={anchor("mother", 960, 1000, s, -1, "waist")} pose={{ head: -6 + Math.sin(f * 0.09) * 5, smile: 0.5, armFar: [150 + Math.sin(f * 0.42) * 16, 20 + Math.sin(f * 0.42 + 1) * 22], handFar: "open", bob: Math.abs(Math.sin(f * 0.14)) * -6 }} />
+        <Character id="s53mara" kind="mara" x={640} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio reachNear={[anchor("mara", 640, 1000, s, 1, "chest")[0] + 200 * s, anchor("mara", 640, 1000, s, 1, "chest")[1] + 30 + (f < 70 ? Math.sin(f * 0.4) * 10 : 0)]} pose={{ head: 2 + ci(f, [70, 80, 92], [0, 8, 0]), smile: 0.45, brow: 0.2, lean: 4, handNear: "grip" }} />
+        <Character id="s53spec" kind="specialist" x={ci(f, [0, 50], [200, 420], EZ)} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} pose={{ head: ci(f, [50, 62, 74, 86], [0, 9, 0, 6]), smile: 0.35, ...(f < 50 ? walkDist(ci(f, [0, 50], [200, 420], EZ) - 200, "specialist", s, 0.8) : {}) }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.1} vignette={0.45} />
       <Caption text="HER MOTHER KNOWS THEIR NAMES" from={cK} to={D - 6} y={150} />
@@ -292,7 +292,7 @@ export const Scene54: React.FC = () => {
         <ShopFront baseY={940} lamp={0} doorLight={0.8} />
         <WetStreet horizonY={940} curbY={970} laneY={1060} reflections={[{ x: 960, color: "#f0c090", w: 140, strength: 0.4 }]} seed={54} asphalt="#2a2a34" />
         <Character id="s54alex" kind="alex" x={ax} y={1000} scale={s} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio
-          pose={f < 130 ? { ...walkDist(ax + 120, "alex", s, 0.75) } : { head: -8, eyeY: -0.4, eyeX: 0.6, brow: 0.2 }} />
+          pose={f < 130 ? { ...walkDist(ax + 120, "alex", s, 0.75) } : { head: ci(f, [130, 146, 186, 204], [-4, -16, -16, 2]), eyeY: ci(f, [130, 146, 186, 204], [0, -0.8, -0.8, 0]), eyeX: 0.6, brow: ci(f, [140, 170], [0.2, 0.7]), smile: ci(f, [186, 210], [0, 0.3]), lean: ci(f, [186, 204], [0, 4]), bob: Math.sin(f * 0.09) * 3 }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.1} vignette={0.5} />
       <EdgeFade dur={D} inF={8} outF={6} />
@@ -382,7 +382,12 @@ export const Scene57: React.FC = () => {
       <Plane p={0.6}><StreetFacades seed={57} baseY={760} litP={0.15} heightMin={560} heightMax={800} dark={0.05} /></Plane>
       <Plane p={0.8}>
         {/* across the street the delivery driver unlocks a shop shutter */}
-        <Character id="s57drv" kind="reporter" x={1400} y={790} scale={M.human(790)} facing={1} lightSide={1} nightTint={0} reachNear={[1400 + 90 * M.human(790), 790 - 200 * M.human(790)]} pose={{ handNear: "grip", head: 6 }} />
+        {/* the shutter rolls up with his hand (shop light spills out underneath) */}
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+          <rect x={1400 + 40 * M.human(790)} y={790 - ci(f, [0, cB + 60], [150, 330], EZ) * M.human(790)} width={260 * M.human(790)} height={ci(f, [0, cB + 60], [150, 330], EZ) * M.human(790)} fill="#e8b878" opacity={0.85} />
+          {Array.from({ length: 12 }).map((_, i) => <rect key={i} x={1400 + 40 * M.human(790)} y={790 - 360 * M.human(790) + i * 12 * M.human(790)} width={260 * M.human(790)} height={(360 - ci(f, [0, cB + 60], [150, 330], EZ)) * M.human(790) / 12 - 1} fill="#5a5e68" stroke="#2a2c32" strokeWidth={1} />)}
+        </svg>
+        <Character id="s57drv" kind="reporter" x={1400} y={790} scale={M.human(790)} facing={1} lightSide={1} nightTint={0} reachNear={[1400 + 90 * M.human(790), 790 - ci(f, [0, cB + 60], [150, 330], EZ) * M.human(790)]} pose={{ handNear: "grip", head: ci(f, [0, cB + 60], [12, -10]), lean: ci(f, [0, cB + 60], [6, -4]) }} />
       </Plane>
       <Plane p={1}>
         <WetStreet horizonY={800} curbY={830} laneY={960} reflections={[{ x: 1300, color: "#f0c090", w: 220, strength: 0.4 }]} seed={57} asphalt="#2a2a34" />
@@ -409,9 +414,10 @@ export const Scene58: React.FC = () => {
     <Stage cam={{ x: ci(f, [0, D], [100, -60]), y: 0, zoom: ci(f, [0, D], [1.0, 1.12], EZ) }}>
       <Plane p={0.6}><PrecinctInterior lights={0.6} dawn={1} /></Plane>
       <Plane p={1}>
-        <Character id="s58mara" kind="mara" x={560} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio reachNear={anchor("mara", 560, 1000, s, 1, "radio")} prop="phone" propOn={1} pose={{ head: 6, eyeY: 0.3, handNear: "grip" }} />
-        <Character id="s58emp" kind="employee" x={1240} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" pose={{ head: 6, brow: 0.5, armNear: [40, 60], armFar: [30, 70] }} />
-        <Character id="s58alex" kind="alex" x={1460} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio reachNear={f > cS ? anchor("employee", 1240, 1000, s, -1, "shoulderFar") : undefined} pose={{ head: 8, eyeX: 0.6, smile: 0.1 }} />
+        <Character id="s58mara" kind="mara" x={560} y={1000} scale={s} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio reachNear={anchor("mara", 560, 1000, s, 1, "radio")} prop="phone" propOn={1}
+          pose={{ head: 6 + Math.sin(f * 0.09) * 5, eyeY: 0.3, eyeX: Math.sin(f * 0.05) * 0.6, handNear: "grip", armFar: [40 + Math.sin(f * 0.12) * 30, 70 + Math.sin(f * 0.17) * 30], handFar: "open", smile: 0.15, lean: Math.sin(f * 0.04) * 3 }} />
+        <Character id="s58emp" kind="employee" x={1240} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" pose={{ head: 6 + ci(f, [cS - 20, cS], [0, 8]), brow: 0.6, eyeX: f > cS - 20 ? -0.6 : 0.3, armNear: [40 + Math.sin(f * 0.08) * 6, 60 + Math.sin(f * 0.11) * 10], armFar: [30, 70], lean: Math.sin(f * 0.05) * 2 }} />
+        <Character id="s58alex" kind="alex" x={ci(f, [0, 60], [1900, 1460], EZ)} y={1000} scale={s} facing={-1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio reachNear={f > cS ? anchor("employee", 1240, 1000, s, -1, "shoulderFar") : undefined} pose={{ head: 8, eyeX: 0.6, smile: f > cS ? 0.35 : 0.1, ...(f < 60 ? walkDist(1900 - ci(f, [0, 60], [1900, 1460], EZ), "alex", s, 0.8) : { lean: f > cS ? 6 : 0 }) }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.45} />
       <EdgeFade dur={D} inF={6} outF={6} />
@@ -455,11 +461,20 @@ export const Scene60: React.FC = () => {
       <Plane p={0.12}><Sky variant="dawn" seed={60} horizonY={680} /></Plane>
       <Plane p={0.3}><DecoSkyline seed={60} baseY={760} hMin={320} hMax={680} haze={0.55} hazeColor="#d0a090" body="#3a3a4a" light="#a08a8a" litP={0.08} /></Plane>
       <Plane p={0.55}><StreetFacades seed={60} baseY={820} litP={0.12} heightMin={560} heightMax={820} dark={0.05} /></Plane>
+      <Plane p={0.4}>
+        {/* v14b: the city wakes - a flock of pigeons crosses the dawn sky (scene is never a frozen card) */}
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+          {Array.from({ length: 9 }).map((_, i) => {
+            const bx = -200 + ((f * (5 + (i % 3)) + i * 260) % 2600), by = 260 + (i % 4) * 46 + Math.sin(f * 0.05 + i) * 18, fl = Math.sin(f * 0.6 + i * 1.7) * 9;
+            return <path key={i} d={`M${bx - 14} ${by - fl} Q${bx - 6} ${by - 4} ${bx} ${by} Q${bx + 6} ${by - 4} ${bx + 14} ${by - fl}`} stroke="#2a2430" strokeWidth={3} fill="none" strokeLinecap="round" />;
+          })}
+        </svg>
+      </Plane>
       <Plane p={1}>
         <WetStreet horizonY={860} curbY={890} laneY={1000} reflections={[{ x: 960, color: "#f0c090", w: 260, strength: 0.5 }]} seed={60} asphalt="#2a2a34" />
       </Plane>
       <Plane p={1.15}>
-        <Character id="s60alex" kind="alex" x={1400} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: -6 }} />
+        <Character id="s60alex" kind="alex" x={1400} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: ci(f, [0, 40, 70, D], [-10, -10, 6, 10], EZ), lean: ci(f, [0, D], [0, 3]) }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.5} />
       <AbsoluteFill style={{ background: "rgba(5,6,10,0.45)", opacity: ci(f, [10, 40], [0, 1]) }} />

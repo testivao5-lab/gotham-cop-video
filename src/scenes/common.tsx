@@ -135,6 +135,8 @@ export const FadeIn: React.FC<{ frames?: number; color?: string }> = ({ frames =
 
 /** one-shot sound effect at a local frame (files are generated in CI by scripts/sfx.py) */
 /** SafeSFX (overhaul audio caps): point SFX 0.04..0.08, nothing above 0.08; narration master = 1.0 */
+/** v14b: foley sits -3 dB further under the narration (user: SFX annoying) */
+export const SFX_DUCK = 0.71;
 export const sfxGain = (g: number) => Math.max(0.04, Math.min(0.08, g * 0.15));
 /** ambience beds 0.03..0.05 */
 export const bedGain = (g: number) => Math.max(0.03, Math.min(0.05, g * 0.3));
@@ -151,7 +153,7 @@ export const sfxVariant = (name: string, at: number) => {
 };
 export const Sfx: React.FC<{ name: string; at: number; gain?: number }> = ({ name, at, gain = 0.5 }) => (
   <Sequence from={Math.max(0, Math.round(at))} durationInFrames={SFX_DUR} layout="none" name={`sfx:${name}`}>
-    <Audio src={staticFile(`sfx/${sfxVariant(name, at)}.wav`)} volume={(fr) => sfxGain(gain) * fadeEnv(fr, SFX_DUR)} />
+    <Audio src={staticFile(`sfx/${sfxVariant(name, at)}.wav`)} volume={(fr) => sfxGain(gain) * SFX_DUCK * fadeEnv(fr, SFX_DUR)} />
   </Sequence>
 );
 
