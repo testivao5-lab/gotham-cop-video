@@ -135,11 +135,11 @@ export const Scene30: React.FC = () => {
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} />
         <Character id="s30drv" kind="driver" x={980} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.3}
           pose={{ lean: shake, head: 6 + shake, brow: 0.9, smile: -0.4, armNear: f > cP ? [60 + Math.sin(f * 0.25) * 30, 70] : [20, 80], armFar: f > cL ? [120, 30] : [30, 60], handFar: f > cL ? "point" : "open", eyeX: f > cL ? 0.8 : -0.4 }} />
-        <Character id="s30alex" kind="alex" x={ci(f, [0, 30], [500, 640], EZ)} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio
-          reachFar={f > 30 && f < cL ? anchor("driver", 980, G, S, -1, "shoulderNear") : undefined}
+        <Character id="s30alex" kind="alex" x={ci(f, [0, 36], [560, 850], EZ)} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio
+          reachFar={f > 36 && f < cL ? [anchor("driver", 980, G, S, -1, "shoulderNear")[0] - 14, anchor("driver", 980, G, S, -1, "shoulderNear")[1] + 40] : undefined}
           pose={{ /* v15: steps in, steadies the shaking driver with a hand on his arm, nods while he talks */
-            head: 4 + (f > cP && f < cL ? Math.sin(f * 0.18) * 4 : 0), brow: 0.6, eyeX: f > cL ? 0.8 : 0.3, lean: f > 30 && f < cL ? 7 : 0, handFar: "open",
-            ...(f < 30 ? walkDist(ci(f, [0, 30], [500, 640], EZ) - 500, "alex", S, 0.7) : {}) }} />
+            head: 4 + (f > cP && f < cL ? Math.sin(f * 0.18) * 4 : 0), brow: 0.6, eyeX: f > cL ? 0.8 : 0.3, lean: f > 36 && f < cL ? 5 : 0, handFar: "open",
+            ...(f < 36 ? walkDist(ci(f, [0, 36], [560, 850], EZ) - 560, "alex", S, 0.8) : {}) }} />
         <Character id="s30mara" kind="mara" x={430} y={G} scale={S} facing={f > cP && f < cL ? -1 : 1} lightSide={-1} nightTint={0.3} shoulderRadio reachNear={f > cL ? anchor("mara", 430, G, S, 1, "radio") : undefined}
           pose={{ head: f > cP && f < cL ? -8 : 4, eyeY: f > cP && f < cL ? -0.4 : 0, brow: 0.6, handNear: "grip", eyeX: 0.6 }} />
       </Plane>
