@@ -456,8 +456,11 @@ export const Scene40: React.FC = () => {
             <Glow x={200} y={300} r={600} color={cop(f)} opacity={0.12} />
             {/* scale-ok: batman rig is drawn taller than adults; 3.0 keeps 1.88 m vs 1.75 m metric parity */}
             <Character id="s40bat" kind="batman" x={620} y={1600} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.35} rim="#9fb6dc" capeWind={0.4}
-              reachNear={f > cA ? anchor("batman", 620, 1600, 3.0, 1, "radio") : [760, 1020]} prop={f > cA ? "phone" : "none"} propOn={1} pose={{ head: 6, eyeX: 0.4, handNear: "grip" }} />
-            <Character id="s40mara" kind="mara" x={1420} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={1} nightTint={0.35} shoulderRadio pose={{ head: 8, brow: 0.7 }} />
+              reachNear={f > cA ? anchor("batman", 620, 1600, 3.0, 1, "radio") : [760, 1020]} prop={f > cA ? "phone" : "none"} propOn={1} pose={{ head: 6 + ci(f, [cA - 10, cA], [-8, 0]) + Math.sin(f * 0.05) * 2, eyeX: ci(f, [cA - 10, cA], [-0.2, 0.6]), brow: 0.6, handNear: "grip", armFar: [4, 16], handFar: "fist" }} />
+            <Character id="s40mara" kind="mara" x={1420} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={1} nightTint={0.35} shoulderRadio
+              reachNear={f < cA + 10 ? anchor("mara", 1420, 1530, 3.2, -1, "radio") : undefined}
+              pose={{ /* v14b: readable hands - keys her shoulder radio while she asks, then drops the arm and waits on his answer */
+                head: 8 + Math.sin(f * 0.06) * 3 + ci(f, [cA, cA + 12], [0, -6]), eyeX: 0.6, brow: 0.8, smile: -0.2, handNear: f < cA + 10 ? "grip" : "relaxed", armFar: [6, 20], handFar: "relaxed", lean: ci(f, [cA, cA + 12], [0, 4]) }} />
           </Plane>
           <ForegroundRain />
           <Post />
