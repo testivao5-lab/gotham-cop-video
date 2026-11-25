@@ -51,7 +51,9 @@ export const Sky: React.FC<{
           <stop offset="1" stopColor="#dfe9ff" stopOpacity="0.12" />
         </linearGradient>
       </defs>
-      <rect width="1920" height="1080" fill={`url(#sky${seed})`} />
+      <rect x={-400} y={-600} width={2720} height={600} fill={top} />
+      <rect x={-400} y={0} width={2720} height={1080} fill={`url(#sky${seed})`} />
+      <rect x={-400} y={1080} width={2720} height={600} fill={shade(hor, 0.3)} />
       {moon && (
         <g>
           <circle cx={moon[0]} cy={moon[1]} r={moon[2] * 3.2} fill={`url(#halo${seed})`} />
@@ -116,7 +118,9 @@ export const DecoSkyline: React.FC<{
   seed?: number; baseY: number; hMin: number; hMax: number; haze?: number; hazeColor?: string;
   body?: string; light?: string; litP?: number; count?: number; x0?: number; x1?: number; windowColor?: string;
   blackout?: number; rimSide?: "left" | "right";
-}> = ({ seed = 1, baseY, hMin, hMax, haze = 0.3, hazeColor = "#2c4a7c", body = "#141c30", light = "#3a5684", litP = 0.22, count = 40, x0 = -300, x1 = 2300, windowColor = "#f2cf7a", blackout = 0, rimSide = "left" }) => {
+  /** run the buildings (with windows) down past the frame bottom — ONLY for shots with no street/ground plane in front (e.g. S5 rooftop) */
+  toBottom?: boolean;
+}> = ({ seed = 1, baseY, hMin, hMax, haze = 0.3, hazeColor = "#2c4a7c", body = "#141c30", light = "#3a5684", litP = 0.22, count = 40, x0 = -300, x1 = 2300, windowColor = "#f2cf7a", blackout = 0, rimSide = "left", toBottom = false }) => {
   const f = useCurrentFrame();
   const city = makeCity(seed, count, x0, x1, hMin, hMax);
   const b = mix(body, hazeColor, haze);
@@ -137,7 +141,7 @@ export const DecoSkyline: React.FC<{
       </defs>
       {city.map((bd, i) => {
         const tiers: React.ReactNode[] = [];
-        let tw = bd.w, tx = bd.x, yb = Math.max(baseY, 1300); // buildings always run to the bottom edge (never end mid-screen)
+        let tw = bd.w, tx = bd.x, yb = toBottom ? Math.max(baseY, 1500) : baseY;
         for (let t = 0; t < bd.tiers; t++) {
           const cum = t === bd.tiers - 1 ? 1 : (t + 1) / bd.tiers * (0.75 + rand(bd.seed + t) * 0.2);
           const top = baseY - bd.h * cum;
@@ -153,7 +157,7 @@ export const DecoSkyline: React.FC<{
           </g>
         );
       })}
-      <rect x="-400" y={Math.max(baseY, 1300)} width="2720" height={400} fill={b} />
+      <rect x="-400" y={toBottom ? 1500 : baseY} width="2720" height={toBottom ? 300 : 1800 - baseY} fill={b} />
     </svg>
   );
 };

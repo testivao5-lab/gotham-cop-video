@@ -50,3 +50,24 @@ Manual items are checked by the agent on the 0.5 s contact sheets + targeted sti
 10. Pupils clipped inside sclera (useId ids); narrator-only => mouths closed.
 11. 5-stop material shading; contact shadow offset opposite the key light.
 12. Narration volume 1.0; SafeSFX clamped 0.08-0.15; no feGaussianBlur; exact pinned versions.
+
+## v8 PREVENTION RULES (after user QA of v7) — enforced automatically
+
+Every fixed bug class now has a guard so it cannot come back:
+
+| # | Bug class seen in v7 | Guard (where) |
+|---|---|---|
+| P1 | Old trapezoid lamp drawn inline in S6 (shared-component fix missed a duplicate) | `laws_lint.mjs` P1: no inline lamp shade outside `BrassDomeLamp`; every lamp comment must have `<BrassDomeLamp/>` within 12 lines |
+| P2 | Father/child feet below the frame (y=1120, 1066), shin crops | lint P2: literal `y>1040` needs `crop=`; **runtime framing audit** (`Character` → `auditReport`, `AuditOverlay`, CI job `audit` + `scripts/frame_audit.py`) scans EVERY frame incl. camera zoom/pan; shin crop or undeclared crop fails CI |
+| P3 | Street/ground ending at exactly 1080/1920 → gaps under Plane zoom/pan | lint P3: ground rects overscan (x −400..2320, bottom ≥1600); `Sky` overscans too |
+| P4 | Skyline windows bleeding below building bases / under the street | `DecoSkyline` ends at `baseY` by default; `toBottom` opt-in only, lint P4 bans it in shots with a street/ground plane |
+| P5 | Father 1.6 vs child 1.05 scale in one plane (L7) | lint P5: one scale per plane per shot (height difference comes from `BUILD`), `// scale-ok:` for deliberate depth |
+| P6 | Window figure with ellipse "paws" (teddy-bear Nia) | lint P6: window figures use the 5-finger palm glyph; paired ellipse paws banned |
+| P7 | Card balanced on a fingertip | lint P7: card centre must sit inside the finger span (gripped) |
+| P8 | Audit hooks removed by accident | lint P8: audit hook + `AuditOverlay` as last root child required |
+
+Manual review additions (gate passing ≠ good video):
+- Look at the **bottom 15 %** and **edges** of every full-res still: feet, floor contact, gaps, skyline bleed.
+- Zoom into every hand holding a prop: palm hidden behind the prop, fingers overlap the prop, thumb opposes.
+- Small figures (in windows, far cars) must still read: silhouette test at 25 % size.
+- Vehicles: wheels, rub rails/stripes, glass with interior detail — never a plain box or flat grey glass.

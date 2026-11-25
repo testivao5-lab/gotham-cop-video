@@ -7,7 +7,7 @@ import { Post, Rain, Fog, Glow, lightning, handheld, Splashes, LightCone } from 
 import { Character, breathe, blinkAt, walk, walkDist, anchor } from "../characters/Character";
 import { Sky, DecoSkyline } from "../world/sky";
 import { StreetFacades, WetStreet, SchoolBus } from "../world/street";
-import { ShopFront, ShopInterior, Academy, Precinct, JokerProfile } from "../world/places";
+import { ShopFront, ShopInterior, Academy, Precinct, JokerProfile, BrassDomeLamp } from "../world/places";
 import { BusStreetSet, ForegroundRain, Caption, Shot, TimeJump, EdgeFade, Sfx } from "./common";
 
 const mixP = (a: [number, number], b: [number, number], t: number): [number, number] => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
@@ -55,11 +55,11 @@ export const Scene02: React.FC = () => {
   const cam = { x: hh.x, y: hh.y, zoom: ci(f, [0, sceneDur(2)], [1.0, 1.06]), rot: hh.rot };
   const S = 1.95;
   const ax = 640 - reach * 10, bx = 1060 - reach * 70 + pull * 30; // Batman steps IN so the arm stays bent
-  const radio = anchor("alex", ax, 1316, S, 1, "radio");
-  const rest: [number, number] = [bx - 70 * S, 1316 - 168 * S];
-  const lift: [number, number] = [bx - 120 * S, 1316 - 300 * S];
+  const radio = anchor("alex", ax, 1360, S, 1, "radio");
+  const rest: [number, number] = [bx - 70 * S, 1360 - 168 * S];
+  const lift: [number, number] = [bx - 120 * S, 1360 - 300 * S];
   const grab: [number, number] = [radio[0] + 6, radio[1] + 8];
-  const ear: [number, number] = [bx - 40 * S, 1316 - 372 * S];
+  const ear: [number, number] = [bx - 40 * S, 1360 - 372 * S];
   const toEar = ci(f, [92, 112], [0, 1], Easing.inOut(Easing.cubic)); // listens to the radio after the warning
   const hand = pull > 0 ? mixP(mixP(grab, lift, pull), ear, toEar) : mixP(rest, grab, reach);
   return (
@@ -68,9 +68,9 @@ export const Scene02: React.FC = () => {
         <BusStreetSet fog={0.45} rain={0.6} />
       </AbsoluteFill>
       <Plane p={1}>
-        <Character id="s2alex" kind="alex" x={ax} y={1316} scale={S} facing={1} lightSide={1} silhouette={0.15} shoulderRadio={!taken}
+        <Character id="s2alex" kind="alex" x={ax} y={1360} scale={S} crop="thigh" facing={1} lightSide={1} silhouette={0.15} shoulderRadio={!taken}
           pose={{ lean: -5 * reach + 3 * pull, head: -6 - 4 * reach, brow: 0.3 + 0.7 * reach, eyeY: -0.6, eyeX: 0.4, blink: blinkAt(f, 80, 50), bob: breathe(f, 0.6, 2), armNear: [8 + 10 * pull, 20], armFar: [-6, 16] }} />
-        <Character id="s2bat" kind="batman" x={bx} y={1316} scale={S} facing={-1} lightSide={-1} silhouette={0.2} capeWind={0.9} glowEyes={0.5}
+        <Character id="s2bat" kind="batman" x={bx} y={1360} scale={S} crop="thigh" facing={-1} lightSide={-1} silhouette={0.2} capeWind={0.9} glowEyes={0.5}
           prop={taken ? "radio" : "none"} reachNear={hand}
           pose={{ lean: 6 * reach - 4 * pull, head: 2 - 4 * pull, brow: -1, blink: blinkAt(f, 90, 10), armFar: [-10, 18], handNear: grip > 0.5 || taken ? "grip" : "open", handFar: "fist", bob: breathe(f, 0.25, 1.5) }} />
       </Plane>
@@ -327,7 +327,7 @@ export const Scene03: React.FC = () => {
         <Stage cam={{ x: hh.x + ci(f, [0, cW], [300, 360], EZ), y: hh.y + ci(f, [0, cW], [-20, -40]), zoom: ci(f, [0, cW], [1.55, 1.85], EZ), rot: hh.rot }}>
           <BusStreetSet fog={fog} nia niaPound={1} />
           <Plane p={1.3}>
-            <Character id="s3alexfg" kind="alex" x={330} y={1640} scale={2.4} facing={1} lightSide={-1} silhouette={0.6} rim="#ffcf8a" shoulderRadio={false} pose={{ head: -6, eyeY: -0.4 }} />
+            <Character id="s3alexfg" kind="alex" x={330} y={1640} scale={2.4} crop="closeup" facing={1} lightSide={-1} silhouette={0.6} rim="#ffcf8a" shoulderRadio={false} pose={{ head: -6, eyeY: -0.4 }} />
           </Plane>
           <ForegroundRain />
           <Post />
@@ -391,12 +391,15 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
       for (let fl = 0; fl < floors; fl++) {
         for (let c = 0; c < cols; c++) {
           const za = b.z1 + ((c + 0.25) * (b.z2 - b.z1)) / cols, zb = b.z1 + ((c + 0.75) * (b.z2 - b.z1)) / cols;
-          const ya = 1.2 + fl * 3.6, yb = ya + 2.0;
+          const sty = Math.floor(rand(b.seed + 5) * 3); // 0 grid, 1 paired bays, 2 tall strip windows
+          if (sty === 1 && c % 3 === 2) continue;
+          if (sty === 2 && fl % 2 === 1) continue;
+          const ya = 1.2 + fl * 3.6, yb = ya + (sty === 2 ? 5.6 : 2.0);
           const [, ty] = P(X, yb, za);
           if (ty > 1100) continue;
           const [, by2] = P(X, ya, zb);
           if (by2 < -20) continue;
-          const lit = rand(b.seed + fl * 31 + c * 7) < 0.26;
+          const lit = rand(b.seed + fl * 31 + c * 7) < 0.08 + rand(b.seed + 9) * 0.3;
           win.push(<path key={`${fl}-${c}`} d={quadX(X, za, zb, ya, yb)} fill={lit ? (rand(b.seed + fl + c) > 0.5 ? "#f2c66a" : "#e8a24a") : "#141826"} opacity={lit ? 0.95 : 0.85} />);
         }
       }
@@ -485,7 +488,7 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
         );
       }))}
       {/* GCPD cruisers flanking the bus (lightbars alternate red/blue, glow on the wet street) */}
-      {[{ x0: -9.5, z0: 52, rot: 18 }, { x0: 4.2, z0: 34, rot: -24 }].map((c, i) => {
+      {[{ x0: -7.6, z0: 45, rot: 18 }, { x0: 2.2, z0: 47, rot: -22 }].map((c, i) => {
         const g0 = P(c.x0 + 0.9, 0, c.z0 + 2.2), gr = (FOC * 3.5) / c.z0;
         const red = (i === 0) === led;
         return (
@@ -513,7 +516,7 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
           </g>
         );
       })}
-      {/* the school bus, pulled over at an angle — readable size, windows, rear emergency door, flashing red lamp */}
+      {/* the school bus, pulled over at an angle — readable size, windows, rear emergency door, flashing red warning light */}
       {(() => {
         const x0 = -3.4, z0 = 40, rot = 14;
         return (
@@ -525,6 +528,17 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
                   {/* side windows */}
                   {Array.from({ length: 7 }).map((_, i) => { const za = z0 + 1.2 + i * 1.35, zb = za + 1.0; return <path key={i} d={poly([pp(x0 + 2.55, 1.75, za), pp(x0 + 2.55, 2.75, za), pp(x0 + 2.55, 2.75, zb), pp(x0 + 2.55, 1.75, zb)])} fill={i === 3 ? "#ffe8b0" : "#2a3048"} stroke="#141008" strokeWidth={1.5} />; })}
                   <path d={`M${pp(x0 + 2.55, 1.2, z0)[0]} ${pp(x0 + 2.55, 1.2, z0)[1]} L${pp(x0 + 2.55, 1.2, z0 + 11)[0]} ${pp(x0 + 2.55, 1.2, z0 + 11)[1]}`} stroke="#141008" strokeWidth={4} />
+                  {/* black rub rails along the side (classic school-bus read) */}
+                  {[0.55, 0.95, 1.55].map((ry) => <path key={ry} d={`M${pp(x0 + 2.55, ry, z0)[0]} ${pp(x0 + 2.55, ry, z0)[1]} L${pp(x0 + 2.55, ry, z0 + 11)[0]} ${pp(x0 + 2.55, ry, z0 + 11)[1]}`} stroke="#141008" strokeWidth={ry === 0.95 ? 3 : 2} />)}
+                  {/* wheels in dark arches */}
+                  {[z0 + 2.2, z0 + 8.6].map((wz) => { const a1 = pp(x0 + 2.55, 0.5, wz); const wr = (FOC * 0.55) / wz; return <g key={wz}><ellipse cx={a1[0]} cy={a1[1]} rx={wr * 0.55} ry={wr} fill="#0a0806" /><ellipse cx={a1[0]} cy={a1[1]} rx={wr * 0.28} ry={wr * 0.5} fill="#3a3a40" stroke="#0a0a0e" strokeWidth={1.5} /></g>; })}
+                  {/* roof: rounded edge highlight + marker lamps */}
+                  <path d={`M${pp(x0 + 2.55, 3.1, z0)[0]} ${pp(x0 + 2.55, 3.1, z0)[1]} L${pp(x0 + 2.55, 3.1, z0 + 11)[0]} ${pp(x0 + 2.55, 3.1, z0 + 11)[1]}`} stroke="#fff0b0" strokeWidth={3} opacity={0.55} />
+                  {[0.25, 2.3].map((mx) => { const m = pp(x0 + mx, 3.12, z0 + 0.15); return <circle key={mx} cx={m[0]} cy={m[1]} r={3} fill="#ffb030" />; })}
+                  {/* rear: black bumper, split rear windows, SCHOOL BUS header */}
+                  <path d={poly([pp(x0 - 0.05, 0.2, z0 - 0.05), pp(x0 - 0.05, 0.55, z0 - 0.05), pp(x0 + 2.6, 0.55, z0 - 0.05), pp(x0 + 2.6, 0.2, z0 - 0.05)])} fill="#0e0c0a" stroke="#000" strokeWidth={1.5} />
+                  {[[0.15, 0.7], [1.85, 2.4]].map(([a0, a1], wi) => <path key={wi} d={poly([pp(x0 + a0, 1.8, z0), pp(x0 + a0, 2.6, z0), pp(x0 + a1, 2.6, z0), pp(x0 + a1, 1.8, z0)])} fill="#2a3048" stroke="#141008" strokeWidth={2} />)}
+                  {(() => { const t = pp(x0 + 1.27, 2.92, z0); const sc = (FOC * 0.012) / z0; return <g transform={`translate(${t[0]} ${t[1]}) scale(${sc}) rotate(${-4})`}><rect x={-60} y={-12} width={120} height={20} fill="#141008" /><text x={0} y={4} textAnchor="middle" fontFamily="Arial Black, Arial" fontWeight={900} fontSize={15} fill="#f2c040" letterSpacing={1}>SCHOOL BUS</text></g>; })()}
                   {/* rear: emergency door + lamps */}
                   <path d={poly([pp(x0 + 0.8, 0.4, z0), pp(x0 + 0.8, 2.8, z0), pp(x0 + 1.75, 2.8, z0), pp(x0 + 1.75, 0.4, z0)])} fill="#a87a10" stroke="#141008" strokeWidth={2} />
                   <path d={poly([pp(x0 + 0.9, 1.8, z0), pp(x0 + 0.9, 2.7, z0), pp(x0 + 1.65, 2.7, z0), pp(x0 + 1.65, 1.8, z0)])} fill="#2a3048" />
@@ -561,7 +575,7 @@ export const Scene04: React.FC = () => {
             <BusStreetSet fog={0.6} wire led={led} rain={0.6} />
           </AbsoluteFill>
           <Plane p={1}>
-            <Character id="s4bat" kind="batman" x={1180} y={1640} scale={2.9} facing={-1} lightSide={-1} silhouette={0.3} capeWind={0.8} glowEyes={0.9} prop="radio"
+            <Character id="s4bat" kind="batman" x={1180} y={1640} scale={2.9} crop="closeup" facing={-1} lightSide={-1} silhouette={0.3} capeWind={0.8} glowEyes={0.9} prop="radio"
               pose={{ armNear: [62 - 50 * ci(f, [14, 34], [0, 1], EZ), 104 + 26 * ci(f, [14, 34], [0, 1], EZ)], handNear: "grip", head: 4 - 8 * ci(f, [16, 30], [0, 1], EZ), eyeX: ci(f, [16, 30], [0.2, -0.6]), brow: -1, blink: blinkAt(f, 100, 30), bob: breathe(f, 0.25, 2), lean: 4 - 3 * ci(f, [30, 60], [0, 1], EZ) }} />
             <Glow x={560} y={430} r={120} color="255,40,40" opacity={led ? 0.35 : 0.08} />
           </Plane>
@@ -608,16 +622,16 @@ export const Scene05: React.FC = () => {
   const cB = cue(5, "badge");
   const polish = Math.sin(f * 0.35);
   const glint = ci(f, [cB, cB + 6, cB + 18], [0, 1, 0]);
-  const S = 1.9, X = 760, Y = 1330;
+  const S = 2.3, X = 760, Y = 1400; // cowboy shot: frame cuts mid-thigh, never at the knee/shin
   const [bx, by] = anchor("alex", X, Y, S, 1, "badge");
   const rub: [number, number] = [bx + 34 + polish * 10, by + 46 + Math.cos(f * 0.35) * 6];
   return (
     <Stage cam={{ x: ci(f, [0, sceneDur(5)], [0, 30]), y: 0, zoom: ci(f, [0, sceneDur(5)], [1.0, 1.08]) }}>
       <Plane p={0.2}><Sky variant="dusk" seed={5} horizonY={760} moon={[1500, 220, 36]} /></Plane>
-      <Plane p={0.35}><DecoSkyline seed={31} baseY={760} hMin={300} hMax={640} haze={0.4} hazeColor="#8a5a6a" light="#c08a7a" body="#2a1a2a" litP={0.3} /></Plane>
-      <Plane p={0.55}><DecoSkyline seed={33} baseY={820} hMin={200} hMax={420} haze={0.15} hazeColor="#5a3a50" light="#8a5a5a" body="#1a1018" litP={0.35} rimSide="right" /></Plane>
+      <Plane p={0.35}><DecoSkyline toBottom seed={31} baseY={760} hMin={300} hMax={640} haze={0.4} hazeColor="#8a5a6a" light="#c08a7a" body="#2a1a2a" litP={0.3} /></Plane>
+      <Plane p={0.55}><DecoSkyline toBottom seed={33} baseY={820} hMin={200} hMax={420} haze={0.15} hazeColor="#5a3a50" light="#8a5a5a" body="#1a1018" litP={0.35} rimSide="right" /></Plane>
       <Plane p={1}>
-        <Character id="s5alex" kind="alex" x={X} y={Y} scale={S} facing={1} lightSide={1} rim="#ffb080" nightTint={0.12} silhouette={0.05}
+        <Character id="s5alex" kind="alex" x={X} y={Y} scale={S} crop="thigh" facing={1} lightSide={1} rim="#ffb080" nightTint={0.12} silhouette={0.05}
           reachNear={rub} pose={{ handNear: "fist", armFar: [-8, 14], head: -4 + ci(f, [cB - 10, cB], [0, 6]), smile: 0.45, brow: 0.3, eyeY: ci(f, [cB - 10, cB], [-0.3, 0.8]), blink: blinkAt(f, 70, 30), bob: breathe(f, 0.45, 1.5) }} />
         {glint > 0 && (
           <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, mixBlendMode: "screen" }}>
@@ -657,10 +671,10 @@ export const Scene06: React.FC = () => {
   const turn2 = ci(f, [cT - 4, cT + 2, cT + 8, cT + 14], [0, 1, 0, 1]);
   // blocking: lock door (IK on the lock) -> walk with real travel -> reach the lamp -> contact -> filament flicker on
   const wS = cT + 12, wE = cLamp + 8;
-  const DX0 = 1180, DX1 = 560, DS = 1.75;
+  const DX0 = 1250, DX1 = 560, DS = 1.6, DY = 1000; // feet on the plank floor, fully in frame
   const dx = ci(f, [wS, wE], [DX0, DX1], Easing.inOut(Easing.sin));
   const walking = f >= wS && f < wE;
-  const lampPt: [number, number] = [352, 610];
+  const lampPt: [number, number] = [349, 654]; // push switch on the brass lamp base
   const reachL = ci(f, [wE, wE + 8], [0, 1], EZ);
   const touch = wE + 8;
   const lampOn = f < touch ? 0 : ci(f - touch, [0, 1, 2, 3, 4, 5, 6, 8], [0, 0.9, 0.15, 1, 0.4, 1, 0.75, 1]);
@@ -668,15 +682,15 @@ export const Scene06: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cE}>
-        <Stage cam={{ x: 0, y: ci(f, [0, cA, cE], [140, 60, -60], Easing.inOut(Easing.cubic)), zoom: ci(f, [0, cE], [1.0, 1.06]) }}>
+        <Stage cam={{ x: 0, y: ci(f, [0, cA, cE], [90, 40, 0], Easing.inOut(Easing.cubic)), zoom: ci(f, [0, cE], [1.0, 1.05]) }}>
           <Plane p={0.2}><Sky variant="night" seed={6} moon={[300, 160, 40]} horizonY={760} /></Plane>
           <Plane p={0.35}><DecoSkyline seed={41} baseY={700} hMin={200} hMax={500} haze={0.5} /></Plane>
           <Plane p={0.7}><StreetFacades seed={9} baseY={820} litP={0.25} heightMin={600} heightMax={760} fireEscapes /></Plane>
           <Plane p={0.85}><ShopFront baseY={830} lamp={0} upstairs={1} sign={1} /></Plane>
           <Plane p={1}><WetStreet horizonY={830} curbY={870} reflections={[{ x: 960, color: "#f5c66a", w: 420, strength: 0.5 }, { x: 650, color: "#ffcf8a", w: 100, strength: 0.5 }]} seed={4} /></Plane>
           <Plane p={1}>
-            <Character id="s6alex" kind="alex" x={ci(f, [0, cA], [520, 640], EZ)} y={1040} scale={0.95} facing={1} lightSide={1} nightTint={0.2} rim="#ffcf8a" shoulderRadio
-              pose={f < cA - 20 ? { ...walkDist(ci(f, [0, cA], [520, 640], EZ) - 520, "alex", 0.95, 0.7), head: -6 } : { head: -16, eyeY: -1, smile: 0.25 }} />
+            <Character id="s6alex" kind="alex" x={ci(f, [0, cA], [520, 640], EZ)} y={985} scale={1.0} facing={1} lightSide={1} nightTint={0.2} rim="#ffcf8a" shoulderRadio
+              pose={f < cA - 20 ? { ...walkDist(ci(f, [0, cA], [520, 640], EZ) - 520, "alex", 1.0, 0.7), head: -6 } : { head: -16, eyeY: -1, smile: 0.25 }} />
           </Plane>
           <Plane p={1.2}><Rain count={120} opacity={0.2} /></Plane>
           <Post />
@@ -705,23 +719,28 @@ export const Scene06: React.FC = () => {
               {/* window sill with lamp (left) */}
               <rect x={160} y={260} width={600} height={420} fill="url(#s6night)" />
               <rect x={160} y={260} width={600} height={420} fill="none" stroke="#1a0f08" strokeWidth={18} />
+              {Array.from({ length: 13 }).map((_, i) => <rect key={`lw${i}`} x={168 + i * 46} y={470 - rand(i + 40) * 170} width={40} height={220 + rand(i + 40) * 170} fill="#0a1222" />)}
+              {Array.from({ length: 30 }).map((_, i) => <rect key={`lwl${i}`} x={172 + rand(i * 5 + 1) * 580} y={360 + rand(i * 11 + 2) * 300} width={5} height={7} fill="#f2cf7a" opacity={0.65} />)}
               <rect x={454} y={260} width={12} height={420} fill="#1a0f08" />
               <rect x={160} y={464} width={600} height={12} fill="#1a0f08" />
               {Array.from({ length: 40 }).map((_, i) => <rect key={`ws${i}`} x={i * 48} y={0} width={2} height={950} fill="#000" opacity={0.12} />)}
               <rect x={140} y={680} width={640} height={24} fill="#3a2414" />
               <g transform="translate(330 680)">
                 <circle cy={-50} r={420} fill="url(#s6lamp)" opacity={lampOn} />
-                <path d="M-36 -52 L36 -52 L24 -100 L-24 -100 Z" fill={lampOn > 0.1 ? "#f6cf8a" : "#5a4630"} stroke="#1a0f08" strokeWidth={3} />
-                <rect x={-4} y={-52} width={8} height={46} fill="#2a1a10" />
-                <rect x={-20} y={-8} width={40} height={8} rx={2} fill="#2a1a10" />
+                <BrassDomeLamp on={lampOn} s={1.05} y={0} />
               </g>
-              <rect x={0} y={950} width={1920} height={130} fill="#0c0806" />
+              {/* plank floor in perspective + skirting board (feet stand on it, contact shadow drawn by the rig) */}
+              <rect x={-200} y={930} width={2320} height={400} fill="#2a1a10" />
+              <rect x={-200} y={918} width={2320} height={14} fill="#1a0f08" />
+              {Array.from({ length: 26 }).map((_, i) => <path key={`fp${i}`} d={`M${-300 + i * 100} 932 L${-900 + i * 148} 1080`} stroke="#120a06" strokeWidth={3} opacity={0.7} />)}
+              {[968, 1018].map((yy) => <path key={yy} d={`M-200 ${yy} H2120`} stroke="#120a06" strokeWidth={2} opacity={0.5} />)}
+              <ellipse cx={330} cy={990} rx={420} ry={60} fill="#ffb456" opacity={0.12 * lampOn} />
             </svg>
           </Plane>
           <Plane p={1}>
-            <Character id="s6dad" kind="father" x={dx} y={1120} scale={DS} facing={f < wS ? 1 : -1} lightSide={-1} nightTint={0.12} rim="#ffb46a"
+            <Character id="s6dad" kind="father" x={dx} y={DY} scale={DS} facing={f < wS ? 1 : -1} lightSide={-1} nightTint={0.12} rim="#ffb46a"
               prop={f < wS ? "key" : "none"}
-              reachNear={f < wS ? lockPt : f >= wE ? mixP(anchor("father", dx, 1120, DS, -1, "waist"), lampPt, reachL) : undefined}
+              reachNear={f < wS ? lockPt : f >= wE ? mixP(anchor("father", dx, DY, DS, -1, "waist"), lampPt, reachL) : undefined}
               pose={f < wS
                 ? { handNear: "grip", head: (turn1 + turn2) * 3, brow: -0.2, blink: blinkAt(f, 60), bob: breathe(f) }
                 : walking
@@ -746,8 +765,9 @@ export const Scene07: React.FC = () => {
   const cBut = cue(7, "but");
   const shakeHead = f > cNo && f < cNo + 20 ? Math.sin((f - cNo) * 0.6) * 5 : 0;
   const pat = ci(f, [cNo + 8, cNo + 22], [0, 1], EZ);
-  const kidSh = anchor("alexYoung", 780, 1066, 1.05, 1, "shoulderNear");
-  const dadRest = anchor("father", 990, 1066, 1.6, -1, "waist");
+  const S7S = 1.4, S7Y = 1000; // same scale for both (L7: child 320 vs adult 380 rig units)
+  const kidSh = anchor("alexYoung", 800, S7Y, S7S, 1, "shoulderNear");
+  const dadRest = anchor("father", 1010, S7Y, S7S, -1, "waist");
   const dadHand = mixP([dadRest[0] - 40, dadRest[1] + 30], [kidSh[0] + 4, kidSh[1] - 6], pat);
   return (
     <>
@@ -755,10 +775,10 @@ export const Scene07: React.FC = () => {
         <Stage cam={{ x: ci(f, [0, cBut], [-20, 20]), y: 0, zoom: ci(f, [0, cBut], [1.0, 1.06]) }}>
           <Plane p={0.8}><ShopInterior lamp={1} /></Plane>
           <Plane p={1}>
-            <Character id="s7kid" kind="alexYoung" x={780} y={1066} scale={1.05} facing={1} lightSide={1} nightTint={0.08} rim="#ffb46a"
+            <Character id="s7kid" kind="alexYoung" x={800} y={S7Y} scale={S7S} facing={1} lightSide={1} nightTint={0.08} rim="#ffb46a"
               reachNear={f < cNo + 4 ? [1290, 560] : undefined}
               pose={{ head: -14, brow: -0.4, eyeY: -1, armNear: [10, 14], handNear: "point", blink: blinkAt(f, 70, 10), bob: breathe(f), smile: -0.1 + 0.4 * pat }} />
-            <Character id="s7dad" kind="father" x={990} y={1066} scale={1.6} facing={-1} lightSide={1} nightTint={0.08} rim="#ffb46a"
+            <Character id="s7dad" kind="father" x={1010} y={S7Y} scale={S7S} facing={-1} lightSide={1} nightTint={0.08} rim="#ffb46a"
               reachNear={pat > 0 ? dadHand : undefined}
               pose={{ head: 4 + shakeHead, brow: f > cNo ? 0.2 : -0.2, smile: f > cNo + 20 ? 0.35 : 0, eyeY: 0.5, lean: -9 * pat, armNear: [10, 16], handNear: "open", armFar: [-6, 20], blink: blinkAt(f, 80, 40), bob: breathe(f, 0.35) }} />
           </Plane>
@@ -795,15 +815,15 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
       <g style={{ mixBlendMode: "screen" }}>{Array.from({ length: 22 }).map((_, i) => <circle key={i} cx={(((rand(i) * 2100 - f * (0.6 + rand(i * 2) * 1.6)) % 2100) + 2100) % 2100 - 90} cy={120 + rand(i * 3) * 420 + Math.sin(f * 0.04 + i) * 8} r={18 + rand(i * 5) * 46} fill="#ffcf70" opacity={0.1 + rand(i * 9) * 0.18} />)}</g>
       <g transform={`translate(${860 + Math.sin(f * 0.05) * 14} ${560 + Math.sin(f * 0.083) * 8}) rotate(${-8 + Math.sin(f * 0.04) * 2.5 + shake * Math.sin(f * 2.2) * 4})`}>
         {/* sleeve: dress-uniform cuff + forearm running off the bottom-left edge of the frame (never ends mid-air) */}
-        <path d="M-330 40 L-1500 520 L-1300 1100 L-170 214 Q-210 140 -330 40 Z" fill="#1d2b52" stroke="#0a0a0e" strokeWidth={5} strokeLinejoin="round" />
-        <path d="M-330 40 L-1500 520 L-1470 600 L-300 96 Z" fill="#33467a" opacity={0.55} />
-        <path d="M-200 190 L-1350 1000" stroke="#0e1530" strokeWidth={40} opacity={0.5} />
-        <path d="M-372 60 L-212 234" stroke="#d9b24a" strokeWidth={14} />
-        <path d="M-412 78 L-256 250" stroke="#d9b24a" strokeWidth={6} opacity={0.85} />
+        <path d="M-360 -70 L-2000 -260 L-2000 520 L-330 170 C-300 100 -310 0 -360 -70 Z" fill="#1d2b52" stroke="#0a0a0e" strokeWidth={5} strokeLinejoin="round" />
+        <path d="M-360 -70 L-2000 -260 L-2000 -170 L-340 -20 Z" fill="#33467a" opacity={0.55} />
+        <path d="M-420 120 L-2000 420" stroke="#0e1530" strokeWidth={40} opacity={0.5} />
+        <path d="M-392 -62 L-366 168" stroke="#d9b24a" strokeWidth={14} />
+        <path d="M-436 -66 L-410 176" stroke="#d9b24a" strokeWidth={6} opacity={0.85} />
         {/* back layer: wrist + palm heel behind/below the barrel, thumb base */}
-        <path d="M-340 40 C-350 110 -300 190 -200 214 C-120 222 -40 196 -10 150 C10 110 0 70 -20 40 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
-        <path d="M-300 150 Q-200 196 -60 170" stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
-        <path d="M-330 40 C-300 -10 -250 -40 -200 -48 L-190 0 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
+        {/* wrist (in line with the barrel) + slim palm heel just under the barrel — no ball/disc below the grip */}
+        <path d="M-372 -54 C-320 -66 -260 -66 -200 -58 L-40 30 C-20 60 -24 96 -54 110 C-140 124 -260 130 -356 150 C-372 90 -380 20 -372 -54 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
+        <path d="M-330 128 Q-200 120 -70 104" stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
         {beam > 0 && <path d="M330 -40 L1500 -420 L1500 420 L330 40 Z" fill="url(#flBeam)" opacity={beam} style={{ mixBlendMode: "screen" }} />}
         <rect x={-460} y={-58} width={680} height={116} rx={18} fill="url(#flM)" stroke="#0a0a0e" strokeWidth={5} />
         {Array.from({ length: 22 }).map((_, i) => <path key={i} d={`M${-440 + rand(i) * 640} ${-50 + rand(i * 3) * 100} l${10 + rand(i * 5) * 40} ${(rand(i * 7) - 0.5) * 12}`} stroke="#eef" strokeWidth={1.3} opacity={0.35} />)}
@@ -819,12 +839,12 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
         <path d={`M-120 -62 q10 4 20 0`} stroke="#5a3420" strokeWidth={2} fill="none" opacity={0.6} />
         {/* four tapered fingers wrap from under the barrel up its near face; index (front) longest-but-one, middle longest, pinky shortest */}
         {[
-          { x: -78, w: 54, top: -6 },
-          { x: -136, w: 56, top: -16 },
-          { x: -192, w: 53, top: -8 },
-          { x: -242, w: 46, top: 12 },
+          { x: -80, w: 48, top: -30 },
+          { x: -134, w: 50, top: -40 },
+          { x: -188, w: 47, top: -30 },
+          { x: -238, w: 41, top: -10 },
         ].map((q, i) => {
-          const b0 = 96, mid = (b0 + q.top) / 2 + 6;
+          const b0 = 124, mid = (b0 + q.top) / 2 + 6;
           const wl = q.w / 2, wt = q.w * 0.4;
           return (
             <g key={i}>
@@ -904,8 +924,8 @@ export const Scene09: React.FC = () => {
   const cL = cue(9, "lights");
   const laugh = f < cHe + 8 ? 1 : ci(f, [cHe + 8, cK + 10], [1, 0]);
   const reach = ci(f, [cK - 4, cK + 14], [0, 1], EZ);
-  const aSh = anchor("alexDress", 760, 1280, 1.85, 1, "shoulderNear");
-  const dRest = anchor("father", 1090, 1280, 1.8, -1, "waist");
+  const aSh = anchor("alexDress", 760, 1360, 2.1, 1, "shoulderNear");
+  const dRest = anchor("father", 1100, 1360, 2.05, -1, "waist");
   const dadHand = mixP([dRest[0] - 30, dRest[1] + 50], [aSh[0] + 26, aSh[1] - 30], reach);
   const dim = ci(f, [cL, cL + 4, cL + 30, cL + 50], [0, 1, 1, 0.3]);
   return (
@@ -913,10 +933,10 @@ export const Scene09: React.FC = () => {
       <Plane p={0.15}><Sky variant="night" seed={11} moon={[1700, 120, 34]} horizonY={900} /></Plane>
       <AbsoluteFill style={{ filter: "blur(4px)" }}><Plane p={0.7}><Academy lightsDim={dim} /></Plane></AbsoluteFill>
       <Plane p={1}>
-        <Character id="s9alex" kind="alexDress" x={760} y={1280} scale={1.85} facing={1} allowMouth={false} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
-          reachNear={[anchor("alexDress", 760, 1280, 1.85, 1, "chest")[0] + 60, anchor("alexDress", 760, 1280, 1.85, 1, "chest")[1] + 30 + Math.abs(Math.sin(f * 0.45)) * 5 * laugh]}
+        <Character id="s9alex" kind="alexDress" x={760} y={1360} scale={2.1} crop="thigh" facing={1} allowMouth={false} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
+          reachNear={[anchor("alexDress", 760, 1360, 2.1, 1, "chest")[0] + 60, anchor("alexDress", 760, 1360, 2.1, 1, "chest")[1] + 30 + Math.abs(Math.sin(f * 0.45)) * 5 * laugh]}
           pose={{ handNear: "grip", smile: 0.9 * laugh + 0.1, mouth: laugh * 0.35 * (0.5 + 0.5 * Math.sin(f * 0.9)), head: -14 * laugh + Math.sin(f * 0.9) * 3 * laugh, lean: -5 * laugh, bob: Math.abs(Math.sin(f * 0.45)) * 9 * laugh, brow: -0.6 * laugh - 0.2 * reach, blink: laugh > 0.3 ? 0.85 : blinkAt(f, 70, 30), eyeX: 0.5 }} />
-        <Character id="s9dad" kind="father" x={1090} y={1280} scale={1.8} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
+        <Character id="s9dad" kind="father" x={1100} y={1360} scale={2.05} crop="thigh" facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
           reachNear={dadHand}
           pose={{ handNear: "open", lean: -5 * reach, head: 2 + 3 * reach, brow: -0.7, smile: -0.25, eyeY: 0.1, blink: blinkAt(f, 90, 50), bob: breathe(f, 0.35) }} />
       </Plane>
@@ -943,9 +963,9 @@ export const Scene10: React.FC = () => {
       <Plane p={0.35}><DecoSkyline seed={61} baseY={640} hMin={260} hMax={560} haze={0.45} /></Plane>
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
-        <Character id="s10mara" kind="mara" x={1110} y={1008} scale={S} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
+        <Character id="s10mara" kind="mara" x={1110} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: (f > 50 ? 4 : 0) + 9 * Math.sin(Math.PI * ci(f, [88, 104], [0, 1])) + 9 * Math.sin(Math.PI * ci(f, [104, 118], [0, 1])) * 0.6, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
-        <Character id="s10alex" kind="alex" x={ax} y={1008} scale={S} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
+        <Character id="s10alex" kind="alex" x={ax} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4 + 10 * Math.sin(Math.PI * ci(f, [100, 116], [0, 1])), smile: 0.35, brow: 0.3, bob: breathe(f) }} />
       </Plane>
       <Plane p={1.1}><Rain count={110} opacity={0.2} /></Plane>

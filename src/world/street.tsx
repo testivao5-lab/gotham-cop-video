@@ -153,9 +153,9 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
           </linearGradient>
         ))}
       </defs>
-      <rect x="0" y={horizonY} width="1920" height={cy - horizonY} fill={`url(#${id}s)`} />
-      <rect x="0" y={cy} width="1920" height="10" fill="#3c465c" />
-      <rect x="0" y={cy + 10} width="1920" height={1080 - cy} fill={`url(#${id}a)`} />
+      <rect x={-400} y={horizonY} width={2720} height={cy - horizonY} fill={`url(#${id}s)`} />
+      <rect x={-400} y={cy} width={2720} height={10} fill="#3c465c" />
+      <rect x={-400} y={cy + 10} width={2720} height={1700 - cy} fill={`url(#${id}a)`} />
       {/* paving seams */}
       {Array.from({ length: 24 }).map((_, i) => <line key={i} x1={i * 90} y1={horizonY} x2={i * 90 - 30} y2={cy} stroke="#000" strokeOpacity="0.25" />)}
       {laneY !== undefined && Array.from({ length: 14 }).map((_, i) => <rect key={i} x={i * 160 - 40} y={laneY} width={90} height={6} fill="#c9b67a" opacity={0.35} />)}
@@ -183,7 +183,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
             <defs>
               <mask id={`${id}pm`}><g fill="white">{P.map(blob)}</g></mask>
             </defs>
-            <g fill="#0e1626" opacity={0.6}>{P.map(blob)}</g>
+            <g fill="#05080f" opacity={0.55}>{P.map(blob)}</g>
             <g mask={`url(#${id}pm)`} style={{ mixBlendMode: "screen" }}>
               {reflections.map((r, i) => {
                 const w = r.w ?? 40;
@@ -193,7 +193,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
                 ));
               })}
               {/* sky glint across puddle surfaces */}
-              <rect x={0} y={cy} width={1920} height={1080 - cy} fill="#7fa4cc" opacity={0.04} />
+              <rect x={0} y={cy} width={1920} height={1080 - cy} fill="#7fa4cc" opacity={0.015} />
               {/* ripples */}
               {P.flatMap((p) => Array.from({ length: Math.round(2 + p.rx / 60) }).map((_, k) => {
                 const per = 16 + Math.floor(rand(p.i * 11 + k) * 14);
@@ -249,6 +249,7 @@ export const SchoolBus: React.FC<{
           <stop offset="1" stopColor={mix("#0c101a", "#8a5a30", interior)} />
         </linearGradient>
         <radialGradient id="hub"><stop offset="0" stopColor="#c8d0dc" /><stop offset="1" stopColor="#4a5262" /></radialGradient>
+        <linearGradient id="busFog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#d6e0ee" stopOpacity="0.85" /><stop offset="0.6" stopColor="#b8c6da" stopOpacity="0.55" /><stop offset="1" stopColor="#9aaac2" stopOpacity="0.3" /></linearGradient>
       </defs>
       <g transform={`translate(${x} ${y}) scale(${scale})`}>
         {/* shadow */}
@@ -256,6 +257,10 @@ export const SchoolBus: React.FC<{
         {/* body */}
         <path d={`M0 30 Q0 0 30 0 H${W - 150} Q${W - 120} 0 ${W - 115} 30 L${W - 105} 120 H${W - 20} Q${W} 122 ${W} 150 V${H - 40} H0 Z`} fill="url(#busBody)" />
         <rect x="0" y={H - 40} width={W} height={22} fill="#141414" />
+        <rect x="0" y={H - 80} width={W - 105} height={40} fill="#000" opacity={0.22} />
+        <path d={`M24 122 H${W - 160}`} stroke={tint(yellow, 0.35)} strokeWidth={3} opacity={0.6} />
+        {Array.from({ length: 9 }).map((_, i) => <path key={`seam${i}`} d={`M${22 + i * 76} 122 V${H - 42}`} stroke={yDark} strokeWidth={2} opacity={0.55} />)}
+        {Array.from({ length: 9 }).map((_, i) => [134, 214, 244].map((ry) => <circle key={`rv${i}${ry}`} cx={30 + i * 76} cy={ry} r={1.8} fill={yDark} />))}
         {/* stripes */}
         <rect x="0" y="150" width={W - 105} height="8" fill="#0d0d0d" opacity="0.85" />
         <rect x="0" y="190" width={W} height="8" fill="#0d0d0d" opacity="0.85" />
@@ -267,6 +272,10 @@ export const SchoolBus: React.FC<{
             <g key={i}>
               <rect x={wx} y={26} width={ww} height={92} rx={6} fill="#111" />
               <rect x={wx + 4} y={30} width={ww - 8} height={84} rx={4} fill="url(#busWin)" />
+              {/* interior: seat-back tops + ceiling light strip so the glass never reads as a flat grey panel */}
+              <rect x={wx + 4} y={30} width={ww - 8} height={6} fill="#fff2c8" opacity={0.18 + interior * 0.3} />
+              <path d={`M${wx + 6} 114 V96 Q${wx + 6} 88 ${wx + 16} 88 H${wx + ww - 16} Q${wx + ww - 6} 88 ${wx + ww - 6} 96 V114 Z`} fill="#3a1e14" opacity={0.85} />
+              <path d={`M${wx + 10} 92 H${wx + ww - 10}`} stroke="#7a4a2a" strokeWidth={2} opacity={0.6} />
               <rect x={wx + 4} y={70} width={ww - 8} height={3} fill="#111" />
               <path d={`M${wx + 8} 34 l18 0 l-14 40 l-8 0 Z`} fill="#fff" opacity={0.08} />
             </g>
@@ -275,7 +284,11 @@ export const SchoolBus: React.FC<{
         {childNode}
         {/* fog on glass */}
         {fog > 0 && Array.from({ length: wins }).map((_, i) => (
-          <rect key={i} x={30 + i * 76} y={30} width={54} height={84} rx={4} fill="#c9d6e6" opacity={fog * 0.75} />
+          <g key={i} opacity={Math.min(1, fog * 1.1)}>
+            <rect x={30 + i * 76} y={30} width={54} height={84} rx={4} fill="url(#busFog)" />
+            {/* condensation drips: clear trails through the fog */}
+            {[0, 1, 2].map((k) => { const dx = 36 + i * 76 + ((i * 17 + k * 19) % 44); const dl = 20 + ((i * 13 + k * 29) % 50); return <path key={k} d={`M${dx} ${44 + ((k * 23 + i * 7) % 20)} v${dl}`} stroke="#2a3248" strokeWidth={2} strokeLinecap="round" opacity={0.5} />; })}
+          </g>
         ))}
         {/* door (front right) */}
         <g>

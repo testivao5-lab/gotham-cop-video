@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, interpolate } from "remotion";
 import { SCENES, SceneInfo, TOTAL_FRAMES } from "./timeline";
+import { AuditOverlay } from "./lib/audit";
 import { Scene01, Scene02, Scene03, Scene04, Scene05, Scene06, Scene07, Scene08, Scene09, Scene10 } from "./scenes/batch1";
 
 const REGISTRY: Record<string, React.FC> = {
@@ -44,5 +45,6 @@ export const GothamCop: React.FC = () => (
         </Sequence>
       );
     })}
+    <AuditOverlay />
   </AbsoluteFill>
 );

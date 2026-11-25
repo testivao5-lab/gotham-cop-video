@@ -35,11 +35,24 @@ export const BusStreetSet: React.FC<{
         <SchoolBus x={busX} y={busY} scale={busScale} fog={fog} wire={wire} ledOn={led} interior={0.35}
           childNode={nia ? (
             <g transform={`translate(${26 + 6 * 76 + 31} ${niaY})`}>
-              <path d="M-22 60 C-22 20 -16 4 0 2 C16 4 22 20 22 60 Z" fill="#c9a018" />
-              <circle cx={0} cy={6} r={15} fill="#d9b020" />
-              <circle cx={1} cy={9} r={10} fill="#8a5a3c" />
-              <ellipse cx={-14} cy={-6 - niaPound * 6} rx={5} ry={7} fill="#8a5a3c" />
-              <ellipse cx={14} cy={-8 - niaPound * 6} rx={5} ry={7} fill="#8a5a3c" />
+              {/* Nia seen through the bus window, front view (same design as the S3 close-up): coat, hood, bangs, face, two palms on the glass */}
+              <path d="M-24 64 C-24 36 -18 24 0 22 C18 24 24 36 24 64 Z" fill="#e0b418" stroke="#3a2a08" strokeWidth={1.5} />
+              <path d="M0 24 V64" stroke="#8a6408" strokeWidth={1.5} />
+              <circle cx={0} cy={6} r={17} fill="#e8bc1c" stroke="#3a2a08" strokeWidth={1.5} />
+              <circle cx={0} cy={7} r={12.5} fill="#3a2a0c" />
+              <path d="M-11 6 C-11 -5 -5 -8 0 -8 C5 -8 11 -5 11 6 C11 13 6 19 0 19 C-6 19 -11 13 -11 6 Z" fill="#a8714d" />
+              <path d="M-11 4 C-11 -6 -4 -9 1 -9 C7 -9 11 -5 11 3 C8 0 5 -1 3 -1 C2 -3 0 -3 -2 -1 C-5 0 -8 1 -11 4 Z" fill="#1a120e" />
+              <circle cx={-4} cy={6} r={2.2} fill="#f6efe6" /><circle cx={4} cy={6} r={2.2} fill="#f6efe6" />
+              <circle cx={-4} cy={6.3} r={1.2} fill="#120a06" /><circle cx={4} cy={6.3} r={1.2} fill="#120a06" />
+              <path d="M-2.5 14 Q0 12.8 2.5 14" stroke="#5a2020" strokeWidth={1} fill="none" />
+              {[-1, 1].map((sd) => (
+                <g key={sd} transform={`translate(${sd * 21} ${-6 - Math.abs(Math.sin(niaPound * f * 0.5 + sd)) * 7})`}>
+                  <path d={`M${-3} 8 L${-4} 30 M${3} 8 L${4} 30`} stroke="#e0b418" strokeWidth={4} />
+                  <path d="M-6 8 Q-7 -2 -5 -8 M-2 6 L-2 -11 M2 6 L2 -11 M5.5 7 L6 -8" stroke="#a8714d" strokeWidth={2.6} strokeLinecap="round" />
+                  <ellipse cx={0} cy={4} rx={6} ry={6} fill="#a8714d" />
+                  <path d={`M${-sd * 6} 6 L${-sd * 10} 0`} stroke="#a8714d" strokeWidth={2.6} strokeLinecap="round" />
+                </g>
+              ))}
             </g>
           ) : undefined} />
         <Splashes y0={800} y1={1080} count={40 * rain} />

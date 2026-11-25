@@ -3,6 +3,17 @@ import { AbsoluteFill } from "remotion";
 
 export type Cam = { x: number; y: number; zoom: number; rot?: number; shakeX?: number; shakeY?: number };
 const CamCtx = createContext<Cam>({ x: 0, y: 0, zoom: 1 });
+type PlaneInfo = { p: number; z: number; cam: Cam };
+const PlaneCtx = createContext<PlaneInfo | null>(null);
+/** design-space -> screen-space projection of the current Plane (used by the framing audit) */
+export const useScreenProj = () => {
+  const pl = useContext(PlaneCtx);
+  return {
+    y: (y: number) => (pl ? 594 - pl.cam.y * pl.p + pl.z * (y - 594) + (pl.cam.shakeY ?? 0) : y),
+    x: (x: number) => (pl ? 960 - pl.cam.x * pl.p + pl.z * (x - 960) + (pl.cam.shakeX ?? 0) : x),
+    z: pl ? pl.z : 1,
+  };
+};
 
 /** Virtual camera. Planes read it and apply depth-scaled parallax (storyboard 5-plane setup). */
 export const Stage: React.FC<{ cam: Cam; children: React.ReactNode; bg?: string }> = ({ cam, children, bg = "#05070c" }) => (
@@ -20,15 +31,17 @@ export const Plane: React.FC<{ p: number; children: React.ReactNode; style?: Rea
   const c = useContext(CamCtx);
   const z = 1 + (c.zoom - 1) * p;
   return (
-    <AbsoluteFill
-      style={{
-        transform: `translate(${-c.x * p}px, ${-c.y * p}px) scale(${z})`,
-        transformOrigin: "50% 55%",
-        ...style,
-      }}
-    >
-      {children}
-    </AbsoluteFill>
+    <PlaneCtx.Provider value={{ p, z, cam: c }}>
+      <AbsoluteFill
+        style={{
+          transform: `translate(${-c.x * p}px, ${-c.y * p}px) scale(${z})`,
+          transformOrigin: "50% 55%",
+          ...style,
+        }}
+      >
+        {children}
+      </AbsoluteFill>
+    </PlaneCtx.Provider>
   );
 };
 

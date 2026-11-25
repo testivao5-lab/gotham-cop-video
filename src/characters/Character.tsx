@@ -1,6 +1,8 @@
 import React, { useId } from "react";
 import { useCurrentFrame } from "remotion";
 import { mix, shade, tint } from "../lib/anim";
+import { useScreenProj } from "../lib/Camera";
+import { auditReport } from "../lib/audit";
 
 export type Kind = "alex" | "alexYoung" | "alexDress" | "mara" | "batman" | "father" | "nia" | "mother" | "driver" | "specialist" | "robber" | "employee" | "reporter";
 
@@ -58,6 +60,8 @@ export type CharProps = {
   kind: Kind; x: number; y: number; scale?: number; facing?: 1 | -1; pose?: Partial<Pose>;
   id: string; lightSide?: 1 | -1; silhouette?: number; rim?: string; nightTint?: number;
   prop?: "radio" | "flashlight" | "key" | "phone" | "bottle" | "toolbox" | "none"; propOn?: number; flashBeam?: number;
+  /** declared framing crop (framing audit): thigh/waist = cut above the knee on purpose; closeup = extreme close; transit = passes through frame edge during a camera move */
+  crop?: "thigh" | "waist" | "closeup" | "transit";
   shoulderRadio?: boolean; capeWind?: number; hood?: boolean; glowEyes?: number; noHat?: boolean; style?: React.CSSProperties;
   /** world-space IK targets for the palm centre (overrides armNear / armFar) */
   reachNear?: [number, number]; reachFar?: [number, number];
@@ -86,6 +90,16 @@ export const Character: React.FC<CharProps> = (props) => {
   }
   if (!props.allowMouth) p.mouth = 0;
   const b = BUILD[kind];
+  // ---- PREVENTION: framing audit (feet / shin crops). A body may be (a) fully in frame with feet on the floor,
+  // or (b) deliberately cropped ABOVE the knee (declare crop="thigh"|"waist"). Cutting between ankle and knee,
+  // or feet hanging below the frame with no declared crop, is reported (CI fails on it).
+  const proj = useScreenProj();
+  {
+    const feet = proj.y(y), knee = proj.y(y - b.shin * scale * 1.08);
+    const cutBetweenFootAndKnee = feet > 1066 && knee < 1080 + 24 * proj.z * scale;
+    if (props.crop !== "transit" && props.crop !== "closeup" && cutBetweenFootAndKnee) auditReport(`${id}:shin-crop(feet ${feet | 0})`);
+    if (!props.crop && feet > 1066 && !cutBetweenFootAndKnee) auditReport(`${id}:undeclared-crop(feet ${feet | 0})`);
+  }
   const pal0 = PAL[kind];
   const sil = (c: string) => mix(mix(c, "#1b2a4a", nightTint), "#06080f", silhouette);
   const pal: Pal = Object.fromEntries(Object.entries(pal0).map(([k, v]) => [k, sil(v as string)])) as Pal;
@@ -630,7 +644,7 @@ const Prop: React.FC<{ type: string; on: number; beam: number; r: number; id: st
         {on > 0 && <circle cx={20} cy={0} r={18} fill="#fff2c8" opacity={0.35 * on} />}
       </g>
     );
-  if (type === "key") return <g transform={`translate(4 ${r * 1.2})`}><circle r={5} fill="none" stroke="#c9a640" strokeWidth={2.5} /><rect x={4} y={-1.5} width={14} height={3} fill="#c9a640" /></g>;
+  if (type === "key") return <g transform={`translate(2 ${r * 1.1}) rotate(20)`}><circle r={8} fill="none" stroke="#d9b24a" strokeWidth={4} /><circle r={8} fill="none" stroke="#5a4010" strokeWidth={1} /><rect x={7} y={-2.5} width={26} height={5} rx={1.5} fill="#d9b24a" stroke="#5a4010" strokeWidth={1} /><path d="M26 2.5 v6 h3 v-4 h3 v4 h2 v-6" fill="#d9b24a" stroke="#5a4010" strokeWidth={1} /></g>;
   if (type === "phone") return <g transform={`translate(-2 ${r * 0.6})`}><rect x={-6} y={-4} width={12} height={22} rx={2} fill="#151518" stroke={o} /><rect x={-4} y={-1} width={8} height={12} fill={on > 0 ? "#9fd0ff" : "#222"} opacity={0.8} /></g>;
   if (type === "bottle") return <g transform={`translate(0 ${r * 0.4})`}><rect x={-6} y={-12} width={12} height={30} rx={4} fill="#9fc8e8" opacity={0.7} stroke={o} /><rect x={-3} y={-18} width={6} height={7} fill="#2a5aa0" /></g>;
   if (type === "toolbox") return <g transform={`translate(0 ${r * 1.4})`}><rect x={-26} y={0} width={52} height={26} rx={3} fill="#8a1f1a" stroke={o} strokeWidth={1.5} /><path d="M-10 0 V-8 H10 V0" stroke="#222" strokeWidth={3} fill="none" /></g>;

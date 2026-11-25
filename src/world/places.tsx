@@ -147,7 +147,7 @@ export const ShopInterior: React.FC<{ lamp: number; warm?: number }> = ({ lamp, 
           {Array.from({ length: 6 }).map((_, i) => {
             const seed = row * 11 + i * 7;
             const bx = 80 + i * 145 + rand(seed) * 26, by = 260 + row * 160;
-            const kind = (row * 2 + i * 3 + Math.floor(rand(seed + 3) * 2)) % 5;
+            const kind = [0, 1, 5, 2, 3, 6, 4, 2, 5, 0, 6, 3, 1, 4, 0, 6, 5, 2][row * 6 + i]; // hand-placed: no neighbour repeats
             const hrs = rand(seed + 1) * Math.PI * 2, mins = rand(seed + 2) * Math.PI * 2 + f * 0.0015;
             const wood = mix("#6a4428", "#2e1c10", rand(seed + 4));
             if (kind === 0) { const r = 28 + rand(seed + 5) * 16; return (
@@ -166,6 +166,19 @@ export const ShopInterior: React.FC<{ lamp: number; warm?: number }> = ({ lamp, 
               <g key={i}><rect x={bx + 20} y={by - 96} width={58} height={96} rx={6} fill={wood} stroke="#0d0805" strokeWidth={3} />
                 <circle cx={bx + 49} cy={by - 66} r={20} fill="#efe2c4" /><path d={`M${bx + 49} ${by - 66} l${Math.sin(hrs) * 10} ${-Math.cos(hrs) * 10} M${bx + 49} ${by - 66} l${Math.sin(mins) * 16} ${-Math.cos(mins) * 16}`} stroke="#1a110a" strokeWidth={2} />
                 <path d={`M${bx + 30} ${by - 104} Q${bx + 49} ${by - 124} ${bx + 68} ${by - 104} Z`} fill={wood} stroke="#0d0805" strokeWidth={2} /></g>);
+            if (kind === 5) return (
+              <g key={i}>{/* gramophone: wooden box + brass horn */}
+                <rect x={bx + 10} y={by - 40} width={70} height={40} rx={3} fill={wood} stroke="#0d0805" strokeWidth={3} />
+                <path d={`M${bx + 46} ${by - 40} L${bx + 54} ${by - 70} C${bx + 70} ${by - 92} ${bx + 104} ${by - 118} ${bx + 120} ${by - 112} C${bx + 126} ${by - 92} ${bx + 102} ${by - 70} ${bx + 60} ${by - 66} Z`} fill="#c9a040" stroke="#3a2808" strokeWidth={2.5} />
+                <path d={`M${bx + 70} ${by - 84} Q${bx + 96} ${by - 100} ${bx + 114} ${by - 106}`} stroke="#fff0b0" strokeWidth={2} opacity={0.5} fill="none" />
+                <ellipse cx={bx + 40} cy={by - 42} rx={26} ry={4} fill="#1a110a" /></g>);
+            if (kind === 6) return (
+              <g key={i}>{/* typewriter with paper + vacuum tubes box */}
+                <path d={`M${bx} ${by} L${bx + 12} ${by - 34} H${bx + 98} L${bx + 110} ${by} Z`} fill="#2a2e2a" stroke="#0d0805" strokeWidth={3} />
+                <rect x={bx + 26} y={by - 64} width={58} height={34} fill="#efe6cc" stroke="#6a5a40" strokeWidth={1.5} />
+                {[0, 1, 2].map((k) => <path key={k} d={`M${bx + 32} ${by - 56 + k * 8} H${bx + 76 - k * 10}`} stroke="#6a5a40" strokeWidth={1.2} />)}
+                <rect x={bx + 4} y={by - 40} width={102} height={8} rx={4} fill="#1a1a1a" />
+                {Array.from({ length: 8 }).map((_, k) => <circle key={k} cx={bx + 20 + k * 10} cy={by - 16} r={3} fill="#d8d0b8" />)}</g>);
             return (
               <g key={i}><rect x={bx} y={by - 70} width={96} height={70} fill="#25262b" stroke="#0d0805" strokeWidth={3} />
                 <rect x={bx + 8} y={by - 62} width={56} height={46} rx={10} fill="#3c4c58" opacity={0.85} /><rect x={bx + 12} y={by - 58} width={20} height={10} rx={4} fill="#9ab" opacity={0.25} />
@@ -269,6 +282,10 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
           </g>
         );
       })}
+      {/* plaza / sidewalk in front of the facade (no gap to the skyline) */}
+      <rect x={-400} y={836} width={2720} height={96} fill="#2a2430" />
+      {Array.from({ length: 30 }).map((_, i) => <path key={`pz${i}`} d={`M${-200 + i * 90} 836 L${-260 + i * 90} 932`} stroke="#000" strokeOpacity={0.22} />)}
+      <rect x={-400} y={836} width={2720} height={4} fill="#4a4250" />
       {/* steps */}
       {Array.from({ length: 5 }).map((_, i) => <rect key={i} x={120 - i * 30} y={800 + i * 28} width={1680 + i * 60} height={28} fill={i % 2 ? "#3a4256" : "#474f66"} />)}
       <rect x={0} y={940} width={1920} height={140} fill="#141822" />
@@ -332,10 +349,19 @@ export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
       {[640, 1020].map((x) => <g key={x}><rect x={x - 4} y={720} width={8} height={120} fill="#111" /><circle cx={x} cy={712} r={13} fill="#fff0c8" /><circle cx={x} cy={712} r={70} fill="url(#prGlow)" opacity={fl} /></g>)}
       {/* steps */}
       {Array.from({ length: 4 }).map((_, i) => <rect key={i} x={640 - i * 40} y={840 + i * 22} width={380 + i * 80} height={22} fill={i % 2 ? "#4a3e44" : "#5a4c52"} />)}
-      <rect x={0} y={928} width={1920} height={152} fill="#15121a" />
-      <rect x={0} y={928} width={1920} height={6} fill="#3a3440" />
-      {/* sandbags */}
-      {Array.from({ length: 7 }).map((_, i) => <ellipse key={i} cx={1120 + i * 34} cy={920 - (i % 2) * 18} rx={22} ry={12} fill="#5a5040" stroke="#1a1610" strokeWidth={2} />)}
+      <rect x={-400} y={928} width={2720} height={700} fill="#15121a" />
+      <rect x={-400} y={928} width={2720} height={6} fill="#3a3440" />
+      {/* deco stone planters flanking the steps (contact shadow on the plaza) */}
+      {[470, 1196].map((x) => (
+        <g key={`pl${x}`}>
+          <ellipse cx={x} cy={922} rx={70} ry={8} fill="#000" opacity={0.5} />
+          <path d={`M${x - 56} 862 H${x + 56} L${x + 46} 920 H${x - 46} Z`} fill="#5a4c52" stroke="#1a1418" strokeWidth={3} />
+          <rect x={x - 62} y={854} width={124} height={12} rx={3} fill="#7a6a70" stroke="#1a1418" strokeWidth={2} />
+          <path d={`M${x - 40} 868 V914 M${x} 868 V916 M${x + 40} 868 V914`} stroke="#3a2e34" strokeWidth={3} />
+          <path d={`M${x - 50} 856 C${x - 60} 820 ${x - 30} 800 ${x - 10} 818 C${x} 790 ${x + 30} 796 ${x + 26} 822 C${x + 56} 812 ${x + 62} 840 ${x + 50} 856 Z`} fill="#1e3a2a" stroke="#0c1a12" strokeWidth={2.5} />
+          <path d={`M${x - 30} 830 q10 -10 22 -4 M${x + 6} 816 q10 -6 18 2`} stroke="#3e6a4c" strokeWidth={3} fill="none" />
+        </g>
+      ))}
     </svg>
   );
 };
@@ -419,7 +445,10 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
         <path d="M-30 146 L-8 120 L12 150 Z M40 146 L22 118 L12 150 Z" fill="#f08c1e" stroke={o} strokeWidth={2} strokeLinejoin="round" />
         <g transform={`rotate(${-3 * turn - laugh * 2 * Math.sin(f * 0.55)} 0 60)`}>
           {/* back hair (slicked, green) behind the ear */}
-          <path d="M-86 -56 C-100 -10 -96 44 -70 92 C-56 100 -44 96 -40 84 C-48 50 -50 20 -40 -8 C-30 -30 -4 -44 40 -52 L60 -64 Z" fill={hair} stroke={o} strokeWidth={3} strokeLinejoin="round" />
+          {/* skull + nape behind the face so the hair sits ON a head (not pasted on) */}
+          <path d="M-108 -58 C-128 -8 -120 52 -84 96 C-70 110 -48 108 -38 92 L-30 60 L-40 -60 Z" fill={skinSh} stroke={o} strokeWidth={3} strokeLinejoin="round" />
+          <path d="M-110 -60 C-130 -10 -122 46 -88 90 C-74 100 -56 98 -46 86 C-52 52 -52 18 -42 -8 C-30 -30 -4 -44 40 -52 L60 -64 Z" fill={hair} stroke={o} strokeWidth={3} strokeLinejoin="round" />
+          {[-98, -84, -70, -58].map((hx, i) => <path key={`sl${i}`} d={`M${hx + 6} -54 C${hx - 8} -10 ${hx - 6} 40 ${hx + 10} ${84 - i * 6}`} stroke={i % 2 ? hairSh : "#6ad07a"} strokeWidth={i % 2 ? 3 : 2} opacity={i % 2 ? 0.9 : 0.55} fill="none" strokeLinecap="round" />)}
           {/* face in profile: forehead, brow ridge, long sharp nose, jutting pointed chin, jaw angle well behind the cheek */}
           <path d="M-40 -60 C0 -66 40 -68 70 -64 C88 -52 96 -38 98 -24 C102 -20 102 -14 98 -8 C110 4 124 16 136 24 C126 30 114 34 104 34 C108 40 110 46 108 52 C112 70 112 86 106 96 C112 112 120 130 124 150 C112 160 96 164 80 160 C50 150 18 128 -8 108 C-20 98 -24 80 -24 60 C-28 30 -34 0 -40 -20 Z" fill={skin} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
           {/* hard cel shadow: back plane of the face (behind the cheekbone) */}
@@ -455,7 +484,7 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
           {/* sideburn in front of the ear */}
           <path d="M-40 -20 C-30 -10 -22 6 -20 24 L-26 26 C-30 8 -36 -6 -48 -16 Z" fill={hair} stroke={o} strokeWidth={2} />
           {[-66, -52].map((hx) => <path key={hx} d={`M${hx} -44 Q${hx - 10} 10 ${hx - 2} 60`} stroke={hairSh} strokeWidth={3} fill="none" />)}
-          <path d="M-86 -56 C-100 -10 -96 44 -70 92 C-78 50 -76 0 -62 -44 Z" fill={hairSh} />
+          <path d="M-110 -60 C-130 -10 -122 46 -88 90 C-100 50 -100 0 -88 -50 Z" fill={hairSh} />
           <path d="M106 -24 C112 -8 126 10 136 24" stroke="url(#jkRim)" strokeWidth={5} fill="none" />
           {/* fedora */}
           <ellipse cx={14} cy={-62} rx={178} ry={36} fill={hatSh} stroke={o} strokeWidth={3.2} transform="rotate(-7 14 -62)" />
@@ -474,7 +503,7 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
           {/* middle finger (behind the card) */}
           <path d="M-12 -18 C-14 -50 -14 -80 -12 -100 Q-4 -112 6 -100 C8 -80 8 -50 8 -18 Z" fill={glove} stroke={o} strokeWidth={2.6} />
           {/* card */}
-          <g transform="translate(16 -128) rotate(12)">
+          <g transform="translate(14 -86) rotate(10)">
             {card < 0.5 && (
               <g transform={`scale(${Math.max(0.12, Math.cos(card * Math.PI))} 1)`}>
                 <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#7a1a24" stroke={o} strokeWidth={3} />
@@ -500,6 +529,9 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
           <path d="M-20 -22 C-30 -34 -38 -16 -32 -2 C-28 6 -20 6 -16 -2 Z" fill={glove} stroke={o} strokeWidth={2.4} />
           {/* thumb folded over the curled fingers */}
           <path d="M28 18 C16 10 0 4 -18 2 Q-26 4 -22 12 C-6 18 10 26 26 32 Z" fill={glove} stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          {/* thumb tip pinching the card face against the index finger */}
+          <path d="M26 30 C40 4 40 -26 26 -48 Q16 -58 8 -48 C16 -30 16 -4 6 18 Z" fill={glove} stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          <path d="M24 -40 C30 -28 30 -10 24 6" stroke={gloveL} strokeWidth={2} fill="none" opacity={0.7} />
           {/* index finger in front of the card */}
           <path d="M12 -18 C14 -48 18 -74 22 -92 Q30 -102 36 -90 C34 -70 32 -46 30 -18 Z" fill={glove} stroke={o} strokeWidth={2.6} />
           {/* glove stitching + rim light */}
