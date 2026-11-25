@@ -26,14 +26,16 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Install stable-ts (CPU torch)
         run: |
-          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install --index-url https://download.pytorch.org/whl/cpu torch torchaudio
           pip install stable-ts
       - uses: actions/cache@v4
         with:
           path: ~/.cache/whisper
           key: whisper-${{ inputs.model }}
       - name: Forced alignment + scene retiming
-        run: python scripts/align.py "${{ inputs.model }}" | tee alignment-report.txt
+        run: |
+          set -o pipefail
+          python scripts/align.py "${{ inputs.model }}" | tee alignment-report.txt
       - uses: actions/upload-artifact@v4
         with:
           name: alignment
