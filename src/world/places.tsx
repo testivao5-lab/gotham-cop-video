@@ -312,8 +312,10 @@ export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
         <rect key={`${r}${c}`} x={1290 + c * 82} y={170 + r * 100} width={44} height={56} fill={rand(r * 9 + c) > 0.6 ? "#e8b860" : "#0d0b10"} opacity={0.8} />
       )))}
       {/* main deco facade */}
-      <path d="M380 840 V200 Q380 130 520 120 H1140 Q1280 130 1280 200 V840 Z" fill="url(#prF)" />
-      <path d="M560 120 Q830 40 1100 120 Z" fill="#2a1e26" />
+      <path d="M380 840 V200 H420 V160 H520 V120 H1140 V160 H1240 V200 H1280 V840 Z" fill="url(#prF)" stroke="#1a1016" strokeWidth={3} />
+      {[[380, 200, 1280], [420, 160, 1240], [520, 120, 1140]].map(([x0, yy, x1]) => <path key={yy} d={`M${x0} ${yy} H${x1}`} stroke="#c9a890" strokeWidth={3} opacity={0.5} />)}
+      <path d="M560 120 V96 H640 V72 H1020 V96 H1100 V120 Z" fill="#2a1e26" stroke="#8a6a60" strokeWidth={2} />
+      <path d="M826 72 V20 M818 30 H834" stroke="#8a6a60" strokeWidth={4} />
       {/* vertical deco fins */}
       {[640, 760, 880, 1000].map((x, i) => (
         <g key={i}>

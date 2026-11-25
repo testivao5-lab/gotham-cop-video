@@ -870,14 +870,14 @@ export const Scene08: React.FC = () => {
   const cBm = cue(8, "beam");
   const cSh = cue(8, "shake");
   // hand-off: dad offers (IK) -> Alex's hand arrives at the same point -> swap at contact -> Alex draws it to his chest
-  const meet: [number, number] = [962, 1040 - 250 * 1.4]; // flashlight centre at the hand-off
+  const meet: [number, number] = [962, 1000 - 250 * 1.4]; // flashlight centre at the hand-off
   const offer = ci(f, [cG - 12, cG + 6], [0, 1], EZ);
   const take = ci(f, [cG + 2, cG + 14], [0, 1], EZ);
   const handed = f >= cG + 16;
   const back = ci(f, [cG + 22, cG + 40], [0, 1], EZ);
   const HALF = 26; // hands meet side by side on the same flashlight (prop lives in the grip socket)
-  const aRest = anchor("alexDress", 800, 1040, 1.4, 1, "waist");
-  const dRest = anchor("father", 1120, 1040, 1.38, -1, "waist");
+  const aRest = anchor("alexDress", 800, 1000, 1.4, 1, "waist");
+  const dRest = anchor("father", 1120, 1000, 1.38, -1, "waist");
   const aChest: [number, number] = [aRest[0] + 46, aRest[1] - 64];
   const dHold: [number, number] = [dRest[0] - 40, dRest[1] - 10];
   const dadHand: [number, number] = handed ? mixP([meet[0] + HALF, meet[1]], [dRest[0] - 30, dRest[1] + 40], back) : mixP(dHold, [meet[0] + HALF, meet[1]], offer);
@@ -892,10 +892,10 @@ export const Scene08: React.FC = () => {
           <Plane p={0.15}><Sky variant="night" seed={11} moon={[1700, 120, 34]} horizonY={900} /></Plane>
           <Plane p={0.7}><Academy /></Plane>
           <Plane p={1}>
-            <Character id="s8alex" kind="alexDress" x={800} y={1040} scale={1.4} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890"
+            <Character id="s8alex" kind="alexDress" x={800} y={1000} scale={1.4} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890"
               reachNear={alexHand} prop={handed ? "flashlight" : "none"}
               pose={{ handNear: handed || take > 0.85 ? "grip" : "open", smile: 0.5, brow: 0.3, head: -2 - 3 * back, eyeY: 0.4 * back, blink: blinkAt(f, 70, 30), bob: breathe(f) }} />
-            <Character id="s8dad" kind="father" x={1120} y={1040} scale={1.38} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
+            <Character id="s8dad" kind="father" x={1120} y={1000} scale={1.38} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
               reachNear={dadHand} prop={handed ? "none" : "flashlight"}
               pose={{ handNear: handed ? "open" : "grip", head: 3, smile: 0.25, eyeY: 0.3, blink: blinkAt(f, 80), bob: breathe(f, 0.35) }} />
           </Plane>
@@ -960,7 +960,7 @@ export const Scene10: React.FC = () => {
   return (
     <Stage cam={cam}>
       <Plane p={0.15}><Sky variant="night" seed={14} moon={[380, 140, 40]} horizonY={700} /></Plane>
-      <Plane p={0.35}><DecoSkyline seed={61} baseY={640} hMin={260} hMax={560} haze={0.45} /></Plane>
+      <Plane p={0.35}><DecoSkyline seed={61} baseY={840} hMin={460} hMax={760} haze={0.45} /></Plane>
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
         <Character id="s10mara" kind="mara" x={1110} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
