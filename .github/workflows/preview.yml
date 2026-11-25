@@ -1,0 +1,104 @@
+name: Preview (stills + half-res video)
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenes:
+        description: "Scene range, e.g. 1-10 or all"
+        default: "1-10"
+      chunks:
+        description: "Parallel render jobs"
+        default: "10"
+      scale:
+        description: "Render scale (0.5 = 960x540)"
+        default: "0.5"
+      extra_stills:
+        description: "Extra stills comp:frame,comp:frame (optional)"
+        default: ""
+      video:
+        description: "Render preview video too (true/false)"
+        default: "true"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      start: ${{ steps.m.outputs.start }}
+      end: ${{ steps.m.outputs.end }}
+      stills: ${{ steps.m.outputs.stills }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: node scripts/matrix.mjs "${{ inputs.scenes }}" "${{ inputs.chunks }}"
+
+  stills:
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Bundle once
+        run: npx remotion bundle src/index.ts --out-dir=bundle
+      - name: Render stills
+        run: |
+          mkdir -p stills
+          LIST="${{ needs.plan.outputs.stills }}"
+          EXTRA="${{ inputs.extra_stills }}"
+          for item in $(echo "$LIST" | tr ',' ' '); do
+            id=${item%%:*}; fr=${item##*:}
+            npx remotion still bundle GothamCop "stills/${id}.jpg" --frame=$fr --image-format=jpeg --jpeg-quality=88 --log=error &
+            while [ $(jobs -r | wc -l) -ge 4 ]; do sleep 1; done
+          done
+          for item in $(echo "$EXTRA" | tr ',' ' '); do
+            comp=${item%%:*}; fr=${item##*:}
+            npx remotion still bundle "$comp" "stills/x_${comp}_${fr}.jpg" --frame=$fr --image-format=jpeg --jpeg-quality=88 --log=error &
+            while [ $(jobs -r | wc -l) -ge 4 ]; do sleep 1; done
+          done
+          wait
+          ls -la stills
+      - uses: actions/upload-artifact@v4
+        with: { name: stills, path: stills }
+
+  render:
+    needs: plan
+    if: ${{ inputs.video == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - name: Render chunk ${{ matrix.idx }} (${{ matrix.from }}-${{ matrix.to }})
+        run: |
+          mkdir -p parts
+          npx remotion render src/index.ts GothamCop parts/part_${{ matrix.idx }}.mp4 \
+            --frames=${{ matrix.from }}-${{ matrix.to }} --scale=${{ inputs.scale }} --muted \
+            --concurrency=100% --crf=23 --log=error
+      - uses: actions/upload-artifact@v4
+        with: { name: "part-${{ matrix.idx }}", path: parts }
+
+  combine:
+    needs: [plan, render]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - uses: actions/download-artifact@v4
+        with: { pattern: "part-*", path: parts, merge-multiple: true }
+      - name: Concat + narration
+        run: |
+          ls parts | sort | sed "s/^/file 'parts\//; s/$/'/" > list.txt
+          ffmpeg -y -loglevel error -f concat -safe 0 -i list.txt -c copy video.mp4
+          SS=$(python3 -c "print(${{ needs.plan.outputs.start }}/24)")
+          DUR=$(python3 -c "print((${{ needs.plan.outputs.end }}-${{ needs.plan.outputs.start }}+1)/24)")
+          ffmpeg -y -loglevel error -i video.mp4 -ss $SS -t $DUR -i public/narration.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -shortest preview.mp4
+          ls -la preview.mp4
+      - uses: actions/upload-artifact@v4
+        with: { name: preview-video, path: preview.mp4 }

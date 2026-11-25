@@ -15,4 +15,4 @@ export type SceneInfo = {
 };
 
 export const SCENES = scenes as SceneInfo[];
-export const TOTAL_FRAMES = SCENES[SCENES.length - 1].end + 1 + FPS; // +1s tail
+export const TOTAL_FRAMES = SCENES[SCENES.length - 1].end + 1;

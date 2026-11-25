@@ -1,9 +1,11 @@
 import React from "react";
 import { Composition } from "remotion";
 import { GothamCop } from "./Video";
+import { Lineup } from "./scenes/batch1";
 import { FPS, HEIGHT, TOTAL_FRAMES, WIDTH } from "./timeline";
 
 export const RemotionRoot: React.FC = () => (
+  <>
   <Composition
     id="GothamCop"
     component={GothamCop}
@@ -12,4 +14,6 @@ export const RemotionRoot: React.FC = () => (
     width={WIDTH}
     height={HEIGHT}
   />
+  <Composition id="Lineup" component={Lineup} durationInFrames={48} fps={FPS} width={WIDTH} height={HEIGHT} />
+  </>
 );
