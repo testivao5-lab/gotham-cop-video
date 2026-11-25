@@ -15,7 +15,8 @@ export const BusStreetSet: React.FC<{
   nia?: boolean; niaPound?: number; sky?: SkyVariant; rain?: number; lamp?: number; blackout?: number;
 }> = ({ flash = 0, fog = 0.3, wire = false, led = false, busX = 860, busY = 470, busScale = 0.95, nia = true, niaPound = 0, sky = "storm", rain = 1, lamp = 1, blackout = 0 }) => {
   const f = useCurrentFrame();
-  const niaY = 60 - Math.abs(Math.sin(niaPound * f * 0.5)) * 6;
+  // WORLD_METRICS: bus window 0.95 m = 92 local px -> kid head 0.20 m ~ 19 px (1 : 4.5); seated torso+head 0.55 m above the sill
+  const niaY = 67 - Math.abs(Math.sin(niaPound * f * 0.5)) * 3;
   return (
     <>
       <Plane p={0.2}><Sky variant={sky} moon={sky === "storm" ? undefined : [1500, 180, 46]} flash={flash} seed={3} horizonY={700} /></Plane>
@@ -34,9 +35,9 @@ export const BusStreetSet: React.FC<{
         {lamp > 0 && <Glow x={702} y={240} r={70} opacity={0.7 * lamp} />}
         <SchoolBus x={busX} y={busY} scale={busScale} fog={fog} wire={wire} ledOn={led} interior={0.35}
           childNode={nia ? (
-            <g transform={`translate(${26 + 6 * 76 + 31} ${niaY})`}>
+            <g transform={`translate(${26 + 6 * 76 + 31} ${niaY}) scale(0.6)`}>
               {/* Nia seen through the bus window, front view (same design as the S3 close-up): coat, hood, bangs, face, two palms on the glass */}
-              <path d="M-24 64 C-24 36 -18 24 0 22 C18 24 24 36 24 64 Z" fill="#e0b418" stroke="#3a2a08" strokeWidth={1.5} />
+              <path d="M-26 84 C-26 36 -18 24 0 22 C18 24 26 36 26 84 Z" fill="#e0b418" stroke="#3a2a08" strokeWidth={1.5} />
               <path d="M0 24 V64" stroke="#8a6408" strokeWidth={1.5} />
               <circle cx={0} cy={6} r={17} fill="#e8bc1c" stroke="#3a2a08" strokeWidth={1.5} />
               <circle cx={0} cy={7} r={12.5} fill="#3a2a0c" />

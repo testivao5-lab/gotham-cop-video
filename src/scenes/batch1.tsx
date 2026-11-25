@@ -7,7 +7,8 @@ import { Post, Rain, Fog, Glow, lightning, handheld, Splashes, LightCone } from 
 import { Character, breathe, blinkAt, walk, walkDist, anchor } from "../characters/Character";
 import { Sky, DecoSkyline } from "../world/sky";
 import { StreetFacades, WetStreet, SchoolBus } from "../world/street";
-import { ShopFront, ShopInterior, Academy, Precinct, JokerProfile, BrassDomeLamp } from "../world/places";
+import { ShopFront, ShopInterior, Academy, Precinct, JokerProfile, BrassDomeLamp, PRECINCT_DOOR_PX, PRECINCT_GROUND_Y } from "../world/places";
+import { guardDoor, guardWindowHead } from "../lib/world";
 import { BusStreetSet, ForegroundRain, Caption, Shot, TimeJump, EdgeFade, Sfx } from "./common";
 
 const mixP = (a: [number, number], b: [number, number], t: number): [number, number] => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
@@ -85,19 +86,23 @@ export const Scene02: React.FC = () => {
 
 /* ============ Scene 3 — Nia pounds fogged bus window ============ */
 /* camera is OUTSIDE the bus looking in: droplets bead on the outer glass; the interior is warm, bright, dry */
-const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> = ({ fog, wipe, pound }) => {
+export const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> = ({ fog, wipe, pound }) => {
   const f = useCurrentFrame();
   const uid = React.useId().replace(/[^a-zA-Z0-9]/g, "");
   // window opening (glass) and sill; everything of the girl below the sill is hidden by the bus body (z30)
   const WX0 = 230, WX1 = 1690, WY0 = 110, SILL = 720;
   const br = breathe(f, 0.3, 3);
-  const CX = 960 + Math.sin(f * 0.05) * 4, HY = 410 + br * 0.4 - pound * 6;
+  // WORLD_METRICS: glass 0.95 m tall = 610 px -> 642 px/m. Child face 0.20 m ~ 137 px => K = 0.55 of the drawn face (250 u).
+  // Seated: shoulders just above the sill (window : head ~ 1 : 4.5). guardWindowHead throws if this is ever broken again.
+  const K = 0.55;
+  guardWindowHead(SILL - WY0, 250 * K, "S3 bus window close-up");
+  const CX = 960 + Math.sin(f * 0.05) * 4, HY = 478 + br * 0.3 - pound * 4;
   const blink = blinkAt(f, 84, 11);
   // ONE pair of hands only (no rig arms): palms pressed flat on the glass; a pound pulls back then slams
   const pull = 1 - pound;
-  const hs = 0.93 + pound * 0.07;
-  const palmL: [number, number] = [CX - 270 - pull * 6, 400 + pull * 10];
-  const palmR: [number, number] = [CX + 270 + pull * 6, 396 + pull * 10];
+  const hs = (0.93 + pound * 0.07) * K;
+  const palmL: [number, number] = [CX - 150 - pull * 4, 486 + pull * 6];
+  const palmR: [number, number] = [CX + 150 + pull * 4, 482 + pull * 6];
   const skin = "#a8714d", skinL = "#c48a62", skinS = "#7a4c30", ol = "#2a170d";
   const coat = "#f0c21a", coatS = "#c4960c", coatD = "#8a6408", coatL = "#ffe27a";
   /** palm facing the camera: thumb toward her midline (side = +1 for screen-left hand) */
@@ -111,10 +116,10 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
     return (
       <g transform={`translate(${at[0]} ${at[1]}) scale(${side * hs} ${hs})`}>
         {/* forearm/sleeve comes up from below the sill */}
-        <path d={`M-30 40 C-34 120 -44 260 -52 ${SILL - at[1] + 60} L44 ${SILL - at[1] + 60} C40 260 34 120 30 40 Z`} fill={skin} stroke={ol} strokeWidth={3.5} />
-        <path d={`M-48 ${170} C-50 260 -56 ${SILL - at[1]} -58 ${SILL - at[1] + 60} L50 ${SILL - at[1] + 60} C46 ${SILL - at[1]} 44 260 42 ${170} Q0 ${154} -48 ${170} Z`} fill={coat} stroke={ol} strokeWidth={3.5} />
+        <path d={`M-30 40 C-34 120 -44 260 -52 ${(SILL - at[1]) / K + 60} L44 ${(SILL - at[1]) / K + 60} C40 260 34 120 30 40 Z`} fill={skin} stroke={ol} strokeWidth={3.5} />
+        <path d={`M-48 ${170} C-50 260 -56 ${(SILL - at[1]) / K} -58 ${(SILL - at[1]) / K + 60} L50 ${(SILL - at[1]) / K + 60} C46 ${(SILL - at[1]) / K} 44 260 42 ${170} Q0 ${154} -48 ${170} Z`} fill={coat} stroke={ol} strokeWidth={3.5} />
         <path d={`M-48 ${170} Q0 ${154} 42 ${170} L42 ${188} Q0 ${172} -48 ${188} Z`} fill={coatS} />
-        <path d={`M24 ${190} C28 260 30 ${SILL - at[1] - 40} 32 ${SILL - at[1] + 60}`} stroke={coatL} strokeWidth={6} opacity={0.55} fill="none" />
+        <path d={`M24 ${190} C28 260 30 ${(SILL - at[1]) / K - 40} 32 ${(SILL - at[1]) / K + 60}`} stroke={coatL} strokeWidth={6} opacity={0.55} fill="none" />
         {/* fingers (drawn under the palm outline so the knuckle line is clean) */}
         {fingers.map((q, i) => (
           <g key={i}>
@@ -176,9 +181,13 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
       </svg>
       {/* z20 — Nia, front view: yellow raincoat hood, dark hair with bangs, child face aligned to the camera */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
-        <g transform={`translate(${CX} ${HY})`}>
-          {/* coat shoulders + chest */}
-          <path d={`M-250 ${420} C-240 ${300 - br} -200 ${220 - br} -96 ${190 - br} L96 ${190 - br} C200 ${220 - br} 240 ${300 - br} 250 ${420} Z`} fill={coat} stroke={ol} strokeWidth={4} />
+        <defs>
+          <radialGradient id={`niaSk${uid}`} cx="0.42" cy="0.38" r="0.7"><stop offset="0" stopColor="#c48a62" /><stop offset="0.6" stopColor={skin} /><stop offset="1" stopColor={skinS} /></radialGradient>
+          <linearGradient id={`niaCt${uid}`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={coatL} /><stop offset="0.45" stopColor={coat} /><stop offset="1" stopColor={coatS} /></linearGradient>
+        </defs>
+        <g transform={`translate(${CX} ${HY}) scale(${K})`}>
+          {/* coat shoulders + chest (runs down behind the sill: the bus body hides everything below it) */}
+          <path d={`M-260 ${560} L-250 ${420} C-240 ${300 - br} -200 ${220 - br} -96 ${190 - br} L96 ${190 - br} C200 ${220 - br} 240 ${300 - br} 250 ${420} L260 ${560} Z`} fill={`url(#niaCt${uid})`} stroke={ol} strokeWidth={4} />
           <path d={`M-250 ${420} C-240 ${300 - br} -200 ${220 - br} -96 ${190 - br} L-60 ${196 - br} C-150 ${236} -190 ${320} -196 ${420} Z`} fill={coatS} />
           <path d={`M0 ${200 - br} V${420}`} stroke={coatD} strokeWidth={4} />
           {[250, 300].map((y) => <g key={y}><rect x={-26} y={y - 6} width={16} height={12} rx={3} fill="#3a2a10" /><rect x={10} y={y - 6} width={16} height={12} rx={3} fill="#3a2a10" /></g>)}
@@ -191,7 +200,7 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
           <path d="M-112 -20 C-124 40 -116 110 -92 150 L-70 150 C-86 100 -90 40 -84 -10 Z" fill="#1a120e" stroke={ol} strokeWidth={3} />
           <path d="M112 -20 C124 40 116 110 92 150 L70 150 C86 100 90 40 84 -10 Z" fill="#1a120e" stroke={ol} strokeWidth={3} />
           {/* face (front) */}
-          <path d="M-96 -30 C-100 -100 -54 -132 0 -132 C54 -132 100 -100 96 -30 C94 30 70 92 30 116 Q0 128 -30 116 C-70 92 -94 30 -96 -30 Z" fill={skin} stroke={ol} strokeWidth={4} />
+          <path d="M-96 -30 C-100 -100 -54 -132 0 -132 C54 -132 100 -100 96 -30 C94 30 70 92 30 116 Q0 128 -30 116 C-70 92 -94 30 -96 -30 Z" fill={`url(#niaSk${uid})`} stroke={ol} strokeWidth={4} />
           <path d="M60 -110 C96 -80 100 -20 90 30 C80 76 56 104 30 116 C58 70 74 10 60 -110 Z" fill={skinS} opacity={0.45} />
           <path d="M-80 -60 C-84 -20 -80 20 -70 46" stroke={skinL} strokeWidth={6} fill="none" opacity={0.5} />
           {/* ears peeking under the hood */}
@@ -225,9 +234,9 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
           <radialGradient id="bwSoft"><stop offset="0.55" stopColor="#000" stopOpacity="1" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
           <mask id="bwMask">
             <rect width="1920" height="1080" fill="white" />
-            <ellipse cx={CX} cy={HY - 10} rx={300 * wipe} ry={230 * wipe} fill="url(#bwSoft)" />
-            <ellipse cx={palmL[0]} cy={palmL[1] - 30} rx={92} ry={110} fill="url(#bwSoft)" />
-            <ellipse cx={palmR[0]} cy={palmR[1] - 30} rx={92} ry={110} fill="url(#bwSoft)" />
+            <ellipse cx={CX} cy={HY - 10} rx={300 * K * wipe} ry={230 * K * wipe} fill="url(#bwSoft)" />
+            <ellipse cx={palmL[0]} cy={palmL[1] - 30 * K} rx={92 * K} ry={110 * K} fill="url(#bwSoft)" />
+            <ellipse cx={palmR[0]} cy={palmR[1] - 30 * K} rx={92 * K} ry={110 * K} fill="url(#bwSoft)" />
           </mask>
           <radialGradient id="bwFog"><stop offset="0" stopColor="#e4ecf4" stopOpacity="0.85" /><stop offset="1" stopColor="#c4d2e2" stopOpacity="1" /></radialGradient>
           <clipPath id="bwGlass"><rect x={WX0} y={WY0} width={WX1 - WX0} height={SILL - WY0} rx={34} /></clipPath>
@@ -241,8 +250,9 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
             const r = 2.5 + rand(i * 7) * 5;
             return <g key={i}><circle cx={x0} cy={y} r={r} fill="#eef5ff" opacity={0.22} /><circle cx={x0 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.5} />{slide && <path d={`M${x0} ${y - 40} Q${x0 + 2} ${y - 20} ${x0} ${y - r}`} stroke="#eef5ff" strokeWidth={1.4} opacity={0.18} fill="none" />}</g>;
           })}
-          {pound > 0.2 && [palmL, palmR].map(([hx, hy], i) => <ellipse key={i} cx={hx} cy={hy - 30} rx={100 + (1 - pound) * 30} ry={118 + (1 - pound) * 30} fill="none" stroke="#ffffff" strokeWidth={3} opacity={pound * 0.25} />)}
-          <path d={`M${WX0 + 40} ${WY0} l240 0 l-260 ${SILL - WY0} l-90 0 Z`} fill="#fff" opacity={0.06} />
+          {pound > 0.2 && [palmL, palmR].map(([hx, hy], i) => <ellipse key={i} cx={hx} cy={hy - 30 * K} rx={(100 + (1 - pound) * 30) * K} ry={(118 + (1 - pound) * 30) * K} fill="none" stroke="#ffffff" strokeWidth={3} opacity={pound * 0.25} />)}
+          <path d={`M${WX0 + 40} ${WY0} l240 0 l-260 ${SILL - WY0} l-90 0 Z`} fill="#fff" opacity={0.15} />
+          <path d={`M${WX1 - 420} ${WY0} l120 0 l-170 ${SILL - WY0} l-60 0 Z`} fill="#fff" opacity={0.08} />
         </g>
       </svg>
       {/* z30 — bus body: window frame, rubber gasket, sill, yellow panel with black rub rails, rain on the outside */}
@@ -801,13 +811,14 @@ export const Scene07: React.FC = () => {
 };
 
 /* ============ Scene 8 — Graduation flashlight handoff ============ */
-const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> = ({ beam, shake, sw }) => {
+export const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> = ({ beam, shake, sw }) => {
   const f = useCurrentFrame();
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
       <defs>
         <linearGradient id="flM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4a4e58" /><stop offset="0.3" stopColor="#c9ced8" /><stop offset="0.5" stopColor="#8a909c" /><stop offset="1" stopColor="#2a2e36" /></linearGradient>
         <linearGradient id="flBeam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#fff4cc" stopOpacity="0.8" /><stop offset="1" stopColor="#fff4cc" stopOpacity="0" /></linearGradient>
+        <radialGradient id="flBeamR" cx="0" cy="0.5" r="1" fx="0" fy="0.5"><stop offset="0" stopColor="#fff8de" stopOpacity="0.9" /><stop offset="0.3" stopColor="#ffeebb" stopOpacity="0.4" /><stop offset="1" stopColor="#ffe6a8" stopOpacity="0" /></radialGradient>
         <linearGradient id="flSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#d49a70" /><stop offset="1" stopColor="#7a4a30" /></linearGradient>
         <radialGradient id="flBg" cx="0.3" cy="0.4"><stop offset="0" stopColor="#3a3a52" /><stop offset="1" stopColor="#07080e" /></radialGradient>
       </defs>
@@ -824,7 +835,17 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
         {/* wrist (in line with the barrel) + slim palm heel just under the barrel — no ball/disc below the grip */}
         <path d="M-372 -54 C-320 -66 -260 -66 -200 -58 L-40 30 C-20 60 -24 96 -54 110 C-140 124 -260 130 -356 150 C-372 90 -380 20 -372 -54 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
         <path d="M-330 128 Q-200 120 -70 104" stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
-        {beam > 0 && <path d="M330 -40 L1500 -420 L1500 420 L330 40 Z" fill="url(#flBeam)" opacity={beam} style={{ mixBlendMode: "screen" }} />}
+        {/* volumetric beam out of the LENS (+x, away from the wrist): radial falloff cone, blur, screen blend, flicker, dust motes */}
+        {beam > 0 && (() => {
+          const fl = 0.85 + 0.15 * Math.abs(Math.sin(f * 0.9) * Math.sin(f * 0.37 + 1));
+          return (
+            <g style={{ mixBlendMode: "screen" }}>
+              <path d="M330 -60 L1700 -560 L1700 560 L330 60 Z" fill="url(#flBeamR)" opacity={beam * fl * 0.6} style={{ filter: "blur(14px)" }} />
+              <path d="M330 -40 L1600 -300 L1600 300 L330 40 Z" fill="url(#flBeamR)" opacity={beam * fl * 0.8} style={{ filter: "blur(4px)" }} />
+              {Array.from({ length: 40 }).map((_, i) => { const u = ((rand(i * 3) + f * (0.002 + rand(i) * 0.003)) % 1 + 1) % 1, d = 360 + u * 1200; const v = (rand(i * 7) - 0.5) * 1.6 + Math.sin(f * 0.04 + i) * 0.05; return <circle key={i} cx={d} cy={v * (d - 330) * 0.3} r={1.5 + rand(i * 9) * 2.5} fill="#fff8e0" opacity={beam * 0.55 * Math.sin(u * Math.PI)} />; })}
+            </g>
+          );
+        })()}
         <rect x={-460} y={-58} width={680} height={116} rx={18} fill="url(#flM)" stroke="#0a0a0e" strokeWidth={5} />
         {Array.from({ length: 22 }).map((_, i) => <path key={i} d={`M${-440 + rand(i) * 640} ${-50 + rand(i * 3) * 100} l${10 + rand(i * 5) * 40} ${(rand(i * 7) - 0.5) * 12}`} stroke="#eef" strokeWidth={1.3} opacity={0.35} />)}
         {Array.from({ length: 10 }).map((_, i) => <rect key={i} x={-420 + i * 26} y={-58} width={6} height={116} fill="#000" opacity={0.15} />)}
@@ -870,32 +891,36 @@ export const Scene08: React.FC = () => {
   const cBm = cue(8, "beam");
   const cSh = cue(8, "shake");
   // hand-off: dad offers (IK) -> Alex's hand arrives at the same point -> swap at contact -> Alex draws it to his chest
-  const meet: [number, number] = [962, 1000 - 250 * 1.4]; // flashlight centre at the hand-off
+  // WORLD_METRICS (v9): horizon 560. Pair on the plaza (feet 1000) at 0.75 -> 300 px = 1.75 m. At the door depth (ground 800)
+  // a 1.75 m person is 164 px; the 3.4 m bronze door (320 px) and the graduates on the steps (~190 px) now share that metric.
+  const AS = 0.75, AX = 860, DX = 1030;
+  guardDoor(320, 800, 400 * AS, 1000, 560, "S8 academy");
+  const meet: [number, number] = [(AX + DX) / 2 + 2, 1000 - 250 * AS]; // flashlight centre at the hand-off
   const offer = ci(f, [cG - 12, cG + 6], [0, 1], EZ);
   const take = ci(f, [cG + 2, cG + 14], [0, 1], EZ);
   const handed = f >= cG + 16;
   const back = ci(f, [cG + 22, cG + 40], [0, 1], EZ);
-  const HALF = 26; // hands meet side by side on the same flashlight (prop lives in the grip socket)
-  const aRest = anchor("alexDress", 800, 1000, 1.4, 1, "waist");
-  const dRest = anchor("father", 1120, 1000, 1.38, -1, "waist");
-  const aChest: [number, number] = [aRest[0] + 46, aRest[1] - 64];
-  const dHold: [number, number] = [dRest[0] - 40, dRest[1] - 10];
-  const dadHand: [number, number] = handed ? mixP([meet[0] + HALF, meet[1]], [dRest[0] - 30, dRest[1] + 40], back) : mixP(dHold, [meet[0] + HALF, meet[1]], offer);
-  const alexHand: [number, number] = handed ? mixP([meet[0] - HALF, meet[1]], aChest, back) : mixP([aRest[0] + 30, aRest[1] + 40], [meet[0] - HALF, meet[1]], take);
+  const HALF = 26 * AS / 1.4; // hands meet side by side on the same flashlight (prop lives in the grip socket)
+  const aRest = anchor("alexDress", AX, 1000, AS, 1, "waist");
+  const dRest = anchor("father", DX, 1000, AS, -1, "waist");
+  const aChest: [number, number] = [aRest[0] + 46 * AS / 1.4, aRest[1] - 64 * AS / 1.4];
+  const dHold: [number, number] = [dRest[0] - 40 * AS / 1.4, dRest[1] - 10 * AS / 1.4];
+  const dadHand: [number, number] = handed ? mixP([meet[0] + HALF, meet[1]], [dRest[0] - 30 * AS / 1.4, dRest[1] + 40 * AS / 1.4], back) : mixP(dHold, [meet[0] + HALF, meet[1]], offer);
+  const alexHand: [number, number] = handed ? mixP([meet[0] - HALF, meet[1]], aChest, back) : mixP([aRest[0] + 30 * AS / 1.4, aRest[1] + 40 * AS / 1.4], [meet[0] - HALF, meet[1]], take);
   const flAng = handed ? -4 - 70 * back : -4; // degrees; rotates up to near-vertical as he draws it in
   const flC: [number, number] = handed ? [alexHand[0] + HALF * Math.cos((flAng * Math.PI) / 180), alexHand[1] + HALF * Math.sin((flAng * Math.PI) / 180)] : [dadHand[0] - HALF, dadHand[1]];
   const fl = ci(f, [cS + 2, cS + 7], [0, 1], EZ) * (0.92 + 0.08 * Math.sin(f * 0.21));
   return (
     <>
       <Shot from={0} to={cM}>
-        <Stage cam={{ x: ci(f, [0, cM], [-30, 30]), y: 0, zoom: ci(f, [0, cM], [1.0, 1.08]) }}>
+        <Stage cam={{ x: ci(f, [0, cM], [-20, 20]) - 10, y: 96, zoom: ci(f, [0, cM], [1.24, 1.3]) }}>
           <Plane p={0.15}><Sky variant="night" seed={11} moon={[1700, 120, 34]} horizonY={900} /></Plane>
           <Plane p={0.7}><Academy /></Plane>
           <Plane p={1}>
-            <Character id="s8alex" kind="alexDress" x={800} y={1000} scale={1.4} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890"
+            <Character id="s8alex" kind="alexDress" x={AX} y={1000} scale={AS} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890"
               reachNear={alexHand} prop={handed ? "flashlight" : "none"}
               pose={{ handNear: handed || take > 0.85 ? "grip" : "open", smile: 0.5, brow: 0.3, head: -2 - 3 * back, eyeY: 0.4 * back, blink: blinkAt(f, 70, 30), bob: breathe(f) }} />
-            <Character id="s8dad" kind="father" x={1120} y={1000} scale={1.38} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
+            <Character id="s8dad" kind="father" x={DX} y={1000} scale={AS} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
               reachNear={dadHand} prop={handed ? "none" : "flashlight"}
               pose={{ handNear: handed ? "open" : "grip", head: 3, smile: 0.25, eyeY: 0.3, blink: blinkAt(f, 80), bob: breathe(f, 0.35) }} />
           </Plane>
@@ -951,7 +976,10 @@ export const Scene10: React.FC = () => {
   const cO = cue(10, "officer");
   const cR = cue(10, "remember");
   const D = sceneDur(10);
-  const AX0 = 150, AX1 = 600, S = 1.15;
+  // WORLD_METRICS: the pair stands on the plaza (feet 1008) in front of the precinct whose doors sit on ground 840 (horizon 680).
+  // 1.75 m figure = 320 px here -> 156 px at the door depth; door 196 px >= 1.2 x 156 (guardDoor throws otherwise)
+  const AX0 = 240, AX1 = 640, S = 0.8;
+  guardDoor(PRECINCT_DOOR_PX, PRECINCT_GROUND_Y, 400 * S, 1008, 680, "S10 precinct");
   const ax = ci(f, [0, 84], [AX0, AX1], Easing.inOut(Easing.sin));
   const walking = f < 84;
   const tilt = ci(f, [cR, cR + 44], [0, 1], Easing.inOut(Easing.cubic));
@@ -963,7 +991,7 @@ export const Scene10: React.FC = () => {
       <Plane p={0.35}><DecoSkyline seed={61} baseY={840} hMin={460} hMax={760} haze={0.45} /></Plane>
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
-        <Character id="s10mara" kind="mara" x={1110} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
+        <Character id="s10mara" kind="mara" x={1010} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: (f > 50 ? 4 : 0) + 9 * Math.sin(Math.PI * ci(f, [88, 104], [0, 1])) + 9 * Math.sin(Math.PI * ci(f, [104, 118], [0, 1])) * 0.6, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
         <Character id="s10alex" kind="alex" x={ax} y={1008} scale={S} crop={tilt > 0.02 ? "transit" : undefined} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4 + 10 * Math.sin(Math.PI * ci(f, [100, 116], [0, 1])), smile: 0.35, brow: 0.3, bob: breathe(f) }} />

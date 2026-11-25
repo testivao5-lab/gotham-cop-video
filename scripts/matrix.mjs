@@ -14,5 +14,5 @@ for (let i = 0; i < n; i++) {
   if (s <= e) chunks.push({ idx: String(i).padStart(3, "0"), from: s, to: e });
 }
 const out = { include: chunks };
-const stills = scenes.slice(a - 1, b).map((s) => `${s.id}:${Math.round(s.start + (s.end - s.start) * 0.55)}`).join(",");
+const stills = scenes.slice(a - 1, b).flatMap((s) => [`${s.id}_a:${Math.round(s.start + (s.end - s.start) * 0.25)}`, `${s.id}_b:${Math.round(s.start + (s.end - s.start) * 0.7)}`]).join(",");
 fs.appendFileSync(process.env.GITHUB_OUTPUT || "/dev/stdout", `matrix=${JSON.stringify(out)}\nstart=${start}\nend=${end}\nstills=${stills}\n`);

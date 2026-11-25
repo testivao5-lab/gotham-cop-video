@@ -43,7 +43,8 @@ const BUILD: Record<Kind, Build> = {
   mara: { H: 408, sh: 0.86, waist: 0.86, hipW: 1.04, thigh: 104, shin: 102, ua: 76, fa: 70, limb: 0.88, headS: 0.94, female: true },
   batman: { H: 440, sh: 1.32, waist: 1.05, hipW: 1.05, thigh: 108, shin: 106, ua: 84, fa: 78, limb: 1.25, headS: 1.0 },
   father: { H: 380, sh: 1.02, waist: 1.25, hipW: 1.12, thigh: 94, shin: 92, ua: 74, fa: 68, limb: 1.05, headS: 1.02, belly: 14 },
-  nia: { H: 230, sh: 0.62, waist: 0.75, hipW: 0.7, thigh: 52, shin: 50, ua: 44, fa: 40, limb: 0.62, headS: 0.85, child: true, female: true },
+  // WORLD_METRICS kid 1.25 m (alex 400 = 1.75 m)
+  nia: { H: 286, sh: 0.7, waist: 0.8, hipW: 0.76, thigh: 64, shin: 62, ua: 54, fa: 50, limb: 0.7, headS: 0.92, child: true, female: true },
   mother: { H: 380, sh: 0.86, waist: 0.92, hipW: 1.05, thigh: 96, shin: 94, ua: 74, fa: 68, limb: 0.9, headS: 0.95, female: true },
   driver: { H: 390, sh: 1.05, waist: 1.25, hipW: 1.1, thigh: 96, shin: 94, ua: 76, fa: 70, limb: 1.05, headS: 1, belly: 18 },
   specialist: { H: 405, sh: 1.25, waist: 1.25, hipW: 1.15, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1.35, headS: 1.15 },
@@ -95,7 +96,9 @@ export const Character: React.FC<CharProps> = (props) => {
   // or feet hanging below the frame with no declared crop, is reported (CI fails on it).
   const proj = useScreenProj();
   {
-    const feet = proj.y(y), knee = proj.y(y - b.shin * scale * 1.08);
+    // seated figures: y sits below the floor by thigh*scale while the feet rest on groundY
+    const fy = Math.min(y, props.groundY ?? y);
+    const feet = proj.y(fy), knee = proj.y(fy - b.shin * scale * 1.08);
     const cutBetweenFootAndKnee = feet > 1066 && knee < 1080 + 24 * proj.z * scale;
     if (props.crop !== "transit" && props.crop !== "closeup" && cutBetweenFootAndKnee) auditReport(`${id}:shin-crop(feet ${feet | 0})`);
     if (!props.crop && feet > 1066 && !cutBetweenFootAndKnee) auditReport(`${id}:undeclared-crop(feet ${feet | 0})`);
@@ -615,6 +618,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
 
 /* ---------------- props held in near hand ---------------- */
 const Prop: React.FC<{ type: string; on: number; beam: number; r: number; id: string }> = ({ type, on, beam, r, id }) => {
+  const fr = useCurrentFrame();
   const o = "#06070b";
   if (type === "radio")
     return (
@@ -625,25 +629,38 @@ const Prop: React.FC<{ type: string; on: number; beam: number; r: number; id: st
         <circle cx={1} cy={-2} r={1.6} fill={on > 0 ? "#3aff6a" : "#1a3a1a"} />
       </g>
     );
-  if (type === "flashlight")
+  if (type === "flashlight") {
+    // volumetric beam: soft radial-gradient cone (screen blend + CSS blur), flicker, drifting dust motes
+    const fl = 0.86 + 0.14 * Math.abs(Math.sin(fr * 0.9) * Math.sin(fr * 0.37 + 1));
+    const B = beam * fl;
     return (
-      <g transform={`translate(0 ${r * 1.0}) rotate(-90)`}>
-        {beam > 0 && <path d={`M10 -6 L520 -120 L520 120 L10 6 Z`} fill={`url(#${id}-beamH)`} opacity={beam} style={{ mixBlendMode: "screen" }} />}
+      <g transform={`translate(0 ${r * 1.0}) rotate(90)`}>
+        {/* PREVENTION: lens (+x) points AWAY from the wrist along the fingers = forward (gaze direction); handle sits in the fist; never toward the elbow */}
         <defs>
-          <linearGradient id={`${id}-beamH`} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#fff2c8" stopOpacity="0.7" />
-            <stop offset="1" stopColor="#fff2c8" stopOpacity="0" />
-          </linearGradient>
+          <radialGradient id={`${id}-beamR`} cx="0" cy="0.5" r="1" fx="0" fy="0.5"><stop offset="0" stopColor="#fff6da" stopOpacity="0.85" /><stop offset="0.35" stopColor="#ffe9b0" stopOpacity="0.35" /><stop offset="1" stopColor="#ffe2a0" stopOpacity="0" /></radialGradient>
+          <radialGradient id={`${id}-hot`}><stop offset="0" stopColor="#fffbe8" stopOpacity="1" /><stop offset="1" stopColor="#fff2c8" stopOpacity="0" /></radialGradient>
         </defs>
+        {B > 0 && (
+          <g style={{ mixBlendMode: "screen" }}>
+            <path d="M16 -7 L560 -150 L560 150 L16 7 Z" fill={`url(#${id}-beamR)`} opacity={B * 0.55} style={{ filter: "blur(6px)" }} />
+            <path d="M16 -5 L560 -78 L560 78 L16 5 Z" fill={`url(#${id}-beamR)`} opacity={B * 0.7} style={{ filter: "blur(2px)" }} />
+            {Array.from({ length: 14 }).map((_, i) => {
+              const u = ((i * 0.137 + fr * (0.004 + (i % 5) * 0.0013)) % 1 + 1) % 1, d = 40 + u * 480;
+              const v = Math.sin(i * 12.9898) * 0.8 + Math.sin(fr * 0.05 + i) * 0.15;
+              return <circle key={i} cx={d} cy={v * d * 0.22} r={1 + (i % 3) * 0.6} fill="#fff8e0" opacity={B * 0.5 * Math.sin(u * Math.PI)} />;
+            })}
+          </g>
+        )}
         <rect x={-26} y={-5} width={34} height={10} rx={2} fill="#6b6f78" stroke={o} strokeWidth={1.4} />
         <path d="M8 -8 H18 V8 H8 Z" fill="#8a8f99" stroke={o} strokeWidth={1.4} />
         <rect x={-12} y={-7} width={6} height={3} fill="#2a2a2a" />
         <path d="M-20 -3 L-8 -2" stroke="#b0b4bb" strokeWidth={1} opacity={0.5} />
         <path d="M-2 2 l4 1" stroke="#3a3a3a" strokeWidth={1} />
         <ellipse cx={18} cy={0} rx={2.5} ry={7} fill={on > 0 ? "#fff6d0" : "#55575c"} opacity={0.5 + on * 0.5} />
-        {on > 0 && <circle cx={20} cy={0} r={18} fill="#fff2c8" opacity={0.35 * on} />}
+        {on > 0 && <circle cx={20} cy={0} r={18} fill={`url(#${id}-hot)`} opacity={0.8 * on * fl} />}
       </g>
     );
+  }
   if (type === "key") return <g transform={`translate(2 ${r * 1.1}) rotate(20)`}><circle r={8} fill="none" stroke="#d9b24a" strokeWidth={4} /><circle r={8} fill="none" stroke="#5a4010" strokeWidth={1} /><rect x={7} y={-2.5} width={26} height={5} rx={1.5} fill="#d9b24a" stroke="#5a4010" strokeWidth={1} /><path d="M26 2.5 v6 h3 v-4 h3 v4 h2 v-6" fill="#d9b24a" stroke="#5a4010" strokeWidth={1} /></g>;
   if (type === "phone") return <g transform={`translate(-2 ${r * 0.6})`}><rect x={-6} y={-4} width={12} height={22} rx={2} fill="#151518" stroke={o} /><rect x={-4} y={-1} width={8} height={12} fill={on > 0 ? "#9fd0ff" : "#222"} opacity={0.8} /></g>;
   if (type === "bottle") return <g transform={`translate(0 ${r * 0.4})`}><rect x={-6} y={-12} width={12} height={30} rx={4} fill="#9fc8e8" opacity={0.7} stroke={o} /><rect x={-3} y={-18} width={6} height={7} fill="#2a5aa0" /></g>;

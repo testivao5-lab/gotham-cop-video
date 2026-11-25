@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { useCurrentFrame } from "remotion";
 import { rand, mix, shade, tint, noise } from "../lib/anim";
 
@@ -233,6 +233,7 @@ export const SchoolBus: React.FC<{
   ledOn?: boolean; lit?: number; childNode?: React.ReactNode; doorOpen?: number;
 }> = ({ x, y, scale = 1, fog = 0, wire = false, interior = 0.4, ledOn = false, lit = 1, childNode, doorOpen = 0 }) => {
   const W = 850, H = 300;
+  const clipId = `bwc${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   const yellow = mix("#d9a520", "#1b2a4a", 0.45 - lit * 0.15);
   const yDark = shade(yellow, 0.45);
   const wins = 8;
@@ -249,6 +250,8 @@ export const SchoolBus: React.FC<{
           <stop offset="1" stopColor={mix("#0c101a", "#8a5a30", interior)} />
         </linearGradient>
         <radialGradient id="hub"><stop offset="0" stopColor="#c8d0dc" /><stop offset="1" stopColor="#4a5262" /></radialGradient>
+        {/* PREVENTION: anything seen through the glass is clipped to the window openings (never bleeds over the metal body) */}
+        <clipPath id={clipId}>{Array.from({ length: 8 }).map((_, i) => <rect key={i} x={30 + i * 76} y={30} width={54} height={84} rx={4} />)}</clipPath>
         <linearGradient id="busFog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#d6e0ee" stopOpacity="0.85" /><stop offset="0.6" stopColor="#b8c6da" stopOpacity="0.55" /><stop offset="1" stopColor="#9aaac2" stopOpacity="0.3" /></linearGradient>
       </defs>
       <g transform={`translate(${x} ${y}) scale(${scale})`}>
@@ -281,7 +284,9 @@ export const SchoolBus: React.FC<{
             </g>
           );
         })}
-        {childNode}
+        {childNode && <g clipPath={`url(#${clipId})`}>{childNode}</g>}
+        {/* angled glass reflections over whoever sits behind the window */}
+        {Array.from({ length: 8 }).map((_, i) => <path key={`gr${i}`} d={`M${44 + i * 76} 30 h14 l-22 84 h-14 Z`} fill="#dfe8ff" opacity={0.15} />)}
         {/* fog on glass */}
         {fog > 0 && Array.from({ length: wins }).map((_, i) => (
           <g key={i} opacity={Math.min(1, fog * 1.1)}>

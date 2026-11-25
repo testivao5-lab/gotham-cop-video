@@ -272,7 +272,8 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
       })}
       {/* graduates & families on the steps (soft silhouettes, a cap toss) */}
       {Array.from({ length: 9 }).map((_, i) => {
-        const gx = 200 + i * 190 + rand(i * 5) * 60, gy = 830 + (i % 2) * 18, h = 120 + rand(i * 3) * 30;
+        // WORLD_METRICS: graduates on the plaza behind the steps (ground ~840): 1.6-1.8 m = 180-200 px in the S8 metric
+        const gx = 200 + i * 190 + rand(i * 5) * 60, gy = 830 + (i % 2) * 18, h = 182 + rand(i * 3) * 18;
         const capUp = i === 3 || i === 6 ? Math.max(0, Math.sin(((f + i * 37) % 96) / 96 * Math.PI)) * 160 : 0;
         return (
           <g key={i} opacity={0.75}>
@@ -294,6 +295,8 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
 };
 
 /* ================= deco police precinct ================= */
+export const PRECINCT_DOOR_PX = 196;
+export const PRECINCT_GROUND_Y = 840;
 export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
   const f = useCurrentFrame();
   const fl = flicker(f, 11, 0.1);
@@ -342,13 +345,15 @@ export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
       <text x={838} y={262} textAnchor="middle" fontFamily={DISPLAY} fontSize={70} letterSpacing={22} fill="#ffe6b8">POLICE</text>
       <path d="M594 196 L834 160 L1074 196" fill="#2a1e26" stroke="#c9a890" strokeWidth={3} />
       {/* deco transom over the door */}
-      <rect x={660} y={640} width={340} height={56} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
-      {Array.from({ length: 9 }).map((_, k) => <path key={k} d={`M830 694 L${672 + k * 40} 646`} stroke="#c9a890" strokeWidth={2} opacity={0.5} />)}
-      <circle cx={830} cy={694} r={14} fill="#d8b23a" opacity={0.8} />
-      <rect x={700} y={704} width={260} height={136} fill="url(#prDoor)" opacity={0.9} />
-      <rect x={826} y={704} width={8} height={136} fill="#3a2a20" />
+      {/* WORLD_METRICS: door 2.1 m tall at the facade depth (ground 840) = 196 px (PRECINCT_DOOR_PX), double doors 2.8 m wide */}
+      <rect x={660} y={588} width={340} height={56} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
+      {Array.from({ length: 9 }).map((_, k) => <path key={k} d={`M830 642 L${672 + k * 40} 594`} stroke="#c9a890" strokeWidth={2} opacity={0.5} />)}
+      <circle cx={830} cy={642} r={14} fill="#d8b23a" opacity={0.8} />
+      <rect x={700} y={644} width={260} height={196} fill="url(#prDoor)" opacity={0.9} />
+      <rect x={826} y={644} width={8} height={196} fill="#3a2a20" />
+      {[0, 1].map((d) => <g key={d}>{[0, 1, 2].map((r) => <rect key={r} x={712 + d * 130} y={656 + r * 60} width={106} height={50} fill="none" stroke="#3a2a20" strokeWidth={5} />)}<rect x={806 + d * 22} y={740} width={6} height={30} rx={2} fill="#c9a640" /></g>)}
       {/* lamps */}
-      {[640, 1020].map((x) => <g key={x}><rect x={x - 4} y={720} width={8} height={120} fill="#111" /><circle cx={x} cy={712} r={13} fill="#fff0c8" /><circle cx={x} cy={712} r={70} fill="url(#prGlow)" opacity={fl} /></g>)}
+      {[640, 1020].map((x) => <g key={x}><rect x={x - 4} y={680} width={8} height={160} fill="#111" /><circle cx={x} cy={672} r={13} fill="#fff0c8" /><circle cx={x} cy={672} r={70} fill="url(#prGlow)" opacity={fl} /></g>)}
       {/* steps */}
       {Array.from({ length: 4 }).map((_, i) => <rect key={i} x={640 - i * 40} y={840 + i * 22} width={380 + i * 80} height={22} fill={i % 2 ? "#4a3e44" : "#5a4c52"} />)}
       <rect x={-400} y={928} width={2720} height={700} fill="#15121a" />

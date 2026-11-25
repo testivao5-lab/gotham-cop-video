@@ -56,12 +56,12 @@ jobs:
           for item in $(echo "$LIST" | tr ',' ' '); do
             id=${item%%:*}; fr=${item##*:}
             npx remotion still bundle GothamCop "stills/${id}.jpg" --frame=$fr --image-format=jpeg --jpeg-quality=88 --log=error &
-            while [ $(jobs -r | wc -l) -ge 4 ]; do sleep 1; done
+            while [ $(jobs -r | wc -l) -ge 3 ]; do sleep 1; done
           done
           for item in $(echo "$EXTRA" | tr ',' ' '); do
             comp=${item%%:*}; fr=${item##*:}
             npx remotion still bundle "$comp" "stills/x_${comp}_${fr}.jpg" --frame=$fr --image-format=jpeg --jpeg-quality=88 --log=error &
-            while [ $(jobs -r | wc -l) -ge 4 ]; do sleep 1; done
+            while [ $(jobs -r | wc -l) -ge 3 ]; do sleep 1; done
           done
           wait
           ls -la stills
@@ -94,9 +94,12 @@ jobs:
         with: { name: "part-${{ matrix.idx }}", path: parts }
 
   audit:
-    # PREVENTION: runtime framing audit (feet/shin crops etc.) over EVERY frame of the range
+    # PREVENTION: runtime framing audit (feet/shin crops etc.) over EVERY frame of the range, split over the same matrix
     needs: plan
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -110,12 +113,12 @@ jobs:
       - name: Low-res audit render (audit tag on violating frames)
         run: |
           npx remotion bundle src/index.ts --out-dir=bundle
-          npx remotion render bundle GothamCop audit.mp4 --frames=${{ needs.plan.outputs.start }}-${{ needs.plan.outputs.end }} \
+          npx remotion render bundle GothamCop audit.mp4 --frames=${{ matrix.from }}-${{ matrix.to }} \
             --scale=0.25 --muted --crf=28 --concurrency=4 --props='{"audit":true}' --log=error
       - name: Scan
         id: scan
         continue-on-error: true
-        run: mkdir -p audit && python3 scripts/frame_audit.py audit.mp4 ${{ needs.plan.outputs.start }} audit/audit.txt
+        run: mkdir -p audit && python3 scripts/frame_audit.py audit.mp4 ${{ matrix.from }} audit/audit.txt
       - name: Full-res stills of the first frame of each violation (overlay text names the character)
         if: always()
         run: |
@@ -125,7 +128,7 @@ jobs:
           ls -la audit
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: audit, path: audit }
+        with: { name: "audit-${{ matrix.idx }}", path: audit }
       - name: Fail on violations
         if: steps.scan.outcome == 'failure'
         run: cat audit/audit.txt && exit 1

@@ -82,4 +82,25 @@ if (!/auditReport\(/.test(ch) || !/useScreenProj\(\)/.test(ch)) err("Character.t
 if (!/<AuditOverlay \/>\s*<\/AbsoluteFill>/.test(src("src/Video.tsx"))) err("src/Video.tsx", 0, "P8 AuditOverlay must be the last child of the root");
 console.log(warns.join("\n"));
 if (errors.length) { console.error("LAW GATE FAILED\n" + errors.join("\n")); process.exit(1); }
-console.log(`LAW GATE PASSED (${files.length} files)`);
+// ================= PREVENTION RULES (v9, after user QA of v8: door/human scale, kid/window ratio, backward torch) =================
+{
+  const w = fs.existsSync("src/lib/world.ts") ? src("src/lib/world.ts") : "";
+  if (!/export const WORLD_METRICS/.test(w) || !/export const DEPTH_PLANES/.test(w)) err("src/lib/world.ts", 0, "P9 WORLD_METRICS / DEPTH_PLANES config missing");
+  if (!/guardDoor/.test(w) || !/guardWindowHead/.test(w)) err("src/lib/world.ts", 0, "P9 metric scale guards missing");
+  const ch2 = src("src/characters/Character.tsx");
+  const fb = ch2.slice(ch2.indexOf('if (type === "flashlight")'), ch2.indexOf('if (type === "key")'));
+  if (/rotate\(-90\)/.test(fb) || !/rotate\(90\)/.test(fb)) err("Character.tsx", 0, "P10 flashlight must point forward out of the fist (rotate(90): lens away from the wrist)");
+  if (!/radialGradient/.test(fb) || !/screen/.test(fb) || !/blur\(/.test(fb)) err("Character.tsx", 0, "P10 flashlight beam must be volumetric (radialGradient + screen + blur)");
+  const b1s = src("src/scenes/batch1.tsx");
+  if (!/guardWindowHead\(/.test(b1s)) err("batch1.tsx", 0, "P11 bus window close-up must call guardWindowHead (window : head >= 4)");
+  if (!/guardDoor\(/.test(b1s)) err("batch1.tsx", 0, "P11 precinct shot must call guardDoor (door >= 1.2 x human at the same depth)");
+  const st = src("src/world/street.tsx");
+  if (!/clipPath=\{`url\(#\$\{clipId\}\)`\}/.test(st)) err("street.tsx", 0, "P12 bus childNode must be clipped to the window openings");
+  // P13: full-figure characters (no crop) never get a hand-typed scale > 1.2 — size comes from the shot metric (M.human / BM.human / S)
+  for (const f of sceneFiles.filter((f) => !f.includes("lookdev"))) src(f).split("\n").forEach((t, i) => {
+    const m = t.match(/<Character[^>]*\sscale=\{([0-9.]+)\}/);
+    if (m && +m[1] > 1.2 && !/crop=/.test(t) && !/scale-ok/.test(t)) err(f, i + 1, `P13 literal scale ${m[1]} on an uncropped figure — use metric().human(y)`);
+  });
+}
+if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
+console.log(`LAW GATE PASSED (${files.length} files, P1-P13)`);
