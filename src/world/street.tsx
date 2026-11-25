@@ -41,23 +41,54 @@ export const StreetFacades: React.FC<{
             {/* cornice */}
             <rect x={b.x - 6} y={top - 14} width={b.w + 12} height={18} fill={shade(trim, 0.2 + dark)} />
             <rect x={b.x - 6} y={top - 14} width={b.w + 12} height={3} fill={tint(trim, 0.2)} opacity={0.6} />
-            {Array.from({ length: floors }).map((_, fl) =>
-              Array.from({ length: cols }).map((_, c) => {
-                const wx = b.x + c * cw + cw * 0.22, wy = top + 40 + fl * 95, ww = cw * 0.56, wh = 58;
-                const on = rand(b.s * 7 + fl * 13 + c * 3 + (rand(b.s + Math.floor(f / 60)) > 0.97 ? 1 : 0)) < litP;
-                const fl2 = on ? 0.85 + 0.15 * noise(f * 0.2, b.s + fl + c) : 1;
-                return (
-                  <g key={`${fl}-${c}`}>
-                    <rect x={wx - 4} y={wy - 6} width={ww + 8} height={6} fill={shade(trim, 0.1)} />
-                    <rect x={wx} y={wy} width={ww} height={wh} fill={on ? `url(#${id}win)` : "#0b0f1a"} opacity={on ? fl2 : 1} />
-                    {on && <rect x={wx} y={wy} width={ww} height={wh * 0.45} fill="#3a2418" opacity={0.35} />}
-                    <line x1={wx + ww / 2} y1={wy} x2={wx + ww / 2} y2={wy + wh} stroke="#0a0c12" strokeWidth={2.5} />
-                    <line x1={wx} y1={wy + wh * 0.45} x2={wx + ww} y2={wy + wh * 0.45} stroke="#0a0c12" strokeWidth={2.5} />
-                    <rect x={wx - 3} y={wy + wh} width={ww + 6} height={5} fill={tint(trim, 0.05)} opacity={0.8} />
-                  </g>
-                );
-              })
-            )}
+            {(() => {
+              /* each building gets its own window language: 0 sash 4-pane, 1 arched, 2 paired slits, 3 deco strip w/ spandrels */
+              const style = Math.floor(rand(b.s * 11 + 0.3) * 4);
+              const wh = style === 1 ? 66 : style === 3 ? 70 : 58;
+              return Array.from({ length: floors }).map((_, fl) =>
+                Array.from({ length: cols }).map((_, c) => {
+                  const k = b.s * 7 + fl * 13 + c * 3;
+                  const wx = b.x + c * cw + cw * (style === 2 ? 0.16 : 0.22), wy = top + 40 + fl * 95, ww = cw * (style === 2 ? 0.68 : 0.56);
+                  const on = rand(k + (rand(b.s + Math.floor(f / 60)) > 0.97 ? 1 : 0)) < litP;
+                  const fl2 = on ? 0.85 + 0.15 * noise(f * 0.2, b.s + fl + c) : 1;
+                  const warm = rand(k * 1.7) > 0.25; // a few cold TV-blue windows
+                  const fill = on ? (warm ? `url(#${id}win)` : "#7fa4cc") : "#0b0f1a";
+                  const blind = rand(k * 2.3) * 0.7; // pulled-down blind height
+                  const sil = on && rand(k * 3.1) > 0.8; // a figure / plant silhouette
+                  const shape = style === 1
+                    ? `M${wx} ${wy + wh} V${wy + ww / 2} A${ww / 2} ${ww / 2} 0 0 1 ${wx + ww} ${wy + ww / 2} V${wy + wh} Z`
+                    : `M${wx} ${wy} H${wx + ww} V${wy + wh} H${wx} Z`;
+                  return (
+                    <g key={`${fl}-${c}`}>
+                      {style !== 1 && <rect x={wx - 4} y={wy - 6} width={ww + 8} height={6} fill={shade(trim, 0.1)} />}
+                      <path d={shape} fill={fill} opacity={on ? fl2 : 1} />
+                      {on && <rect x={wx} y={wy} width={ww} height={wh * blind} fill="#3a2418" opacity={0.45} />}
+                      {sil && (rand(k * 5) > 0.5
+                        ? <path d={`M${wx + ww * 0.55} ${wy + wh} v-22 a9 9 0 1 1 1 0 h14 v22 Z`} fill="#140c08" opacity={0.85} transform={`translate(${-ww * 0.2} 0)`} />
+                        : <path d={`M${wx + ww * 0.25} ${wy + wh} q-6 -18 2 -26 q-10 -6 -2 -14 q8 4 6 14 q10 -8 12 2 q-4 12 -10 24 Z`} fill="#140c08" opacity={0.8} />)}
+                      {style === 0 && <>
+                        <line x1={wx + ww / 2} y1={wy} x2={wx + ww / 2} y2={wy + wh} stroke="#0a0c12" strokeWidth={2.5} />
+                        <line x1={wx} y1={wy + wh * 0.45} x2={wx + ww} y2={wy + wh * 0.45} stroke="#0a0c12" strokeWidth={2.5} />
+                      </>}
+                      {style === 1 && <>
+                        <path d={shape} fill="none" stroke={tint(trim, 0.1)} strokeWidth={4} opacity={0.7} />
+                        <line x1={wx + ww / 2} y1={wy} x2={wx + ww / 2} y2={wy + wh} stroke="#0a0c12" strokeWidth={2} />
+                      </>}
+                      {style === 2 && <>
+                        <rect x={wx + ww * 0.46} y={wy} width={ww * 0.08} height={wh} fill={tone} />
+                        <line x1={wx} y1={wy + wh * 0.3} x2={wx + ww} y2={wy + wh * 0.3} stroke="#0a0c12" strokeWidth={2} />
+                      </>}
+                      {style === 3 && <>
+                        {[0.25, 0.5, 0.75].map((q) => <line key={q} x1={wx} y1={wy + wh * q} x2={wx + ww} y2={wy + wh * q} stroke="#0a0c12" strokeWidth={1.6} />)}
+                        <rect x={wx - 2} y={wy + wh + 6} width={ww + 4} height={14} fill={shade(trim, 0.25)} />
+                        <path d={`M${wx + ww * 0.2} ${wy + wh + 13} h${ww * 0.6} M${wx + ww / 2} ${wy + wh + 8} v10`} stroke={tint(trim, 0.15)} strokeWidth={1.5} opacity={0.6} />
+                      </>}
+                      {style !== 3 && <rect x={wx - 3} y={wy + wh} width={ww + 6} height={5} fill={tint(trim, 0.05)} opacity={0.8} />}
+                    </g>
+                  );
+                })
+              );
+            })()}
             {fireEscapes && rand(b.s * 3) > 0.35 && (
               <FireEscape x={b.x + b.w * 0.18} w={b.w * 0.64} top={top + 30} floors={floors} />
             )}
@@ -129,26 +160,57 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
       {/* paving seams */}
       {Array.from({ length: 24 }).map((_, i) => <line key={i} x1={i * 90} y1={horizonY} x2={i * 90 - 30} y2={cy} stroke="#000" strokeOpacity="0.25" />)}
       {laneY !== undefined && Array.from({ length: 14 }).map((_, i) => <rect key={i} x={i * 160 - 40} y={laneY} width={90} height={6} fill="#c9b67a" opacity={0.35} />)}
-      {/* reflections: wobbling vertical streaks */}
-      {reflections.map((r, i) => {
-        const w = r.w ?? 40;
-        const segs = 9;
-        return (
-          <g key={i} style={{ mixBlendMode: "screen" }}>
-            <rect x={r.x - w / 2 + noise(f * 0.1, seed + i) * 4} y={cy + 8} width={w} height={1080 - cy} fill={`url(#${id}r${i})`} opacity={0.55} filter={`url(#${id}rb)`} />
-            {Array.from({ length: segs * 2 }).map((_, k) => {
-              const y = cy + 16 + k * ((1080 - cy) / (segs * 2));
-              const wob = noise(f * 0.15 + k * 0.7, seed + i) * 12;
-              const ww = w * (0.5 + rand(k * 3 + i) * 0.7);
-              return <rect key={k} x={r.x - ww / 2 + wob} y={y} width={ww} height={2.5} rx={1.2} fill={r.color} opacity={(1 - k / (segs * 2)) * 0.5 * (r.strength ?? 1)} />;
-            })}
+      {/* wet sheen: soft blurred columns (no stripes) */}
+      {reflections.map((r, i) => (
+        <rect key={`sh${i}`} x={r.x - (r.w ?? 40) / 2 + noise(f * 0.1, seed + i) * 4} y={cy + 8} width={r.w ?? 40} height={1080 - cy} fill={`url(#${id}r${i})`} opacity={0.32} filter={`url(#${id}rb)`} style={{ mixBlendMode: "screen" }} />
+      ))}
+      {/* puddles: irregular blobs that carry the strong mirror reflections + rain ripples */}
+      {(() => {
+        const P = Array.from({ length: 9 }).map((_, i) => {
+          const t = rand(i * 3 + seed * 1.3); // depth 0 far .. 1 near
+          const pcy = cy + 26 + t * t * (1060 - cy - 26);
+          const rx = 70 + t * 320 + rand(i * 5 + seed) * 120;
+          return { cx: rand(i * 7 + seed * 2.1) * 2000 - 40, cy: pcy, rx, ry: rx * (0.08 + t * 0.07), i };
+        });
+        const blob = (p: { cx: number; cy: number; rx: number; ry: number; i: number }) => (
+          <g key={p.i}>
+            <ellipse cx={p.cx} cy={p.cy} rx={p.rx} ry={p.ry} />
+            <ellipse cx={p.cx + p.rx * (0.35 + rand(p.i) * 0.3)} cy={p.cy + p.ry * 0.35} rx={p.rx * 0.55} ry={p.ry * 0.8} />
+            <ellipse cx={p.cx - p.rx * (0.4 + rand(p.i * 2) * 0.3)} cy={p.cy - p.ry * 0.25} rx={p.rx * 0.45} ry={p.ry * 0.7} />
           </g>
         );
-      })}
-      {/* puddles */}
-      {Array.from({ length: 6 }).map((_, i) => (
-        <ellipse key={i} cx={rand(i + seed) * 1920} cy={cy + 60 + rand(i * 3 + seed) * (1000 - cy)} rx={90 + rand(i * 5) * 160} ry={10 + rand(i * 7) * 14} fill="#4f6a96" opacity={0.12} />
-      ))}
+        return (
+          <g>
+            <defs>
+              <mask id={`${id}pm`}><g fill="white">{P.map(blob)}</g></mask>
+              <filter id={`${id}pb`} x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2.5" /></filter>
+            </defs>
+            <g fill="#26364f" opacity={0.55} filter={`url(#${id}pb)`}>{P.map(blob)}</g>
+            <g mask={`url(#${id}pm)`} style={{ mixBlendMode: "screen" }}>
+              {reflections.map((r, i) => {
+                const w = r.w ?? 40;
+                return [0, 1, 2].map((k) => (
+                  <rect key={`${i}-${k}`} x={r.x - (w * (1 - k * 0.28)) / 2 + noise(f * 0.12 + k, seed + i) * (5 + k * 3)} y={cy + 6} width={w * (1 - k * 0.28)} height={1080 - cy}
+                    fill={`url(#${id}r${i})`} opacity={(0.9 - k * 0.2) * (r.strength ?? 1) * 1.4} filter={`url(#${id}rb)`} />
+                ));
+              })}
+              {/* sky glint across puddle surfaces */}
+              <rect x={0} y={cy} width={1920} height={1080 - cy} fill="#7fa4cc" opacity={0.08} />
+              {/* ripples */}
+              {P.flatMap((p) => Array.from({ length: Math.round(2 + p.rx / 60) }).map((_, k) => {
+                const per = 16 + Math.floor(rand(p.i * 11 + k) * 14);
+                const ph = ((f + Math.floor(rand(p.i * 13 + k) * per)) % per) / per;
+                const n = Math.floor((f + Math.floor(rand(p.i * 13 + k) * per)) / per);
+                const rx0 = p.cx + (rand(p.i * 17 + k + n * 0.37) - 0.5) * p.rx * 1.6;
+                const ry0 = p.cy + (rand(p.i * 19 + k + n * 0.53) - 0.5) * p.ry * 1.2;
+                return <ellipse key={`${p.i}-${k}`} cx={rx0} cy={ry0} rx={3 + ph * (10 + p.ry * 0.9)} ry={(3 + ph * (10 + p.ry * 0.9)) * 0.28} fill="none" stroke="#cfe0ff" strokeWidth={1.3} opacity={(1 - ph) * 0.55} />;
+              }))}
+            </g>
+            {/* thin bright lip on the far edge of each puddle */}
+            {P.map((p) => <path key={`l${p.i}`} d={`M${p.cx - p.rx * 0.8} ${p.cy - p.ry * 0.7} Q${p.cx} ${p.cy - p.ry * 1.15} ${p.cx + p.rx * 0.8} ${p.cy - p.ry * 0.7}`} stroke="#9fb8dc" strokeWidth={1.2} fill="none" opacity={0.25} />)}
+          </g>
+        );
+      })()}
     </svg>
   );
 };
@@ -199,7 +261,7 @@ export const SchoolBus: React.FC<{
         {/* stripes */}
         <rect x="0" y="150" width={W - 105} height="8" fill="#0d0d0d" opacity="0.85" />
         <rect x="0" y="190" width={W} height="8" fill="#0d0d0d" opacity="0.85" />
-        <text x={(W - 105) / 2} y="182" textAnchor="middle" fontFamily="Arial Black, Arial" fontWeight={900} fontSize="22" fill="#111" opacity="0.85" letterSpacing="3">GOTHAM CITY SCHOOLS</text>
+        <text x={250} y="182" textAnchor="middle" fontFamily="Arial Black, Arial" fontWeight={900} fontSize="22" fill="#111" opacity="0.85" letterSpacing="3">GOTHAM CITY SCHOOLS</text>
         {/* windows */}
         {Array.from({ length: wins }).map((_, i) => {
           const wx = 26 + i * 76, ww = 62;

@@ -281,8 +281,16 @@ export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
         </g>
       )))}
       {/* POLICE sign + door */}
-      <rect x={660} y={634} width={340} height={62} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
-      <text x={836} y={684} textAnchor="middle" fontFamily={DISPLAY} fontSize={54} letterSpacing={16} fill="#f0d8a8">POLICE</text>
+      {/* POLICE marquee high on the facade, above any head height (BTAS station ref) */}
+      <rect x={594} y={196} width={480} height={86} fill="#140e12" stroke="#c9a890" strokeWidth={4} />
+      <rect x={604} y={206} width={460} height={66} fill="none" stroke="#8a6a60" strokeWidth={2} />
+      <circle cx={834} cy={239} r={170} fill="url(#prGlow)" opacity={0.25 * fl} />
+      <text x={838} y={262} textAnchor="middle" fontFamily={DISPLAY} fontSize={70} letterSpacing={22} fill="#ffe6b8">POLICE</text>
+      <path d="M594 196 L834 160 L1074 196" fill="#2a1e26" stroke="#c9a890" strokeWidth={3} />
+      {/* deco transom over the door */}
+      <rect x={660} y={640} width={340} height={56} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
+      {Array.from({ length: 9 }).map((_, k) => <path key={k} d={`M830 694 L${672 + k * 40} 646`} stroke="#c9a890" strokeWidth={2} opacity={0.5} />)}
+      <circle cx={830} cy={694} r={14} fill="#d8b23a" opacity={0.8} />
       <rect x={700} y={704} width={260} height={136} fill="url(#prDoor)" opacity={0.9} />
       <rect x={826} y={704} width={8} height={136} fill="#3a2a20" />
       {/* lamps */}
@@ -355,13 +363,14 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
       </defs>
       <g transform={`translate(${x} ${y + bounce}) scale(${scale})`}>
         {/* shoulders / suit */}
-        <path d="M-300 520 C-290 300 -230 190 -120 160 L-40 130 L70 140 C170 160 250 230 290 520 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
-        <path d="M-120 160 C-90 230 -60 300 -40 520 L-90 520 C-110 330 -140 250 -170 200 Z" fill={suitSh} opacity={0.7} />
+        <path d="M-230 520 C-226 330 -190 214 -110 168 L-40 132 L70 142 C150 166 206 240 226 520 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
+        <path d="M-110 168 C-84 236 -60 300 -40 520 L-86 520 C-104 340 -124 260 -150 210 Z" fill={suitSh} opacity={0.7} />
         <path d="M30 150 L80 300 L110 160 Z" fill="#b47ad6" stroke={o} strokeWidth={2.5} />
         <path d="M-20 132 L40 132 L60 176 L10 190 Z" fill="#f08c1e" stroke={o} strokeWidth={2.5} />
         <path d="M44 168 l30 -14 l-6 26 Z M44 168 l-26 -10 l4 24 Z" fill="#26b3a0" stroke={o} strokeWidth={2} />
         {/* neck */}
-        <path d="M-50 70 L-48 150 L40 150 L46 96 Z" fill={skinSh} stroke={o} strokeWidth={3} />
+        <path d="M-46 70 C-44 100 -40 130 -36 150 L36 150 C34 130 36 110 44 96 Z" fill={skinSh} stroke={o} strokeWidth={3} />
+        <path d="M-150 176 C-130 120 -90 92 -52 96 C-40 120 -20 136 20 140 L64 128 C70 140 72 152 66 166 C20 176 -60 176 -150 176 Z" fill={suitSh} stroke={o} strokeWidth={3} />
         <g transform={`rotate(${-3 * turn - laugh * 2 * Math.sin(f * 0.55)})`}>
           {/* head: back of skull + profile with long chin */}
           <path d="M-74 -44 C-92 0 -84 46 -58 84 C-30 112 10 120 40 134 C58 146 78 158 92 156 C100 150 96 132 90 116 C104 108 108 96 104 86 C112 78 112 66 106 60 C118 52 126 40 124 30 C110 22 96 10 88 -6 C84 -24 80 -40 74 -52 Z" fill={skin} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
@@ -386,10 +395,13 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
           {/* fedora */}
           <ellipse cx={14} cy={-62} rx={178} ry={36} fill={hatSh} stroke={o} strokeWidth={3.2} transform="rotate(-7 14 -62)" />
           <path d="M-150 -50 C-80 -36 90 -60 180 -86 L184 -76 C100 -46 -60 -24 -150 -44 Z" fill={hat} opacity={0.9} />
-          <path d="M-86 -66 C-92 -140 -50 -186 6 -188 C66 -190 100 -150 94 -84 C40 -70 -40 -64 -86 -66 Z" fill={hat} stroke={o} strokeWidth={3.2} />
-          <path d="M-86 -66 C-92 -140 -50 -186 6 -188 C-30 -170 -50 -120 -44 -66 Z" fill={hatSh} />
+          {/* fedora crown: tapered, centre-dented teardrop with front pinches (not a round bowler) */}
+          <path d="M-86 -66 C-90 -110 -84 -146 -66 -166 C-40 -178 -14 -168 4 -156 C24 -170 56 -178 78 -162 C96 -140 98 -110 94 -84 C40 -70 -40 -64 -86 -66 Z" fill={hat} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
+          <path d="M-86 -66 C-90 -110 -84 -146 -66 -166 C-56 -150 -52 -110 -48 -66 Z" fill={hatSh} />
+          <path d="M4 -156 C2 -136 6 -118 12 -104" stroke={hatSh} strokeWidth={5} fill="none" strokeLinecap="round" />
+          <path d="M60 -150 C70 -132 74 -118 72 -100" stroke={hatSh} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.85} />
+          <path d="M-58 -156 C-50 -136 -48 -118 -50 -100" stroke={hatSh} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
           <path d="M-84 -90 C-40 -84 50 -92 94 -104 L94 -84 C40 -70 -40 -64 -86 -66 Z" fill="#2a0e3a" />
-          <path d="M-20 -184 C-6 -170 12 -170 26 -186" stroke={hatSh} strokeWidth={4} fill="none" />
         </g>
         {/* bare chalk-white hand holding the card between two fingers */}
         <g transform={`translate(200 250) rotate(${-14 + laugh * 4 * Math.sin(f * 0.55)})`}>

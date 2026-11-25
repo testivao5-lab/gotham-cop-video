@@ -559,3 +559,21 @@ export const walk = (phase: number, amt = 1): Partial<Pose> => {
  *  One full cycle = two steps = 4 * legLength * sin(swing) * scale. */
 export const strideOf = (kind: Kind, scale: number, amt = 1) => 4 * (BUILD[kind].thigh + BUILD[kind].shin) * Math.sin((24 * amt * Math.PI) / 180) * scale;
 export const walkDist = (dist: number, kind: Kind, scale: number, amt = 1): Partial<Pose> => walk(((Math.abs(dist) / strideOf(kind, scale, amt)) % 1 + 1) % 1, amt);
+
+/** world-space anchor points (lean 0) — for hand contacts: shoulder radio, near/far shoulder, chest, hand-off height */
+export const anchor = (kind: Kind, x: number, y: number, scale = 1, facing: 1 | -1 = 1, part: "radio" | "shoulderNear" | "shoulderFar" | "chest" | "waist" = "radio"): [number, number] => {
+  const b = BUILD[kind];
+  const S = b.H / 400;
+  const hipY = -(b.thigh + b.shin);
+  const torsoLen = 150 * S;
+  const shW = 46 * b.sh;
+  const lp: Record<string, [number, number]> = {
+    radio: [shW * 0.55, hipY - torsoLen + 34],
+    shoulderNear: [shW * 0.6, hipY - torsoLen + 22],
+    shoulderFar: [-shW * 0.55, hipY - torsoLen + 22],
+    chest: [shW * 0.2, hipY - torsoLen * 0.6],
+    waist: [0, hipY - torsoLen * 0.1],
+  };
+  const [lx, ly] = lp[part];
+  return [x + lx * scale * facing, y + ly * scale];
+};

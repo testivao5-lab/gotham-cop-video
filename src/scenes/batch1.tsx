@@ -4,11 +4,14 @@ import { Stage, Plane } from "../lib/Camera";
 import { ci, sp, noise, rand } from "../lib/anim";
 import { cue, sceneDur } from "../lib/cues";
 import { Post, Rain, Fog, Glow, lightning, handheld, Splashes, LightCone } from "../fx/fx";
-import { Character, breathe, blinkAt, walk } from "../characters/Character";
+import { Character, breathe, blinkAt, walk, walkDist, anchor } from "../characters/Character";
 import { Sky, DecoSkyline } from "../world/sky";
 import { StreetFacades, WetStreet, SchoolBus } from "../world/street";
-import { ShopFront, ShopInterior, Academy, Precinct, JokerBack } from "../world/places";
-import { BusStreetSet, ForegroundRain, Caption, Shot, FadeIn } from "./common";
+import { ShopFront, ShopInterior, Academy, Precinct, JokerProfile } from "../world/places";
+import { BusStreetSet, ForegroundRain, Caption, Shot, TimeJump, EdgeFade, Sfx } from "./common";
+
+const mixP = (a: [number, number], b: [number, number], t: number): [number, number] => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+const EZ = Easing.bezier(0.25, 0.1, 0.25, 1);
 
 /* ============ Scene 1 — Batman appears at rain-soaked bus street ============ */
 export const Scene01: React.FC = () => {
@@ -34,6 +37,9 @@ export const Scene01: React.FC = () => {
       </Plane>
       <ForegroundRain />
       <Post tintOpacity={0.22} vignette={0.65} />
+      <Sfx name="thunder" at={3} gain={0.55} />
+      <Sfx name="cloth" at={12} gain={0.4} />
+      <Sfx name="land" at={27} gain={0.6} />
     </Stage>
   );
 };
@@ -42,83 +48,144 @@ export const Scene01: React.FC = () => {
 export const Scene02: React.FC = () => {
   const f = useCurrentFrame();
   const reach = ci(f, [26, 48], [0, 1], Easing.inOut(Easing.cubic));
-  const pull = ci(f, [56, 80], [0, 1], Easing.inOut(Easing.cubic));
+  const grip = ci(f, [48, 54], [0, 1], EZ);
+  const pull = ci(f, [56, 82], [0, 1], Easing.inOut(Easing.cubic));
   const taken = f >= 54;
   const hh = handheld(f, 0.8, 4);
   const cam = { x: hh.x, y: hh.y, zoom: ci(f, [0, sceneDur(2)], [1.0, 1.06]), rot: hh.rot };
+  const S = 1.95;
+  const ax = 640 - reach * 10, bx = 1290 - reach * 30;
+  const radio = anchor("alex", ax, 1300, S, 1, "radio");
+  const rest: [number, number] = [bx - 70 * S, 1330 - 168 * S];
+  const lift: [number, number] = [bx - 120 * S, 1330 - 300 * S];
+  const grab: [number, number] = [radio[0] + 6, radio[1] + 8];
+  const hand = pull > 0 ? mixP(grab, lift, pull) : mixP(rest, grab, reach);
   return (
     <Stage cam={cam}>
       <AbsoluteFill style={{ filter: "blur(5px)", transform: "scale(1.15)" }}>
         <BusStreetSet fog={0.45} rain={0.6} />
       </AbsoluteFill>
       <Plane p={1}>
-        <Character id="s2alex" kind="alex" x={640 - reach * 10} y={1300} scale={1.95} facing={1} lightSide={1} silhouette={0.15} shoulderRadio={!taken}
-          pose={{ lean: -5 * reach, head: -6 - 4 * reach, brow: 0.3 + 0.7 * reach, eyeY: -0.6, eyeX: 0.4, blink: blinkAt(f, 80, 50), bob: breathe(f, 0.6, 2), armNear: [8 + 14 * reach, 20], armFar: [-6, 16] }} />
-        <Character id="s2bat" kind="batman" x={1290 - reach * 30} y={1330} scale={1.95} facing={-1} lightSide={-1} silhouette={0.2} capeWind={0.9} glowEyes={0.5}
-          prop={taken ? "radio" : "none"}
-          pose={{ lean: 6 * reach - 4 * pull, head: 2 - 4 * pull, brow: -1, blink: blinkAt(f, 90, 10), armNear: taken ? [70 - 10 * pull, 40 + 70 * pull] : [10 + 62 * reach, 14 + 26 * reach], armFar: [-10, 18], handNear: taken ? "grip" : reach > 0.7 ? "grip" : "open", handFar: "fist", bob: breathe(f, 0.25, 1.5) }} />
+        <Character id="s2alex" kind="alex" x={ax} y={1300} scale={S} facing={1} lightSide={1} silhouette={0.15} shoulderRadio={!taken}
+          pose={{ lean: -5 * reach + 3 * pull, head: -6 - 4 * reach, brow: 0.3 + 0.7 * reach, eyeY: -0.6, eyeX: 0.4, blink: blinkAt(f, 80, 50), bob: breathe(f, 0.6, 2), armNear: [8 + 10 * pull, 20], armFar: [-6, 16] }} />
+        <Character id="s2bat" kind="batman" x={bx} y={1330} scale={S} facing={-1} lightSide={-1} silhouette={0.2} capeWind={0.9} glowEyes={0.5}
+          prop={taken ? "radio" : "none"} reachNear={hand}
+          pose={{ lean: 6 * reach - 4 * pull, head: 2 - 4 * pull, brow: -1, blink: blinkAt(f, 90, 10), armFar: [-10, 18], handNear: grip > 0.5 || taken ? "grip" : "open", handFar: "fist", bob: breathe(f, 0.25, 1.5) }} />
       </Plane>
       <ForegroundRain amt={0.8} />
       <Post tintOpacity={0.2} vignette={0.7} />
+      <Sfx name="cloth" at={24} gain={0.35} />
+      <Sfx name="grab" at={51} gain={0.55} />
+      <Sfx name="static" at={58} gain={0.25} />
     </Stage>
   );
 };
 
 /* ============ Scene 3 — Nia pounds fogged bus window ============ */
+/* camera is OUTSIDE the bus looking in: droplets bead on the outer glass; the interior is warm, bright, dry */
 const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> = ({ fog, wipe, pound }) => {
   const f = useCurrentFrame();
-  const drops = Array.from({ length: 70 });
+  const S = 2.75, NX = 940, NY = 1330 + pound * 6;
+  const shN = anchor("nia", NX, NY, S, 1, "shoulderNear");
+  const shF = anchor("nia", NX, NY, S, 1, "shoulderFar");
+  // palms flat on the glass, arms attached through IK; a pound pulls back then slams
+  const back = pound * 18;
+  const palmN: [number, number] = [shN[0] + 150, shN[1] - 80 + back * 0.3];
+  const palmF: [number, number] = [shF[0] - 150, shF[1] - 80 + back * 0.3];
+  const beads = Array.from({ length: 46 });
   return (
     <>
-      {/* interior */}
+      {/* bright warm dry interior */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
-          <linearGradient id="bwIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3a2a1a" /><stop offset="1" stopColor="#120c08" /></linearGradient>
+          <linearGradient id="bwIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f1d9a6" /><stop offset="0.55" stopColor="#c99a62" /><stop offset="1" stopColor="#6a4a2c" /></linearGradient>
+          <radialGradient id="bwLamp" cx="0.5" cy="0.05" r="0.7"><stop offset="0" stopColor="#fff6dc" /><stop offset="1" stopColor="#ffe2a6" stopOpacity="0" /></radialGradient>
+          <linearGradient id="bwSeat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3f7a5a" /><stop offset="1" stopColor="#1e3e2e" /></linearGradient>
         </defs>
         <rect width="1920" height="1080" fill="url(#bwIn)" />
-        <radialGradient id="bwLamp" cx="0.5" cy="0.1" r="0.8"><stop offset="0" stopColor="#c89a5a" /><stop offset="1" stopColor="#2a1a10" stopOpacity="0" /></radialGradient>
-        <rect width="1920" height="1080" fill="url(#bwLamp)" opacity={0.7} />
-        {[0, 1, 2].map((i) => <g key={i}><rect x={200 + i * 600} y={660} width={420} height={320} rx={36} fill="#5a2a1c" /><rect x={200 + i * 600} y={660} width={420} height={26} rx={13} fill="#8a4a30" /></g>)}
+        <rect width="1920" height="1080" fill="url(#bwLamp)" opacity={0.85} />
+        {/* ceiling light strip + ribs */}
+        <rect x={0} y={128} width={1920} height={22} fill="#fffbe8" opacity={0.75} />
+        {[260, 700, 1140, 1580].map((x) => <rect key={x} x={x} y={150} width={14} height={520} fill="#a87c4a" opacity={0.35} />)}
+        {/* far-side windows: dark night beyond, rain outside only */}
+        {[0, 1, 2, 3].map((i) => <rect key={i} x={120 + i * 440} y={330} width={360} height={190} rx={18} fill="#1c2840" opacity={0.85} />)}
         <rect x={0} y={300} width={1920} height={10} fill="#8a7050" opacity={0.6} />
-        <rect x={0} y={120} width={1920} height={30} fill="#d9c090" opacity={0.15} />
+        {/* green bus seats */}
+        {[0, 1, 2].map((i) => <g key={i}><rect x={200 + i * 600} y={660} width={420} height={320} rx={36} fill="url(#bwSeat)" stroke="#12261c" strokeWidth={4} /><rect x={200 + i * 600} y={660} width={420} height={26} rx={13} fill="#5e9c78" /><rect x={214 + i * 600} y={700} width={8} height={260} fill="#ffffff" opacity={0.12} /></g>)}
       </svg>
-      <Character id="s3nia" kind="nia" x={940} y={1330 + pound * 6} scale={2.75} facing={1} lightSide={1} silhouette={0.1}
-        pose={{ armNear: [150, 10], armFar: [-150, -10], handNear: "open", handFar: "open", brow: 1, head: -4, eyeX: 0.4, blink: blinkAt(f, 50, 5), mouth: 0, smile: -0.8, lean: pound * 4 }} />
-      {/* glass: fog + droplets */}
+      <Character id="s3nia" kind="nia" x={NX} y={NY} scale={S} facing={1} lightSide={1} silhouette={0} nightTint={0.02} rim="#fff2cc"
+        reachNear={palmN} reachFar={palmF}
+        pose={{ handNear: "open", handFar: "open", brow: 1, head: -6 + pound * 2, eyeX: 0.6, eyeY: -0.3, blink: 0, smile: -0.9, lean: pound * 4 }} />
+      {/* outer glass: fog, palm clearings exactly under her palms, beading droplets */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <filter id="bwSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" /></filter>
           <mask id="bwMask">
             <rect width="1920" height="1080" fill="white" />
-            <ellipse cx={950} cy={560} rx={280 * wipe} ry={200 * wipe} fill="black" filter="url(#bwSoft)" />
-            <ellipse cx={720} cy={600} rx={62} ry={74} fill="black" filter="url(#bwSoft)" />
-            <ellipse cx={1180} cy={600} rx={62} ry={74} fill="black" filter="url(#bwSoft)" />
+            <ellipse cx={950} cy={560} rx={300 * wipe} ry={220 * wipe} fill="black" filter="url(#bwSoft)" />
+            <ellipse cx={palmN[0]} cy={palmN[1]} rx={70} ry={84} fill="black" filter="url(#bwSoft)" />
+            <ellipse cx={palmF[0]} cy={palmF[1]} rx={70} ry={84} fill="black" filter="url(#bwSoft)" />
           </mask>
-          <radialGradient id="bwFog"><stop offset="0" stopColor="#d7e2ee" stopOpacity="0.9" /><stop offset="1" stopColor="#b9c9dc" stopOpacity="1" /></radialGradient>
+          <radialGradient id="bwFog"><stop offset="0" stopColor="#e4ecf4" stopOpacity="0.85" /><stop offset="1" stopColor="#c4d2e2" stopOpacity="1" /></radialGradient>
         </defs>
-        <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.7} mask="url(#bwMask)" />
-        {drops.map((_, i) => {
-          const run = rand(i * 3) > 0.8;
-          const y = (rand(i * 5) * 1080 + (run ? f * (4 + rand(i) * 6) : 0)) % 1120;
-          const r = 3 + rand(i * 7) * 7;
-          return <g key={i}><circle cx={rand(i * 11) * 1920} cy={y} r={r} fill="#e9f2ff" opacity={0.35} /><circle cx={rand(i * 11) * 1920 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.6} />{run && <rect x={rand(i * 11) * 1920 - 1} y={y - 60} width={2} height={60} fill="#e9f2ff" opacity={0.2} />}</g>;
+        <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.62} mask="url(#bwMask)" />
+        {beads.map((_, i) => {
+          const slide = rand(i * 3) > 0.86; // a few slow trickles, no falling rain
+          const x0 = 120 + rand(i * 11) * 1680;
+          const y = 110 + ((rand(i * 5) * 860 + (slide ? f * (0.6 + rand(i) * 1.2) : 0)) % 860);
+          const r = 2.5 + rand(i * 7) * 5;
+          return <g key={i}><circle cx={x0} cy={y} r={r} fill="#eef5ff" opacity={0.22} /><circle cx={x0 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.5} />{slide && <path d={`M${x0} ${y - 40} Q${x0 + 2} ${y - 20} ${x0} ${y - r}`} stroke="#eef5ff" strokeWidth={1.4} opacity={0.18} fill="none" />}</g>;
         })}
-        {/* small palms pressed on the glass */}
-        {[[720, 600], [1180, 600]].map(([hx, hy], i) => (
-          <g key={i} transform={`translate(${hx} ${hy - pound * 6}) scale(${1 + pound * 0.06})`} opacity={0.92}>
-            <ellipse cx={0} cy={10} rx={34} ry={38} fill="#b07a56" />
-            {[-26, -10, 6, 22].map((fx, k) => <rect key={k} x={fx - 6} y={-58 + Math.abs(fx) * 0.3} width={13} height={50} rx={6.5} fill="#b07a56" />)}
-            <rect x={28} y={-4} width={12} height={36} rx={6} fill="#b07a56" transform="rotate(-35 34 14)" />
-            <ellipse cx={0} cy={10} rx={46} ry={52} fill="#ffffff" opacity={0.08 + pound * 0.1} />
-          </g>
-        ))}
+        {/* pound impact: brief condensation ring around each palm */}
+        {pound > 0.2 && [palmN, palmF].map(([hx, hy], i) => <ellipse key={i} cx={hx} cy={hy} rx={80 + (1 - pound) * 30} ry={92 + (1 - pound) * 30} fill="none" stroke="#ffffff" strokeWidth={3} opacity={pound * 0.25} />)}
         {/* window frame */}
-        <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#141210" fillRule="evenodd" />
-        <path d="M0 0 H1920 V60 H0 Z" fill="#b8901c" opacity={0.6} />
+        <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#c9981e" fillRule="evenodd" />
+        <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#141210" fillRule="evenodd" opacity={0.55} />
+        <path d="M100 130 Q100 90 140 90 H1780 Q1820 90 1820 130" stroke="#ffe08a" strokeWidth={3} fill="none" opacity={0.35} />
         <rect x={100} y={250} width={1720} height={18} fill="#141210" />
-        <path d="M150 100 l260 0 l-300 880 l-110 0 Z" fill="#fff" opacity={0.04} />
+        <path d="M150 100 l260 0 l-300 880 l-110 0 Z" fill="#fff" opacity={0.05} />
       </svg>
     </>
+  );
+};
+
+/** chain wrapped twice around the door handle, padlock hanging from the last link; slight swing + glint */
+const ChainLock: React.FC<{ x: number; y: number; scale?: number }> = ({ x, y, scale = 1 }) => {
+  const f = useCurrentFrame();
+  const sw = Math.sin(f * 0.16) * 4 + Math.sin(f * 0.07) * 1.5;
+  const glint = ci((f + 40) % 96, [0, 6, 14], [0, 1, 0]);
+  const link = (cx: number, cy: number, rot: number, edge: boolean, k: number) => edge
+    ? <rect key={k} x={cx - 15} y={cy - 3.5} width={30} height={7} rx={3.5} fill="#8d939e" stroke="#15171c" strokeWidth={2.5} transform={`rotate(${rot} ${cx} ${cy})`} />
+    : <g key={k} transform={`rotate(${rot} ${cx} ${cy})`}><ellipse cx={cx} cy={cy} rx={17} ry={10} fill="none" stroke="#15171c" strokeWidth={9} /><ellipse cx={cx} cy={cy} rx={17} ry={10} fill="none" stroke="#a9b0bb" strokeWidth={5} /><path d={`M${cx - 12} ${cy - 6} q12 -6 24 0`} stroke="#eef" strokeWidth={1.6} fill="none" opacity={0.7} /></g>;
+  // two wraps: links follow an ellipse around the bar (back half drawn darker, behind the bar)
+  const wrapPts = (phase: number) => Array.from({ length: 10 }).map((_, i) => {
+    const t = (i / 10) * Math.PI * 2 + phase;
+    return { cx: Math.cos(t) * 44, cy: Math.sin(t) * 30, back: Math.sin(t + Math.PI / 2) < 0, rot: (t * 180) / Math.PI + 90, i };
+  });
+  const W1 = wrapPts(0).map((p) => ({ ...p, cx: p.cx - 26 })), W2 = wrapPts(0.3).map((p) => ({ ...p, cx: p.cx + 26 }));
+  const all = [...W1, ...W2];
+  const drop = Array.from({ length: 4 }).map((_, i) => ({ cx: 60 + Math.sin((sw * Math.PI) / 180) * i * 24, cy: 34 + i * 22 }));
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+      <g transform={`translate(${x} ${y}) scale(${scale})`}>
+        {all.filter((p) => p.back).map((p, k) => <g key={`b${k}`} opacity={0.55}>{link(p.cx, p.cy, p.rot, k % 2 === 1, k)}</g>)}
+        {/* handle bar with mounting posts (contact points) */}
+        <rect x={-120} y={-14} width={240} height={28} rx={12} fill="#7a7f88" stroke="#111" strokeWidth={3} />
+        <rect x={-120} y={-14} width={240} height={8} rx={4} fill="#d8dde6" opacity={0.5} />
+        {[-130, 118].map((px) => <rect key={px} x={px} y={-30} width={14} height={60} rx={4} fill="#4a4e56" stroke="#111" strokeWidth={3} />)}
+        {all.filter((p) => !p.back).map((p, k) => link(p.cx, p.cy, p.rot, k % 2 === 1, 100 + k))}
+        {drop.map((d, k) => link(d.cx, d.cy, 90 + sw, k % 2 === 0, 200 + k))}
+        {/* padlock sized to the links, hanging from the last link */}
+        <g transform={`translate(${drop[3].cx} ${drop[3].cy + 10}) rotate(${sw * 1.5})`}>
+          <path d="M-20 18 V2 Q-20 -22 0 -22 Q20 -22 20 2 V18" stroke="#15171c" strokeWidth={12} fill="none" />
+          <path d="M-20 18 V2 Q-20 -22 0 -22 Q20 -22 20 2 V18" stroke="#b9c0ca" strokeWidth={7} fill="none" />
+          <rect x={-34} y={14} width={68} height={58} rx={9} fill="#b08a2a" stroke="#15171c" strokeWidth={3.5} />
+          <rect x={-34} y={14} width={68} height={12} rx={6} fill="#e8c460" opacity={0.6} />
+          <circle cx={0} cy={40} r={7} fill="#2a1e08" /><rect x={-2.5} y={42} width={5} height={14} fill="#2a1e08" />
+          <g transform="translate(-20 22)" opacity={glint}><path d="M0 -16 L3 -3 L16 0 L3 3 L0 16 L-3 3 L-16 0 L-3 -3 Z" fill="#fffbe6" /></g>
+        </g>
+      </g>
+    </svg>
   );
 };
 
@@ -144,8 +211,8 @@ export const Scene03: React.FC = () => {
       </Shot>
       <Shot from={cW} to={cD}>
         <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [cW, cD], [1.0, 1.08]) }}>
-          <BusWindowCloseup fog={fog} wipe={ci(f, [cW + 6, cW + 24], [0, 1])} pound={pound} />
-          <Post tintOpacity={0.12} vignette={0.6} />
+          <BusWindowCloseup fog={fog} wipe={ci(f, [cW + 6, cW + 24], [0, 1], EZ)} pound={pound} />
+          <Post tintOpacity={0.08} vignette={0.5} />
         </Stage>
       </Shot>
       <Shot from={cD} to={sceneDur(3) + 1}>
@@ -153,18 +220,14 @@ export const Scene03: React.FC = () => {
           <Plane p={1}>
             <AbsoluteFill style={{ background: "#0a0d16" }} />
             <SchoolBus x={-1350} y={-160} scale={2.7} fog={fog} wire={false} interior={0.35} />
-            <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
-              {/* chained handle */}
-              <rect x={850} y={560} width={120} height={24} rx={8} fill="#7a7f88" stroke="#111" strokeWidth={3} />
-              {Array.from({ length: 9 }).map((_, i) => <ellipse key={i} cx={760 + i * 34} cy={575 + Math.sin(i) * 6} rx={18} ry={10} fill="none" stroke="#9aa0aa" strokeWidth={6} />)}
-              <rect x={1060} y={560} width={60} height={70} rx={8} fill="#a08a30" stroke="#111" strokeWidth={3} />
-              <path d="M1072 562 V538 Q1090 514 1108 538 V562" stroke="#8a8f99" strokeWidth={8} fill="none" />
-            </svg>
+            <ChainLock x={910} y={572} scale={1} />
           </Plane>
           <Rain count={180} opacity={0.3} />
           <Post />
         </Stage>
       </Shot>
+      {Array.from({ length: 8 }).map((_, k) => <Sfx key={k} name="thud" at={cW + 42 + k * 14} gain={0.4} />)}
+      <Sfx name="chain" at={cD + 2} gain={0.5} />
     </>
   );
 };
@@ -174,6 +237,8 @@ export const Scene04: React.FC = () => {
   const f = useCurrentFrame();
   const cS = cue(4, "somewhere");
   const cJ = cue(4, "joke");
+  const cJk = cue(4, "joker");
+  const cWt = cue(4, "watching");
   const hh = handheld(f, 0.6, 8);
   const led = f % 24 < 12;
   return (
@@ -217,12 +282,27 @@ export const Scene04: React.FC = () => {
           </Plane>
           <Plane p={0.8}><Rain count={160} opacity={0.25} speed={30} len={30} /></Plane>
           <Plane p={1.2}>
-            <JokerBack x={1290} y={560} scale={1.55} laugh={ci(f, [cJ, cJ + 8], [0, 1])} />
+            {/* rooftop parapet he leans on */}
+            <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+              <defs><linearGradient id="s4par" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3a2a44" /><stop offset="1" stopColor="#0c0812" /></linearGradient></defs>
+              <path d="M980 900 L1960 860 L1960 1100 L980 1100 Z" fill="url(#s4par)" />
+              <path d="M980 900 L1960 860" stroke="#b47ad6" strokeWidth={3} opacity={0.45} />
+            </svg>
+            <JokerProfile x={1360} y={470} scale={1.05}
+              turn={ci(f, [cWt, cWt + 14], [0, 1], EZ)}
+              card={ci(f, [cJk + 6, cJk + 14], [0, 1], EZ)}
+              laugh={ci(f, [cJ, cJ + 8], [0, 1])} />
+            <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+              <path d="M940 930 L1960 884 L1960 1100 L940 1100 Z" fill="#07050a" />
+              <path d="M940 930 L1960 884" stroke="#7affa0" strokeWidth={2} opacity={0.25} />
+            </svg>
             <Glow x={1460} y={480} r={260} color="80,200,90" opacity={0.12} />
           </Plane>
           <Post tintColor="#3a1a52" tintOpacity={0.22} vignette={0.75} />
         </Stage>
       </Shot>
+      <Sfx name="thunder" at={cJk - 2} gain={0.35} />
+      <Sfx name="whoosh" at={cJk + 4} gain={0.2} />
     </>
   );
 };
@@ -263,8 +343,9 @@ export const Scene05: React.FC = () => {
         </svg>
       </Plane>
       <Post tintColor="#a05030" tintOpacity={0.14} vignette={0.5} />
-      <Caption text="SIX DAYS EARLIER" from={2} to={cR + 18} align="center" y={120} size={54} />
-      <FadeIn frames={10} color="#fff" />
+      <Caption text="SIX DAYS EARLIER" from={2} to={Math.max(cR + 18, 2 + 36)} align="center" y={120} size={54} />
+      <TimeJump at={0} dur={12} />
+      <Sfx name="whoosh" at={0} gain={0.45} />
     </Stage>
   );
 };
@@ -277,9 +358,18 @@ export const Scene06: React.FC = () => {
   const cL = cue(6, "locked");
   const cT = cue(6, "twice");
   const cLamp = cue(6, "lamp");
-  const lampOn = ci(f, [cLamp, cLamp + 10], [0, 1]);
   const turn1 = ci(f, [cL, cL + 6, cL + 12], [0, 1, 0]);
   const turn2 = ci(f, [cT - 4, cT + 2, cT + 8, cT + 14], [0, 1, 0, 1]);
+  // blocking: lock door (IK on the lock) -> walk with real travel -> reach the lamp -> contact -> filament flicker on
+  const wS = cT + 12, wE = cLamp + 8;
+  const DX0 = 1180, DX1 = 560, DS = 1.75;
+  const dx = ci(f, [wS, wE], [DX0, DX1], Easing.inOut(Easing.sin));
+  const walking = f >= wS && f < wE;
+  const lampPt: [number, number] = [352, 610];
+  const reachL = ci(f, [wE, wE + 8], [0, 1], EZ);
+  const touch = wE + 8;
+  const lampOn = f < touch ? 0 : ci(f - touch, [0, 1, 2, 3, 4, 5, 6, 8], [0, 0.9, 0.15, 1, 0.4, 1, 0.75, 1]);
+  const lockPt: [number, number] = [1440, 600 + (turn1 + turn2) * 6];
   return (
     <>
       <Shot from={0} to={cE}>
@@ -309,7 +399,7 @@ export const Scene06: React.FC = () => {
               <rect x={1120} y={190} width={340} height={420} fill="url(#s6night)" />
               {Array.from({ length: 8 }).map((_, i) => <rect key={i} x={1130 + i * 42} y={380 - rand(i) * 120} width={36} height={240} fill="#0a1222" />)}
               {Array.from({ length: 18 }).map((_, i) => <rect key={i} x={1135 + rand(i * 3) * 320} y={320 + rand(i * 7) * 260} width={5} height={7} fill="#f2cf7a" opacity={0.7} />)}
-              <text x={1290} y={260} textAnchor="middle" fontFamily="Georgia" fontSize={30} fill="#d9b070" opacity={0.6} letterSpacing={4} transform="scale(-1 1) translate(-2580 0)">REYES REPAIR</text>
+              <text x={1290} y={260} textAnchor="middle" fontFamily="Georgia" fontSize={30} fill="#d9b070" opacity={0.6} letterSpacing={4}>REYES REPAIR</text>
               <rect x={1120} y={640} width={340} height={280} fill="#24170e" stroke="#120a06" strokeWidth={6} />
               <rect x={1430} y={560} width={40} height={60} rx={6} fill="#b89040" />
               <circle cx={1450} cy={600} r={7} fill="#1a110a" />
@@ -328,17 +418,22 @@ export const Scene06: React.FC = () => {
             </svg>
           </Plane>
           <Plane p={1}>
-            <Character id="s6dad" kind="father" x={ci(f, [cLamp - 30, cLamp - 6], [1180, 640])} y={1120} scale={1.75} facing={f < cLamp - 30 ? 1 : -1} lightSide={-1} nightTint={0.12} rim="#ffb46a"
-              prop={f < cLamp - 30 ? "key" : "none"}
-              pose={f < cLamp - 30
-                ? { armNear: [92, 26 + (turn1 + turn2) * 12], handNear: "grip", head: (turn1 + turn2) * 3, brow: -0.2, blink: blinkAt(f, 60), bob: breathe(f) }
-                : f < cLamp - 6
-                ? { ...walk(((f - (cLamp - 30)) / 14) % 1, 0.8), head: 2 }
-                : { armNear: [ci(f, [cLamp - 6, cLamp], [10, 70]), 30], handNear: "open", head: 6, smile: 0.2 * lampOn, eyeY: 0.6, blink: blinkAt(f, 60) }} />
+            <Character id="s6dad" kind="father" x={dx} y={1120} scale={DS} facing={f < wS ? 1 : -1} lightSide={-1} nightTint={0.12} rim="#ffb46a"
+              prop={f < wS ? "key" : "none"}
+              reachNear={f < wS ? lockPt : f >= wE ? mixP(anchor("father", dx, 1120, DS, -1, "waist"), lampPt, reachL) : undefined}
+              pose={f < wS
+                ? { handNear: "grip", head: (turn1 + turn2) * 3, brow: -0.2, blink: blinkAt(f, 60), bob: breathe(f) }
+                : walking
+                ? { ...walkDist(DX0 - dx, "father", DS, 0.8), head: 2 }
+                : { handNear: reachL > 0.8 ? "grip" : "open", head: 6, smile: 0.2 * lampOn, eyeY: 0.6, blink: blinkAt(f, 60) }} />
           </Plane>
           <Post tintColor="#3a2010" tintOpacity={0.12 + 0.1 * lampOn} vignette={0.6} />
         </Stage>
       </Shot>
+      <Sfx name="lock" at={cL + 4} gain={0.5} />
+      <Sfx name="lock" at={cT} gain={0.45} />
+      {Array.from({ length: 3 }).map((_, k) => <Sfx key={k} name="step" at={cT + 16 + k * 11} gain={0.3} />)}
+      <Sfx name="switch" at={cLamp + 16} gain={0.5} />
     </>
   );
 };
@@ -349,6 +444,10 @@ export const Scene07: React.FC = () => {
   const cNo = cue(7, "no");
   const cBut = cue(7, "but");
   const shakeHead = f > cNo && f < cNo + 20 ? Math.sin((f - cNo) * 0.6) * 5 : 0;
+  const pat = ci(f, [cNo + 8, cNo + 22], [0, 1], EZ);
+  const kidSh = anchor("alexYoung", 720, 1060, 1.55, 1, "shoulderNear");
+  const dadRest = anchor("father", 1180, 1070, 1.6, -1, "waist");
+  const dadHand = mixP([dadRest[0] - 40, dadRest[1] + 30], [kidSh[0] + 4, kidSh[1] - 6], pat);
   return (
     <>
       <Shot from={0} to={cBut}>
@@ -358,7 +457,8 @@ export const Scene07: React.FC = () => {
             <Character id="s7kid" kind="alexYoung" x={720} y={1060} scale={1.55} facing={1} lightSide={1} nightTint={0.08} rim="#ffb46a"
               pose={{ head: -10, brow: 0.6, eyeY: -0.8, armNear: [30, 60], handNear: "point", blink: blinkAt(f, 70, 10), bob: breathe(f), smile: -0.1 }} />
             <Character id="s7dad" kind="father" x={1180} y={1070} scale={1.6} facing={-1} lightSide={1} nightTint={0.08} rim="#ffb46a"
-              pose={{ head: 4 + shakeHead, brow: f > cNo ? 0.2 : -0.2, smile: f > cNo + 20 ? 0.35 : 0, eyeY: 0.5, armNear: [24, 60], armFar: [-6, 20], blink: blinkAt(f, 80, 40), bob: breathe(f, 0.35) }} />
+              reachNear={pat > 0 ? dadHand : undefined}
+              pose={{ head: 4 + shakeHead, brow: f > cNo ? 0.2 : -0.2, smile: f > cNo + 20 ? 0.35 : 0, eyeY: 0.5, lean: -4 * pat, armNear: [10, 16], handNear: "open", armFar: [-6, 20], blink: blinkAt(f, 80, 40), bob: breathe(f, 0.35) }} />
           </Plane>
           <Post tintColor="#5a2a10" tintOpacity={0.1} vignette={0.55} />
         </Stage>
@@ -427,8 +527,17 @@ export const Scene08: React.FC = () => {
   const cS = cue(8, "switch");
   const cBm = cue(8, "beam");
   const cSh = cue(8, "shake");
-  const handed = f > cG + 22;
-  const ext = ci(f, [cG - 10, cG + 10], [0, 1]);
+  // hand-off: dad offers (IK) -> Alex's hand arrives at the same point -> swap at contact -> Alex draws it to his chest
+  const meet: [number, number] = [962, 1040 - 250 * 1.4];
+  const offer = ci(f, [cG - 12, cG + 6], [0, 1], EZ);
+  const take = ci(f, [cG + 2, cG + 14], [0, 1], EZ);
+  const handed = f >= cG + 18;
+  const back = ci(f, [cG + 22, cG + 40], [0, 1], EZ);
+  const aRest = anchor("alexDress", 800, 1040, 1.4, 1, "waist");
+  const dRest = anchor("father", 1120, 1040, 1.38, -1, "waist");
+  const aChest: [number, number] = [aRest[0] + 70, aRest[1] - 120];
+  const alexHand: [number, number] = handed ? mixP(meet, aChest, back) : mixP([aRest[0] + 30, aRest[1] + 40], [meet[0] - 4, meet[1] + 4], take);
+  const dadHand: [number, number] = handed ? mixP(meet, [dRest[0] - 30, dRest[1] + 40], back) : mixP([dRest[0] - 30, dRest[1] - 10], meet, offer);
   const fl = f > cBm ? ((Math.floor(f / 2) * 7) % 5 < 3 ? 1 : 0.15) * (f > cSh ? (rand(Math.floor(f / 3)) > 0.4 ? 1 : 0) : 1) : 0;
   return (
     <>
@@ -438,11 +547,11 @@ export const Scene08: React.FC = () => {
           <Plane p={0.7}><Academy /></Plane>
           <Plane p={1}>
             <Character id="s8alex" kind="alexDress" x={800} y={1040} scale={1.4} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890"
-              prop={handed ? "flashlight" : "none"}
-              pose={{ armNear: handed ? [60, 50] : [8 + ext * 40, 16 + ext * 20], handNear: handed ? "grip" : "open", smile: 0.5, brow: 0.3, head: -2, blink: blinkAt(f, 70, 30), bob: breathe(f) }} />
+              prop={handed ? "flashlight" : "none"} reachNear={alexHand}
+              pose={{ handNear: handed || take > 0.85 ? "grip" : "open", smile: 0.5, brow: 0.3, head: -2 - 3 * back, eyeY: 0.4 * back, blink: blinkAt(f, 70, 30), bob: breathe(f) }} />
             <Character id="s8dad" kind="father" x={1120} y={1040} scale={1.38} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
-              prop={!handed ? "flashlight" : "none"}
-              pose={{ armNear: !handed ? [10 + ext * 66, 30 - ext * 10] : [10, 20], handNear: "grip", head: 3, smile: 0.25, eyeY: 0.3, blink: blinkAt(f, 80), bob: breathe(f, 0.35) }} />
+              prop={!handed ? "flashlight" : "none"} reachNear={dadHand}
+              pose={{ handNear: handed ? "open" : "grip", head: 3, smile: 0.25, eyeY: 0.3, blink: blinkAt(f, 80), bob: breathe(f, 0.35) }} />
           </Plane>
           <Post tintColor="#2a2a50" tintOpacity={0.12} vignette={0.55} />
         </Stage>
@@ -453,6 +562,10 @@ export const Scene08: React.FC = () => {
           <Post tintColor="#2a2a50" tintOpacity={0.1} vignette={0.6} />
         </Stage>
       </Shot>
+      <Sfx name="crowd" at={0} gain={0.18} />
+      <Sfx name="click" at={cS + 2} gain={0.45} />
+      <Sfx name="click" at={cBm} gain={0.4} />
+      <Sfx name="rattle" at={cSh + 2} gain={0.4} />
     </>
   );
 };
@@ -464,17 +577,21 @@ export const Scene09: React.FC = () => {
   const cK = cue(9, "keep");
   const cL = cue(9, "lights");
   const laugh = f < cHe + 8 ? 1 : ci(f, [cHe + 8, cK + 10], [1, 0]);
-  const reach = ci(f, [cK, cK + 14], [0, 1]);
+  const reach = ci(f, [cK - 4, cK + 14], [0, 1], EZ);
+  const aSh = anchor("alexDress", 760, 1280, 1.85, 1, "shoulderNear");
+  const dRest = anchor("father", 1090, 1270, 1.8, -1, "waist");
+  const dadHand = mixP([dRest[0] - 30, dRest[1] + 50], [aSh[0] + 6, aSh[1] - 8], reach);
   const dim = ci(f, [cL, cL + 4, cL + 30, cL + 50], [0, 1, 1, 0.3]);
   return (
     <Stage cam={{ x: ci(f, [cK - 10, cK + 30], [0, 200], Easing.inOut(Easing.cubic)), y: ci(f, [cK - 10, cK + 30], [0, -60]), zoom: ci(f, [cK - 10, cK + 30], [1.0, 1.25], Easing.inOut(Easing.cubic)) }}>
       <Plane p={0.15}><Sky variant="night" seed={11} moon={[1700, 120, 34]} horizonY={900} /></Plane>
       <AbsoluteFill style={{ filter: "blur(4px)" }}><Plane p={0.7}><Academy lightsDim={dim} /></Plane></AbsoluteFill>
       <Plane p={1}>
-        <Character id="s9alex" kind="alexDress" x={760} y={1280} scale={1.85} facing={1} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
+        <Character id="s9alex" kind="alexDress" x={760} y={1280} scale={1.85} facing={1} allowMouth={false} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
           pose={{ armNear: [50 - reach * 20, 60 + reach * 20], handNear: "grip", smile: 0.9 * laugh + 0.1, mouth: laugh * 0.35 * (0.5 + 0.5 * Math.sin(f * 0.9)), head: -6 * laugh + Math.sin(f * 0.9) * 2 * laugh, bob: Math.abs(Math.sin(f * 0.45)) * 5 * laugh, brow: 0.4 * laugh - 0.2 * reach, blink: laugh > 0.5 ? 0.7 : blinkAt(f, 70, 30), eyeX: 0.5 }} />
-        <Character id="s9dad" kind="father" x={1180} y={1270} scale={1.8} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
-          pose={{ armNear: [10 + reach * 64, 22 - reach * 12], handNear: "open", head: 2, brow: -0.7, smile: -0.25, eyeY: 0.1, blink: blinkAt(f, 90, 50), bob: breathe(f, 0.35) }} />
+        <Character id="s9dad" kind="father" x={1090} y={1270} scale={1.8} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
+          reachNear={dadHand}
+          pose={{ handNear: "open", lean: -5 * reach, head: 2 + 3 * reach, brow: -0.7, smile: -0.25, eyeY: 0.1, blink: blinkAt(f, 90, 50), bob: breathe(f, 0.35) }} />
       </Plane>
       <Post tintColor="#2a2a50" tintOpacity={0.12 + dim * 0.1} vignette={0.6 + dim * 0.15} />
     </Stage>
@@ -486,24 +603,30 @@ export const Scene10: React.FC = () => {
   const f = useCurrentFrame();
   const cO = cue(10, "officer");
   const cR = cue(10, "remember");
-  const walkT = ci(f, [0, 80], [0, 1], (t) => t);
-  const ax = 260 + walkT * 560;
-  const walking = f < 80;
-  const tilt = ci(f, [cR, cR + 40], [0, 1], Easing.inOut(Easing.cubic));
+  const D = sceneDur(10);
+  const AX0 = 150, AX1 = 600, S = 1.15;
+  const ax = ci(f, [0, 84], [AX0, AX1], Easing.inOut(Easing.sin));
+  const walking = f < 84;
+  const tilt = ci(f, [cR, cR + 44], [0, 1], Easing.inOut(Easing.cubic));
+  // camera never stops: slow drift + push continues after the tilt
+  const cam = { x: ci(f, [0, D], [0, 60]) + tilt * -200, y: -tilt * 330, zoom: ci(f, [0, D], [1.0, 1.08]) + tilt * 0.45 };
   return (
-    <Stage cam={{ x: ci(f, [0, cR], [0, 40]) + tilt * -220, y: -tilt * 320, zoom: ci(f, [0, cR], [1.0, 1.04]) + tilt * 0.5 }}>
+    <Stage cam={cam}>
       <Plane p={0.15}><Sky variant="night" seed={14} moon={[380, 140, 40]} horizonY={700} /></Plane>
       <Plane p={0.35}><DecoSkyline seed={61} baseY={640} hMin={260} hMax={560} haze={0.45} /></Plane>
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
-        <Character id="s10mara" kind="mara" x={1100} y={1000} scale={1.15} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: f > 60 ? 4 : 0, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, blink: blinkAt(f, 80, 20), bob: breathe(f, 0.3) }} />
-        <Character id="s10alex" kind="alex" x={ax} y={1010} scale={1.15} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={walking ? { ...walk((f / 16) % 1), head: -2, smile: 0.3 } : { head: -4, smile: 0.35, brow: 0.3, blink: blinkAt(f, 70, 10), bob: breathe(f) }} />
+        <Character id="s10mara" kind="mara" x={1110} y={1000} scale={S} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
+          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: f > 50 ? 4 : 0, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
+        <Character id="s10alex" kind="alex" x={ax} y={1010} scale={S} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
+          pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4, smile: 0.35, brow: 0.3, bob: breathe(f) }} />
       </Plane>
+      <Plane p={1.1}><Rain count={110} opacity={0.2} /></Plane>
       <Plane p={1.2}><Fog y={980} height={160} opacity={0.15} /></Plane>
       <Post />
       <Caption text="OFFICER MARA BENNETT" from={cO} to={cR + 6} x={1060} y={160} size={38} />
+      <EdgeFade outF={10} dur={D} />
+      {[10, 38, 66].map((t, k) => <Sfx key={k} name="step" at={t} gain={0.28} />)}
     </Stage>
   );
 };

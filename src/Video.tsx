@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, interpolate } from "remotion";
-import { SCENES, SceneInfo } from "./timeline";
+import { SCENES, SceneInfo, TOTAL_FRAMES } from "./timeline";
 import { Scene01, Scene02, Scene03, Scene04, Scene05, Scene06, Scene07, Scene08, Scene09, Scene10 } from "./scenes/batch1";
 
 const REGISTRY: Record<string, React.FC> = {
@@ -20,9 +20,22 @@ const PlaceholderScene: React.FC<{ scene: SceneInfo }> = ({ scene }) => {
   );
 };
 
+/** [from, to) global frame ranges where a bed is audible; 12-frame ramps between them */
+const RAIN: [number, number][] = [[0, 700], [843, 1001], [1311, 1378], [1779, 1968]];
+const ROOM: [number, number][] = [[1001, 1311]];
+const envAt = (fr: number, ranges: [number, number][]) => {
+  let v = 0;
+  for (const [a, b] of ranges) v = Math.max(v, Math.min(1, (fr - a + 12) / 12, (b - fr + 12) / 12));
+  return Math.max(0, v);
+};
+
 export const GothamCop: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "#05070c" }}>
     <Audio src={staticFile("narration.wav")} />
+    {/* continuous beds (procedural, scripts/sfx.py): never a dead-silent gap between narration lines */}
+    <Audio src={staticFile("sfx/rain_bed.wav")} loop volume={(fr) => 0.16 * envAt(fr, RAIN)} />
+    <Audio src={staticFile("sfx/room.wav")} loop volume={(fr) => 0.14 * envAt(fr, ROOM)} />
+    <Audio src={staticFile("sfx/pad.wav")} loop volume={(fr) => 0.07 * Math.min(1, fr / 24, (TOTAL_FRAMES - fr) / 48)} />
     {SCENES.map((s) => {
       const C = REGISTRY[s.id];
       return (
