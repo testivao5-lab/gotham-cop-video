@@ -5,13 +5,26 @@ on:
       url:
         description: "Video URL"
         required: true
+permissions:
+  actions: read
+  contents: read
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && pip install -q opencv-python-headless numpy scipy
-      - run: curl -sL "${{ inputs.url }}" -o v.mp4 && ls -la v.mp4
+      - name: Fetch video (URL, or run:<id> to pull the preview-video artifact)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          U="${{ inputs.url }}"
+          if [[ "$U" == run:* ]]; then
+            gh run download "${U#run:}" -n preview-video -D vid -R "${{ github.repository }}"
+            mv "$(find vid -name '*.mp4' | head -1)" v.mp4
+          else
+            curl -sL "$U" -o v.mp4
+          fi
+          ls -la v.mp4
       - name: Motion / acting / mix audit
         run: python3 scripts/motion_audit.py v.mp4 out
       - name: SFX asset analysis (how synthetic each sound is)
