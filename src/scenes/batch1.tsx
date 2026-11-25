@@ -956,7 +956,8 @@ export const Scene09: React.FC = () => {
   return (
     <Stage cam={{ x: ci(f, [cK - 10, cK + 30], [0, 200], Easing.inOut(Easing.cubic)), y: ci(f, [cK - 10, cK + 30], [0, -60]), zoom: ci(f, [cK - 10, cK + 30], [1.0, 1.25], Easing.inOut(Easing.cubic)) }}>
       <Plane p={0.15}><Sky variant="night" seed={11} moon={[1700, 120, 34]} horizonY={900} /></Plane>
-      <AbsoluteFill style={{ filter: "blur(4px)" }}><Plane p={0.7}><Academy lightsDim={dim} /></Plane></AbsoluteFill>
+      {/* WORLD_METRICS: close two-shot (1.75 m = 840 px). The facade is magnified with the camera push so the 3.4 m door stays taller than a person at its depth (same relation as S8, guardDoor) */}
+      <AbsoluteFill style={{ filter: "blur(4px)", transform: "scale(2.3)", transformOrigin: "960px 760px" }}><Plane p={0.7}><Academy lightsDim={dim} /></Plane></AbsoluteFill>
       <Plane p={1}>
         <Character id="s9alex" kind="alexDress" x={760} y={1360} scale={2.1} crop="thigh" facing={1} allowMouth={false} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
           reachNear={[anchor("alexDress", 760, 1360, 2.1, 1, "chest")[0] + 60, anchor("alexDress", 760, 1360, 2.1, 1, "chest")[1] + 30 + Math.abs(Math.sin(f * 0.45)) * 5 * laugh]}

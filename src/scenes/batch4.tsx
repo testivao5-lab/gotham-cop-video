@@ -31,7 +31,7 @@ export const Scene45: React.FC = () => {
       <Plane p={1}><Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} /></Plane>
       <Plane p={1.3}>
         <div style={{ position: "absolute", inset: 0, filter: `blur(${rack * 4}px)` }}>
-          <Character id="s45alex" kind="alex" x={420} y={1360} crop="waist" scale={1.5} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio={false} viewAngle="back"
+          <Character id="s45alex" kind="alex" x={420} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio={false} viewAngle="back"
             pose={{ head: -18 + rack * 22, neck: -10 + rack * 10 }} />
         </div>
       </Plane>
@@ -103,7 +103,7 @@ export const Scene47: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cS} to={D + 1}>
-        <Stage cam={{ x: 380 + handheld(f, 0.4, 47).x, y: -60, zoom: ci(f, [cS, D], [1.9, 2.05], EZ) }}>
+        <Stage cam={{ x: 1000 + handheld(f, 0.4, 47).x, y: -90, zoom: ci(f, [cS, D], [2.5, 2.6], EZ) }}>
           <BusStreetSet fog={0.6} nia niaPound={0.15} sky="storm" lamp={0} blackout={1} />
           <Plane p={1}><Glow x={niaWin()[0]} y={niaWin()[1]} r={60} color="255,240,200" opacity={0.6} /></Plane>
           <Post />
@@ -162,7 +162,7 @@ export const Scene49: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cX - 6}>
-        <Stage cam={{ x: ci(f, [0, cX], [0, 260], EZ), y: 0, zoom: ci(f, [0, cX], [1.0, 1.25], EZ) }}>
+        <Stage cam={{ x: ci(f, [0, cX], [100, 420], EZ), y: ci(f, [0, cX], [0, -40]), zoom: ci(f, [0, cX], [1.3, 1.75], EZ) }}>
           <BusStreetSet fog={0.4} nia={door < 0.5} sky="storm" lamp={0} blackout={1} busX={BX} busY={BY} />
           <Plane p={1}>
             <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.18} />
@@ -215,8 +215,8 @@ export const Scene51: React.FC = () => {
   return (
     <Stage cam={{ x: handheld(f, 0.3, 51).x, y: handheld(f, 0.3, 51).y, zoom: ci(f, [0, D], [1.0, 1.08]) }}>
       <CruiserCabin dark={0.3} signal={0.8} wipe={false} speed={0.4}>
-        <Character id="s51mara" kind="mara" x={640} y={1280} crop="waist" scale={1.25} facing={1} lightSide={1} nightTint={0.3} shoulderRadio reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: 6, eyeX: 0.6, handNear: "grip", handFar: "grip", smile: f > cC ? 0.1 : 0 }} />
-        <Character id="s51alex" kind="alex" x={1300} y={1280} crop="waist" scale={1.25} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 12, eyeY: 0.5, brow: 0.3, lean: 6 }} />
+        <Character id="s51mara" kind="mara" x={620} y={1480} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: 6, eyeX: 0.6, handNear: "grip", handFar: "grip", smile: f > cC ? 0.1 : 0 }} />
+        <Character id="s51alex" kind="alex" x={1320} y={1480} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 12, eyeY: 0.5, brow: 0.3, lean: 6 }} />
       </CruiserCabin>
       <Post tintOpacity={0.14} />
       <EdgeFade dur={D} inF={8} outF={8} />
@@ -233,7 +233,7 @@ export const Scene52: React.FC = () => {
     <Stage cam={{ x: ci(f, [0, D], [80, -40]), y: 0, zoom: ci(f, [0, D], [1.0, 1.15], EZ) }}>
       <Plane p={0.9}><TVDebate cityMorning={ci(f, [0, D], [0.6, 1])} /></Plane>
       <Plane p={1.15}>
-        <Character id="s52alex" kind="alex" x={1700} y={1560} crop="waist" scale={1.6} facing={-1} lightSide={-1} nightTint={0.1} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: 4 }} />
+        <Character id="s52alex" kind="alex" x={1640} y={1530} crop="waist" scale={3.2} facing={-1} lightSide={-1} nightTint={0.1} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: 4 }} />
       </Plane>
       <Post tintColor="#3a2a20" tintOpacity={0.08} />
       <EdgeFade dur={D} inF={10} outF={8} />
@@ -338,7 +338,7 @@ export const Scene56: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cE} to={D + 1}>
-        <Stage cam={{ x: -500, y: -40, zoom: ci(f, [cE, D], [1.7, 1.8]) }}>
+        <Stage cam={{ floor: 1000, x: -500, y: -40, zoom: ci(f, [cE, D], [1.4, 1.5]) }}>
           <Plane p={0.8}><ShopInterior lamp={1} /></Plane>
           <Plane p={1}>
             <Character id="s56dad" kind="father" x={420} y={1000 + 94 * SS} groundY={1000} scale={SS} facing={1} lightSide={1} nightTint={0.02} rim="#ffd8a0"
@@ -377,7 +377,7 @@ export const Scene57: React.FC = () => {
         <SchoolBus x={bx} y={busY - 332 * bs} scale={bs} lit={0.4} interior={0.5} />
       </Plane>
       <Plane p={1.2}>
-        <Character id="s57alex" kind="alex" x={260} y={1400} crop="waist" scale={1.4} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: -4 + ci(f, [cB, cB + 60], [0, 10]) }} />
+        <Character id="s57alex" kind="alex" x={280} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" noHat pose={{ head: -4 + ci(f, [cB, cB + 60], [0, 10]) }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.45} />
       <EdgeFade dur={D} inF={6} outF={6} />
@@ -415,7 +415,7 @@ export const Scene59: React.FC = () => {
   const cF = cq(59, "fix", 0.5);
   const cK = cq(59, "know", 0.85);
   return (
-    <Stage cam={{ x: ci(f, [0, D], [-40, 40]), y: 0, zoom: ci(f, [0, D], [1.1, 1.2], EZ) }}>
+    <Stage cam={{ floor: 1000, x: ci(f, [0, D], [-40, 40]), y: 0, zoom: ci(f, [0, D], [1.1, 1.2], EZ) }}>
       <Plane p={0.8}><ShopInterior lamp={1} /></Plane>
       <Plane p={1}>
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
@@ -447,7 +447,7 @@ export const Scene60: React.FC = () => {
         <WetStreet horizonY={860} curbY={890} laneY={1000} reflections={[{ x: 960, color: "#f0c090", w: 260, strength: 0.5 }]} seed={60} asphalt="#2a2a34" />
       </Plane>
       <Plane p={1.15}>
-        <Character id="s60alex" kind="alex" x={960} y={1420} crop="waist" scale={1.5} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: -6 }} />
+        <Character id="s60alex" kind="alex" x={1400} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0} rim="#ffd8a0" shoulderRadio={false} viewAngle="back" pose={{ head: -6 }} />
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.5} />
       <AbsoluteFill style={{ background: "rgba(5,6,10,0.45)", opacity: ci(f, [10, 40], [0, 1]) }} />
