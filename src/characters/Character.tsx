@@ -21,7 +21,7 @@ const PAL: Record<Kind, Pal> = {
   alex: { skin: "#c48a62", hair: "#17110e", top: "#8f98aa", top2: "#1c2433", pants: "#25407c", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
   alexYoung: { skin: "#c48a62", hair: "#17110e", top: "#7a2e2a", top2: "#e0d6c0", pants: "#2e3a56", shoes: "#3a2a20", accent: "#e0d6c0" },
   alexDress: { skin: "#c48a62", hair: "#17110e", top: "#1d2b52", top2: "#c9cfd9", pants: "#1d2b52", shoes: "#060608", hat: "#1d2b52", accent: "#d9b24a" },
-  mara: { skin: "#8a5a3c", hair: "#1d1512", top: "#8f98aa", top2: "#1a2440", pants: "#25407c", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
+  mara: { skin: "#7a4a30", hair: "#2a1410", top: "#2b3654", top2: "#a9bfd8", pants: "#1b2236", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
   batman: { skin: "#c49a7a", hair: "#000", top: "#7d8595", top2: "#161a26", pants: "#7d8595", shoes: "#161a26", hat: "#161a26", accent: "#d8b23a" },
   father: { skin: "#b07a55", hair: "#a7a7a7", top: "#5d4b39", top2: "#cfc6b2", pants: "#3a3a46", shoes: "#2a1d14", accent: "#3f4c3c" },
   nia: { skin: "#a8714d", hair: "#1a120e", top: "#f0c21a", top2: "#d9a50e", pants: "#3a4a6a", shoes: "#c8302a", accent: "#f0c21a" },
@@ -38,7 +38,7 @@ const BUILD: Record<Kind, Build> = {
   alex: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1, headS: 1 },
   alexYoung: { H: 320, sh: 0.82, waist: 0.85, hipW: 0.85, thigh: 80, shin: 78, ua: 62, fa: 58, limb: 0.8, headS: 0.95, child: true },
   alexDress: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1, headS: 1 },
-  mara: { H: 384, sh: 0.9, waist: 0.95, hipW: 1.05, thigh: 96, shin: 94, ua: 74, fa: 68, limb: 0.92, headS: 0.96, female: true },
+  mara: { H: 408, sh: 0.86, waist: 0.86, hipW: 1.04, thigh: 104, shin: 102, ua: 76, fa: 70, limb: 0.88, headS: 0.94, female: true },
   batman: { H: 440, sh: 1.32, waist: 1.05, hipW: 1.05, thigh: 108, shin: 106, ua: 84, fa: 78, limb: 1.25, headS: 1.0 },
   father: { H: 380, sh: 1.02, waist: 1.25, hipW: 1.12, thigh: 94, shin: 92, ua: 74, fa: 68, limb: 1.05, headS: 1.02, belly: 14 },
   nia: { H: 230, sh: 0.62, waist: 0.75, hipW: 0.7, thigh: 52, shin: 50, ua: 44, fa: 40, limb: 0.62, headS: 0.85, child: true, female: true },
@@ -412,7 +412,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
   return (
     <g>
       {/* back hair / bun / hood back */}
-      {kind === "mara" && <g><ellipse cx={-24} cy={-30} rx={10} ry={9} fill={g("hair")} stroke={outline} strokeWidth={sw} /><path d="M-26 -34 q-4 6 0 10" stroke="#8a8a8a" strokeWidth={1.5} fill="none" /></g>}
+      {kind === "mara" && <g><ellipse cx={-27} cy={-26} rx={15} ry={13} fill={g("hair")} stroke={outline} strokeWidth={sw} /><path d="M-36 -30 q8 -6 18 0 M-38 -22 q10 -5 20 0" stroke="#5a3424" strokeWidth={2} fill="none" /><path d="M-24 -40 C-30 -34 -30 -28 -26 -22" stroke={g("hair")} strokeWidth={6} fill="none" /></g>}
       {kind === "mother" && <path d="M-26 -50 C-36 -30 -34 -6 -24 6 L-6 -10 L-10 -50 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {kind === "employee" && <path d="M-26 -50 C-34 -34 -30 -14 -20 -6 L-4 -14 L-8 -50 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {child && <path d="M-34 -40 C-38 -70 -10 -82 8 -80 C30 -78 40 -62 38 -40 C38 -20 34 -4 26 4 L-30 4 C-36 -10 -36 -24 -34 -40 Z" fill={g("top")} stroke={outline} strokeWidth={sw} />}

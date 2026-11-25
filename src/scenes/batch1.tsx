@@ -54,7 +54,7 @@ export const Scene02: React.FC = () => {
   const hh = handheld(f, 0.8, 4);
   const cam = { x: hh.x, y: hh.y, zoom: ci(f, [0, sceneDur(2)], [1.0, 1.06]), rot: hh.rot };
   const S = 1.95;
-  const ax = 660 - reach * 10, bx = 1170 - reach * 20;
+  const ax = 640 - reach * 10, bx = 1060 - reach * 70 + pull * 30; // Batman steps IN so the arm stays bent
   const radio = anchor("alex", ax, 1300, S, 1, "radio");
   const rest: [number, number] = [bx - 70 * S, 1330 - 168 * S];
   const lift: [number, number] = [bx - 120 * S, 1330 - 300 * S];
@@ -554,12 +554,13 @@ export const Scene08: React.FC = () => {
   const HALF = 58; // dad holds the lens end, Alex takes the handle end
   const aRest = anchor("alexDress", 800, 1040, 1.4, 1, "waist");
   const dRest = anchor("father", 1120, 1040, 1.38, -1, "waist");
-  const aChest: [number, number] = [aRest[0] + 34, aRest[1] - 120];
+  const aChest: [number, number] = [aRest[0] + 46, aRest[1] - 64];
   const dHold: [number, number] = [dRest[0] - 40, dRest[1] - 10];
   const dadHand: [number, number] = handed ? mixP([meet[0] + HALF, meet[1]], [dRest[0] - 30, dRest[1] + 40], back) : mixP(dHold, [meet[0] + HALF, meet[1]], offer);
   const alexHand: [number, number] = handed ? mixP([meet[0] - HALF, meet[1]], aChest, back) : mixP([aRest[0] + 30, aRest[1] + 40], [meet[0] - HALF, meet[1]], take);
-  const flC: [number, number] = handed ? [alexHand[0] + HALF, alexHand[1]] : [dadHand[0] - HALF, dadHand[1]];
-  const fl = f > cBm ? ((Math.floor(f / 2) * 7) % 5 < 3 ? 1 : 0.15) * (f > cSh ? (rand(Math.floor(f / 3)) > 0.4 ? 1 : 0) : 1) : 0;
+  const flAng = handed ? -4 - 70 * back : -4; // degrees; rotates up to near-vertical as he draws it in
+  const flC: [number, number] = handed ? [alexHand[0] + HALF * Math.cos((flAng * Math.PI) / 180), alexHand[1] + HALF * Math.sin((flAng * Math.PI) / 180)] : [dadHand[0] - HALF, dadHand[1]];
+  const fl = ci(f, [cS + 2, cS + 7], [0, 1], EZ) * (0.92 + 0.08 * Math.sin(f * 0.21));
   return (
     <>
       <Shot from={0} to={cM}>
@@ -568,7 +569,7 @@ export const Scene08: React.FC = () => {
           <Plane p={0.7}><Academy /></Plane>
           <Plane p={1}>
             <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
-              <g transform={`translate(${flC[0]} ${flC[1]}) rotate(${-4 + back * 6})`}>
+              <g transform={`translate(${flC[0]} ${flC[1]}) rotate(${flAng})`}>
                 <rect x={-80} y={-11} width={128} height={22} rx={5} fill="#9aa0aa" stroke="#0a0a0e" strokeWidth={3} />
                 <rect x={-80} y={-11} width={128} height={7} rx={3} fill="#e6eaf0" opacity={0.6} />
                 {[-60, -44, -28].map((gx) => <rect key={gx} x={gx} y={-11} width={4} height={22} fill="#000" opacity={0.2} />)}
@@ -650,9 +651,9 @@ export const Scene10: React.FC = () => {
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
         <Character id="s10mara" kind="mara" x={1110} y={1000} scale={S} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: f > 50 ? 4 : 0, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
+          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: (f > 50 ? 4 : 0) + 9 * Math.sin(Math.PI * ci(f, [88, 104], [0, 1])) + 9 * Math.sin(Math.PI * ci(f, [104, 118], [0, 1])) * 0.6, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, eyeX: f > 40 ? 0.6 : 0, bob: breathe(f, 0.3) }} />
         <Character id="s10alex" kind="alex" x={ax} y={1010} scale={S} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4, smile: 0.35, brow: 0.3, bob: breathe(f) }} />
+          pose={walking ? { ...walkDist(ax - AX0, "alex", S, 0.9), head: -2, smile: 0.3 } : { head: -4 + 10 * Math.sin(Math.PI * ci(f, [100, 116], [0, 1])), smile: 0.35, brow: 0.3, bob: breathe(f) }} />
       </Plane>
       <Plane p={1.1}><Rain count={110} opacity={0.2} /></Plane>
       <Plane p={1.2}><Fog y={980} height={160} opacity={0.15} /></Plane>

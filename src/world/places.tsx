@@ -67,6 +67,14 @@ export const ShopFront: React.FC<{ x?: number; baseY: number; lamp: number; door
         {/* door */}
         <rect x={70} y={540} width={180} height={H - 540} fill="#1d1410" stroke="#2c201a" strokeWidth={8} />
         <rect x={92} y={560} width={136} height={110} fill="#ffcf8a" opacity={0.2 + doorLight * 0.5} />
+        <rect x={92} y={560} width={136} height={110} fill="#2a1a10" opacity={0.25} />
+        {[0, 1, 2].map((r) => <rect key={`ds${r}`} x={100} y={596 + r * 26} width={120} height={5} fill="#120c08" opacity={0.75} />)}
+        {[0, 1, 2, 3].map((c) => <rect key={`dr${c}`} x={106 + c * 30} y={578 + (c % 2) * 26} width={18} height={14} rx={2} fill="#120c08" opacity={0.7} />)}
+        {Array.from({ length: 9 }).map((_, k) => <rect key={`bl${k}`} x={92} y={562 + k * 12} width={136} height={3} fill="#000" opacity={0.22} />)}
+        <path d="M130 560 L142 584 L178 584 L190 560" stroke="#1a110a" strokeWidth={2} fill="none" />
+        <rect x={136} y={584} width={48} height={22} rx={2} fill="#efe4c8" stroke="#1a110a" strokeWidth={2} />
+        <text x={160} y={600} textAnchor="middle" fontFamily="Georgia, serif" fontWeight={700} fontSize={11} fill="#8a1a1a">CLOSED</text>
+        <rect x={92} y={560} width={136} height={110} fill="none" stroke="#2c201a" strokeWidth={6} />
         <circle cx={228} cy={700} r={6} fill="#c9a640" />
         <rect x={60} y={H - 12} width={W - 120} height={12} fill="#3a3032" />
       </g>
@@ -197,7 +205,18 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
       ))}
       {/* tall lit doorway */}
       <rect x={880} y={480} width={160} height={320} fill="#ffd894" opacity={0.85} />
+      <path d="M880 800 L930 690 L990 690 L1040 800 Z" fill="#c89a58" opacity={0.5} />
+      <rect x={918} y={560} width={84} height={130} fill="#e8b870" opacity={0.6} />
+      <circle cx={960} cy={580} r={16} fill="#fff1c8" opacity={0.9} />
+      {[0, 1].map((d) => (
+        <g key={`ad${d}`}>
+          <rect x={884 + d * 78} y={484} width={74} height={312} fill="#3a2a1c" opacity={0.0} stroke="#2a1e14" strokeWidth={7} />
+          {[0, 1, 2, 3].map((r) => <rect key={r} x={892 + d * 78} y={494 + r * 68} width={58} height={60} fill="none" stroke="#2a1e14" strokeWidth={5} />)}
+          <rect x={890 + d * 78} y={650} width={62} height={8} rx={3} fill="#c9a640" stroke="#2a1e14" strokeWidth={2} />
+        </g>
+      ))}
       <rect x={880} y={480} width={160} height={320} fill="none" stroke="#1a1e28" strokeWidth={10} />
+      <rect x={866} y={462} width={188} height={20} fill="#3a4258" stroke="#1a1e28" strokeWidth={4} />
       {/* banners: academy crest + GCPD star */}
       {[560, 1360].map((bx, k) => (
         <g key={bx}>
