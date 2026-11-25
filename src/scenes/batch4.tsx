@@ -321,7 +321,7 @@ export const Scene55: React.FC = () => {
         </svg>
         <Character id="s55dad" kind="father" x={420} y={1000 + 94 * SS} groundY={1000} scale={SS} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0"
           pose={{ legNear: [84, 88], legFar: [78, 94], lean: -9, head: 26, neck: 14, blink: 1, armNear: [12, 96], armFar: [44, 38], handNear: "relaxed", handFar: "relaxed" }} />
-        {/* v14: toolbox SET DOWN on the floor before he works on the lamp; working hand stays within reach (bent elbow) */}
+        {/* v14: toolbox SET DOWN on the floor before the repair; working hand stays within reach (bent elbow) */}
         {f > cF && <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><g transform="translate(985 1000)"><ellipse cx={0} cy={2} rx={70} ry={8} fill="#000" opacity={0.45} /><rect x={-60} y={-62} width={120} height={62} rx={6} fill="#b02a22" stroke="#140806" strokeWidth={3} /><rect x={-60} y={-62} width={120} height={14} fill="#8a1e18" /><path d="M-26 -62 V-80 H26 V-62" stroke="#222" strokeWidth={6} fill="none" /></g></svg>}
         <Character id="s55alex" kind="alex" x={1150} y={1000} scale={SS} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio={false} noHat
           prop={f > cF ? "key" : f > cT ? "toolbox" : "flashlight"} reachNear={f > cF ? [1262 + Math.sin(f * 0.5) * 4, 592] : f > cT ? [1235, 760] : [1205, 760]} reachFar={f > cF ? [1240, 612] : undefined}
