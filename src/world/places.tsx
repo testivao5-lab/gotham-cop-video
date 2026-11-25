@@ -124,10 +124,17 @@ export const ShopInterior: React.FC<{ lamp: number; warm?: number }> = ({ lamp, 
       <rect x={1160} y={160} width={560} height={420} fill="none" stroke="#1a0f08" strokeWidth={18} />
       <rect x={1434} y={160} width={12} height={420} fill="#1a0f08" />
       <rect x={1160} y={364} width={560} height={12} fill="#1a0f08" />
-      <rect x={1140} y={580} width={600} height={22} fill="#3a2414" />
-      {/* lamp on sill */}
+      {/* v14: a real sill ledge (lit top face, front face, cast shadow under it) so the lamp visibly STANDS on something */}
+      <rect x={1130} y={600} width={620} height={26} fill="#000" opacity={0.35} />
+      <rect x={1132} y={578} width={616} height={10} fill="#7a5230" stroke="#1a0f08" strokeWidth={2} />
+      <rect x={1132} y={588} width={616} height={18} fill="#3a2414" stroke="#1a0f08" strokeWidth={2} />
+      {/* lamp on sill: contact shadow, light pool ON the sill, warm wash down the wall, reflection in the glass */}
       <g transform="translate(1300 580)">
-        <circle cy={-40} r={360} fill="url(#siLamp)" opacity={lamp * fl} />
+        <circle cy={-40} r={360} fill="url(#siLamp)" opacity={lamp * fl * 0.8} />
+        <ellipse cx={2} cy={-1} rx={40} ry={5} fill="#000" opacity={0.55} />
+        <ellipse cx={70} cy={-2} rx={110} ry={9} fill="#ffe2a0" opacity={0.55 * lamp * fl} />
+        <path d="M-160 26 L300 26 L420 300 L-260 300 Z" fill="#ffb456" opacity={0.08 * lamp * fl} />
+        <ellipse cx={60} cy={-150} rx={46} ry={70} fill="#ffe8b0" opacity={0.12 * lamp} />
         <BrassDomeLamp on={lamp} s={1} y={0} />
       </g>
       {/* deco wall sconces throwing light cones up the wall (BTAS interior language) */}

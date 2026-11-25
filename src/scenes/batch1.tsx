@@ -360,7 +360,7 @@ export const Scene03: React.FC = () => {
           <Post />
         </Stage>
       </Shot>
-      {Array.from({ length: 8 }).map((_, k) => <Sfx key={k} name="thud" at={cW + 42 + k * 14} gain={0.4} />)}
+      {[0, 1, 2, 3].map((k) => <Sfx key={k} name="thud" at={cW + 42 + k * 26} gain={0.4 - k * 0.07} />)}
       <Sfx name="chain" at={cD + 2} gain={0.5} />
     </>
   );

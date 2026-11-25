@@ -11,10 +11,19 @@ import { SchoolBus, StreetFacades, WetStreet, Cruiser } from "../world/street";
 import { ShopFront, ShopInterior, BrassDomeLamp } from "../world/places";
 import { BusStreetSet, Caption, EdgeFade, Sfx, Shot, ForegroundRain } from "./common";
 import { BusWindowCloseup, FlashlightCloseup } from "./batch1";
-import { Hospital, PrecinctInterior, CruiserCabin, TVDebate, EndQuestion, Phone, EZ, cq } from "./kit";
+import { Hospital, Ambulance, PrecinctInterior, CruiserCabin, TVDebate, EndQuestion, Phone, EZ, cq } from "./kit";
 
 const BM = metric(600, 166);
 const G = 1000, S = BM.human(G);
+/** v14 torch continuity: hand target on the shoulder->window line (elbow keeps a natural ~45deg bend, never a rod),
+ *  wrist aims the lens at the window, and the light cone starts AT the lens. */
+const torch = (x0: number, wx: number, wy: number) => {
+  const shx = x0 - 26 * S, shy = G - 326 * S;
+  const ang = Math.atan2(wy - shy, wx - shx);
+  const hand: [number, number] = [shx + Math.cos(ang) * 138 * S, shy + Math.sin(ang) * 138 * S];
+  const lens: [number, number] = [hand[0] + Math.cos(ang) * 22 * S, hand[1] + Math.sin(ang) * 22 * S];
+  return { hand, lens, angle: (Math.atan2(wy - lens[1], wx - lens[0]) * 180) / Math.PI - 90, length: Math.hypot(wx - lens[0], wy - lens[1]) };
+};
 const cop = (f: number) => (Math.floor(f / 7) % 2 ? "255,40,40" : "60,90,255");
 /* screen position of Nia's window in BusStreetSet with busX/busY/scale (window 7 of 8) */
 const niaWin = (busX = 860, busY = 470, sc = 0.95): [number, number] => [busX + (26 + 6 * 76 + 31) * sc, busY + 72 * sc];
@@ -93,9 +102,9 @@ export const Scene47: React.FC = () => {
           <Plane p={1}>
             {/* beam from Alex's torch lens to her window; lens points where he looks */}
             <Character id="s47alex" kind="alex" x={460} y={G} scale={S} facing={1} lightSide={1} nightTint={0.3} rim="#ffe7a8" shoulderRadio={false}
-              prop="flashlight" propOn={1} flashBeam={0} reachNear={[460 + 120 * S * 2.2, G - 300 * S]} reachFar={f > cP + 30 ? [430, G - 470 * S] : undefined}
+              prop="flashlight" propOn={1} flashBeam={0} reachNear={torch(460, wx, wy).hand} aimAt={[wx, wy]} reachFar={f > cP + 30 ? [430, G - 470 * S] : undefined}
               pose={{ head: -6, eyeX: 0.8, eyeY: -0.3, handNear: "grip", handFar: "open", brow: 0.3 }} />
-            <LightCone id="s47b" x={460 + 120 * S * 2.2 + 20} y={G - 300 * S} angle={Math.atan2(wy - (G - 300 * S), wx - (460 + 264 * S)) * 180 / Math.PI - 90} length={Math.hypot(wx - 460 - 264 * S, wy - G + 300 * S)} spread={120} opacity={0.35} />
+            <LightCone id="s47b" x={torch(460, wx, wy).lens[0]} y={torch(460, wx, wy).lens[1]} angle={torch(460, wx, wy).angle} length={torch(460, wx, wy).length} spread={120} opacity={0.35} />
             <Glow x={wx} y={wy} r={70} color="255,240,200" opacity={0.55} />
           </Plane>
           <ForegroundRain />
@@ -123,18 +132,18 @@ export const Scene48: React.FC = () => {
   const cM = cq(48, "mara", 0.35);
   const flick = f > cF && f < cF + 12 ? 0.2 : 1;
   const [wx, wy] = niaWin(1160, 470, 0.95);
-  const hx = 380 + 264 * S, hy = G - 300 * S;
+  const T = torch(380, wx, wy);
   const sx = ci(f, [cM, cM + 90], [2200, 1500]);
   return (
     <Stage cam={{ x: ci(f, [0, D], [-40, 80]), y: 0, zoom: ci(f, [0, D], [1.0, 1.08], EZ) }}>
       <BusStreetSet fog={ci(f, [0, D], [0.7, 0.55])} nia sky="storm" lamp={0} blackout={1} busX={1160} wire led />
       <Plane p={1}>
         <Glow x={160} y={880} r={520} color={cop(f)} opacity={0.18} />
-        <LightCone id="s48b" x={hx + 20} y={hy} angle={Math.atan2(wy - hy, wx - hx) * 180 / Math.PI - 90} length={Math.hypot(wx - hx, wy - hy)} spread={120} opacity={0.32 * flick} />
+        <LightCone id="s48b" x={T.lens[0]} y={T.lens[1]} angle={T.angle} length={T.length} spread={120} opacity={0.32 * flick} />
         <Glow x={wx} y={wy} r={70} color="255,240,200" opacity={0.55 * flick} />
-        <Character id="s48spec" kind="specialist" x={sx} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.3} pose={{ ...(sx > 1500 ? walkDist(2200 - sx, "specialist", S, 0.8) : { lean: 18, head: 14, eyeY: 0.6 }) }} />
+        <Character id="s48spec" kind="specialist" x={sx} y={G} scale={S} facing={-1} lightSide={-1} nightTint={0.3} pose={{ ...(sx > 1500 ? walkDist(2200 - sx, "specialist", S, 0.8) : { lean: 24, head: 12, eyeY: 0.7, bob: 36 * ci(f, [cM + 90, cM + 104], [0, 1], EZ), legNear: [35 * ci(f, [cM + 90, cM + 104], [0, 1], EZ), 70 * ci(f, [cM + 90, cM + 104], [0, 1], EZ)], legFar: [-5, 45 * ci(f, [cM + 90, cM + 104], [0, 1], EZ)] }) }} />
         <Character id="s48alex" kind="alex" x={380} y={G} scale={S} facing={1} lightSide={1} nightTint={0.3} rim="#ffe7a8" shoulderRadio={false}
-          prop="flashlight" propOn={flick} reachNear={[hx, hy]} reachFar={f > cF && f < cF + 14 ? [hx - 30, hy - 10] : undefined} pose={{ head: -6, eyeX: 0.8, eyeY: -0.3, handNear: "grip", handFar: "open" }} />
+          prop="flashlight" propOn={flick} reachNear={T.hand} aimAt={[wx, wy]} reachFar={f > cF && f < cF + 14 ? [T.hand[0] - 30, T.hand[1] - 6] : undefined} pose={{ head: -6, eyeX: 0.8, eyeY: -0.3, handNear: "grip", handFar: "open" }} />
         <Character id="s48mara" kind="mara" x={720} y={G} scale={S} facing={1} lightSide={-1} nightTint={0.3} shoulderRadio reachNear={anchor("mara", 720, G, S, 1, "radio")} pose={{ head: f > cM ? 4 : -4, eyeX: f > cM ? 0.8 : -0.5, handNear: "grip" }} />
       </Plane>
       <ForegroundRain />
@@ -199,7 +208,7 @@ export const Scene50: React.FC = () => {
   return (
     <Stage cam={{ x: 0, y: ci(f, [0, D], [0, -30]), zoom: ci(f, [0, D], [1.0, 1.06]) }}>
       <Plane p={0.15}><Sky variant="night" seed={50} horizonY={800} /></Plane>
-      <Plane p={1}><Hospital power={ci(f, [6, D - 10], [0.05, 1])} /></Plane>
+      <Plane p={1}><Hospital power={ci(f, [6, D - 10], [0.05, 1])} /><Ambulance x={880} y={884} s={0.5} facing={1} lights={1} /></Plane>
       <Post />
       <EdgeFade dur={D} inF={6} outF={6} />
       <Sfx name="switch" at={8} gain={0.4} />
@@ -216,7 +225,8 @@ export const Scene51: React.FC = () => {
     <Stage cam={{ x: handheld(f, 0.3, 51).x, y: handheld(f, 0.3, 51).y, zoom: ci(f, [0, D], [1.0, 1.08]) }}>
       <CruiserCabin dark={0.3} signal={0.8} wipe={false} speed={0.4}>
         <Character id="s51mara" kind="mara" x={620} y={1545} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: 6, eyeX: 0.6, handNear: "grip", handFar: "grip", smile: f > cC ? 0.1 : 0 }} />
-        <Character id="s51alex" kind="alex" x={1320} y={1545} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 12, eyeY: 0.5, brow: 0.3, lean: 6 }} />
+        <Character id="s51alex" kind="alex" x={1320} y={1545} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio
+          pose={{ head: ci(f, [0, 40, cC - 40, cC - 24, cC + 10, cC + 22], [-14, -14, -8, 14, 14, 8], EZ), eyeX: f > cC - 30 ? 0.7 : -0.6, eyeY: f > cC - 30 ? 0.2 : -0.2, brow: f > cC ? 0 : 0.4, smile: f > cC + 10 ? 0.25 : 0, lean: ci(f, [cC - 40, cC - 20], [0, 6], EZ) }} />
       </CruiserCabin>
       <Post tintOpacity={0.14} />
       <EdgeFade dur={D} inF={8} outF={8} />
@@ -310,10 +320,12 @@ export const Scene55: React.FC = () => {
           <rect x={220} y={862} width={400} height={64} rx={20} fill="#6a3428" stroke="#140806" strokeWidth={4} />
         </svg>
         <Character id="s55dad" kind="father" x={420} y={1000 + 94 * SS} groundY={1000} scale={SS} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0"
-          pose={{ legNear: [84, 88], legFar: [80, 90], head: 22, neck: 12, blink: 1, armNear: [30, 60], armFar: [20, 70], bob: Math.sin(f * 0.06) * 2 }} />
-        <Character id="s55alex" kind="alex" x={1100} y={1000} scale={SS} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio={false} noHat
-          prop={f > cT ? "toolbox" : "flashlight"} reachNear={f > cF ? [1290, 560] : f > cT ? [1200, 760] : [1150, 760]} reachFar={f > cF ? [1310, 570] : undefined}
-          pose={{ head: f > cF ? -12 : 10, eyeY: f > cF ? -0.4 : 0.6, handNear: "grip", handFar: "grip" }} />
+          pose={{ legNear: [84, 88], legFar: [78, 94], lean: -9, head: 26, neck: 14, blink: 1, armNear: [12, 96], armFar: [44, 38], handNear: "relaxed", handFar: "relaxed" }} />
+        {/* v14: toolbox SET DOWN on the floor before he works on the lamp; working hand stays within reach (bent elbow) */}
+        {f > cF && <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><g transform="translate(985 1000)"><ellipse cx={0} cy={2} rx={70} ry={8} fill="#000" opacity={0.45} /><rect x={-60} y={-62} width={120} height={62} rx={6} fill="#b02a22" stroke="#140806" strokeWidth={3} /><rect x={-60} y={-62} width={120} height={14} fill="#8a1e18" /><path d="M-26 -62 V-80 H26 V-62" stroke="#222" strokeWidth={6} fill="none" /></g></svg>}
+        <Character id="s55alex" kind="alex" x={1150} y={1000} scale={SS} facing={1} lightSide={1} nightTint={0.05} rim="#ffd8a0" shoulderRadio={false} noHat
+          prop={f > cF ? "key" : f > cT ? "toolbox" : "flashlight"} reachNear={f > cF ? [1262 + Math.sin(f * 0.5) * 4, 592] : f > cT ? [1235, 760] : [1205, 760]} reachFar={f > cF ? [1240, 612] : undefined}
+          pose={{ head: f > cF ? -10 : 8, eyeY: f > cF ? -0.3 : 0.6, lean: f > cF ? 6 : 0, handNear: "grip", handFar: f > cF ? "grip" : "relaxed" }} />
       </Plane>
       <Post tintColor="#6a3a10" tintOpacity={0.1} vignette={0.55} />
       <EdgeFade dur={D} inF={6} outF={6} />
@@ -403,7 +415,7 @@ export const Scene58: React.FC = () => {
       </Plane>
       <Post tintColor="#a06040" tintOpacity={0.08} vignette={0.45} />
       <EdgeFade dur={D} inF={6} outF={6} />
-      {[20, 120, 220].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.3} />)}
+      {[20, 160].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.28} />)}
     </Stage>
   );
 };

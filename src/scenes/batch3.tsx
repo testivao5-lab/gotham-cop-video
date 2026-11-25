@@ -11,7 +11,7 @@ import { SchoolBus, Cruiser, StreetFacades, WetStreet } from "../world/street";
 import { JokerProfile } from "../world/places";
 import { BusStreetSet, Caption, EdgeFade, Sfx, Shot, ForegroundRain } from "./common";
 import { BusWindowCloseup } from "./batch1";
-import { Hospital, Parapet, Phone, EZ, cq } from "./kit";
+import { Hospital, Ambulance, Parapet, Phone, EZ, cq } from "./kit";
 
 /* metric of the bus street set (BusStreetSet: bus scale 0.95, wheels on ground 785): 77 px/m at the bus, horizon 600 */
 const BM = metric(600, 166);
@@ -163,7 +163,7 @@ export const Scene31: React.FC = () => {
       <ForegroundRain />
       <Post />
       <EdgeFade dur={D} outF={6} />
-      {[cR, cR + 30, cR + 60, cR + 90].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.4} />)}
+      {[cR, cR + 60].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.35} />)}
     </Stage>
   );
 };
@@ -199,7 +199,7 @@ export const Scene32: React.FC = () => {
         </Stage>
       </Shot>
       <EdgeFade dur={D} outF={6} />
-      {Array.from({ length: 6 }).map((_, k) => <Sfx key={k} name="thud" at={cG + 30 + k * 14} gain={0.4} />)}
+      {[0, 1, 2].map((k) => <Sfx key={k} name="thud" at={cG + 30 + k * 30} gain={0.4 - k * 0.08} />)}
       <Sfx name="static" at={72} gain={0.3} />
     </>
   );
@@ -461,7 +461,7 @@ export const Scene40: React.FC = () => {
       <Shot from={cH} to={cE}>
         <Stage cam={{ x: 0, y: 0, zoom: ci(f, [cH, cE], [1.0, 1.1]) }}>
           <Plane p={0.15}><Sky variant="blackout" seed={40} horizonY={800} /></Plane>
-          <Plane p={1}><Hospital power={ci(f, [cH, cE], [0.9, 0.15])} /></Plane>
+          <Plane p={1}><Hospital power={ci(f, [cH, cE], [0.9, 0.15])} /><Ambulance x={880} y={884} s={0.5} facing={1} lights={1} /></Plane>
           <Post tintColor="#3a1010" tintOpacity={0.12} />
         </Stage>
       </Shot>

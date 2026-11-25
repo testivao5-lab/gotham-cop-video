@@ -10,7 +10,7 @@ import { Sky, DecoSkyline } from "../world/sky";
 import { StreetFacades, WetStreet, StreetLamp, Cruiser, FireEscape } from "../world/street";
 import { Precinct, ShopFront } from "../world/places";
 import { Caption, EdgeFade, Sfx, Shot, ForegroundRain, TimeJump } from "./common";
-import { BankRuins, Barricade, PressPack, PrecinctInterior, GiftBox, ToyCop, CruiserCabin, Parapet, Phone, EZ, cq } from "./kit";
+import { BankRuins, Barricade, PressPack, PrecinctInterior, GiftBox, ToyCop, CruiserCabin, Parapet, Phone, Ambulance, EZ, cq } from "./kit";
 
 /** granite step / crate a figure sits on (seat top = hip height of the seated pose) */
 export const SeatBlock: React.FC<{ x: number; w: number; top: number; bottom: number; color?: string }> = ({ x, w, top, bottom, color = "#5a5660" }) => (
@@ -201,7 +201,7 @@ export const Scene15: React.FC = () => {
       <Post />
       <EdgeFade dur={D} outF={10} />
       <Sfx name="crowd" at={2} gain={0.45} />
-      {[20, 66, 90, 130].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.3} />)}
+      {[20, 90].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.3} />)}
     </Stage>
   );
 };
@@ -385,28 +385,22 @@ export const Scene20: React.FC = () => {
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           <rect x={-400} y={-200} width={2720} height={1000} fill="#2a1c20" />
           {Array.from({ length: 30 }).map((_, i) => <path key={i} d={`M-400 ${-200 + i * 34} H2320`} stroke="#000" strokeOpacity={0.22} />)}
-          {/* ambulance rear: open doors, warm interior */}
-          <g transform="translate(1180 560)">
-            {[90, 470].map((wx) => <g key={wx}><circle cx={wx} cy={340} r={46} fill="#111" /><circle cx={wx} cy={340} r={18} fill="#8a93a3" /></g>)}
-            <rect x={-10} y={320} width={580} height={16} fill="#2a2a30" />
-            <rect x={0} y={0} width={560} height={330} fill="#e8e4dc" stroke="#0a0a0e" strokeWidth={4} />
-            <rect x={60} y={40} width={440} height={260} fill="#ffeccc" />
-            <rect x={80} y={210} width={400} height={30} fill="#c8c0b0" />
-            <path d="M200 120 h30 v-30 h30 v30 h30 v30 h-30 v30 h-30 v-30 h-30 Z" fill="#d02020" />
-            <rect x={0} y={-30} width={560} height={30} fill="#d02020" />
-            <circle cx={60} cy={-44} r={16} fill={Math.floor(f / 7) % 2 ? "#ff3030" : "#601010"} /><circle cx={500} cy={-44} r={16} fill={Math.floor(f / 7) % 2 ? "#601010" : "#ff3030"} />
-          </g>
         </svg>
       </Plane>
+      {/* v14: a real ambulance (cab, windshield, livery, light bar, wheel arches) with rear doors open toward the patient */}
+      <Plane p={0.8}><Ambulance x={1060} y={918} s={0.95} facing={1} open={1} lights={1} /></Plane>
       <Plane p={1}>
-        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><rect x={-400} y={900} width={2720} height={800} fill="#14161f" /></svg>
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><rect x={-400} y={900} width={2720} height={800} fill="#14161f" /><rect x={-400} y={900} width={2720} height={6} fill="#2c2f3a" /></svg>
         {/* robber, now on the ground, yelling, cradling his arm; paramedic kneels to check it */}
         <SeatBlock x={720} w={220} top={G - 96 * S} bottom={G} color="#3a3a44" />
         <Character id="s20rob" kind="robber" x={820} y={G + 100 * S} groundY={G} scale={S} facing={1} lightSide={1} nightTint={0.25}
-          pose={{ legNear: [84, 90], legFar: [76, 96], lean: -6 + Math.sin(f * 0.3) * 3, head: -10 + Math.sin(f * 0.4) * 5, brow: 0.9, smile: -0.6, armNear: [60, 120], armFar: [40, 100], handNear: "fist" }} />
-        <Character id="s20alex" kind="alex" x={380} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio pose={{ head: 4, smile: f > cS ? 0.35 : 0, eyeX: 0.4 }} />
+          reachNear={[930, G - 205 * S]} reachFar={[905, G - 212 * S]}
+          pose={{ legNear: [84, 90], legFar: [76, 96], lean: -6 + Math.sin(f * 0.3) * 3, head: 12 + Math.sin(f * 0.4) * 5, eyeX: 0.6, brow: 0.9, smile: -0.6, handNear: "open", handFar: "grip" }} />
+        <Character id="s20alex" kind="alex" x={420} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio pose={{ head: 4, smile: f > cS ? 0.35 : 0, eyeX: 0.4, brow: f < cS ? 0.4 : 0 }} />
         <Character id="s20mara" kind="mara" x={560} y={G} scale={S} facing={1} lightSide={1} nightTint={0.25} shoulderRadio pose={{ head: f > cS ? -8 : 2, eyeX: f > cS ? -0.6 : 0.4, brow: 0.3 }} />
-        <Character id="s20med" kind="reporter" x={1080} y={G} scale={S} facing={-1} lightSide={1} nightTint={0.2} reachNear={[930, G - 230 * S]} pose={{ lean: 22, head: 18, eyeY: 0.6, handNear: "open" }} />
+        {/* paramedic KNEELS (rear knee on the asphalt), both hands on the robber's forearm/wrist = readable contact */}
+        <Character id="s20med" kind="medic" x={1040} y={G} scale={S} facing={-1} lightSide={1} nightTint={0.2} reachNear={[938, G - 208 * S]} reachFar={[952, G - 200 * S]}
+          pose={{ lean: 16 + Math.sin(f * 0.05) * 2, head: 14, eyeY: 0.6, bob: 100, legNear: [88, 70], legFar: [-10, 110], handNear: "grip", handFar: "grip" }} />
       </Plane>
       <Plane p={1.1}><Rain count={90} opacity={0.16} /></Plane>
       <Post />
@@ -432,19 +426,43 @@ export const Scene21: React.FC = () => {
             <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
               <rect x={-200} y={160} width={2320} height={1200} fill="#2e2024" />
               <rect x={-200} y={140} width={2320} height={26} fill="#3a2c30" />
+              {/* v14: every window is different - 9 silhouette types (single, couple, kid pressed to the glass, elder with hat,
+                  phone held up, long hair, hand on glass, cat on sill, nobody), varied light (warm lamp, cold fluorescent, flickering TV),
+                  curtains / blinds, and people arriving + leaning toward the glass at different moments */}
               {Array.from({ length: 4 }).map((_, r) => Array.from({ length: 9 }).map((_, c) => {
-                const x = 40 + c * 210, y = 240 + r * 220, lit = rand(r * 9 + c + 4) > 0.3;
-                const look = ci(f, [20 + c * 4, 40 + c * 4], [0, 1]);
+                const x = 40 + c * 210, y = 240 + r * 220, k = r * 9 + c;
+                const lit = rand(k + 4) > 0.28;
+                const kind = Math.floor(rand(k * 7.7 + 1) * 9);
+                const tone = rand(k * 3.3);
+                const tv = tone > 0.86 ? 0.75 + 0.25 * Math.abs(Math.sin(f * 0.7 + k) * Math.sin(f * 0.23 + k)) : 1;
+                const glass = !lit ? "#141418" : tone > 0.86 ? "#8fb4e8" : tone > 0.68 ? "#e6eef0" : tone > 0.3 ? "#e8b860" : "#d89a4a";
+                const arrive = ci(f, [10 + rand(k * 5.1) * 70, 26 + rand(k * 5.1) * 70], [0, 1], EZ);
+                const look = ci(f, [30 + rand(k * 2.9) * 60, 46 + rand(k * 2.9) * 60], [0, 1], EZ);
+                const sway = Math.sin(f * 0.05 + k) * 2;
+                const sil = "#1a1418";
+                const fig = () => {
+                  switch (kind) {
+                    case 0: return <g><path d="M-34 0 C-34 -40 -24 -54 0 -56 C24 -54 34 -40 34 0 Z" fill={sil} /><g transform={`rotate(${-look * 14})`}><ellipse cx={0} cy={-76} rx={20} ry={23} fill={sil} /></g></g>;
+                    case 1: return <g><path d="M-58 0 C-58 -36 -48 -48 -28 -50 C-8 -48 0 -36 0 0 Z M2 0 C2 -30 10 -42 28 -44 C46 -42 54 -30 54 0 Z" fill={sil} /><ellipse cx={-28} cy={-70} rx={18} ry={21} fill={sil} transform={`rotate(${-look * 10} -28 -50)`} /><ellipse cx={28} cy={-62} rx={16} ry={19} fill={sil} transform={`rotate(${look * 18} 28 -44)`} /></g>;
+                    case 2: return <g transform={`translate(0 ${-look * 8})`}><path d="M-22 0 C-22 -24 -14 -32 0 -33 C14 -32 22 -24 22 0 Z" fill={sil} /><ellipse cx={0} cy={-48} rx={15} ry={16} fill={sil} /><rect x={-26} y={-44} width={10} height={26} rx={5} fill={sil} transform={`rotate(-30 -21 -20)`} /><rect x={16} y={-44} width={10} height={26} rx={5} fill={sil} transform={`rotate(30 21 -20)`} /></g>;
+                    case 3: return <g><path d="M-36 0 C-36 -38 -26 -52 0 -54 C26 -52 36 -38 36 0 Z" fill={sil} /><ellipse cx={0} cy={-72} rx={19} ry={21} fill={sil} /><path d="M-30 -84 H30 L22 -90 C18 -104 -18 -104 -22 -90 Z" fill={sil} /></g>;
+                    case 4: return <g><path d="M-34 0 C-34 -40 -24 -54 0 -56 C24 -54 34 -40 34 0 Z" fill={sil} /><ellipse cx={0} cy={-76} rx={19} ry={22} fill={sil} /><path d={`M22 -40 L34 ${-92 - look * 6}`} stroke={sil} strokeWidth={11} strokeLinecap="round" /><rect x={28} y={-112 - look * 6} width={14} height={22} rx={3} fill="#cfe6ff" /><circle cx={35} cy={-101 - look * 6} r={16} fill="#cfe6ff" opacity={0.25} /></g>;
+                    case 5: return <g><path d="M-32 0 C-32 -38 -24 -50 0 -52 C24 -50 32 -38 32 0 Z" fill={sil} /><path d="M-22 -60 C-26 -96 22 -100 20 -62 C26 -40 22 -30 18 -24 L-18 -24 C-24 -32 -26 -44 -22 -60 Z" fill={sil} transform={`rotate(${-look * 8} 0 -50)`} /></g>;
+                    case 6: return <g><path d="M-34 0 C-34 -40 -24 -54 0 -56 C24 -54 34 -40 34 0 Z" fill={sil} /><ellipse cx={0} cy={-76} rx={20} ry={23} fill={sil} /><path d={`M24 -44 L42 ${-110 + sway}`} stroke={sil} strokeWidth={12} strokeLinecap="round" /><ellipse cx={44} cy={-118 + sway} rx={10} ry={13} fill={sil} /></g>;
+                    case 7: return <g transform="translate(-30 0)"><path d={`M-20 0 C-22 -18 -10 -26 4 -26 C18 -26 26 -16 24 0 Z M8 -26 L12 -42 L18 -30 L24 -42 L26 -24 Z`} fill={sil} /><path d={`M-20 -4 Q-40 ${-10 + sway * 3} -34 -24`} stroke={sil} strokeWidth={5} fill="none" /></g>;
+                    default: return null;
+                  }
+                };
+                const curtain = rand(k * 9.1) > 0.55;
+                const blinds = !curtain && rand(k * 4.4) > 0.75;
                 return (
                   <g key={`${r}${c}`}>
-                    <rect x={x} y={y} width={120} height={150} fill={lit ? "#e8b860" : "#141418"} stroke="#0a0a0e" strokeWidth={6} />
-                    {lit && rand(r * 13 + c) > 0.25 && (
-                      <g transform={`translate(${x + 60} ${y + 150})`}>
-                        <path d="M-34 0 C-34 -40 -24 -54 0 -56 C24 -54 34 -40 34 0 Z" fill="#1a1418" />
-                        <g transform={`rotate(${-look * 14})`}><ellipse cx={0} cy={-76} rx={20} ry={23} fill="#1a1418" /></g>
-                      </g>
-                    )}
+                    <rect x={x} y={y} width={120} height={150} fill={glass} opacity={tv} stroke="#0a0a0e" strokeWidth={6} />
+                    {lit && <svg x={x + 3} y={y + 3} width={114} height={144} overflow="hidden"><g opacity={arrive} transform={`translate(${57 + (rand(k) - 0.5) * 30} ${144 + (1 - arrive) * 30})`}>{fig()}</g></svg>}
+                    {blinds && Array.from({ length: 7 }).map((_, b2) => <rect key={b2} x={x + 3} y={y + 6 + b2 * 9} width={114} height={4} fill="#000" opacity={0.28} />)}
+                    {curtain && <g fill={tone > 0.5 ? "#7a2a2a" : "#4a5a3a"} opacity={0.85}><path d={`M${x + 3} ${y + 3} H${x + 34} Q${x + 22} ${y + 80} ${x + 30} ${y + 147} H${x + 3} Z`} /><path d={`M${x + 117} ${y + 3} H${x + 92} Q${x + 102} ${y + 80} ${x + 96} ${y + 147} H${x + 117} Z`} /></g>}
                     <path d={`M${x} ${y + 75} H${x + 120}`} stroke="#0a0a0e" strokeWidth={5} />
+                    <rect x={x - 8} y={y + 148} width={136} height={10} fill="#3a2c30" stroke="#0a0a0e" strokeWidth={2} />
                   </g>
                 );
               }))}
@@ -502,7 +520,7 @@ export const Scene23: React.FC = () => {
   const D = sceneDur(23);
   const cR = cq(23, "releases", 0.55);
   const cF = cq(23, "falls", 0.9);
-  const lid = ci(f, [6, 40], [0, 1], EZ);
+  const lid = 1; // v14: the lid was set down on the table before this shot (no self-opening lid)
   const march = ci(f, [cR, cF], [0, 1]);
   const tx = 760 + march * 520;
   const tip = ci(f, [cF, cF + 10], [0, 1], Easing.in(Easing.quad));
@@ -526,7 +544,7 @@ export const Scene23: React.FC = () => {
       </Plane>
       <Post tintOpacity={0.08} />
       <EdgeFade dur={D} outF={6} />
-      {Array.from({ length: 12 }).map((_, k) => <Sfx key={k} name="click" at={cR - 40 + k * 3} gain={0.2} />)}
+      {[cR - 40, cR - 22, cR - 6].map((t, k) => <Sfx key={k} name="click" at={t} gain={0.2} />)}
       <Sfx name="thud" at={cF} gain={0.35} />
     </Stage>
   );
@@ -548,8 +566,8 @@ export const Scene24: React.FC = () => {
         </svg>
         <ToyCop x={700} y={780} s={4.4} tip={1} note={1} />
       </Plane>
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-        <div style={{ background: "#f4f0e2", padding: "40px 60px", transform: `rotate(${-3 + Math.sin(f * 0.05) * 0.8}deg) scale(${ci(f, [cH - 6, cH + 8], [0.6, 1], EZ) + ci(f, [cH + 8, D], [0, 0.06])})`, opacity: ci(f, [cH - 6, cH + 4], [0, 1]), boxShadow: "0 20px 60px #000", fontFamily: "'Courier New', monospace", color: "#1a1a1a", fontSize: 46, textAlign: "center" }}>
+      <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: 54 }}>
+        <div style={{ background: "#f4f0e2", padding: "34px 56px", transform: `rotate(${-3 + Math.sin(f * 0.05) * 0.8}deg) scale(${ci(f, [cH - 6, cH + 8], [0.6, 1], EZ) + ci(f, [cH + 8, D], [0, 0.06])})`, opacity: ci(f, [cH - 6, cH + 4], [0, 1]), boxShadow: "0 20px 60px #000", fontFamily: "'Courier New', monospace", color: "#1a1a1a", fontSize: 46, textAlign: "center" }}>
           HOW MANY COPS DOES IT TAKE<br />TO SAVE GOTHAM?
           <div style={{ color: "#c01020", fontSize: 58, marginTop: 24, opacity: ci(f, [cL, cL + 8], [0, 1]), fontFamily: "'Brush Script MT', cursive" }}>Let's find out.</div>
         </div>
@@ -666,10 +684,20 @@ export const Scene27: React.FC = () => {
       <Plane p={0.8}>
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           <rect x={-400} y={860} width={2720} height={800} fill="#080a12" />
-          {/* traffic lights wink out left to right */}
-          {Array.from({ length: 8 }).map((_, i) => {
+          {/* v14: real 3-lamp signals - only ONE lamp lit at a time (red / amber / green cycle, staggered phases),
+              spaced and scaled in perspective (nearer = bigger, wider apart); they wink out left to right in the blackout */}
+          {[{ x: 70, k: 1.25 }, { x: 390, k: 1.0 }, { x: 640, k: 0.82 }, { x: 850, k: 0.7 }, { x: 1040, k: 0.62 }, { x: 1230, k: 0.7 }, { x: 1460, k: 0.84 }, { x: 1760, k: 1.08 }].map((L, i) => {
             const off = black * 10 > i + 1;
-            return <g key={i}><rect x={100 + i * 240} y={800} width={6} height={80} fill="#111" /><rect x={88 + i * 240} y={760} width={30} height={50} rx={5} fill="#1a1a1a" /><circle cx={103 + i * 240} cy={775} r={7} fill={off ? "#200" : "#ff3030"} /><circle cx={103 + i * 240} cy={795} r={7} fill={off ? "#020" : "#30ff60"} opacity={0.6} /></g>;
+            const cyc = (Math.floor((f + i * 37) / 60) % 3); // 0 red, 1 green, 2 amber
+            const lamp = (slot: number, on: string, dim: string) => <circle cx={15} cy={12 + slot * 17} r={6.2} fill={!off && ((slot === 0 && cyc === 0) || (slot === 1 && cyc === 2) || (slot === 2 && cyc === 1)) ? on : dim} />;
+            const top = 860 - 118 * L.k;
+            return (
+              <g key={i} transform={`translate(${L.x} ${top}) scale(${L.k})`}>
+                <rect x={12} y={50} width={6} height={70} fill="#111" />
+                <rect x={0} y={0} width={30} height={56} rx={5} fill="#1a1a1a" stroke="#050505" strokeWidth={2} />
+                {lamp(0, "#ff3030", "#2a0606")}{lamp(1, "#ffb020", "#2a1c04")}{lamp(2, "#30ff70", "#032a0e")}
+              </g>
+            );
           })}
         </svg>
       </Plane>
@@ -700,7 +728,7 @@ export const Scene28: React.FC = () => {
       <AbsoluteFill style={{ background: Math.floor(f / 10) % 2 ? "rgba(255,30,30,0.06)" : "rgba(30,60,255,0.06)", mixBlendMode: "screen" }} />
       <Post tintOpacity={0.14} />
       <EdgeFade dur={D} outF={6} />
-      {[4, 60, 120, 180].map((t, k) => <Sfx key={k} name="static" at={t} gain={0.35} />)}
+      {[4, 120].map((t, k) => <Sfx key={k} name="static" at={t} gain={0.3} />)}
     </Stage>
   );
 };

@@ -34,7 +34,7 @@ for (const f of files) fs.readFileSync(f, "utf8").split("\n").forEach((t, i) => 
 const b1 = fs.existsSync("src/scenes/batch1.tsx") ? fs.readFileSync("src/scenes/batch1.tsx", "utf8") : "";
 if (/<Palm at=\{palmN\}/.test(b1) && /kind="nia"[^>]*reachNear=\{palmN\}/.test(b1)) err("batch1.tsx", 0, "OVERHAUL rig hands + overlay hands together");
 const ch = fs.readFileSync("src/characters/Character.tsx", "utf8");
-for (const [re, m] of [[/cl\(p\.armNear\[1\], 0, 140\)/, "LAW4 elbow clamp"], [/cl\(p\.legNear\[1\], 0, 135\)/, "LAW4 knee clamp"], [/cl\(p\.head, -35, 35\)/, "LAW4 neck clamp"], [/clipPath id=\{`\$\{id\}\$\{uid\}-scl`\}/, "LAW10 pupil clip"], [/useId\(/, "LAW10 useId"], [/p\.bob \+= breathe/, "LAW6 life wave"]]) if (!re.test(ch)) err("Character.tsx", 0, `${m} missing`);
+for (const [re, m] of [[/cl\(p\.armNear\[1\], 10, 145\)/, "LAW4 elbow clamp (v14: >=10deg bend, no rod arms)"], [/Math\.min\(\(L1 \+ L2\) \* 0\.965/, "P17 IK reach cap (no straight rod arms)"], [/export const acting = /, "P18 acting layer"], [/cl\(p\.legNear\[1\], 0, 135\)/, "LAW4 knee clamp"], [/cl\(p\.head, -35, 35\)/, "LAW4 neck clamp"], [/clipPath id=\{`\$\{id\}\$\{uid\}-scl`\}/, "LAW10 pupil clip"], [/useId\(/, "LAW10 useId"], [/p\.bob \+= breathe/, "LAW6 life wave"]]) if (!re.test(ch)) err("Character.tsx", 0, `${m} missing`);
 // ================= PREVENTION RULES (v8, after user QA of v7) =================
 const sceneFiles = files.filter((f) => f.includes(`${path.sep}scenes${path.sep}`));
 const src = (f) => fs.readFileSync(f, "utf8");

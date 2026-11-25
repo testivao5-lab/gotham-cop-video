@@ -38,15 +38,48 @@ export const BankRuins: React.FC<{ baseY?: number; work?: number }> = ({ baseY =
           {!broken && <path d={`M${x + 35} ${y} V${y + 84} M${x} ${y + 42} H${x + 70}`} stroke="#3a3640" strokeWidth={3} />}
           {broken && <path d={`M${x} ${y + 10} L${x + 30} ${y + 40} L${x + 20} ${y + 84} M${x + 70} ${y + 20} L${x + 44} ${y + 50}`} stroke="#6a6470" strokeWidth={2} />}</g>;
       }))}
-      {/* the blast hole: jagged, exposing the dark banking hall with hanging cables */}
-      <path d={`M270 ${baseY} L270 ${baseY - 300} L330 ${baseY - 340} L380 ${baseY - 310} L450 ${baseY - 380} L520 ${baseY - 330} L600 ${baseY - 360} L690 ${baseY - 300} L760 ${baseY - 320} L840 ${baseY - 250} L880 ${baseY - 150} L900 ${baseY} Z`} fill="url(#bkIn)" stroke={O} strokeWidth={4} strokeLinejoin="round" />
-      {[340, 470, 610, 740].map((x, i) => <path key={i} d={`M${x} ${baseY - 330 + (i % 2) * 20} q${10 + i * 4} 60 ${-6 + i * 3} ${120 + i * 20}`} stroke="#111" strokeWidth={3} fill="none" />)}
-      {/* interior: toppled counter, safe door ajar, work light */}
-      <path d={`M300 ${baseY - 90} L620 ${baseY - 130} L640 ${baseY - 90} L320 ${baseY - 40} Z`} fill="#3a2a22" stroke={O} strokeWidth={2} />
-      <circle cx={760} cy={baseY - 140} r={70} fill="#4a4a52" stroke={O} strokeWidth={4} />
-      <circle cx={760} cy={baseY - 140} r={52} fill="none" stroke="#7a7a84" strokeWidth={4} />
-      {[0, 60, 120, 180, 240, 300].map((a) => <path key={a} d={`M760 ${baseY - 140} l${Math.cos((a * Math.PI) / 180) * 40} ${Math.sin((a * Math.PI) / 180) * 40}`} stroke="#9a9aa4" strokeWidth={4} />)}
-      <circle cx={560} cy={baseY - 250} r={220} fill="url(#bkWork)" opacity={0.35 * work * fl} />
+      {/* v14 blast hole: scorch halo, radiating cracks, thick broken stone edge catching light, exposed rebar,
+          a readable banking hall behind (back wall, floor line, hanging ceiling slab) and the VAULT set into the back wall */}
+      <defs>
+        <radialGradient id="bkScorch" cx="0.5" cy="0.6" r="0.6"><stop offset="0.55" stopColor="#000" stopOpacity="0.55" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
+        <radialGradient id="bkVault"><stop offset="0" stopColor="#ffe2a0" stopOpacity="0.9" /><stop offset="1" stopColor="#ffb860" stopOpacity="0" /></radialGradient>
+      </defs>
+      <ellipse cx={585} cy={baseY - 190} rx={420} ry={260} fill="url(#bkScorch)" />
+      {[[270, -300, 200, -420], [450, -380, 430, -520], [600, -360, 700, -470], [840, -250, 960, -300], [880, -150, 980, -120], [330, -340, 260, -430]].map(([x1, y1, x2, y2], k) => (
+        <path key={k} d={`M${x1} ${baseY + y1} L${(x1 + x2) / 2 + 12} ${baseY + (y1 + y2) / 2 - 6} L${x2} ${baseY + y2}`} stroke="#1a1820" strokeWidth={3} fill="none" opacity={0.85} />
+      ))}
+      {(() => {
+        const hole = `M270 ${baseY} L270 ${baseY - 300} L330 ${baseY - 340} L380 ${baseY - 310} L450 ${baseY - 380} L520 ${baseY - 330} L600 ${baseY - 360} L690 ${baseY - 300} L760 ${baseY - 320} L840 ${baseY - 250} L880 ${baseY - 150} L900 ${baseY} Z`;
+        return (
+          <g>
+            <path d={hole} fill="#9a929c" stroke={O} strokeWidth={4} strokeLinejoin="round" transform={`translate(10 6)`} />
+            <path d={hole} fill="url(#bkIn)" stroke={O} strokeWidth={3} strokeLinejoin="round" transform={`translate(${585 * 0.06} ${(baseY - 180) * 0.06}) scale(0.94)`} />
+          </g>
+        );
+      })()}
+      {/* back wall of the banking hall + floor line */}
+      <path d={`M330 ${baseY - 40} L340 ${baseY - 290} L600 ${baseY - 330} L810 ${baseY - 250} L850 ${baseY - 40} Z`} fill="#241a18" opacity={0.9} />
+      <path d={`M300 ${baseY - 40} H880`} stroke="#5a4030" strokeWidth={3} />
+      {/* vault set into the back wall: steel frame, open door swung toward camera, warm light from inside */}
+      <rect x={680} y={baseY - 222} width={146} height={176} fill="#3a3a42" stroke={O} strokeWidth={4} />
+      <rect x={696} y={baseY - 206} width={114} height={146} fill="#ffcf80" opacity={0.85} />
+      <circle cx={765} cy={baseY - 140} r={90} fill="url(#bkVault)" opacity={0.7 * work * fl} />
+      {[0, 1, 2].map((k) => <rect key={k} x={712 + k * 38} y={baseY - 206} width={30} height={132} fill="#8a6a40" opacity={0.55} />)}
+      <g transform={`translate(690 ${baseY - 140})`}>
+        <ellipse cx={-34} cy={0} rx={38} ry={86} fill="#5a5a64" stroke={O} strokeWidth={4} />
+        <ellipse cx={-34} cy={0} rx={26} ry={64} fill="none" stroke="#8a8a94" strokeWidth={3} />
+        <path d="M-34 -30 V30 M-52 0 H-16" stroke="#b0b0ba" strokeWidth={4} strokeLinecap="round" />
+      </g>
+      {/* hanging ceiling slab + cables */}
+      <path d={`M420 ${baseY - 330} L560 ${baseY - 320} L540 ${baseY - 280} L430 ${baseY - 300} Z`} fill="#5a5460" stroke={O} strokeWidth={2.5} />
+      {[340, 470, 610].map((x, i) => <path key={i} d={`M${x} ${baseY - 330 + (i % 2) * 20} q${10 + i * 4} 60 ${-6 + i * 3} ${120 + i * 20}`} stroke="#111" strokeWidth={3} fill="none" />)}
+      {/* exposed rebar along the broken edge */}
+      {[[330, -340, -16, -26], [450, -380, 6, -30], [600, -360, 18, -24], [760, -320, 22, -14], [840, -250, 26, -6], [270, -300, -22, -10]].map(([x, y, dx, dy], k) => (
+        <path key={k} d={`M${x} ${baseY + y} l${dx} ${dy} l${dx * 0.3} ${dy * 0.6}`} stroke="#6a3a24" strokeWidth={3} fill="none" strokeLinecap="round" />
+      ))}
+      {/* interior: toppled counter, work light */}
+      <path d={`M320 ${baseY - 70} L600 ${baseY - 110} L620 ${baseY - 70} L340 ${baseY - 30} Z`} fill="#3a2a22" stroke={O} strokeWidth={2} />
+      <circle cx={560} cy={baseY - 250} r={220} fill="url(#bkWork)" opacity={0.3 * work * fl} />
       <path d={`M540 ${baseY - 240} l40 0 l-8 24 l-24 0 Z`} fill="#d8c060" stroke={O} strokeWidth={2} />
       <path d={`M560 ${baseY - 216} V${baseY}`} stroke="#222" strokeWidth={4} />
       {/* intact right half: columns + bronze doors */}
@@ -76,34 +109,58 @@ export const Barricade: React.FC<{ x: number; y: number; w?: number; s?: number 
 
 /* press pack: reporters + cameras seen from behind, flash pops (deterministic) */
 export const PressPack: React.FC<{ x: number; y: number; n?: number; s?: number; aim?: number; flashOn?: number }> = ({ x, y, n = 7, s = 1, aim = 0, flashOn = 1 }) => {
+  // v14: a real crowd, not one cloned photographer - 6 roles (TV camera, flash photographer, reporter with mic,
+  // boom operator, onlooker with umbrella, onlooker filming on a phone), varied height/build/hats/coats,
+  // clustered (uneven) spacing, two depth rows (back row smaller, darker, higher), independent timing.
   const f = useCurrentFrame();
+  const people = Array.from({ length: n + 3 }).map((_, i) => {
+    const back = i >= n;
+    const r = (k: number) => rand(i * 17.3 + k * 3.1 + 5);
+    const gap = 58 + r(1) * 70 + (r(2) > 0.75 ? 50 : 0);
+    return { i, back, r, gap, role: Math.floor(r(3) * 6) };
+  });
+  let acc = 0;
+  const xs = people.map((p) => { if (p.back) return (p.i - (people.length - 3) + 0.5) * ((acc || 400) / 3) + p.r(9) * 40; const v = acc; acc += p.gap; return v; });
+  const coats = ["#2a2e3a", "#3a2e2a", "#1e2a32", "#46402f", "#2a2236", "#3a3f46", "#4a2a26", "#24302a"];
+  const skins = ["#2a1c14", "#4a3a30", "#6a4a38", "#3a2a20", "#5a4030"];
+  const order = people.map((p, k) => k).sort((a, b) => Number(people[b].back) - Number(people[a].back));
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
       <g transform={`translate(${x} ${y}) scale(${s})`}>
-        {Array.from({ length: n }).map((_, i) => {
-          const px = i * 92 + (rand(i * 7) - 0.5) * 20, h = 330 + rand(i) * 40, bob = Math.sin(f * 0.08 + i) * 3;
-          const coat = ["#2a2e3a", "#3a2e2a", "#1e2a32", "#33302a", "#2a2236"][i % 5];
-          const pop = flashOn > 0 && (f + i * 13) % 47 < 2;
+        {order.map((k) => {
+          const P = people[k], r = P.r, i = P.i;
+          const sc = P.back ? 0.86 : 0.92 + r(4) * 0.16;
+          const h = 330 * sc + r(5) * 30, wd = 30 + r(6) * 10;
+          const bob = Math.sin(f * (0.06 + r(7) * 0.05) + i * 2) * 3;
+          const lean = Math.sin(f * 0.03 + i) * 2 + (r(8) - 0.5) * 6;
+          const coat = coats[Math.floor(r(10) * coats.length)];
+          const skin = skins[Math.floor(r(11) * skins.length)];
+          const pop = flashOn > 0 && (f + i * 13) % (37 + (i % 4) * 9) < 2;
+          const hat = Math.floor(r(12) * 4); // 0 none, 1 fedora, 2 cap, 3 hood
+          const hy = -h * 0.9;
+          const dim = P.back ? 0.55 : 1;
+          const roleEl = (() => {
+            switch (P.role) {
+              case 0: return <g transform={`translate(${wd * 0.2} ${hy + 18}) rotate(${-4 + aim * 6})`}><rect x={-6} y={-28} width={92} height={46} rx={6} fill="#15161a" stroke={O} strokeWidth={2} /><rect x={78} y={-20} width={24} height={30} rx={3} fill="#2a2c32" stroke={O} strokeWidth={2} /><circle cx={100} cy={-5} r={10} fill="#3a4a6a" /><rect x={10} y={-38} width={30} height={10} fill="#222" /><circle cx={6} cy={-22} r={4} fill={(f % 30) < 15 ? "#ff3030" : "#401010"} /><path d="M0 20 L-22 70" stroke={coat} strokeWidth={16} strokeLinecap="round" /></g>;
+              case 1: return <g transform={`translate(${-6} ${hy - 6 + Math.sin(f * 0.1 + i) * 4})`}><path d="M10 46 L34 -20" stroke={coat} strokeWidth={14} strokeLinecap="round" /><rect x={22} y={-44} width={34} height={26} rx={3} fill="#111" stroke={O} strokeWidth={2} /><rect x={27} y={-58} width={24} height={12} fill="#ddd" />{pop && <circle cx={39} cy={-52} r={70} fill="#fff8e0" opacity={0.75} />}</g>;
+              case 2: return <g transform={`translate(${wd * 0.4} ${hy + 44})`}><path d={`M0 0 L${50 + aim * 20} ${-24 - Math.sin(f * 0.07 + i) * 6}`} stroke={coat} strokeWidth={14} strokeLinecap="round" /><rect x={46 + aim * 20} y={-40 - Math.sin(f * 0.07 + i) * 6} width={10} height={26} rx={4} fill="#222" transform={`rotate(-30 ${50 + aim * 20} ${-28})`} /><circle cx={56 + aim * 20} cy={-40 - Math.sin(f * 0.07 + i) * 6} r={8} fill="#555" stroke={O} strokeWidth={1.5} /><rect x={-34} y={10} width={18} height={24} fill="#e8e4d8" stroke={O} strokeWidth={1.5} /></g>;
+              case 3: return <g transform={`translate(0 ${hy + 30})`}><path d={`M-6 0 L20 -150`} stroke={coat} strokeWidth={13} strokeLinecap="round" /><path d={`M8 -140 L${150 + Math.sin(f * 0.04 + i) * 10} -190`} stroke="#555" strokeWidth={4} /><rect x={140 + Math.sin(f * 0.04 + i) * 10} y={-206} width={44} height={22} rx={10} fill="#6a6a62" stroke={O} strokeWidth={2} /></g>;
+              case 4: return <g transform={`translate(${wd * 0.3} ${hy - 30})`}><path d="M0 50 V-40" stroke="#222" strokeWidth={4} /><path d={`M-70 -30 Q0 ${-96 + Math.sin(f * 0.05 + i) * 3} 70 -30 Q35 -44 0 -40 Q-35 -44 -70 -30 Z`} fill={["#14161c", "#5a1a20", "#1a2a4a"][i % 3]} stroke={O} strokeWidth={2} /></g>;
+              default: return <g transform={`translate(${wd * 0.1} ${hy + 30})`}><path d="M6 10 L24 -40" stroke={coat} strokeWidth={13} strokeLinecap="round" /><rect x={16} y={-66} width={18} height={30} rx={3} fill="#111" stroke={O} strokeWidth={1.5} /><rect x={19} y={-62} width={12} height={20} fill="#9ad0ff" opacity={0.8} /><circle cx={25} cy={-52} r={22} fill="#9ad0ff" opacity={0.15} /></g>;
+            }
+          })();
           return (
-            <g key={i} transform={`translate(${px} ${bob})`}>
-              <ellipse cx={0} cy={0} rx={46} ry={8} fill="#000" opacity={0.4} />
-              <path d={`M-34 0 L-30 ${-h * 0.5} C-34 ${-h * 0.72} -26 ${-h * 0.8} 0 ${-h * 0.82} C26 ${-h * 0.8} 34 ${-h * 0.72} 30 ${-h * 0.5} L34 0 Z`} fill={coat} stroke={O} strokeWidth={2.5} />
-              <ellipse cx={0} cy={-h * 0.9} rx={26} ry={30} fill={i % 3 ? "#2a1c14" : "#4a3a30"} stroke={O} strokeWidth={2.5} />
-              {i % 2 === 0 ? (
-                <g transform={`translate(${20 + aim * 10} ${-h * 0.86}) rotate(${-8 + aim * 6})`}>
-                  <rect x={-10} y={-26} width={74} height={40} rx={5} fill="#15161a" stroke={O} strokeWidth={2} />
-                  <rect x={60} y={-20} width={22} height={28} rx={3} fill="#2a2c32" stroke={O} strokeWidth={2} />
-                  <circle cx={80} cy={-6} r={9} fill="#3a4a6a" />
-                  <path d={`M-8 14 L-26 70`} stroke={coat} strokeWidth={16} strokeLinecap="round" />
-                </g>
-              ) : (
-                <g transform={`translate(${-6} ${-h * 0.98})`}>
-                  <path d={`M10 40 L34 -20`} stroke={coat} strokeWidth={14} strokeLinecap="round" />
-                  <rect x={24} y={-44} width={30} height={24} rx={3} fill="#111" stroke={O} strokeWidth={2} />
-                  <rect x={28} y={-56} width={22} height={10} fill="#ddd" />
-                  {pop && <circle cx={39} cy={-50} r={60} fill="#fff8e0" opacity={0.75} />}
-                </g>
-              )}
+            <g key={k} transform={`translate(${xs[k]} ${(P.back ? -26 : 0) + bob}) rotate(${lean} 0 0)`} opacity={1} style={{ filter: P.back ? "brightness(0.55)" : undefined }}>
+              <ellipse cx={0} cy={0} rx={wd + 12} ry={8} fill="#000" opacity={0.4 * dim} />
+              <path d={`M${-wd} 0 L${-wd + 4} ${-h * 0.5} C${-wd} ${-h * 0.72} ${-wd + 8} ${-h * 0.8} 0 ${-h * 0.82} C${wd - 8} ${-h * 0.8} ${wd} ${-h * 0.72} ${wd - 4} ${-h * 0.5} L${wd} 0 Z`} fill={coat} stroke={O} strokeWidth={2.5} />
+              <path d={`M-4 ${-h * 0.8} V-10`} stroke="#000" strokeWidth={2} opacity={0.25} />
+              <g transform={`rotate(${(r(13) - 0.5) * 16 + Math.sin(f * 0.02 + i * 3) * 4} 0 ${hy})`}>
+                <ellipse cx={0} cy={hy} rx={24 + r(14) * 4} ry={28 + r(14) * 3} fill={hat === 3 ? coat : skin} stroke={O} strokeWidth={2.5} />
+                {hat === 1 && <g fill="#1a1a1e" stroke={O} strokeWidth={2}><path d={`M-40 ${hy - 18} Q0 ${hy - 28} 40 ${hy - 18} Q0 ${hy - 10} -40 ${hy - 18} Z`} /><path d={`M-22 ${hy - 20} C-22 ${hy - 46} 22 ${hy - 46} 22 ${hy - 20} Z`} /></g>}
+                {hat === 2 && <path d={`M-24 ${hy - 10} C-24 ${hy - 40} 24 ${hy - 40} 24 ${hy - 10} L44 ${hy - 8} L24 ${hy - 4} Z`} fill={coats[(i + 3) % coats.length]} stroke={O} strokeWidth={2} />}
+                {hat === 3 && <ellipse cx={4} cy={hy + 4} rx={16} ry={20} fill={skin} />}
+              </g>
+              {roleEl}
             </g>
           );
         })}
@@ -168,7 +225,9 @@ export const GiftBox: React.FC<{ x: number; y: number; s?: number; lid?: number 
       <path d="M-90 0 V-120 H90 V0 Z" fill="#ecebe6" stroke={O} strokeWidth={3} />
       <path d="M90 -120 L120 -138 V-18 L90 0 Z" fill="#c8c6c0" stroke={O} strokeWidth={3} />
       <rect x={-14} y={-120} width={28} height={120} fill="#d01c26" stroke={O} strokeWidth={2} />
-      <g transform={`translate(0 ${-120 - lid * 120}) rotate(${-lid * 25})`}>
+      {/* v14: the lid follows a lift-and-set-down arc and comes to REST on the table (never hangs in mid-air) */}
+      {lid > 0.85 && <ellipse cx={-235 + 15} cy={3} rx={120} ry={10} fill="#000" opacity={0.4 * (lid - 0.85) / 0.15} />}
+      <g transform={`translate(${-235 * lid} ${-120 * (1 - lid) - Math.sin(Math.PI * lid) * 90}) rotate(${-Math.sin(Math.PI * lid) * 22})`}>
         <path d="M-96 0 V-30 H96 V0 Z M96 -30 L126 -48 V-18 L96 0 Z" fill="#f4f3ee" stroke={O} strokeWidth={3} />
         <path d="M-96 -30 L-66 -48 H126 L96 -30 Z" fill="#fbfaf6" stroke={O} strokeWidth={3} />
         <rect x={-14} y={-30} width={28} height={30} fill="#d01c26" stroke={O} strokeWidth={2} />
@@ -185,7 +244,8 @@ export const ToyCop: React.FC<{ x: number; y: number; s?: number; keyRot?: numbe
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
       <g transform={`translate(${x} ${y}) scale(${s})`}>
-        <ellipse cx={0} cy={2} rx={30 - tip * 6} ry={5} fill="#000" opacity={0.5} />
+        {/* v14: contact shadow follows the body as it tips over (it lies to the right of the pivot) */}
+        <ellipse cx={tip * 62} cy={2} rx={30 + tip * 28} ry={5 + tip * 1.5} fill="#000" opacity={0.5} />
         <g transform={`rotate(${tip * 90} 18 0)`}>
           {/* legs */}
           <g transform={`rotate(${leg} -7 -24)`}><rect x={-12} y={-24} width={9} height={24} rx={2} fill="#1d2b52" stroke={O} strokeWidth={1.5} /><rect x={-14} y={-4} width={13} height={5} rx={2} fill="#111" /></g>
@@ -246,7 +306,17 @@ export const CruiserCabin: React.FC<{ children?: React.ReactNode; dark?: number;
         <path d="M0 470 H1920" stroke="#2a2a30" strokeWidth={6} />
         {Array.from({ length: 30 }).map((_, i) => <path key={i} d={`M${i * 66} 380 V560`} stroke="#2a2a30" strokeWidth={2} opacity={0.6} />)}
       </svg>
-      <AbsoluteFill>{children}</AbsoluteFill>
+      {/* v14: the car is MOVING - road bumps shake the occupants, passing street lights sweep warm bands through the cabin */}
+      <AbsoluteFill style={{ transform: `translate(${Math.sin(f * 0.37) * 1.2 * speed}px, ${(Math.sin(f * 0.9) * 1.4 + Math.max(0, Math.sin(f * 0.13)) ** 12 * 6) * Math.min(1.5, speed + 0.4)}px)` }}>{children}</AbsoluteFill>
+      {(() => {
+        const P = Math.round(70 / Math.max(0.35, speed)); const ph = (f % P) / P; const bx = -900 + ph * 3700;
+        return (
+          <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, mixBlendMode: "screen", pointerEvents: "none" }}>
+            <defs><linearGradient id="ccSweep" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#ffcf80" stopOpacity="0" /><stop offset="0.5" stopColor="#ffcf80" stopOpacity={0.22 * (1 - dark * 0.5)} /><stop offset="1" stopColor="#ffcf80" stopOpacity="0" /></linearGradient></defs>
+            <path d={`M${bx} 0 L${bx + 420} 0 L${bx + 120} 1080 L${bx - 300} 1080 Z`} fill="url(#ccSweep)" />
+          </svg>
+        );
+      })()}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs><linearGradient id="ccDash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2a2c34" /><stop offset="1" stopColor="#0a0b0e" /></linearGradient></defs>
         {/* windshield frame (A-pillars, roof, mirror) */}
@@ -323,23 +393,135 @@ export const TVDebate: React.FC<{ cityMorning?: number }> = ({ cityMorning = 1 }
 };
 
 /* hospital exterior with power coming back floor by floor (S50) */
-export const Hospital: React.FC<{ power: number }> = ({ power }) => (
-  <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
-    <defs><linearGradient id="hsF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#c8c4bc" /><stop offset="1" stopColor="#6a6a70" /></linearGradient></defs>
-    <rect x={360} y={180} width={1200} height={660} fill="url(#hsF)" stroke={O} strokeWidth={3} />
-    <rect x={340} y={160} width={1240} height={30} fill="#9a9690" stroke={O} strokeWidth={3} />
-    <g transform="translate(960 230)"><rect x={-140} y={-30} width={280} height={60} fill="#1a1a1e" /><text x={0} y={14} textAnchor="middle" fontFamily={DISPLAY} fontSize={38} letterSpacing={8} fill={power > 0.5 ? "#ff4a4a" : "#4a1a1a"}>EMERGENCY</text></g>
-    <g transform="translate(1440 240)"><rect x={-34} y={-34} width={68} height={68} fill="#fff" stroke={O} strokeWidth={2} /><path d="M-10 -26 h20 v16 h16 v20 h-16 v16 h-20 v-16 h-16 v-20 h16 Z" fill="#d02020" /></g>
-    {Array.from({ length: 5 }).map((_, r) => Array.from({ length: 12 }).map((_, c) => {
-      const floorOn = power * 6 - (4 - r) > 0.5; // bottom floor first
-      const lit = floorOn && rand(r * 13 + c) > 0.2;
-      return <rect key={`${r}${c}`} x={400 + c * 96} y={300 + r * 100} width={60} height={60} fill={lit ? "#f4f0d8" : "#1a1e28"} stroke="#3a3a40" strokeWidth={2} />;
-    }))}
-    <rect x={820} y={760} width={280} height={80} fill={power > 0.2 ? "#ffe8b8" : "#14161c"} stroke={O} strokeWidth={3} />
-    <rect x={-400} y={840} width={2720} height={700} fill="#1a1c24" />
-    <rect x={-400} y={840} width={2720} height={10} fill="#3a3c48" />
-  </svg>
-);
+/* v14 AMBULANCE (side view): cab with windshield + door, patient box with red band, star of life, light bar,
+ * wheel arches, head/tail lights, optional open rear doors with warm interior spill. y = ground line. */
+export const Ambulance: React.FC<{ x: number; y: number; s?: number; facing?: 1 | -1; open?: number; lights?: number }> = ({ x, y, s = 1, facing = 1, open = 0, lights = 1 }) => {
+  const f = useCurrentFrame();
+  const ph = Math.floor(f / 6) % 2;
+  const red = "#e0262a", white = "#efede6", shadeW = "#c9c6bd";
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+      <defs>
+        <linearGradient id="ambBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="0.6" stopColor={white} /><stop offset="1" stopColor={shadeW} /></linearGradient>
+        <linearGradient id="ambGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#3a5070" /><stop offset="1" stopColor="#0c141e" /></linearGradient>
+        <radialGradient id="ambGlowR"><stop offset="0" stopColor="#ff3030" stopOpacity="0.8" /><stop offset="1" stopColor="#ff3030" stopOpacity="0" /></radialGradient>
+        <radialGradient id="ambGlowB"><stop offset="0" stopColor="#3a70ff" stopOpacity="0.8" /><stop offset="1" stopColor="#3a70ff" stopOpacity="0" /></radialGradient>
+      </defs>
+      <g transform={`translate(${x} ${y}) scale(${s * facing} ${s})`}>
+        <ellipse cx={305} cy={4} rx={330} ry={16} fill="#000" opacity={0.55} />
+        {open > 0 && <path d={`M0 -60 L${-260 * open} 0 L0 0 Z`} fill="#ffd9a0" opacity={0.25 * open} />}
+        {/* chassis + skirt */}
+        <rect x={14} y={-78} width={592} height={34} rx={6} fill="#22252c" stroke={O} strokeWidth={3} />
+        {/* patient box */}
+        <path d="M0 -70 V-318 Q0 -334 16 -334 H392 Q404 -334 404 -320 V-70 Z" fill="url(#ambBody)" stroke={O} strokeWidth={3.5} />
+        {/* cab */}
+        <path d="M404 -70 V-250 Q404 -262 416 -262 H478 Q492 -262 502 -250 L582 -158 Q590 -150 602 -146 L612 -142 Q620 -138 620 -126 V-70 Z" fill="url(#ambBody)" stroke={O} strokeWidth={3.5} />
+        <path d="M424 -242 H480 Q488 -242 494 -235 L566 -156 H424 Z" fill="url(#ambGlass)" stroke={O} strokeWidth={2.5} />
+        <path d="M440 -236 L470 -236 L436 -180 Z" fill="#ffffff" opacity={0.12} />
+        <path d="M480 -150 V-74" stroke={O} strokeWidth={2} /><rect x={488} y={-138} width={22} height={6} rx={3} fill="#555" />
+        {/* livery: red band, thin dark pinstripe, lettering, star of life */}
+        <rect x={2} y={-156} width={616} height={26} fill={red} />
+        <rect x={2} y={-128} width={616} height={5} fill="#1a1a22" opacity={0.8} />
+        <text x={200} y={-188} textAnchor="middle" fontFamily={DISPLAY} fontSize={42} letterSpacing={3} fill={red} transform={facing < 0 ? "translate(400 0) scale(-1 1)" : undefined}>AMBULANCE</text>
+        <g transform="translate(110 -262)">{[0, 60, 120].map((r) => <rect key={r} x={-9} y={-34} width={18} height={68} rx={3} fill="#1f5fc0" transform={`rotate(${r})`} />)}<circle r={9} fill="#fff" /></g>
+        <rect x={300} y={-306} width={78} height={56} rx={6} fill="#cfd8e0" stroke={O} strokeWidth={2.5} opacity={0.9} />
+        <path d="M10 -96 H396" stroke="#9a978e" strokeWidth={2} />
+        {/* rear doors (open = swung out toward the viewer, warm interior behind) */}
+        {open > 0 ? (
+          <g>
+            <rect x={4} y={-316} width={30} height={244} fill="#ffe2b0" />
+            <path d={`M0 -318 L${-70 * open} ${-300} L${-70 * open} ${-82} L0 -70 Z`} fill={shadeW} stroke={O} strokeWidth={3} />
+            <rect x={-60 * open} y={-280} width={40 * open} height={46} fill="#cfd8e0" opacity={0.8} />
+          </g>
+        ) : <path d="M8 -318 V-74" stroke={O} strokeWidth={2} />}
+        {/* wheel arches + wheels */}
+        {[112, 506].map((wx) => (
+          <g key={wx}>
+            <path d={`M${wx - 62} -70 A62 62 0 0 1 ${wx + 62} -70 Z`} fill="#0c0d10" />
+            <circle cx={wx} cy={-44} r={46} fill="#141519" stroke={O} strokeWidth={3} />
+            <circle cx={wx} cy={-44} r={22} fill="#9aa2b0" stroke={O} strokeWidth={2} />
+            {[0, 72, 144, 216, 288].map((a) => <circle key={a} cx={wx + Math.cos((a * Math.PI) / 180) * 12} cy={-44 + Math.sin((a * Math.PI) / 180) * 12} r={2.6} fill="#555" />)}
+          </g>
+        ))}
+        {/* lights: head, tail, roof bar, box corner beacons */}
+        <rect x={606} y={-124} width={14} height={18} rx={4} fill="#fff2c0" />
+        <rect x={-2} y={-124} width={10} height={26} rx={3} fill="#c01010" />
+        <rect x={420} y={-276} width={66} height={14} rx={5} fill="#222" />
+        <rect x={424} y={-274} width={28} height={10} rx={4} fill={lights && ph ? "#ff3a3a" : "#5a1010"} />
+        <rect x={454} y={-274} width={28} height={10} rx={4} fill={lights && !ph ? "#4a7aff" : "#101a50"} />
+        <rect x={6} y={-346} width={24} height={12} rx={4} fill={lights && !ph ? "#ff3a3a" : "#5a1010"} />
+        <rect x={372} y={-346} width={24} height={12} rx={4} fill={lights && ph ? "#ff3a3a" : "#5a1010"} />
+        {lights > 0 && <g style={{ mixBlendMode: "screen" }}>
+          <circle cx={ph ? 438 : 468} cy={-270} r={70} fill={ph ? "url(#ambGlowR)" : "url(#ambGlowB)"} opacity={0.7 * lights} />
+          <circle cx={ph ? 384 : 18} cy={-340} r={50} fill="url(#ambGlowR)" opacity={0.6 * lights} />
+        </g>}
+      </g>
+    </svg>
+  );
+};
+
+/* v14 HOSPITAL: stepped towers with varied windows, GOTHAM GENERAL crown sign, ER wing with canopy, lit glass doors,
+ * EMERGENCY fascia sign, ambulance bay with a parked ambulance, sidewalk + street lamps + people for scale. */
+export const Hospital: React.FC<{ power: number }> = ({ power }) => {
+  const f = useCurrentFrame();
+  const win = (x0: number, y0: number, cols: number, rows: number, cw: number, rh: number, w: number, h: number, seed: number, rowOffset: number) =>
+    Array.from({ length: rows }).map((_, r) => Array.from({ length: cols }).map((_, c) => {
+      const floorOn = power * 9 - (rows - 1 - r + rowOffset) * 0.6 > 0.4;
+      const k = rand(seed + r * 17 + c * 3.1);
+      const lit = floorOn && k > 0.18;
+      const col = !lit ? "#161b26" : k > 0.86 ? "#bfe0ff" : k > 0.7 ? "#fff6dc" : "#f2e2b4";
+      return <g key={`${seed}-${r}-${c}`}>
+        <rect x={x0 + c * cw} y={y0 + r * rh} width={w} height={h} fill={col} />
+        {lit && k > 0.45 && k < 0.6 && <rect x={x0 + c * cw} y={y0 + r * rh} width={w} height={h * 0.45} fill="#8a8070" opacity={0.7} />}
+        {lit && k > 0.3 && k < 0.36 && <circle cx={x0 + c * cw + w * 0.5} cy={y0 + r * rh + h * 0.62} r={h * 0.18} fill="#2a2a30" opacity={0.6} />}
+      </g>;
+    }));
+  const sign = power > 0.45;
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+      <defs>
+        <linearGradient id="hsA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d7d3ca" /><stop offset="0.65" stopColor="#b9b5ae" /><stop offset="1" stopColor="#7c7a80" /></linearGradient>
+        <linearGradient id="hsB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#8e8c92" /><stop offset="1" stopColor="#5e5e68" /></linearGradient>
+        <radialGradient id="hsLamp"><stop offset="0" stopColor="#ffe6b0" stopOpacity="0.55" /><stop offset="1" stopColor="#ffe6b0" stopOpacity="0" /></radialGradient>
+      </defs>
+      {/* left wing (darker, set back) */}
+      <rect x={240} y={330} width={400} height={510} fill="url(#hsB)" stroke={O} strokeWidth={3} />
+      <rect x={228} y={318} width={424} height={16} fill="#6e6c72" stroke={O} strokeWidth={2.5} />
+      {win(270, 370, 6, 7, 62, 64, 40, 34, 11, 0)}
+      {/* main tower with ribbon windows + stepped crown */}
+      <rect x={600} y={130} width={640} height={710} fill="url(#hsA)" stroke={O} strokeWidth={3.5} />
+      <rect x={680} y={70} width={480} height={64} fill="#a9a59e" stroke={O} strokeWidth={3} />
+      <rect x={760} y={36} width={320} height={36} fill="#9a968f" stroke={O} strokeWidth={3} />
+      <text x={920} y={118} textAnchor="middle" fontFamily={DISPLAY} fontSize={44} letterSpacing={10} fill={sign ? "#f4f0e0" : "#5a5850"}>GOTHAM GENERAL</text>
+      <rect x={1060} y={-6} width={4} height={42} fill="#333" /><circle cx={1062} cy={-8} r={5} fill={(Math.floor(f / 18) % 2) && power > 0.2 ? "#ff3a2a" : "#401010"} />
+      {Array.from({ length: 9 }).map((_, r) => <rect key={r} x={626} y={172 + r * 66} width={588} height={38} fill="#20242e" />)}
+      {win(632, 176, 12, 9, 48, 66, 40, 30, 23, 0)}
+      {Array.from({ length: 5 }).map((_, k) => <rect key={k} x={600 + k * 160} y={130} width={6} height={640} fill="#000" opacity={0.18} />)}
+      {/* ER wing (right, low) */}
+      <rect x={1200} y={430} width={520} height={410} fill="url(#hsA)" stroke={O} strokeWidth={3} />
+      <rect x={1188} y={418} width={544} height={16} fill="#a29e97" stroke={O} strokeWidth={2.5} />
+      {win(1232, 462, 8, 3, 60, 62, 42, 34, 37, 6)}
+      {/* ER entrance: glass doors with warm interior + figures, canopy slab, red fascia sign, posts */}
+      <rect x={1330} y={690} width={300} height={150} fill={power > 0.15 ? "#ffe9bf" : "#1a1c22"} stroke={O} strokeWidth={3} />
+      {power > 0.15 && <g fill="#3a3430" opacity={0.75}><rect x={1400} y={742} width={16} height={58} rx={6} /><circle cx={1408} cy={734} r={9} /><rect x={1530} y={748} width={18} height={52} rx={6} /><circle cx={1539} cy={740} r={9} /></g>}
+      <path d="M1480 690 V840" stroke={O} strokeWidth={3} /><path d="M1405 690 V840 M1555 690 V840" stroke="#6a7080" strokeWidth={2} />
+      <path d="M1290 650 H1700 L1690 690 H1300 Z" fill="#d8d4cc" stroke={O} strokeWidth={3} />
+      <rect x={1330} y={652} width={340} height={30} fill={sign ? "#c41a1e" : "#3a1012"} />
+      <text x={1500} y={676} textAnchor="middle" fontFamily={DISPLAY} fontSize={26} letterSpacing={7} fill={sign ? "#ffffff" : "#6a4040"}>EMERGENCY</text>
+      <rect x={1306} y={690} width={10} height={150} fill="#4a4e58" /><rect x={1684} y={690} width={10} height={150} fill="#4a4e58" />
+      {sign && <rect x={1290} y={690} width={410} height={150} fill="#ffd9a0" opacity={0.12} />}
+      {/* sidewalk, curb, ambulance bay */}
+      <rect x={-400} y={840} width={2720} height={40} fill="#3a3c46" />
+      <rect x={-400} y={878} width={2720} height={8} fill="#5a5c68" />
+      <rect x={-400} y={886} width={2720} height={700} fill="#16181f" />
+      <text x={1520} y={930} textAnchor="middle" fontFamily={DISPLAY} fontSize={22} letterSpacing={8} fill="#e8d060" opacity={0.55} transform="translate(1520 930) scale(1 0.45) translate(-1520 -930)">AMBULANCE ONLY</text>
+      {/* street lamps */}
+      {[180, 1060].map((lx) => <g key={lx}><rect x={lx} y={560} width={8} height={320} fill="#1c1e24" /><path d={`M${lx + 4} 562 q30 -20 60 0`} stroke="#1c1e24" strokeWidth={6} fill="none" /><rect x={lx + 50} y={558} width={26} height={10} rx={3} fill="#fff0c8" /><circle cx={lx + 63} cy={600} r={150} fill="url(#hsLamp)" /></g>)}
+      {/* pedestrians for scale */}
+      <g fill="#0e1016"><rect x={420} y={800} width={14} height={44} rx={5} /><circle cx={427} cy={792} r={8} /><rect x={452} y={806} width={12} height={38} rx={5} /><circle cx={458} cy={799} r={7} /></g>
+    </svg>
+  );
+};
 
 /* rooftop parapet foreground (S19, S37, S39, S44) */
 export const Parapet: React.FC<{ y?: number; color?: string; tilt?: number }> = ({ y = 900, color = "#1a1620", tilt = 0 }) => (

@@ -154,6 +154,12 @@ export const DecoSkyline: React.FC<{
         return (
           <g key={i}>
             {tiers}
+            {/* v14 roof furniture: water towers, antennas with blinking aviation lights, stepped crowns */}
+            {!bd.spire && rand(bd.seed * 2.3) > 0.55 && (() => { const wx = tx + tw * (0.25 + rand(bd.seed) * 0.4), wy = baseY - bd.h; return (
+              <g fill={`url(#${gid}b)`}><rect x={wx - 2} y={wy - 16} width={3} height={16} /><rect x={wx + 15} y={wy - 16} width={3} height={16} /><path d={`M${wx - 6} ${wy - 16} h28 v-20 q-14 -9 -28 0 Z`} /></g>); })()}
+            {!bd.spire && rand(bd.seed * 4.1) > 0.7 && (() => { const ax = tx + tw * 0.7, ay = baseY - bd.h; const blink = (Math.floor((f + bd.seed * 7) / 20) % 3) === 0; return (
+              <g><rect x={ax} y={ay - 46} width={2} height={46} fill={`url(#${gid}b)`} /><circle cx={ax + 1} cy={ay - 47} r={2.6} fill={blink && blackout < 0.5 ? "#ff3a2a" : "#3a0a08"} /></g>); })()}
+            {!bd.spire && rand(bd.seed * 6.7) > 0.8 && <path d={`M${tx} ${baseY - bd.h} L${tx + tw / 2} ${baseY - bd.h - tw * 0.22} L${tx + tw} ${baseY - bd.h} Z`} fill={`url(#${gid}a)`} />}
             {bd.spire && <path d={`M${tx + tw / 2 - 6} ${baseY - bd.h} L${tx + tw / 2} ${baseY - bd.h - 50 - rand(bd.seed) * 70} L${tx + tw / 2 + 6} ${baseY - bd.h} Z`} fill={`url(#${gid}a)`} />}
           </g>
         );
@@ -176,13 +182,17 @@ const Tier: React.FC<{ x: number; y: number; w: number; h: number; gid: string; 
     <g>
       <rect x={lx} y={y} width={lw} height={h} fill={`url(#${gid}a)`} />
       <rect x={sx} y={y} width={sw} height={h} fill={`url(#${gid}b)`} />
+      {/* v14: per-building material/value variation (stone, dark glass, brick) so the skyline is not identical blue boxes */}
+      {(() => { const tone = rand(bd.seed * 3.7); const c = tone < 0.3 ? "#000000" : tone < 0.55 ? "#7a6248" : tone < 0.75 ? "#5a2e26" : "#9ab0d0";
+        const o = tone < 0.3 ? 0.18 + tone * 0.6 : tone < 0.55 ? 0.16 : tone < 0.75 ? 0.14 : 0.08;
+        return <rect x={x} y={y} width={w} height={h} fill={c} opacity={o} />; })()}
       {/* pilasters */}
       {Array.from({ length: bd.pil }).map((_, k) => (
         <rect key={k} x={lx + ((k + 0.5) * lw) / bd.pil - 1} y={y + 4} width={2} height={h - 4} fill={tint(l, 0.25)} opacity={0.18} />
       ))}
       <line x1={rimSide === "left" ? x + 0.5 : x + w - 0.5} y1={y} x2={rimSide === "left" ? x + 0.5 : x + w - 0.5} y2={y + h} stroke={tint(l, 0.5)} strokeWidth={1.2} opacity={0.5} />
       <line x1={x} y1={y + 0.5} x2={x + w} y2={y + 0.5} stroke={tint(l, 0.5)} strokeWidth={1.2} opacity={0.45} />
-      <path d={winPath(lx + 3, y + 10, lw - 6, h - 14, cols, rows, bd.seed + t * 5 + (rand(bd.seed + flick) > 0.93 ? 1 : 0), litP, true)} fill={windowColor} opacity={0.9} />
+      <path d={winPath(lx + 3, y + 10, lw - 6, h - 14, rand(bd.seed * 1.9) > 0.7 ? Math.max(2, Math.round(cols / 2)) : cols, rand(bd.seed * 1.9) > 0.85 ? Math.max(2, Math.round(rows * 0.6)) : rows, bd.seed + t * 5 + (rand(bd.seed + flick) > 0.93 ? 1 : 0), litP, true)} fill={windowColor === "#f2cf7a" && rand(bd.seed * 5.3) > 0.72 ? "#cfe2ff" : windowColor} opacity={0.9} />
       <path d={winPath(sx + 2, y + 10, sw - 4, h - 14, Math.max(1, Math.round(sw / 16)), rows, bd.seed + 99 + t, litP * 0.7, true)} fill={windowColor} opacity={0.55} />
     </g>
   );

@@ -4,14 +4,14 @@ import { mix, shade, tint } from "../lib/anim";
 import { useScreenProj } from "../lib/Camera";
 import { auditReport } from "../lib/audit";
 
-export type Kind = "alex" | "alexYoung" | "alexDress" | "mara" | "batman" | "father" | "nia" | "mother" | "driver" | "specialist" | "robber" | "employee" | "reporter";
+export type Kind = "alex" | "alexYoung" | "alexDress" | "mara" | "batman" | "father" | "nia" | "mother" | "driver" | "specialist" | "robber" | "employee" | "reporter" | "medic";
 
 export type Pose = {
   lean: number; bob: number; head: number; neck: number;
   armFar: [number, number]; armNear: [number, number];
   legFar: [number, number]; legNear: [number, number];
   blink: number; brow: number; smile: number; mouth: number; eyeX: number; eyeY: number;
-  handNear: "open" | "fist" | "grip" | "point"; handFar: "open" | "fist" | "grip" | "point";
+  handNear: "open" | "fist" | "grip" | "point" | "relaxed"; handFar: "open" | "fist" | "grip" | "point" | "relaxed";
 };
 export const NEUTRAL: Pose = {
   lean: 0, bob: 0, head: 0, neck: 0, armFar: [-6, 12], armNear: [8, 14], legFar: [-4, 4], legNear: [5, 4],
@@ -23,7 +23,7 @@ const PAL: Record<Kind, Pal> = {
   alex: { skin: "#c48a62", hair: "#17110e", top: "#1f2c3f", top2: "#0b0f18", pants: "#18212f", shoes: "#0a0a0e", hat: "#1a2436", accent: "#d9b24a" },
   alexYoung: { skin: "#c48a62", hair: "#17110e", top: "#7a2e2a", top2: "#e0d6c0", pants: "#2e3a56", shoes: "#3a2a20", accent: "#e0d6c0" },
   alexDress: { skin: "#c48a62", hair: "#17110e", top: "#1d2b52", top2: "#c9cfd9", pants: "#1d2b52", shoes: "#060608", hat: "#1d2b52", accent: "#d9b24a" },
-  mara: { skin: "#7a4a30", hair: "#2a1410", top: "#2b3654", top2: "#a9bfd8", pants: "#1b2236", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
+  mara: { skin: "#7a4a30", hair: "#2a1410", top: "#3d5888", top2: "#a9bfd8", pants: "#1b2236", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
   batman: { skin: "#c49a7a", hair: "#000", top: "#7d8595", top2: "#161a26", pants: "#7d8595", shoes: "#161a26", hat: "#161a26", accent: "#d8b23a" },
   father: { skin: "#b07a55", hair: "#a7a7a7", top: "#5d4b39", top2: "#cfc6b2", pants: "#3a3a46", shoes: "#2a1d14", accent: "#3f4c3c" },
   nia: { skin: "#a8714d", hair: "#1a120e", top: "#f0c21a", top2: "#d9a50e", pants: "#3a4a6a", shoes: "#c8302a", accent: "#f0c21a" },
@@ -33,24 +33,26 @@ const PAL: Record<Kind, Pal> = {
   robber: { skin: "#d2a07e", hair: "#2a1e16", top: "#3a3436", top2: "#1c1a1c", pants: "#1e2430", shoes: "#0e0e0e", hat: "#222", accent: "#888" },
   employee: { skin: "#e0b08e", hair: "#6a3a1e", top: "#c9c3b8", top2: "#3a4256", pants: "#2c3446", shoes: "#141414", accent: "#9a7a5a" },
   reporter: { skin: "#d6a682", hair: "#3a2a1e", top: "#6a6250", top2: "#2a2620", pants: "#3a3630", shoes: "#141414", hat: "#4a4236", accent: "#c0c0c0" },
+  medic: { skin: "#b98260", hair: "#241a14", top: "#2f5a46", top2: "#d8e04a", pants: "#262c36", shoes: "#111", accent: "#d8e04a" },
 };
 
 type Build = { H: number; sh: number; waist: number; hipW: number; thigh: number; shin: number; ua: number; fa: number; limb: number; headS: number; female?: boolean; child?: boolean; belly?: number; };
 const BUILD: Record<Kind, Build> = {
-  alex: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1, headS: 1 },
-  alexYoung: { H: 320, sh: 0.82, waist: 0.85, hipW: 0.85, thigh: 80, shin: 78, ua: 62, fa: 58, limb: 0.8, headS: 0.95, child: true },
-  alexDress: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1, headS: 1 },
-  mara: { H: 408, sh: 0.86, waist: 0.86, hipW: 1.04, thigh: 104, shin: 102, ua: 76, fa: 70, limb: 0.88, headS: 0.94, female: true },
-  batman: { H: 440, sh: 1.32, waist: 1.05, hipW: 1.05, thigh: 108, shin: 106, ua: 84, fa: 78, limb: 1.25, headS: 1.0 },
-  father: { H: 380, sh: 1.02, waist: 1.25, hipW: 1.12, thigh: 94, shin: 92, ua: 74, fa: 68, limb: 1.05, headS: 1.02, belly: 14 },
+  alex: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 65, limb: 1, headS: 1 },
+  alexYoung: { H: 320, sh: 0.82, waist: 0.85, hipW: 0.85, thigh: 80, shin: 78, ua: 62, fa: 52, limb: 0.8, headS: 0.95, child: true },
+  alexDress: { H: 400, sh: 1, waist: 1, hipW: 1, thigh: 100, shin: 98, ua: 78, fa: 65, limb: 1, headS: 1 },
+  mara: { H: 388, sh: 0.86, waist: 0.84, hipW: 1.06, thigh: 98, shin: 96, ua: 76, fa: 63, limb: 0.88, headS: 0.94, female: true },
+  batman: { H: 440, sh: 1.32, waist: 1.05, hipW: 1.05, thigh: 108, shin: 106, ua: 84, fa: 70, limb: 1.25, headS: 1.0 },
+  father: { H: 380, sh: 1.02, waist: 1.25, hipW: 1.12, thigh: 94, shin: 92, ua: 74, fa: 61, limb: 1.05, headS: 1.02, belly: 14 },
   // WORLD_METRICS kid 1.25 m (alex 400 = 1.75 m)
-  nia: { H: 286, sh: 0.7, waist: 0.8, hipW: 0.76, thigh: 64, shin: 62, ua: 54, fa: 50, limb: 0.7, headS: 0.92, child: true, female: true },
-  mother: { H: 380, sh: 0.86, waist: 0.92, hipW: 1.05, thigh: 96, shin: 94, ua: 74, fa: 68, limb: 0.9, headS: 0.95, female: true },
-  driver: { H: 390, sh: 1.05, waist: 1.25, hipW: 1.1, thigh: 96, shin: 94, ua: 76, fa: 70, limb: 1.05, headS: 1, belly: 18 },
-  specialist: { H: 405, sh: 1.25, waist: 1.25, hipW: 1.15, thigh: 100, shin: 98, ua: 78, fa: 72, limb: 1.35, headS: 1.15 },
-  robber: { H: 395, sh: 1.0, waist: 1, hipW: 1, thigh: 100, shin: 96, ua: 78, fa: 72, limb: 1, headS: 1 },
-  employee: { H: 375, sh: 0.86, waist: 0.9, hipW: 1.05, thigh: 94, shin: 92, ua: 72, fa: 66, limb: 0.88, headS: 0.95, female: true },
-  reporter: { H: 395, sh: 1.0, waist: 1.05, hipW: 1, thigh: 100, shin: 96, ua: 78, fa: 72, limb: 1, headS: 1 },
+  nia: { H: 286, sh: 0.7, waist: 0.8, hipW: 0.76, thigh: 64, shin: 62, ua: 54, fa: 45, limb: 0.7, headS: 0.92, child: true, female: true },
+  mother: { H: 380, sh: 0.86, waist: 0.92, hipW: 1.05, thigh: 96, shin: 94, ua: 74, fa: 61, limb: 0.9, headS: 0.95, female: true },
+  driver: { H: 390, sh: 1.05, waist: 1.25, hipW: 1.1, thigh: 96, shin: 94, ua: 76, fa: 63, limb: 1.05, headS: 1, belly: 18 },
+  specialist: { H: 405, sh: 1.25, waist: 1.25, hipW: 1.15, thigh: 100, shin: 98, ua: 78, fa: 65, limb: 1.35, headS: 1.15 },
+  robber: { H: 395, sh: 1.0, waist: 1, hipW: 1, thigh: 100, shin: 96, ua: 78, fa: 65, limb: 1, headS: 1 },
+  employee: { H: 375, sh: 0.86, waist: 0.9, hipW: 1.05, thigh: 94, shin: 92, ua: 72, fa: 59, limb: 0.88, headS: 0.95, female: true },
+  reporter: { H: 395, sh: 1.0, waist: 1.05, hipW: 1, thigh: 100, shin: 96, ua: 78, fa: 65, limb: 1, headS: 1 },
+  medic: { H: 405, sh: 1.08, waist: 1.05, hipW: 1.02, thigh: 102, shin: 98, ua: 80, fa: 66, limb: 1.05, headS: 1 },
 };
 
 /** capsule limb from (0,0) down to (0,L) */
@@ -66,6 +68,8 @@ export type CharProps = {
   shoulderRadio?: boolean; capeWind?: number; hood?: boolean; glowEyes?: number; noHat?: boolean; style?: React.CSSProperties;
   /** world-space IK targets for the palm centre (overrides armNear / armFar) */
   reachNear?: [number, number]; reachFar?: [number, number];
+  /** world point the held prop (flashlight) must point at: the wrist rotates so the lens aims there (beam continuity) */
+  aimAt?: [number, number];
   /** world y of the floor for the contact shadow (defaults to y) */
   groundY?: number; allowMouth?: boolean; noLife?: boolean; shadow?: number;
   /** view-angle matrix: "threeQuarter" (default: chest details on the front surface, near arm at the back shoulder),
@@ -87,7 +91,22 @@ export const Character: React.FC<CharProps> = (props) => {
   if (!props.noLife) {
     if (props.pose?.blink === undefined) p.blink = blinkAt(f, 76 + (hsh % 44), hsh % 53);
     p.bob += breathe(f + hsh, 0.27, 1.3);
-    p.head += Math.sin((f + hsh) * 0.045) * 0.9 + Math.sin((f + hsh) * 0.017) * 0.7;
+    p.head += Math.sin((f + hsh) * 0.045) * 0.6 + Math.sin((f + hsh) * 0.017) * 0.5;
+    // ---- ACTING LAYER (v14): nobody is ever a frozen puppet ----
+    const A = acting(kind, id, f, {
+      armsGiven: props.pose?.armNear !== undefined || props.pose?.armFar !== undefined,
+      reach: !!(props.reachNear || props.reachFar),
+      legsGiven: props.pose?.legNear !== undefined || props.pose?.legFar !== undefined || props.groundY !== undefined,
+      prop: prop !== "none",
+      sleeping: props.pose?.blink === 1,
+    });
+    p.lean += A.lean; p.bob += A.bob; p.head += A.head; p.eyeX += A.eyeX;
+    if (A.armNear) p.armNear = A.armNear; else p.armNear = [p.armNear[0] + A.dNear[0], p.armNear[1] + A.dNear[1]];
+    if (A.armFar) p.armFar = A.armFar; else p.armFar = [p.armFar[0] + A.dFar[0], p.armFar[1] + A.dFar[1]];
+    if (A.legNear) p.legNear = A.legNear;
+    if (A.legFar) p.legFar = A.legFar;
+    if (A.handNear && props.pose?.handNear === undefined) p.handNear = A.handNear;
+    if (A.handFar && props.pose?.handFar === undefined) p.handFar = A.handFar;
   }
   if (!props.allowMouth) p.mouth = 0;
   const b = BUILD[kind];
@@ -172,6 +191,15 @@ export const Character: React.FC<CharProps> = (props) => {
           <path d={`M${r * 0.7} ${r * 0.4} Q${r * 1.4} ${r * 0.7} ${r * 1.1} ${r * 1.1}`} stroke={outline} strokeWidth={sw * 0.8} fill="none" />
         </g>
       );
+    if (type === "relaxed")
+      // relaxed hand: fingers loosely curled into one soft mitten shape, knuckle creases, thumb resting in front
+      return (
+        <g>
+          <path d={`M${-r * 0.95} 0 Q${-r * 1.2} ${r * 1.1} ${-r * 0.75} ${r * 2.05} Q${-r * 0.1} ${r * 2.55} ${r * 0.62} ${r * 2.15} Q${r * 1.15} ${r * 1.55} ${r * 0.9} 0 Z`} fill={col} {...st} />
+          {[0.35, 0.0, -0.35].map((fx, i) => <path key={i} d={`M${r * (fx - 0.05)} ${r * (2.25 - Math.abs(fx) * 0.3)} q${r * 0.08} ${-r * 0.32} ${r * 0.02} ${-r * 0.55}`} stroke={outline} strokeWidth={sw * 0.55} fill="none" opacity={0.55} />)}
+          <path d={`M${r * 0.7} ${r * 0.35} Q${r * 1.45} ${r * 0.85} ${r * 1.1} ${r * 1.5} Q${r * 0.75} ${r * 1.55} ${r * 0.6} ${r * 1.1}`} fill={col} {...st} />
+        </g>
+      );
     // open hand: palm + four fingers + thumb
     return (
       <g>
@@ -204,13 +232,15 @@ export const Character: React.FC<CharProps> = (props) => {
     const lv = [ls, -0.55];
     const s1 = n1[0] * lv[0] + n1[1] * lv[1] >= 0 ? 1 : -1, s2 = n2[0] * lv[0] + n2[1] * lv[1] >= 0 ? 1 : -1;
     const o1 = [-n1[0] * s1, -n1[1] * s1], o2 = [-n2[0] * s2, -n2[1] * s2], oE = [(o1[0] + o2[0]) / 2, (o1[1] + o2[1]) / 2];
-    const seg = (ax: number, ay: number, bx: number, by: number, ra: number, rb: number, o: number[], k: number) => {
+    const seg = (ax: number, ay: number, bx: number, by: number, ra: number, rb: number, o: number[], k: number, bul = 0.16, at = 0.42) => {
       const dx = bx - ax, dy = by - ay, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
       const Ax = ax + o[0] * ra * k, Ay = ay + o[1] * ra * k, Bx = bx + o[0] * rb * k, By = by + o[1] * rb * k;
-      return `M${Ax + nx * ra} ${Ay + ny * ra} L${Bx + nx * rb} ${By + ny * rb} L${Bx - nx * rb} ${By - ny * rb} L${Ax - nx * ra} ${Ay - ny * ra} Z`;
+      // organic muscle swell instead of a straight-sided pipe
+      const rm = (ra + (rb - ra) * at) * (1 + bul), Mx = Ax + (Bx - Ax) * at, My = Ay + (By - Ay) * at;
+      return `M${Ax + nx * ra} ${Ay + ny * ra} Q${Mx + nx * rm * 1.02} ${My + ny * rm * 1.02} ${Bx + nx * rb} ${By + ny * rb} L${Bx - nx * rb} ${By - ny * rb} Q${Mx - nx * rm} ${My - ny * rm} ${Ax - nx * ra} ${Ay - ny * ra} Z`;
     };
     const circ = (cx: number, cy: number, r: number, o: number[], k: number) => { const X = cx + o[0] * r * k, Y = cy + o[1] * r * k; return `M${X - r} ${Y} A${r} ${r} 0 1 0 ${X + r} ${Y} A${r} ${r} 0 1 0 ${X - r} ${Y} Z`; };
-    const shapes = (k: number) => [seg(0, 0, ex, ey, r1, rE, o1, k), seg(ex, ey, wx, wy, rE, r2, o2, k), circ(ex, ey, rE, oE, k), circ(wx, wy, r2, o2, k), circ(0, 0, r1, o1, k)];
+    const shapes = (k: number) => [seg(0, 0, ex, ey, r1, rE, o1, k, 0.14, 0.45), seg(ex, ey, wx, wy, rE, r2, o2, k, 0.2, 0.28), circ(ex, ey, rE, oE, k), circ(wx, wy, r2, o2, k), circ(0, 0, r1, o1, k)];
     const base = shapes(0);
     const fill = (k: number, c: string, op = 1) => <g opacity={op}>{shapes(k).map((d, i) => <path key={i} d={d} fill={c} />)}</g>;
     const cc = `${id}${uid}${cid}`;
@@ -257,8 +287,17 @@ export const Character: React.FC<CharProps> = (props) => {
     const ex = d1x * L1, ey = d1y * L1;
     const r1 = R * 1.08, r2 = R * 0.82;
     const handCol = isBat ? glove : kind === "specialist" ? g("top2") : g("skin");
+    // v14 wrist aim: rotate the hand+prop so the prop axis points at props.aimAt (beam always leaves the lens)
+    let aimRot = 0;
+    if (near && props.aimAt) {
+      const ax = (props.aimAt[0] - x) / (scale * facing), ay = (props.aimAt[1] - y) / scale - hipY;
+      const wxl = nsx + dir(s0)[0] * b.ua * S + dir(s0 + e)[0] * b.fa * S, wyl = nsy + dir(s0)[1] * b.ua * S + dir(s0 + e)[1] * b.fa * S;
+      const want = Math.atan2(ay - wyl, ax - wxl) / D, have = Math.atan2(Math.cos((s0 + e) * D), Math.sin((s0 + e) * D)) / D;
+      aimRot = ((want - have + 540) % 360) - 180;
+      aimRot = Math.max(-70, Math.min(70, aimRot));
+    }
     const handEnd = (
-      <g>
+      <g transform={`rotate(${aimRot})`}>
         {hand(handType, handCol, R * 0.86)}
         {near && prop !== "none" && <Prop type={prop} on={propOn} beam={flashBeam} r={R} id={id} />}
         {near && prop !== "none" && prop !== "toolbox" && gripFingers(handCol, R * 0.86)}
@@ -336,6 +375,9 @@ export const Character: React.FC<CharProps> = (props) => {
       {/* pelvis */}
       <path d={`M${-hipW} -18 Q${-hipW - 2} 18 ${-hipW + 6} 22 H${hipW - 6} Q${hipW + 2} 18 ${hipW} -18 Z`} fill={g("pants")} stroke={outline} strokeWidth={sw} />
       <path d={torsoPath} fill={g("top")} stroke={outline} strokeWidth={sw} />
+      {kind === "medic" && <g><defs><clipPath id={`${id}${uid}tc`}><path d={torsoPath} /></clipPath></defs><g clipPath={`url(#${id}${uid}tc)`}>
+        <rect x={-80} y={-torsoLen * 0.42} width={160} height={10} fill={pal.top2} /><rect x={-80} y={-torsoLen * 0.42 + 13} width={160} height={4} fill="#c8ccd0" />
+        <rect x={-80} y={-torsoLen * 0.16} width={160} height={10} fill={pal.top2} /></g></g>}
       {/* uniform details (front chest surface only; hidden in back view). 3/4 view: front centreline at +0.20 torsoW */}
       {!backView && (kind === "alex" || kind === "mara") && (
         <g>
@@ -432,7 +474,7 @@ export const Character: React.FC<CharProps> = (props) => {
     const lx = (target[0] - x) / (scale * facing), ly = (target[1] - y) / scale - hipY;
     const dx = lx - sx, dy = ly - sy;
     const L1 = b.ua * S, L2 = b.fa * S + R * 0.75;
-    const d = Math.max(Math.abs(L1 - L2) + 1, Math.min(L1 + L2 - 0.01, Math.hypot(dx, dy)));
+    const d = Math.max(Math.abs(L1 - L2) + 1, Math.min((L1 + L2) * 0.965, Math.hypot(dx, dy)));
     const th = Math.atan2(dx, dy) / D;
     const al = Math.acos(Math.min(1, Math.max(-1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)))) / D;
     const be = Math.acos(Math.min(1, Math.max(-1, (L1 * L1 + L2 * L2 - d * d) / (2 * L1 * L2)))) / D;
@@ -442,8 +484,8 @@ export const Character: React.FC<CharProps> = (props) => {
   p.armFar = ik(props.reachFar, fsx, fsy, p.armFar);
   // anatomical hard clamps: elbow bend 0..140, knee 0..135, neck/head -35..35 (never bends backwards)
   const cl = (v: number, a: number, b2: number) => Math.max(a, Math.min(b2, v));
-  p.armNear = [p.armNear[0], cl(p.armNear[1], 0, 140)];
-  p.armFar = [p.armFar[0], cl(p.armFar[1], 0, 140)];
+  p.armNear = [p.armNear[0], cl(p.armNear[1], 10, 145)];
+  p.armFar = [p.armFar[0], cl(p.armFar[1], 10, 145)];
   p.legNear = [p.legNear[0], cl(p.legNear[1], 0, 135)];
   p.legFar = [p.legFar[0], cl(p.legFar[1], 0, 135)];
   p.head = cl(p.head, -35, 35);
@@ -537,7 +579,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       {/* ear */}
       {!child && !isBat && <g><ellipse cx={-8} cy={-31} rx={5} ry={8} fill={g("skin")} stroke={outline} strokeWidth={sw * 0.8} /><path d="M-9 -35 q3 4 0 8" stroke={outline} strokeWidth={1} fill="none" opacity={0.5} /></g>}
       {/* hair */}
-      {(kind === "alex" || kind === "alexYoung" || kind === "alexDress" || kind === "robber" || kind === "reporter" || kind === "driver" || kind === "specialist") && (
+      {(kind === "alex" || kind === "alexYoung" || kind === "alexDress" || kind === "robber" || kind === "reporter" || kind === "driver" || kind === "specialist" || kind === "medic") && (
         <path d="M-25 -36 C-30 -60 -10 -72 8 -70 C22 -69 30 -60 27 -48 C20 -54 10 -56 2 -52 C-4 -48 -10 -44 -12 -34 C-16 -30 -20 -28 -25 -36 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />
       )}
       {kind === "father" && (
@@ -549,6 +591,8 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       )}
       {(fem && !child) && kind !== "mara" && <path d="M-24 -40 C-28 -62 -6 -72 10 -68 C24 -66 30 -56 26 -46 C16 -52 6 -52 -2 -48 C-10 -44 -14 -40 -16 -32 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {kind === "mara" && <path d="M-24 -40 C-28 -60 -8 -70 8 -68 C22 -66 28 -58 26 -48 C16 -52 4 -52 -4 -48 C-10 -44 -14 -40 -16 -32 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
+      {kind === "mara" && <g><ellipse cx={-27} cy={-40} rx={10} ry={9} fill={g("hair")} stroke={outline} strokeWidth={sw * 0.9} /><path d="M-31 -44 q4 4 8 1" stroke="#000" strokeWidth={1} fill="none" opacity={0.4} /></g>}
+      {kind === "mara" && !back && <circle cx={-7} cy={-23} r={2.2} fill="#e8c860" stroke={outline} strokeWidth={0.6} />}
       {kind === "mara" && !back && <path d="M-2 -50 C-6 -40 -4 -30 -1 -22 C1 -30 2 -40 3 -48 Z" fill={g("hair")} stroke={outline} strokeWidth={sw * 0.6} />}
       {/* batman cowl */}
       {isBat && (
@@ -712,4 +756,91 @@ export const anchor = (kind: Kind, x: number, y: number, scale = 1, facing: 1 | 
   };
   const [lx, ly] = lp[part];
   return [x + lx * scale * facing, y + ly * scale];
+};
+
+
+/* ======================= ACTING LAYER =======================
+ * Per-character rest poses + eased switching between them, weight shifts, look beats with eyes leading the head,
+ * and secondary arm motion on top of any hand-authored pose. Deterministic per (id, frame).            */
+type ActIn = { armsGiven: boolean; reach: boolean; legsGiven: boolean; prop: boolean; sleeping?: boolean };
+type ActOut = {
+  lean: number; bob: number; head: number; eyeX: number; dNear: [number, number]; dFar: [number, number];
+  armNear?: [number, number]; armFar?: [number, number]; legNear?: [number, number]; legFar?: [number, number];
+  handNear?: Pose["handNear"]; handFar?: Pose["handFar"];
+};
+const hs = (t: string) => { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0); };
+const rnd = (seed: number, k: number) => { const x = Math.sin(seed * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+const ease = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
+/** overshooting ease (anticipation-free settle): reaches 1 with a small spring past it */
+const easeBack = (t: number) => { if (t <= 0) return 0; if (t >= 1) return 1; const c = 1.6; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+type Rest = { n: [number, number]; f: [number, number]; hn: Pose["handNear"]; hf: Pose["handFar"] };
+const REST: Record<string, Rest> = {
+  hang: { n: [6, 22], f: [-5, 18], hn: "relaxed", hf: "relaxed" },
+  belt: { n: [-16, 64], f: [-20, 60], hn: "fist", hf: "fist" },          // thumbs hooked in the duty belt
+  hip: { n: [-34, 104], f: [-6, 20], hn: "fist", hf: "relaxed" },        // one hand on the hip
+  front: { n: [18, 58], f: [12, 66], hn: "relaxed", hf: "fist" },        // hands loosely held in front
+  fists: { n: [8, 24], f: [-6, 20], hn: "fist", hf: "fist" },
+  kid: { n: [10, 30], f: [-8, 26], hn: "relaxed", hf: "relaxed" },
+};
+const RESTSET: Partial<Record<Kind, string[]>> = {
+  alex: ["belt", "hang", "hip", "belt"], alexDress: ["hang", "front"], mara: ["hip", "belt", "front", "hang"],
+  batman: ["fists", "hang"], father: ["front", "hang"], nia: ["kid", "front"], alexYoung: ["kid", "hang"],
+  mother: ["front", "hang"], driver: ["belt", "hang"], specialist: ["hang", "fists"], robber: ["hang", "fists"],
+  employee: ["front", "hang"], reporter: ["front", "hang"], medic: ["hang", "front"],
+};
+export const acting = (kind: Kind, id: string, f: number, o: ActIn): ActOut => {
+  const seed = hs(id) % 9973;
+  const out: ActOut = { lean: 0, bob: 0, head: 0, eyeX: 0, dNear: [0, 0], dFar: [0, 0] };
+  if (o.sleeping) {
+    // sleeper: slow deep breathing + an occasional small head nod, no look beats / weight shifts
+    const nod = Math.max(0, Math.sin((f + seed) * 0.013)) ** 8;
+    out.bob = Math.sin((f + seed) * 0.05) * 2.5; out.head = nod * 6; out.lean = Math.sin((f + seed) * 0.05) * 0.8;
+    out.dNear = [Math.sin((f + seed) * 0.05) * 1.2, 0]; out.dFar = [Math.sin((f + seed) * 0.05 + 0.5) * 1.0, 0];
+    return out;
+  }
+  // --- look beats: hold, then a quick eased head turn; eyes arrive 4 frames before the head
+  const LB = 64 + (seed % 40);
+  const k = Math.floor((f + seed) / LB), t = ((f + seed) % LB);
+  const tgt = (i: number) => (rnd(seed, i) - 0.5) * 9;
+  const hT = ease(t / 9), eT = ease((t + 4) / 6);
+  out.head = tgt(k - 1) + (tgt(k) - tgt(k - 1)) * easeBack(Math.min(1, t / 10)) * (hT > 0 ? 1 : 0);
+  out.eyeX = ((tgt(k - 1) + (tgt(k) - tgt(k - 1)) * eT) / 9) * 0.5;
+  // --- weight shift every 4-7 s (hips settle, lean follows)
+  const WP = 110 + (seed % 60);
+  const wk = Math.floor((f + seed * 3) / WP), wt = ((f + seed * 3) % WP) / 22;
+  const side = (i: number) => (i % 2 === 0 ? 1 : -1);
+  const w = side(wk - 1) + (side(wk) - side(wk - 1)) * easeBack(Math.min(1, wt));
+  out.lean = w * 1.4;
+  out.bob = -Math.sin(Math.min(1, wt) * Math.PI) * 2.2; // small dip while the weight transfers
+  if (!o.legsGiven) {
+    const a = (w + 1) / 2; // 1 = weight on near leg
+    out.legNear = [2 + (1 - a) * 4, 2 + (1 - a) * 10];
+    out.legFar = [-3 - a * 5, 2 + a * 11];
+  }
+  // --- arms
+  const sway = (ph: number, amp: number) => Math.sin((f + seed + ph) * 0.06) * amp + Math.sin((f + seed * 2 + ph) * 0.023) * amp * 0.7;
+  if (!o.armsGiven && !o.reach) {
+    const set = RESTSET[kind] ?? ["hang"];
+    const RP = 150 + (seed % 90);
+    const rk = Math.floor((f + seed * 5) / RP), rt = ((f + seed * 5) % RP) / 16;
+    const pick = (i: number) => REST[set[Math.floor(rnd(seed + 7, i) * set.length) % set.length]];
+    const A0 = pick(rk - 1), A1 = pick(rk), e = easeBack(Math.min(1, rt));
+    const lerp2 = (a: [number, number], b: [number, number], fr = 0): [number, number] => {
+      const ee = Math.max(0, Math.min(1.12, (e - fr) / (1 - fr)));
+      return [a[0] + (b[0] - a[0]) * ee, a[1] + (b[1] - a[1]) * ee];
+    };
+    // overlapping action: far arm trails the near arm by ~3 frames
+    out.armNear = lerp2(A0.n, A1.n);
+    out.armFar = lerp2(A0.f, A1.f, 0.18);
+    out.armNear = [out.armNear[0] + sway(0, 1.6) + out.lean * 1.5, out.armNear[1] + sway(30, 2.4)];
+    out.armFar = [out.armFar[0] + sway(55, 1.4) + out.lean * 1.5, out.armFar[1] + sway(80, 2.0)];
+    out.handNear = rt < 0.5 ? A0.hn : A1.hn;
+    out.handFar = rt < 0.6 ? A0.hf : A1.hf;
+  } else if (!o.reach) {
+    out.dNear = [sway(0, 2.2), sway(40, 3.2)];
+    out.dFar = [sway(70, 2.0), sway(110, 2.8)];
+  } else {
+    out.dFar = [sway(70, 1.5), sway(110, 2.0)];
+  }
+  return out;
 };

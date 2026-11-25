@@ -142,9 +142,16 @@ export const bedGain = (g: number) => Math.max(0.03, Math.min(0.05, g * 0.3));
 export const FADE = 18;
 export const fadeEnv = (fr: number, dur: number, fade = FADE) => Math.max(0, Math.min(1, fr / fade, (dur - fr) / fade));
 const SFX_DUR = 24 * 8;
+/** v14: 4 recorded-style variants per one-shot -> repeated hits never sound identical (beds keep one file) */
+const SFX_VARIANTS = new Set(["thunder", "land", "cloth", "grab", "static", "thud", "chain", "whoosh", "click", "switch", "lock", "step", "rattle", "crowd"]);
+export const sfxVariant = (name: string, at: number) => {
+  if (!SFX_VARIANTS.has(name)) return name;
+  let h = 7; const k = `${name}:${Math.round(at)}`; for (let i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) % 100003;
+  return `${name}_${h % 4}`;
+};
 export const Sfx: React.FC<{ name: string; at: number; gain?: number }> = ({ name, at, gain = 0.5 }) => (
   <Sequence from={Math.max(0, Math.round(at))} durationInFrames={SFX_DUR} layout="none" name={`sfx:${name}`}>
-    <Audio src={staticFile(`sfx/${name}.wav`)} volume={(fr) => sfxGain(gain) * fadeEnv(fr, SFX_DUR)} />
+    <Audio src={staticFile(`sfx/${sfxVariant(name, at)}.wav`)} volume={(fr) => sfxGain(gain) * fadeEnv(fr, SFX_DUR)} />
   </Sequence>
 );
 

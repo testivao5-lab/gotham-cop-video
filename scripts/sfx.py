@@ -59,14 +59,14 @@ def loopify(x, xf=2.0):
     return body
 
 
-WARM_LP = {"static": 3200, "rain_bed": 4200, "chain": 5200, "lock": 5200, "click": 5200, "switch": 5200}
+WARM_LP = {"static": 3000, "rain_bed": 4200, "chain": 4200, "lock": 4200, "click": 4200, "switch": 4200, "whoosh": 3400, "rattle": 4000}
 
 
 def write(name, x, peak=0.9):
     """every file: warm low-pass (no white-noise hiss / harsh highs), DC/rumble high-pass, 15 ms edge fades"""
     if x.ndim == 1:
         x = stereo(x)
-    cut = WARM_LP.get(name, 4600)
+    cut = WARM_LP.get(name.rsplit("_", 1)[0] if name[-2:-1] == "_" else name, 4200)
     x = np.stack([hp(lp(x[:, c], cut, 4), 35) for c in range(x.shape[1])], 1)
     k = min(len(x) // 4, int(SR * 0.015))
     if k > 1:
@@ -144,144 +144,158 @@ def pad():
     write("pad", np.stack([lp(L * swell, 1800), lp(R * swell, 1800)], 1), 0.6)
 
 
-# ---------------- one-shots ----------------
-def thunder():
+# ---------------- one-shots (v14: foley-style, NO pure sine tones, 4 random variants each) ----------------
+# Every one-shot is built from shaped noise with real transients; pitched "beep" components were removed
+# (they were what made the v13 SFX sound synthetic and annoying). Each sound gets variants _0.._3 with
+# different random micro-timing / filter centres / pitch so repeated hits never sound identical.
+VAR = 4
+
+
+def thump(n, f_lo, f_hi, dec):
+    """noise-based low thump (instead of a sine 'boom')"""
+    return lp(bp(rng.standard_normal(n), f_lo, f_hi), f_hi, 2) * env(n, 0.002, dec, 6)
+
+
+def resonant_noise(n, fc, q, dec):
+    """short metallic resonance from narrow-band noise (inharmonic, never a clean tone)"""
+    return bp(rng.standard_normal(n), fc * (1 - 1 / q), fc * (1 + 1 / q), 2) * env(n, 0.0006, dec, 7)
+
+
+def thunder(v=0):
     d = 6
     n = int(SR * d)
-    crack = hp(rng.standard_normal(n), 1500) * env(n, 0.003, 0.25, 5)
-    rumble = lp(np.cumsum(rng.standard_normal(n)) * 0.01, 160) * env(n, 0.25, 5.5, 3.5)
-    roll = lp(pink(n), 400) * env(n, 0.4, 4.5, 3) * (0.6 + 0.4 * np.sin(2 * np.pi * 1.3 * t_(d)))
-    write("thunder", stereo(crack * 0.4 + rumble * 2 + roll, crack * 0.3 + np.roll(rumble, 400) * 2 + roll))
+    crack = hp(rng.standard_normal(n), 900) * env(n, 0.004, 0.3, 5)
+    rumble = lp(np.cumsum(rng.standard_normal(n)) * 0.01, 140) * env(n, 0.3, 5.5, 3.5)
+    roll = lp(pink(n), 380) * env(n, 0.4, 4.5, 3) * (0.6 + 0.4 * np.sin(2 * np.pi * rng.uniform(0.8, 1.6) * t_(d)))
+    return stereo(crack * 0.25 + rumble * 2 + roll, crack * 0.2 + np.roll(rumble, 400) * 2 + roll)
 
 
-def land():
-    d = 1.2
-    n = int(SR * d)
-    t = t_(d)
-    boom = np.sin(2 * np.pi * (50 + 40 * np.exp(-t * 20)) * t) * env(n, 0.002, 0.5, 6)
-    splash = bp(rng.standard_normal(n), 800, 6000) * env(n, 0.004, 0.35, 7)
-    write("land", boom + splash * 0.6)
+def land(v=0):
+    n = int(SR * 1.0)
+    body = thump(n, 40, rng.uniform(160, 220), 0.32)
+    splash = bp(pink(n), 500, 3500) * env(n, 0.006, 0.4, 6)
+    grit = bp(rng.standard_normal(n), 1500, 4000) * env(n, 0.002, 0.06, 8) * 0.3
+    return body * 1.4 + splash * 0.7 + grit
 
 
-def cloth():
-    d = 0.7
-    n = int(SR * d)
-    x = bp(pink(n), 500, 4000) * np.sin(np.pi * np.linspace(0, 1, n)) ** 2
-    write("cloth", x, 0.6)
+def cloth(v=0):
+    n = int(SR * rng.uniform(0.45, 0.7))
+    x = bp(pink(n), rng.uniform(350, 600), rng.uniform(2200, 3200)) * np.sin(np.pi * np.linspace(0, 1, n)) ** 2
+    x *= 0.7 + 0.3 * np.abs(np.sin(2 * np.pi * rng.uniform(5, 9) * np.linspace(0, len(x) / SR, n)))
+    return x
 
 
-def grab():
-    d = 0.5
-    n = int(SR * d)
-    clack = bp(rng.standard_normal(n), 1200, 5000) * env(n, 0.001, 0.05, 8)
-    leather = bp(pink(n), 300, 1800) * env(n, 0.01, 0.2, 5)
-    write("grab", clack + leather * 0.8)
+def grab(v=0):
+    n = int(SR * 0.45)
+    clack = bp(rng.standard_normal(n), 900, 3200) * env(n, 0.001, 0.04, 8)
+    leather = bp(pink(n), 250, 1500) * env(n, 0.008, 0.18, 5)
+    return clack * 0.6 + leather
 
 
-def static():
-    d = 1.0
-    n = int(SR * d)
-    hiss = bp(pink(n), 900, 2800) * env(n, 0.02, 0.9, 3)
+def static(v=0):
+    n = int(SR * rng.uniform(0.6, 0.9))
+    hiss = bp(pink(n), 700, 2600) * env(n, 0.03, 0.7, 3)
     crk = np.zeros(n)
-    for p in rng.integers(0, n - 300, 40):
-        crk[p : p + 120] += rng.standard_normal(120) * rng.uniform(0.5, 1.5)
-    write("static", hiss + bp(crk, 800, 3000) * 0.4, 0.6)
+    for q in rng.integers(0, n - 300, 25):
+        crk[q:q + 90] += rng.standard_normal(90) * rng.uniform(0.3, 1.2)
+    # squelch: noise gated in syllable-like bursts (radio voice texture, not a tone)
+    gate = np.clip(np.sin(2 * np.pi * rng.uniform(4, 7) * np.linspace(0, n / SR, n)), 0, 1) ** 0.5
+    return hiss * (0.5 + 0.5 * gate) + bp(crk, 700, 2600) * 0.35
 
 
-def thud():
-    d = 0.45
-    n = int(SR * d)
-    t = t_(d)
-    low = np.sin(2 * np.pi * (85 + 30 * np.exp(-t * 30)) * t) * env(n, 0.002, 0.25, 6)
-    glass = (np.sin(2 * np.pi * 1730 * t) + 0.6 * np.sin(2 * np.pi * 2610 * t)) * env(n, 0.001, 0.18, 7) * 0.12
-    slap = bp(rng.standard_normal(n), 300, 2500) * env(n, 0.001, 0.04, 8) * 0.6
-    write("thud", low + glass + slap)
+def thud(v=0):
+    n = int(SR * 0.4)
+    low = thump(n, 45, rng.uniform(220, 320), 0.18)
+    slap = bp(rng.standard_normal(n), 300, 2000) * env(n, 0.001, 0.035, 8)
+    return low * 1.3 + slap * 0.5
 
 
-def chain():
-    d = 1.4
-    n = int(SR * d)
-    t = t_(d)
+def chain(v=0):
+    n = int(SR * 1.2)
     x = np.zeros(n)
-    for p in np.sort(rng.integers(0, int(n * 0.7), 14)):
-        m = n - p
-        part = np.zeros(m)
-        for f in rng.uniform(2200, 6800, 3):
-            part += np.sin(2 * np.pi * f * t[:m]) * rng.uniform(0.3, 1)
-        x[p:] += part * env(m, 0.0005, 0.12, 7) * rng.uniform(0.4, 1)
-    write("chain", stereo(x, np.roll(x, 300)), 0.7)
+    for q in np.sort(rng.integers(0, int(n * 0.65), 11)):
+        m = n - q
+        x[q:] += (resonant_noise(m, rng.uniform(1800, 3400), 9, 0.05) + bp(rng.standard_normal(m), 800, 3000) * env(m, 0.0005, 0.012, 8)) * rng.uniform(0.3, 1)
+    return stereo(x, np.roll(x, 240))
 
 
-def whoosh():
-    d = 1.3
-    n = int(SR * d)
+def whoosh(v=0):
+    n = int(SR * rng.uniform(0.8, 1.1))
     w = pink(n)
     sweep = np.sin(np.pi * np.linspace(0, 1, n)) ** 2
-    out = bp(w, 200, 900) * (1 - sweep) + bp(w, 1200, 7000) * sweep
-    out = out * np.sin(np.pi * np.linspace(0, 1, n)) ** 1.5
-    write("whoosh", stereo(out * np.linspace(1, 0.4, n), out * np.linspace(0.4, 1, n)), 0.7)
+    out = bp(w, 150, 700) * (1 - sweep) + bp(w, 500, 2400) * sweep   # air, not a whistle
+    out = out * np.sin(np.pi * np.linspace(0, 1, n)) ** 1.6
+    return stereo(out * np.linspace(1, 0.5, n), out * np.linspace(0.5, 1, n))
 
 
-def click_(name, d=0.12, f0=3200, extra=0.0):
-    n = int(SR * d)
-    t = t_(d)
-    c = bp(rng.standard_normal(n), f0 * 0.6, f0 * 1.6) * env(n, 0.0003, 0.012, 8)
-    body = np.sin(2 * np.pi * 900 * t) * env(n, 0.0005, 0.03, 8) * 0.3
-    hum = extra * np.sin(2 * np.pi * 120 * t) * env(n, 0.01, d, 2)
-    write(name, c + body + hum, 0.7)
+def click(v=0):
+    n = int(SR * 0.08)
+    return bp(rng.standard_normal(n), rng.uniform(1200, 1800), rng.uniform(3200, 4200)) * env(n, 0.0003, 0.008, 8) \
+        + bp(rng.standard_normal(n), 300, 900) * env(n, 0.0005, 0.015, 8) * 0.5
 
 
-def lock():
-    d = 0.6
-    n = int(SR * d)
+def switch(v=0):
+    """light switch / lamp: two-stage plastic snap, no mains hum"""
+    n = int(SR * 0.25)
     x = np.zeros(n)
-    for p, g in ((0.0, 0.7), (0.18, 1.0), (0.24, 0.5)):
-        i = int(p * SR)
+    for q, g in ((0, 0.5), (int(SR * rng.uniform(0.012, 0.02)), 1.0)):
+        m = n - q
+        x[q:] += bp(rng.standard_normal(m), 900, 3500) * env(m, 0.0003, 0.012, 8) * g
+    return x + thump(n, 60, 250, 0.03) * 0.4
+
+
+def lock(v=0):
+    n = int(SR * 0.55)
+    x = np.zeros(n)
+    for q, g in ((0.0, 0.6), (rng.uniform(0.14, 0.2), 1.0), (rng.uniform(0.22, 0.27), 0.45)):
+        i = int(q * SR)
         m = n - i
-        x[i:] += bp(rng.standard_normal(m), 1500, 6000) * env(m, 0.0004, 0.03, 8) * g
-        x[i:] += np.sin(2 * np.pi * 620 * t_(m / SR)) * env(m, 0.0005, 0.06, 7) * 0.3 * g
-    write("lock", x, 0.7)
+        x[i:] += bp(rng.standard_normal(m), 1200, 4200) * env(m, 0.0004, 0.025, 8) * g
+        x[i:] += resonant_noise(m, rng.uniform(700, 1100), 6, 0.04) * 0.35 * g
+    return x
 
 
-def step():
-    d = 0.35
-    n = int(SR * d)
-    t = t_(d)
-    heel = np.sin(2 * np.pi * (70 + 50 * np.exp(-t * 40)) * t) * env(n, 0.002, 0.12, 6)
-    wet = bp(rng.standard_normal(n), 900, 7000) * env(n, 0.005, 0.15, 6) * 0.5
-    write("step", heel + wet, 0.6)
+def step(v=0):
+    n = int(SR * 0.3)
+    heel = thump(n, 50, rng.uniform(250, 380), 0.07)
+    wet = bp(rng.standard_normal(n), 700, 4000) * env(n, 0.004, 0.11, 6) * rng.uniform(0.25, 0.45)
+    return heel * 1.2 + wet
 
 
-def rattle():
-    d = 0.9
-    n = int(SR * d)
+def rattle(v=0):
+    n = int(SR * 0.8)
     x = np.zeros(n)
-    for p in np.cumsum(rng.uniform(0.04, 0.09, 10)):
-        i = int(p * SR)
+    for q in np.cumsum(rng.uniform(0.04, 0.09, 10)):
+        i = int(q * SR)
         if i >= n - 600:
             break
         m = n - i
-        x[i:] += bp(rng.standard_normal(m), 2000, 7000) * env(m, 0.0003, 0.01, 8) * rng.uniform(0.5, 1)
-    write("rattle", x, 0.6)
+        x[i:] += bp(rng.standard_normal(m), 1200, 4000) * env(m, 0.0003, 0.012, 8) * rng.uniform(0.4, 1)
+    return x
 
 
-def crowd():
+def crowd(v=0):
     d = 10
     n = int(SR * d)
     chans = []
     for c in range(2):
         x = np.zeros(n)
-        for k in range(14):  # many indistinct voices = formant-band noise with syllabic AM
+        for k in range(16):
             f = rng.uniform(250, 900)
             am = np.clip(np.sin(2 * np.pi * rng.uniform(2.5, 5) * t_(d) + rng.uniform(0, 6)), 0, 1) ** 2
             x += bp(pink(n), f, f * 2.2) * am * rng.uniform(0.4, 1)
-        x += drops(n, 3, 1500, 5000, 0.05) * 0.3  # distant claps
         chans.append(x * np.minimum(1, t_(d) / 0.8) * np.minimum(1, (d - t_(d)) / 1.5))
-    write("crowd", np.stack(chans, 1), 0.5)
+    return np.stack(chans, 1)
 
+
+PEAK = {"cloth": 0.6, "static": 0.55, "chain": 0.6, "whoosh": 0.6, "click": 0.6, "switch": 0.6, "lock": 0.65, "step": 0.6, "rattle": 0.55, "crowd": 0.5}
 
 if __name__ == "__main__":
-    for fn in (rain_bed, room, pad, thunder, land, cloth, grab, static, thud, chain, whoosh, lock, step, rattle, crowd):
+    for fn in (rain_bed, room, pad):
         fn()
-    click_("click", 0.12, 3200)
-    click_("switch", 0.6, 2400, extra=0.15)
+    for fn in (thunder, land, cloth, grab, static, thud, chain, whoosh, click, switch, lock, step, rattle, crowd):
+        for v in range(VAR):
+            x = fn(v)
+            write(f"{fn.__name__}_{v}", x, PEAK.get(fn.__name__, 0.85))
+            if v == 0:
+                write(fn.__name__, x, PEAK.get(fn.__name__, 0.85))
