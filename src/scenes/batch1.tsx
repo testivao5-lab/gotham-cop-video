@@ -27,7 +27,7 @@ export const Scene01: React.FC = () => {
       <BusStreetSet flash={flash} fog={0.35} />
       <Plane p={1}>
         <Character id="s1bat" kind="batman" x={1210} y={bY} scale={1.12} facing={-1} lightSide={-1} silhouette={0.35} capeWind={f < 27 ? 2.6 : 1.4 - rise * 0.8} glowEyes={0.8}
-          pose={{ lean: 26 * crouch, bob: 70 * crouch, legNear: [36 * crouch + (f < 27 ? 10 : 0), 80 * crouch + 4], legFar: [-10 * crouch, 70 * crouch + 4], armNear: [30 + 20 * crouch, 30], armFar: [-20 - 30 * crouch, 20], head: -6 * crouch, brow: -1, handNear: "fist", handFar: "fist" }} />
+          pose={{ lean: 26 * crouch, bob: 70 * crouch, legNear: [36 * crouch + (f < 27 ? 10 : 0), 80 * crouch + 4], legFar: [-10 * crouch, 70 * crouch + 4], armNear: [6 + 44 * crouch, 10 + 20 * crouch], armFar: [-6 - 44 * crouch, 8 + 12 * crouch], head: -6 * crouch, brow: -1, handNear: "fist", handFar: "fist" }} />
         {f >= 27 && f < 45 && <Splashes y0={950} y1={985} count={14} seed={20} opacity={0.9} />}
         <Character id="s1alex" kind="alex" x={520} y={1010} scale={1.18} facing={1} lightSide={1} silhouette={0.25} shoulderRadio
           pose={{ head: -4 - 4 * ci(f, [27, 45], [0, 1]), lean: -3 * ci(f, [27, 35], [0, 1]), brow: 0.4 + 0.5 * ci(f, [27, 40], [0, 1]), smile: ci(f, [70, 100], [0, 0.35]), blink: blinkAt(f, 64, 20), bob: breathe(f, 0.5, 1.5), eyeY: -0.5, armNear: [6, 18], armFar: [-8, 14] }} />
@@ -76,23 +76,27 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
           <linearGradient id="bwIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3a2a1a" /><stop offset="1" stopColor="#120c08" /></linearGradient>
         </defs>
         <rect width="1920" height="1080" fill="url(#bwIn)" />
-        {[0, 1, 2].map((i) => <rect key={i} x={200 + i * 600} y={640} width={420} height={300} rx={30} fill="#4a1a14" opacity={0.75} />)}
+        <radialGradient id="bwLamp" cx="0.5" cy="0.1" r="0.8"><stop offset="0" stopColor="#c89a5a" /><stop offset="1" stopColor="#2a1a10" stopOpacity="0" /></radialGradient>
+        <rect width="1920" height="1080" fill="url(#bwLamp)" opacity={0.7} />
+        {[0, 1, 2].map((i) => <g key={i}><rect x={200 + i * 600} y={660} width={420} height={320} rx={36} fill="#5a2a1c" /><rect x={200 + i * 600} y={660} width={420} height={26} rx={13} fill="#8a4a30" /></g>)}
+        <rect x={0} y={300} width={1920} height={10} fill="#8a7050" opacity={0.6} />
         <rect x={0} y={120} width={1920} height={30} fill="#d9c090" opacity={0.15} />
       </svg>
-      <Character id="s3nia" kind="nia" x={930} y={1290 + pound * 8} scale={2.75} facing={1} lightSide={1} silhouette={0.1}
-        pose={{ armNear: [128 + pound * 8, 46 - pound * 20], armFar: [118 + pound * 8, 50 - pound * 20], handNear: "open", handFar: "open", brow: 1, head: -4, eyeX: 0.4, blink: blinkAt(f, 50, 5), mouth: 0.25 + pound * 0.2, smile: -0.8, lean: pound * 4 }} />
+      <Character id="s3nia" kind="nia" x={940} y={1330 + pound * 6} scale={2.75} facing={1} lightSide={1} silhouette={0.1}
+        pose={{ armNear: [150, 10], armFar: [-150, -10], handNear: "open", handFar: "open", brow: 1, head: -4, eyeX: 0.4, blink: blinkAt(f, 50, 5), mouth: 0, smile: -0.8, lean: pound * 4 }} />
       {/* glass: fog + droplets */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
+          <filter id="bwSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" /></filter>
           <mask id="bwMask">
             <rect width="1920" height="1080" fill="white" />
-            <ellipse cx={950} cy={560} rx={260 * wipe} ry={190 * wipe} fill="black" />
-            <ellipse cx={820} cy={460} rx={60} ry={70} fill="black" />
-            <ellipse cx={1080} cy={440} rx={60} ry={70} fill="black" />
+            <ellipse cx={950} cy={560} rx={280 * wipe} ry={200 * wipe} fill="black" filter="url(#bwSoft)" />
+            <ellipse cx={720} cy={600} rx={62} ry={74} fill="black" filter="url(#bwSoft)" />
+            <ellipse cx={1180} cy={600} rx={62} ry={74} fill="black" filter="url(#bwSoft)" />
           </mask>
           <radialGradient id="bwFog"><stop offset="0" stopColor="#d7e2ee" stopOpacity="0.9" /><stop offset="1" stopColor="#b9c9dc" stopOpacity="1" /></radialGradient>
         </defs>
-        <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.8} mask="url(#bwMask)" />
+        <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.7} mask="url(#bwMask)" />
         {drops.map((_, i) => {
           const run = rand(i * 3) > 0.8;
           const y = (rand(i * 5) * 1080 + (run ? f * (4 + rand(i) * 6) : 0)) % 1120;
@@ -100,7 +104,7 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
           return <g key={i}><circle cx={rand(i * 11) * 1920} cy={y} r={r} fill="#e9f2ff" opacity={0.35} /><circle cx={rand(i * 11) * 1920 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.6} />{run && <rect x={rand(i * 11) * 1920 - 1} y={y - 60} width={2} height={60} fill="#e9f2ff" opacity={0.2} />}</g>;
         })}
         {/* small palms pressed on the glass */}
-        {[[820, 470], [1080, 450]].map(([hx, hy], i) => (
+        {[[720, 600], [1180, 600]].map(([hx, hy], i) => (
           <g key={i} transform={`translate(${hx} ${hy - pound * 6}) scale(${1 + pound * 0.06})`} opacity={0.92}>
             <ellipse cx={0} cy={10} rx={34} ry={38} fill="#b07a56" />
             {[-26, -10, 6, 22].map((fx, k) => <rect key={k} x={fx - 6} y={-58 + Math.abs(fx) * 0.3} width={13} height={50} rx={6.5} fill="#b07a56" />)}
@@ -205,13 +209,15 @@ export const Scene04: React.FC = () => {
               <rect x={880} y={800} width={110} height={34} rx={4} fill="#c99a20" />
               {Array.from({ length: 5 }).map((_, i) => <rect key={i} x={886 + i * 20} y={804} width={14} height={12} fill="#2a2010" />)}
               <circle cx={985} cy={812} r={led ? 6 : 3} fill="#ff2a2a" />
-              {[[860, 760], [1010, 900], [900, 980]].map(([lx, ly], i) => <g key={i}><circle cx={lx} cy={ly} r={4} fill="#ffe2a6" /><circle cx={lx} cy={ly} r={22} fill="#ffe2a6" opacity={0.18} /></g>)}
+              <defs><radialGradient id="s4g"><stop offset="0" stopColor="#ffe2a6" stopOpacity="0.55" /><stop offset="1" stopColor="#ffe2a6" stopOpacity="0" /></radialGradient></defs>
+              {[[860, 760], [1010, 900], [900, 980]].map(([lx, ly], i) => <g key={i}><circle cx={lx} cy={ly} r={30} fill="url(#s4g)" /><circle cx={lx} cy={ly} r={3.5} fill="#fff1cc" /></g>)}
+              <ellipse cx={935} cy={817} rx={110} ry={40} fill="url(#s4g)" opacity={0.5} />
               <circle cx={960} cy={860} r={5} fill={led ? "#ff3030" : "#3060ff"} /><circle cx={975} cy={860} r={5} fill={led ? "#3060ff" : "#ff3030"} />
             </svg>
           </Plane>
           <Plane p={0.8}><Rain count={160} opacity={0.25} speed={30} len={30} /></Plane>
           <Plane p={1.2}>
-            <JokerBack x={1460} y={560} scale={1.55} laugh={ci(f, [cJ, cJ + 8], [0, 1])} />
+            <JokerBack x={1290} y={560} scale={1.55} laugh={ci(f, [cJ, cJ + 8], [0, 1])} />
             <Glow x={1460} y={480} r={260} color="80,200,90" opacity={0.12} />
           </Plane>
           <Post tintColor="#3a1a52" tintOpacity={0.22} vignette={0.75} />

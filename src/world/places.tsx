@@ -253,10 +253,11 @@ export const JokerBack: React.FC<{ x: number; y: number; scale?: number; laugh?:
         <path d="M-260 400 C-250 200 -200 120 -110 100 L-40 90 L40 90 L110 100 C200 120 250 200 260 400 Z" fill="url(#jkC)" stroke="#06040a" strokeWidth={3} />
                 {/* neck, ears, nape hair, fedora */}
         <rect x={-34} y={40} width={68} height={60} fill="#cfc8c4" stroke="#06040a" strokeWidth={3} />
-        <ellipse cx={0} cy={22} rx={66} ry={70} fill="#d8d0cc" stroke="#06040a" strokeWidth={3} />
+        <ellipse cx={0} cy={22} rx={66} ry={70} fill="url(#jkH)" stroke="#06040a" strokeWidth={3} />
         <ellipse cx={-66} cy={20} rx={11} ry={20} fill="#d8d0cc" stroke="#06040a" strokeWidth={2.5} />
         <ellipse cx={66} cy={20} rx={11} ry={20} fill="#d8d0cc" stroke="#06040a" strokeWidth={2.5} />
-        <path d="M-64 -10 L-58 40 L-46 18 L-36 58 L-24 26 L-12 66 L0 30 L12 66 L24 26 L36 58 L46 18 L58 40 L64 -10 Z" fill="url(#jkH)" stroke="#06040a" strokeWidth={3} strokeLinejoin="round" />
+        {[-40, -20, 0, 20, 40].map((hx) => <path key={hx} d={`M${hx} 0 Q${hx + 6} 40 ${hx * 0.8} 80`} stroke="#0a2a12" strokeWidth={3} fill="none" opacity={0.6} />)}
+        <path d="M-58 50 L-42 98 L-28 74 L-14 108 L0 78 L14 108 L28 74 L42 98 L58 50 Z" fill="url(#jkH)" stroke="#06040a" strokeWidth={3} strokeLinejoin="round" />
         <ellipse cx={0} cy={-18} rx={150} ry={30} fill="#3a1450" stroke="#06040a" strokeWidth={3} />
         <ellipse cx={0} cy={-22} rx={150} ry={26} fill="url(#jkC)" />
         <path d="M-84 -20 C-88 -100 -46 -132 0 -130 C46 -132 88 -100 84 -20 Z" fill="url(#jkC)" stroke="#06040a" strokeWidth={3} />

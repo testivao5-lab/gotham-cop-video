@@ -125,6 +125,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
       <rect x="0" y={horizonY} width="1920" height={cy - horizonY} fill={`url(#${id}s)`} />
       <rect x="0" y={cy} width="1920" height="10" fill="#3c465c" />
       <rect x="0" y={cy + 10} width="1920" height={1080 - cy} fill={`url(#${id}a)`} />
+      <defs><filter id={`${id}rb`} x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="6 2" /></filter></defs>
       {/* paving seams */}
       {Array.from({ length: 24 }).map((_, i) => <line key={i} x1={i * 90} y1={horizonY} x2={i * 90 - 30} y2={cy} stroke="#000" strokeOpacity="0.25" />)}
       {laneY !== undefined && Array.from({ length: 14 }).map((_, i) => <rect key={i} x={i * 160 - 40} y={laneY} width={90} height={6} fill="#c9b67a" opacity={0.35} />)}
@@ -134,10 +135,12 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
         const segs = 9;
         return (
           <g key={i} style={{ mixBlendMode: "screen" }}>
-            {Array.from({ length: segs }).map((_, k) => {
-              const y = cy + 12 + k * ((1080 - cy) / segs);
-              const wob = noise(f * 0.15 + k * 0.7, seed + i) * 10;
-              return <rect key={k} x={r.x - w / 2 + wob} y={y} width={w * (1 - k * 0.04)} height={(1080 - cy) / segs + 1} fill={`url(#${id}r${i})`} opacity={1 - k / segs} />;
+            <rect x={r.x - w / 2 + noise(f * 0.1, seed + i) * 4} y={cy + 8} width={w} height={1080 - cy} fill={`url(#${id}r${i})`} opacity={0.55} filter={`url(#${id}rb)`} />
+            {Array.from({ length: segs * 2 }).map((_, k) => {
+              const y = cy + 16 + k * ((1080 - cy) / (segs * 2));
+              const wob = noise(f * 0.15 + k * 0.7, seed + i) * 12;
+              const ww = w * (0.5 + rand(k * 3 + i) * 0.7);
+              return <rect key={k} x={r.x - ww / 2 + wob} y={y} width={ww} height={2.5} rx={1.2} fill={r.color} opacity={(1 - k / (segs * 2)) * 0.5 * (r.strength ?? 1)} />;
             })}
           </g>
         );
