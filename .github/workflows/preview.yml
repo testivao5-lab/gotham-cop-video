@@ -136,7 +136,7 @@ jobs:
           # linear gain to -14 LUFS, then a true-peak-safe limiter at -1 dBTP (no pumping)
           G=$(python3 -c "print(round(-14.2 - float('$MI'), 2))")
           echo "measured $MI LUFS -> gain $G dB"
-          ffmpeg -y -loglevel error -i aud/mix.wav -af "volume=${G}dB,alimiter=limit=0.89:attack=4:release=60:level=false,aresample=48000" -ac 2 -ar 48000 mix_norm.wav
+          ffmpeg -y -loglevel error -i aud/mix.wav -af "volume=${G}dB,alimiter=limit=0.82:attack=4:release=60:level=false,aresample=48000" -ac 2 -ar 48000 mix_norm.wav
           ffmpeg -y -loglevel error -i video.mp4 -i mix_norm.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -ac 2 -shortest -movflags +faststart preview.mp4
           ls -la preview.mp4
       - uses: actions/upload-artifact@v4
