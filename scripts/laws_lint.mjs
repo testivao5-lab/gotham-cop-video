@@ -94,6 +94,18 @@ for (const f of files.filter((x) => x.includes("scenes"))) {
     }
   }
 }
+// P16: full-frame close-up sets must sit inside a camera <Plane>, otherwise Stage moves do nothing and QA freezedetect fails
+for (const f of files.filter((x) => x.includes("scenes"))) {
+  const src = fs.readFileSync(f, "utf8");
+  for (const name of ["BusWindowCloseup", "FlashlightCloseup"]) {
+    let k = -1;
+    while ((k = src.indexOf(`<${name} `, k + 1)) >= 0) {
+      const before = src.slice(0, k);
+      const open = (before.match(/<Plane[\s>]/g) || []).length - (before.match(/<\/Plane>/g) || []).length;
+      if (open <= 0) err(f, before.split("\n").length, `P16 <${name}> outside a <Plane> — the camera cannot move it (frozen hold)`);
+    }
+  }
+}
 // P15: Camera floor clamp (feet-in-frame prevention) must stay wired into Stage
 if (!/clampCam\(cam0\)/.test(fs.readFileSync("src/lib/Camera.tsx", "utf8"))) err("src/lib/Camera.tsx", 0, "P15 Stage must apply clampCam (cam.floor feet-in-frame guard)");
 if (errors.length) { console.error("LAW GATE FAILED\n" + errors.join("\n")); process.exit(1); }
@@ -118,4 +130,4 @@ if (errors.length) { console.error("LAW GATE FAILED\n" + errors.join("\n")); pro
   });
 }
 if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
-console.log(`LAW GATE PASSED (${files.length} files, P1-P15)`);
+console.log(`LAW GATE PASSED (${files.length} files, P1-P16)`);

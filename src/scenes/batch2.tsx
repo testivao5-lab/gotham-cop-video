@@ -538,9 +538,9 @@ export const Scene24: React.FC = () => {
   const D = sceneDur(24);
   const cH = cq(24, "how", 0.3);
   const cL = cq(24, "let's", 0.75);
-  const zoom = ci(f, [0, cH], [1.0, 1.8], EZ);
+  const zoom = ci(f, [0, cH], [1.0, 1.8], EZ) + ci(f, [cH, D], [0, 0.22]);
   return (
-    <Stage cam={{ x: 0, y: 0, zoom }}>
+    <Stage cam={{ x: ci(f, [cH, D], [0, 50]) + Math.sin(f * 0.04) * 6, y: Math.sin(f * 0.031) * 5, zoom }}>
       <Plane p={0.3}><AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, #3a3e48, #0c0e14)" }} /></Plane>
       <Plane p={1}>
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
@@ -549,7 +549,7 @@ export const Scene24: React.FC = () => {
         <ToyCop x={700} y={780} s={4.4} tip={1} note={1} />
       </Plane>
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-        <div style={{ background: "#f4f0e2", padding: "40px 60px", transform: `rotate(-3deg) scale(${ci(f, [cH - 6, cH + 8], [0.6, 1], EZ)})`, opacity: ci(f, [cH - 6, cH + 4], [0, 1]), boxShadow: "0 20px 60px #000", fontFamily: "'Courier New', monospace", color: "#1a1a1a", fontSize: 46, textAlign: "center" }}>
+        <div style={{ background: "#f4f0e2", padding: "40px 60px", transform: `rotate(${-3 + Math.sin(f * 0.05) * 0.8}deg) scale(${ci(f, [cH - 6, cH + 8], [0.6, 1], EZ) + ci(f, [cH + 8, D], [0, 0.06])})`, opacity: ci(f, [cH - 6, cH + 4], [0, 1]), boxShadow: "0 20px 60px #000", fontFamily: "'Courier New', monospace", color: "#1a1a1a", fontSize: 46, textAlign: "center" }}>
           HOW MANY COPS DOES IT TAKE<br />TO SAVE GOTHAM?
           <div style={{ color: "#c01020", fontSize: 58, marginTop: 24, opacity: ci(f, [cL, cL + 8], [0, 1]), fontFamily: "'Brush Script MT', cursive" }}>Let's find out.</div>
         </div>
@@ -647,7 +647,7 @@ export const Scene27: React.FC = () => {
   const sigOn = f < cS + 10 ? 1 : 0;
   const sweep = ci(f, [0, cS + 10], [960, 1260]);
   return (
-    <Stage cam={{ x: ci(f, [0, D], [-60, 60]), y: 0, zoom: ci(f, [0, D], [1.0, 1.1], EZ) }}>
+    <Stage cam={{ x: ci(f, [0, D], [-140, 200]), y: ci(f, [cT, D], [0, -40]), zoom: ci(f, [0, D], [1.0, 1.2], EZ) }}>
       <Plane p={0.1}><Sky variant={black > 0.6 ? "blackout" : "night"} seed={27} horizonY={760} clouds={12} batSignal={{ x: sweep, y: 200, fromX: 1600, fromY: 760, on: sigOn }} /></Plane>
       {sigOn === 0 && f < cS + 60 && <AbsoluteFill style={{ background: `radial-gradient(circle at ${sweep / 19.2}% 18.5%, rgba(200,210,230,${0.15 * ci(f, [cS + 10, cS + 60], [1, 0])}) 0%, rgba(0,0,0,0) 12%)` }} />}
       <Plane p={0.3}><DecoSkyline seed={71} baseY={800} hMin={300} hMax={640} haze={0.4} litP={0.3} blackout={black} /></Plane>

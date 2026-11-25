@@ -344,8 +344,8 @@ export const Scene03: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cW} to={cD}>
-        <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [cW, cD], [1.0, 1.08]) }}>
-          <BusWindowCloseup fog={fog} wipe={ci(f, [cW + 6, cW + 24], [0, 1], EZ)} pound={pound} />
+        <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [cW, cD], [1.04, 1.1]) }}>
+          <Plane p={1}><BusWindowCloseup fog={fog} wipe={ci(f, [cW + 6, cW + 24], [0, 1], EZ)} pound={pound} /></Plane>
           <Post tintOpacity={0.08} vignette={0.5} />
         </Stage>
       </Shot>
@@ -929,7 +929,7 @@ export const Scene08: React.FC = () => {
       </Shot>
       <Shot from={cM} to={sceneDur(8) + 1}>
         <Stage cam={{ x: 0, y: 0, zoom: ci(f, [cM, sceneDur(8)], [1.0, 1.1]) }}>
-          <FlashlightCloseup beam={fl} shake={f > cSh ? 1 : 0} sw={f > cS ? 0.5 + 0.5 * Math.sin(f * 0.9) : 0} />
+          <Plane p={1}><FlashlightCloseup beam={fl} shake={f > cSh ? 1 : 0} sw={f > cS ? 0.5 + 0.5 * Math.sin(f * 0.9) : 0} /></Plane>
           <Post tintColor="#2a2a50" tintOpacity={0.1} vignette={0.6} />
         </Stage>
       </Shot>

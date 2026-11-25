@@ -51,8 +51,8 @@ export const Scene46: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cR}>
-        <Stage cam={{ x: handheld(f, 0.4, 46).x, y: handheld(f, 0.4, 46).y + sob * 8, zoom: ci(f, [0, cR], [1.0, 1.1]) }}>
-          <BusWindowCloseup fog={0.75} wipe={0.6} pound={sob} />
+        <Stage cam={{ x: handheld(f, 0.4, 46).x, y: handheld(f, 0.4, 46).y + sob * 8, zoom: ci(f, [0, cR], [1.05, 1.15]) }}>
+          <Plane p={1}><BusWindowCloseup fog={0.75} wipe={0.6} pound={sob} /></Plane>
           <Post tintOpacity={0.14} vignette={0.6} />
         </Stage>
       </Shot>
@@ -83,7 +83,7 @@ export const Scene47: React.FC = () => {
     <>
       <Shot from={0} to={cP}>
         <Stage cam={{ x: 0, y: 0, zoom: ci(f, [0, cP], [1.0, 1.1]) }}>
-          <FlashlightCloseup beam={flick} shake={0.2} sw={tap} />
+          <Plane p={1}><FlashlightCloseup beam={flick} shake={0.2} sw={tap} /></Plane>
           <Post tintOpacity={0.1} />
         </Stage>
       </Shot>
@@ -181,7 +181,7 @@ export const Scene49: React.FC = () => {
       </Shot>
       <Shot from={cX - 6} to={D + 1}>
         <Stage cam={{ x: 0, y: 0, zoom: ci(f, [cX, D], [1.0, 1.08]) }}>
-          <FlashlightCloseup beam={f < cX ? 1 : ci(f, [cX, cX + 6], [1, 0])} shake={0} sw={0} />
+          <Plane p={1}><FlashlightCloseup beam={f < cX ? 1 : ci(f, [cX, cX + 6], [1, 0])} shake={0} sw={0} /></Plane>
           <Post tintOpacity={0.12} />
         </Stage>
       </Shot>

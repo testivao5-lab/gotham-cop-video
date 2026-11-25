@@ -28,7 +28,7 @@ export const BusInterior: React.FC<{ dark?: number; fog?: number; children?: Rea
   const red = Math.floor(f / 7) % 2 === 0;
   const xs = [-150, 180, 510, 840, 1170, 1500, 1830];
   return (
-    <AbsoluteFill>
+    <Plane p={1}>
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <linearGradient id="biWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#6a6658" /><stop offset="0.55" stopColor="#4a473e" /><stop offset="1" stopColor="#2a2822" /></linearGradient>
@@ -72,7 +72,7 @@ export const BusInterior: React.FC<{ dark?: number; fog?: number; children?: Rea
         <rect width={1920} height={1080} fill="#050810" opacity={dark * 0.45} />
       </svg>
       {front && <AbsoluteFill>{front}</AbsoluteFill>}
-    </AbsoluteFill>
+    </Plane>
   );
 };
 /* child on the seat whose back is at x 1170: hips on the cushion (860), feet dangle above the floor */
@@ -101,7 +101,7 @@ export const Scene29: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cS} to={D + 1}>
-        <Stage cam={{ x: ci(f, [cS, D], [-40, 60]), y: ci(f, [cS, D], [0, -20]), zoom: ci(f, [cS, D], [1.0, 1.25], EZ) }}>
+        <Stage cam={{ floor: BI.floor, x: ci(f, [cS, D], [-40, 60]), y: ci(f, [cS, D], [0, -20]), zoom: ci(f, [cS, D], [1.0, 1.25], EZ) }}>
           <BusInterior dark={0.6}>
             {/* she presses the small torch against the back window: lens toward the glass */}
             <NiaSeated reach={NIA_REACH} pose={{ head: -6, eyeX: 0.6, brow: 0.6 }} />
@@ -193,8 +193,8 @@ export const Scene32: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cG + 10} to={D + 1}>
-        <Stage cam={{ x: handheld(f, 0.6, 32).x, y: handheld(f, 0.6, 32).y, zoom: ci(f, [cG, D], [1.0, 1.08]) }}>
-          <BusWindowCloseup fog={0.55} wipe={1} pound={pound} />
+        <Stage cam={{ x: handheld(f, 0.6, 32).x, y: handheld(f, 0.6, 32).y, zoom: ci(f, [cG, D], [1.05, 1.14]) }}>
+          <Plane p={1}><BusWindowCloseup fog={0.55} wipe={1} pound={pound} /></Plane>
           <Post tintOpacity={0.12} vignette={0.55} />
         </Stage>
       </Shot>
@@ -257,7 +257,7 @@ export const Scene34: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cL} to={D + 1}>
-        <Stage cam={{ x: 0, y: 0, zoom: ci(f, [cL, D], [1.1, 1.2]) }}>
+        <Stage cam={{ x: ci(f, [cL, D], [-40, 60]) + Math.sin(f * 0.07) * 8, y: Math.sin(f * 0.05) * 6, zoom: ci(f, [cL, D], [1.1, 1.4], EZ) }}>
           <Plane p={0.3}><AbsoluteFill style={{ background: "radial-gradient(circle at 50% 50%, #161a26, #05060c)" }} /></Plane>
           <Phone x={960} y={560} s={2} speaker={f < cL + 40 ? 1 : 0} />
           <Post />
@@ -278,7 +278,7 @@ export const Scene35: React.FC = () => {
   const drop = ci(f, [cS, cS + 14], [0, 1], Easing.in(Easing.quad));
   const roll = ci(f, [cS + 14, cS + 60], [0, 1], Easing.out(Easing.cubic));
   return (
-    <Stage cam={{ x: ci(f, [0, D], [40, -20]), y: ci(f, [cS, cS + 40], [0, 60], EZ), zoom: ci(f, [0, D], [1.2, 1.35], EZ) }}>
+    <Stage cam={{ floor: BI.floor, x: ci(f, [0, D], [40, -20]), y: ci(f, [cS, cS + 40], [0, 60], EZ), zoom: ci(f, [0, D], [1.2, 1.35], EZ) }}>
       <BusInterior dark={0.75} front={drop > 0 ? (
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           {/* the small torch falls, bounces, rolls under the bench (beam spins across the floor) */}
