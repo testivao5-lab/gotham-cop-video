@@ -29,7 +29,7 @@ jobs:
       stills: ${{ steps.m.outputs.stills }}
     steps:
       - uses: actions/checkout@v4
-      - name: Anti-bug law gate (P1–P13)
+      - name: Anti-bug law gate (P1–P18)
         run: node scripts/laws_lint.mjs
       - id: m
         run: node scripts/matrix.mjs "${{ inputs.scenes }}" "${{ inputs.chunks }}"

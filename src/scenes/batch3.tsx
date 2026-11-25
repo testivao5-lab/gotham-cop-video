@@ -421,10 +421,11 @@ export const Scene39: React.FC = () => {
       <Plane p={0.6}><StreetFacades seed={39} baseY={760} litP={0} heightMin={600} heightMax={860} dark={0.5} x0={-1200} x1={3200} /></Plane>
       <Plane p={1}>
         <WetStreet horizonY={760} curbY={806} laneY={960} reflections={[]} seed={39} />
-        {[-700, 300, 1500, 2500].map((cx, i) => <Cruiser key={i} x={cx} y={900 - 164 * BM.car(900)} scale={BM.car(900)} lightsOn={false} flip={i % 2 === 1} />)}
+        {/* v14: uneven cordon - different gaps, alternating headings, two units still running their light bars */}
+        {[-820, 140, 1240, 1660, 2760].map((cx, i) => <Cruiser key={i} x={cx} y={900 - 164 * BM.car(900) + (i === 3 ? 26 : 0)} scale={BM.car(900)} lightsOn={i === 1 || i === 3} flip={i === 1 || i === 4} />)}
       </Plane>
       <Plane p={1.25}>
-        <Character id="s39bat" kind="batman" x={560 + pan * 1.25} y={1560} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.4} silhouette={0.5} rim="#9fb6dc" viewAngle="back" capeWind={0.6}
+        <Character id="s39bat" kind="batman" x={560 + pan * 1.25} y={1540} crop="waist" scale={2.7} facing={1} lightSide={1} nightTint={0.4} silhouette={0.5} rim="#9fb6dc" viewAngle="back" capeWind={0.6}
           pose={{ head: -12 + Math.sin(f * 0.04) * 6, neck: -8 }} />
       </Plane>
       <Plane p={1.1}><Rain count={140} opacity={0.18} /></Plane>

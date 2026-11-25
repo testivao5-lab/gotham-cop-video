@@ -502,8 +502,12 @@ export const Scene22: React.FC = () => {
       <Plane p={0.6}><PrecinctInterior lights={1} /></Plane>
       <Plane p={0.6}><GiftBox x={620} y={764} s={0.62} /></Plane>
       <Plane p={1}>
-        <Character id="s22alex" kind="alex" x={ci(f, [cC, cC + 40], [520, 200])} y={1000} scale={S} facing={1} lightSide={1} nightTint={0.12} shoulderRadio pose={{ head: 6, eyeY: 0.4, brow: 0.4, ...(clear > 0 && clear < 1 ? walkDist(clear * 320, "alex", S, 0.7) : {}) }} />
-        <Character id="s22mara" kind="mara" x={ci(f, [cC, cC + 40], [1360, 1700])} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.12} shoulderRadio pose={{ head: 8, eyeY: 0.4, brow: 0.5, armNear: clear > 0 ? [60, 40] : [8, 14] }} />
+        {/* v14: no mirrored twins and no moonwalking - Alex leans in, wary; Mara keys her radio; on "clear" both TURN and WALK out */}
+        <Character id="s22alex" kind="alex" x={ci(f, [cC, cC + 40], [560, 200])} y={1000} scale={S} facing={clear > 0 ? -1 : 1} lightSide={1} nightTint={0.12} shoulderRadio
+          pose={{ head: clear > 0 ? 0 : 10, eyeY: 0.5, brow: 0.6, lean: clear > 0 ? 0 : 8, ...(clear > 0 && clear < 1 ? walkDist(clear * 360, "alex", S, 0.75) : {}) }} />
+        <Character id="s22mara" kind="mara" x={ci(f, [cC, cC + 40], [1240, 1700])} y={1000} scale={S} facing={clear > 0 ? 1 : -1} lightSide={1} nightTint={0.12} shoulderRadio
+          reachNear={clear > 0 ? undefined : anchor("mara", 1240, 1000, S, -1, "radio")}
+          pose={{ head: clear > 0 ? 0 : 4, eyeY: 0.4, brow: 0.5, handNear: clear > 0 ? undefined : "grip", ...(clear > 0 && clear < 1 ? walkDist(clear * 460, "mara", S, 0.75) : {}) }} />
         <Character id="s22spec" kind="specialist" x={ci(f, [cC + 30, cC + 90], [2100, 1500])} y={1000} scale={S} facing={-1} lightSide={1} nightTint={0.12} pose={{ ...walkDist(2100 - ci(f, [cC + 30, cC + 90], [2100, 1500]), "specialist", S, 0.8) }} />
       </Plane>
       <Post tintOpacity={0.1} />

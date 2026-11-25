@@ -448,7 +448,7 @@ export const Character: React.FC<CharProps> = (props) => {
       <g transform={`translate(${kind === "nia" ? 2 : shW * 0.22} ${-torsoLen + 2}) rotate(${p.neck})`}>
         {kind === "batman"
           ? <path d={`M-17 10 L-13 -12 H14 L19 10 Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
-          : <path d={`M-11 6 L-10 -10 H11 L12 6 Z`} fill={g("skin")} stroke={outline} strokeWidth={sw} />}
+          : <path d={`M-12 7 C-9 0 -9 -6 -8 -11 H9 C9 -5 10 1 13 7 Z`} fill={g("skin")} stroke={outline} strokeWidth={sw} />}
         {kind !== "batman" && <path d={`M-10 -2 Q1 4 11 -2 L12 6 H-11 Z`} fill="#000" opacity={0.18} />}
         {(kind === "alex" || kind === "mara" || kind === "alexDress") && !backView && (
           <g>
@@ -531,11 +531,23 @@ export const Character: React.FC<CharProps> = (props) => {
               <path d={`M${shW * 0.05} ${-torsoLen - 4} Q${-shW * 0.7} ${-torsoLen - 8} ${-shW - 8} ${-torsoLen + 14} L${-shW - 4} ${-torsoLen + 40} Q${-shW * 0.8} ${-torsoLen + 22} ${-shW * 0.35} ${-torsoLen + 12} Q${-shW * 0.1} ${-torsoLen + 6} ${shW * 0.05} ${-torsoLen - 4} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} strokeLinejoin="round" />
             </g>
           )}
-          {kind === "batman" && backView && (
-            <g transform={`rotate(${p.lean})`}>
-              <path d={`M${-shW - 10} ${-torsoLen + 4} Q0 ${-torsoLen - 14} ${shW + 10} ${-torsoLen + 4} L${shW + 30} ${b.thigh + b.shin - 30} L${-shW - 30} ${b.thigh + b.shin - 30} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
-            </g>
-          )}
+          {kind === "batman" && backView && (() => {
+            // v14 back view: cape drapes OVER rounded shoulders, collar rises to a cowl neck (head stays attached),
+            // flares to a scalloped hem, with fold lines + rim light so the shape reads instead of one black block
+            const T = -torsoLen, H = b.thigh + b.shin - 26, nx = shW * 0.22, sway = Math.sin(f * 0.1) * 6 * capeWind;
+            const d = `M${-shW - 8} ${T + 22} Q${-shW - 6} ${T - 6} ${-shW * 0.45} ${T - 8} L${nx - 13} ${T - 14} Q${nx} ${T - 22} ${nx + 13} ${T - 14} L${shW * 0.45} ${T - 8} Q${shW + 6} ${T - 6} ${shW + 8} ${T + 22}`
+              + ` C${shW + 18} ${T + 160} ${shW + 30} ${H * 0.4} ${shW + 40 + sway} ${H}`
+              + ` Q${shW * 0.7 + sway} ${H - 30} ${shW * 0.35 + sway} ${H + 4} Q${sway} ${H - 28} ${-shW * 0.35 + sway} ${H + 4} Q${-shW * 0.7 + sway} ${H - 30} ${-shW - 40 + sway} ${H}`
+              + ` C${-shW - 30} ${H * 0.4} ${-shW - 18} ${T + 160} ${-shW - 8} ${T + 22} Z`;
+            return (
+              <g transform={`rotate(${p.lean})`}>
+                <path d={d} fill={g("hat")} stroke={outline} strokeWidth={sw} />
+                {[-0.55, 0, 0.5].map((k, i2) => <path key={i2} d={`M${k * shW} ${T + 30} Q${k * shW * 1.3 + sway * 0.5} ${H * 0.2} ${k * shW * 1.5 + sway} ${H - 18}`} stroke={i2 === 2 ? rim : "#2c3140"} strokeWidth={i2 === 2 ? 2.4 : 3} fill="none" opacity={i2 === 2 ? 0.45 : 0.8} />)}
+                <path d={`M${shW * 0.45} ${T - 7} Q${shW + 5} ${T - 5} ${shW + 7} ${T + 22}`} stroke={rim} strokeWidth={3} fill="none" opacity={0.6} />
+                <path d={`M${nx - 13} ${T - 24} L${nx - 14} ${T - 6} H${nx + 14} L${nx + 13} ${T - 24} Z`} fill={g("hat")} />
+              </g>
+            );
+          })()}
           <g transform={`translate(${nsx} ${nsy})`}><Arm ang={p.armNear} near /></g>
         </g>
       </g>
