@@ -652,6 +652,17 @@ export const Scene27: React.FC = () => {
       {sigOn === 0 && f < cS + 60 && <AbsoluteFill style={{ background: `radial-gradient(circle at ${sweep / 19.2}% 18.5%, rgba(200,210,230,${0.15 * ci(f, [cS + 10, cS + 60], [1, 0])}) 0%, rgba(0,0,0,0) 12%)` }} />}
       <Plane p={0.3}><DecoSkyline seed={71} baseY={800} hMin={300} hMax={640} haze={0.4} litP={0.3} blackout={black} /></Plane>
       <Plane p={0.55}><DecoSkyline seed={72} baseY={860} hMin={200} hMax={480} haze={0.2} litP={0.34} blackout={Math.min(1, black * 1.3)} body="#0e1424" /></Plane>
+      {/* blacked-out city: emergency searchlights + strobing cruiser lights keep the dark end alive (QA freezedetect) */}
+      <Plane p={0.45}>
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+          <defs><linearGradient id="s27beam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stopColor="#dfe8ff" stopOpacity={0.5} /><stop offset="1" stopColor="#dfe8ff" stopOpacity={0} /></linearGradient></defs>
+          {[{ x: 420, ph: 0 }, { x: 1380, ph: 2.1 }].map((b, k) => (
+            <path key={k} d="M-14 0 L-130 -900 L130 -900 L14 0 Z" fill="url(#s27beam)" opacity={black * 0.55}
+              transform={`translate(${b.x} 860) rotate(${Math.sin(f * 0.035 + b.ph) * 28})`} style={{ mixBlendMode: "screen", filter: "blur(6px)" }} />
+          ))}
+          {Array.from({ length: 6 }).map((_, k) => <circle key={`c${k}`} cx={200 + k * 300} cy={872} r={5} fill={(Math.floor(f / 6) + k) % 2 ? "#ff3030" : "#3060ff"} opacity={black * 0.9} />)}
+        </svg>
+      </Plane>
       <Plane p={0.8}>
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           <rect x={-400} y={860} width={2720} height={800} fill="#080a12" />

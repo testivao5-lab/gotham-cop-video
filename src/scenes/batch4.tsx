@@ -31,7 +31,7 @@ export const Scene45: React.FC = () => {
       <Plane p={1}><Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} /></Plane>
       <Plane p={1.3}>
         <div style={{ position: "absolute", inset: 0, filter: `blur(${rack * 4}px)` }}>
-          <Character id="s45alex" kind="alex" x={420} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio={false} viewAngle="back"
+          <Character id="s45alex" kind="alex" x={560} y={1560} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio={false} viewAngle="back"
             pose={{ head: -18 + rack * 22, neck: -10 + rack * 10 }} />
         </div>
       </Plane>
