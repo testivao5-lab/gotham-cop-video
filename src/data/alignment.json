@@ -1,0 +1,14178 @@
+[
+{
+"i": 0,
+"word": "the",
+"start": 0.42,
+"end": 0.42,
+"startFrame": 10,
+"endFrame": 10
+},
+{
+"i": 1,
+"word": "first",
+"start": 0.42,
+"end": 0.6,
+"startFrame": 10,
+"endFrame": 14
+},
+{
+"i": 2,
+"word": "time",
+"start": 0.6,
+"end": 0.86,
+"startFrame": 14,
+"endFrame": 21
+},
+{
+"i": 3,
+"word": "you",
+"start": 0.86,
+"end": 1.0,
+"startFrame": 21,
+"endFrame": 24
+},
+{
+"i": 4,
+"word": "see",
+"start": 1.0,
+"end": 1.2,
+"startFrame": 24,
+"endFrame": 29
+},
+{
+"i": 5,
+"word": "batman",
+"start": 1.2,
+"end": 1.7,
+"startFrame": 29,
+"endFrame": 41
+},
+{
+"i": 6,
+"word": "you",
+"start": 2.26,
+"end": 2.26,
+"startFrame": 54,
+"endFrame": 54
+},
+{
+"i": 7,
+"word": "think",
+"start": 2.26,
+"end": 2.46,
+"startFrame": 54,
+"endFrame": 59
+},
+{
+"i": 8,
+"word": "he",
+"start": 2.46,
+"end": 2.62,
+"startFrame": 59,
+"endFrame": 63
+},
+{
+"i": 9,
+"word": "has",
+"start": 2.62,
+"end": 2.76,
+"startFrame": 63,
+"endFrame": 66
+},
+{
+"i": 10,
+"word": "come",
+"start": 2.76,
+"end": 2.92,
+"startFrame": 66,
+"endFrame": 70
+},
+{
+"i": 11,
+"word": "to",
+"start": 2.92,
+"end": 3.2,
+"startFrame": 70,
+"endFrame": 77
+},
+{
+"i": 12,
+"word": "save",
+"start": 3.2,
+"end": 3.38,
+"startFrame": 77,
+"endFrame": 81
+},
+{
+"i": 13,
+"word": "you",
+"start": 3.38,
+"end": 3.48,
+"startFrame": 81,
+"endFrame": 84
+},
+{
+"i": 14,
+"word": "then",
+"start": 4.66,
+"end": 4.72,
+"startFrame": 112,
+"endFrame": 113
+},
+{
+"i": 15,
+"word": "he",
+"start": 4.72,
+"end": 4.88,
+"startFrame": 113,
+"endFrame": 117
+},
+{
+"i": 16,
+"word": "grabs",
+"start": 4.88,
+"end": 5.2,
+"startFrame": 117,
+"endFrame": 125
+},
+{
+"i": 17,
+"word": "your",
+"start": 5.2,
+"end": 5.4,
+"startFrame": 125,
+"endFrame": 130
+},
+{
+"i": 18,
+"word": "radio",
+"start": 5.4,
+"end": 5.74,
+"startFrame": 130,
+"endFrame": 138
+},
+{
+"i": 19,
+"word": "and",
+"start": 5.74,
+"end": 6.02,
+"startFrame": 138,
+"endFrame": 144
+},
+{
+"i": 20,
+"word": "says",
+"start": 6.02,
+"end": 6.24,
+"startFrame": 144,
+"endFrame": 150
+},
+{
+"i": 21,
+"word": "three",
+"start": 6.24,
+"end": 6.58,
+"startFrame": 150,
+"endFrame": 158
+},
+{
+"i": 22,
+"word": "words",
+"start": 6.58,
+"end": 7.18,
+"startFrame": 158,
+"endFrame": 172
+},
+{
+"i": 23,
+"word": "don't",
+"start": 8.14,
+"end": 8.42,
+"startFrame": 195,
+"endFrame": 202
+},
+{
+"i": 24,
+"word": "open",
+"start": 8.54,
+"end": 8.82,
+"startFrame": 205,
+"endFrame": 212
+},
+{
+"i": 25,
+"word": "it",
+"start": 8.82,
+"end": 9.52,
+"startFrame": 212,
+"endFrame": 228
+},
+{
+"i": 26,
+"word": "across",
+"start": 10.12,
+"end": 10.34,
+"startFrame": 243,
+"endFrame": 248
+},
+{
+"i": 27,
+"word": "the",
+"start": 10.34,
+"end": 10.58,
+"startFrame": 248,
+"endFrame": 254
+},
+{
+"i": 28,
+"word": "street",
+"start": 10.58,
+"end": 10.8,
+"startFrame": 254,
+"endFrame": 259
+},
+{
+"i": 29,
+"word": "a",
+"start": 11.26,
+"end": 11.34,
+"startFrame": 270,
+"endFrame": 272
+},
+{
+"i": 30,
+"word": "little",
+"start": 11.34,
+"end": 11.5,
+"startFrame": 272,
+"endFrame": 276
+},
+{
+"i": 31,
+"word": "girl",
+"start": 11.5,
+"end": 11.78,
+"startFrame": 276,
+"endFrame": 283
+},
+{
+"i": 32,
+"word": "is",
+"start": 11.78,
+"end": 12.02,
+"startFrame": 283,
+"endFrame": 288
+},
+{
+"i": 33,
+"word": "trapped",
+"start": 12.02,
+"end": 12.34,
+"startFrame": 288,
+"endFrame": 296
+},
+{
+"i": 34,
+"word": "inside",
+"start": 12.36,
+"end": 12.66,
+"startFrame": 297,
+"endFrame": 304
+},
+{
+"i": 35,
+"word": "a",
+"start": 12.66,
+"end": 12.9,
+"startFrame": 304,
+"endFrame": 310
+},
+{
+"i": 36,
+"word": "school",
+"start": 12.9,
+"end": 13.14,
+"startFrame": 310,
+"endFrame": 315
+},
+{
+"i": 37,
+"word": "bus",
+"start": 13.14,
+"end": 13.4,
+"startFrame": 315,
+"endFrame": 322
+},
+{
+"i": 38,
+"word": "the",
+"start": 14.24,
+"end": 14.34,
+"startFrame": 342,
+"endFrame": 344
+},
+{
+"i": 39,
+"word": "windows",
+"start": 14.34,
+"end": 14.62,
+"startFrame": 344,
+"endFrame": 351
+},
+{
+"i": 40,
+"word": "are",
+"start": 14.62,
+"end": 14.9,
+"startFrame": 351,
+"endFrame": 358
+},
+{
+"i": 41,
+"word": "fogging",
+"start": 14.92,
+"end": 15.22,
+"startFrame": 358,
+"endFrame": 365
+},
+{
+"i": 42,
+"word": "up",
+"start": 15.22,
+"end": 15.4,
+"startFrame": 365,
+"endFrame": 370
+},
+{
+"i": 43,
+"word": "she's",
+"start": 16.02,
+"end": 16.12,
+"startFrame": 384,
+"endFrame": 387
+},
+{
+"i": 44,
+"word": "pounding",
+"start": 16.12,
+"end": 16.38,
+"startFrame": 387,
+"endFrame": 393
+},
+{
+"i": 45,
+"word": "on",
+"start": 16.38,
+"end": 16.58,
+"startFrame": 393,
+"endFrame": 398
+},
+{
+"i": 46,
+"word": "the",
+"start": 16.6,
+"end": 16.7,
+"startFrame": 398,
+"endFrame": 401
+},
+{
+"i": 47,
+"word": "glass",
+"start": 16.7,
+"end": 17.18,
+"startFrame": 401,
+"endFrame": 412
+},
+{
+"i": 48,
+"word": "and",
+"start": 17.76,
+"end": 17.86,
+"startFrame": 426,
+"endFrame": 429
+},
+{
+"i": 49,
+"word": "the",
+"start": 17.86,
+"end": 18.04,
+"startFrame": 429,
+"endFrame": 433
+},
+{
+"i": 50,
+"word": "door",
+"start": 18.04,
+"end": 18.32,
+"startFrame": 433,
+"endFrame": 440
+},
+{
+"i": 51,
+"word": "is",
+"start": 18.56,
+"end": 18.68,
+"startFrame": 445,
+"endFrame": 448
+},
+{
+"i": 52,
+"word": "locked",
+"start": 18.68,
+"end": 19.13,
+"startFrame": 448,
+"endFrame": 459
+},
+{
+"i": 53,
+"word": "batman",
+"start": 20.32,
+"end": 20.56,
+"startFrame": 488,
+"endFrame": 493
+},
+{
+"i": 54,
+"word": "is",
+"start": 20.56,
+"end": 20.78,
+"startFrame": 493,
+"endFrame": 499
+},
+{
+"i": 55,
+"word": "telling",
+"start": 20.84,
+"end": 20.98,
+"startFrame": 500,
+"endFrame": 504
+},
+{
+"i": 56,
+"word": "you",
+"start": 20.98,
+"end": 21.3,
+"startFrame": 504,
+"endFrame": 511
+},
+{
+"i": 57,
+"word": "not",
+"start": 21.3,
+"end": 21.52,
+"startFrame": 511,
+"endFrame": 516
+},
+{
+"i": 58,
+"word": "to",
+"start": 21.8,
+"end": 21.9,
+"startFrame": 523,
+"endFrame": 526
+},
+{
+"i": 59,
+"word": "open",
+"start": 21.9,
+"end": 22.08,
+"startFrame": 526,
+"endFrame": 530
+},
+{
+"i": 60,
+"word": "it",
+"start": 22.08,
+"end": 22.63,
+"startFrame": 530,
+"endFrame": 543
+},
+{
+"i": 61,
+"word": "because",
+"start": 23.18,
+"end": 23.38,
+"startFrame": 556,
+"endFrame": 561
+},
+{
+"i": 62,
+"word": "somewhere",
+"start": 23.38,
+"end": 23.78,
+"startFrame": 561,
+"endFrame": 571
+},
+{
+"i": 63,
+"word": "in",
+"start": 23.78,
+"end": 24.06,
+"startFrame": 571,
+"endFrame": 577
+},
+{
+"i": 64,
+"word": "gotham",
+"start": 24.06,
+"end": 24.22,
+"startFrame": 577,
+"endFrame": 581
+},
+{
+"i": 65,
+"word": "the",
+"start": 24.84,
+"end": 24.84,
+"startFrame": 596,
+"endFrame": 596
+},
+{
+"i": 66,
+"word": "joker",
+"start": 24.84,
+"end": 25.1,
+"startFrame": 596,
+"endFrame": 602
+},
+{
+"i": 67,
+"word": "is",
+"start": 25.1,
+"end": 25.38,
+"startFrame": 602,
+"endFrame": 609
+},
+{
+"i": 68,
+"word": "watching",
+"start": 25.38,
+"end": 25.58,
+"startFrame": 609,
+"endFrame": 614
+},
+{
+"i": 69,
+"word": "and",
+"start": 26.7,
+"end": 26.7,
+"startFrame": 641,
+"endFrame": 641
+},
+{
+"i": 70,
+"word": "the",
+"start": 26.7,
+"end": 26.8,
+"startFrame": 641,
+"endFrame": 643
+},
+{
+"i": 71,
+"word": "bus",
+"start": 26.96,
+"end": 27.06,
+"startFrame": 647,
+"endFrame": 649
+},
+{
+"i": 72,
+"word": "is",
+"start": 27.06,
+"end": 27.28,
+"startFrame": 649,
+"endFrame": 655
+},
+{
+"i": 73,
+"word": "part",
+"start": 27.36,
+"end": 27.48,
+"startFrame": 657,
+"endFrame": 660
+},
+{
+"i": 74,
+"word": "of",
+"start": 27.48,
+"end": 27.58,
+"startFrame": 660,
+"endFrame": 662
+},
+{
+"i": 75,
+"word": "his",
+"start": 27.58,
+"end": 27.74,
+"startFrame": 662,
+"endFrame": 666
+},
+{
+"i": 76,
+"word": "joke",
+"start": 27.74,
+"end": 28.0,
+"startFrame": 666,
+"endFrame": 672
+},
+{
+"i": 77,
+"word": "six",
+"start": 29.38,
+"end": 29.38,
+"startFrame": 705,
+"endFrame": 705
+},
+{
+"i": 78,
+"word": "days",
+"start": 29.38,
+"end": 29.6,
+"startFrame": 705,
+"endFrame": 710
+},
+{
+"i": 79,
+"word": "earlier",
+"start": 29.6,
+"end": 29.9,
+"startFrame": 710,
+"endFrame": 718
+},
+{
+"i": 80,
+"word": "you",
+"start": 30.52,
+"end": 30.52,
+"startFrame": 732,
+"endFrame": 732
+},
+{
+"i": 81,
+"word": "were",
+"start": 30.52,
+"end": 30.62,
+"startFrame": 732,
+"endFrame": 735
+},
+{
+"i": 82,
+"word": "just",
+"start": 30.62,
+"end": 30.78,
+"startFrame": 735,
+"endFrame": 739
+},
+{
+"i": 83,
+"word": "a",
+"start": 30.78,
+"end": 30.98,
+"startFrame": 739,
+"endFrame": 744
+},
+{
+"i": 84,
+"word": "rookie",
+"start": 30.98,
+"end": 31.16,
+"startFrame": 744,
+"endFrame": 748
+},
+{
+"i": 85,
+"word": "cop",
+"start": 31.22,
+"end": 31.54,
+"startFrame": 749,
+"endFrame": 757
+},
+{
+"i": 86,
+"word": "who",
+"start": 31.74,
+"end": 31.84,
+"startFrame": 762,
+"endFrame": 764
+},
+{
+"i": 87,
+"word": "still",
+"start": 31.84,
+"end": 32.0,
+"startFrame": 764,
+"endFrame": 768
+},
+{
+"i": 88,
+"word": "believed",
+"start": 32.0,
+"end": 32.4,
+"startFrame": 768,
+"endFrame": 778
+},
+{
+"i": 89,
+"word": "a",
+"start": 32.4,
+"end": 32.7,
+"startFrame": 778,
+"endFrame": 785
+},
+{
+"i": 90,
+"word": "badge",
+"start": 32.7,
+"end": 32.98,
+"startFrame": 785,
+"endFrame": 792
+},
+{
+"i": 91,
+"word": "meant",
+"start": 32.98,
+"end": 33.18,
+"startFrame": 792,
+"endFrame": 796
+},
+{
+"i": 92,
+"word": "you",
+"start": 33.18,
+"end": 33.3,
+"startFrame": 796,
+"endFrame": 799
+},
+{
+"i": 93,
+"word": "could",
+"start": 33.3,
+"end": 33.48,
+"startFrame": 799,
+"endFrame": 804
+},
+{
+"i": 94,
+"word": "protect",
+"start": 33.66,
+"end": 33.82,
+"startFrame": 808,
+"endFrame": 812
+},
+{
+"i": 95,
+"word": "people",
+"start": 33.82,
+"end": 34.02,
+"startFrame": 812,
+"endFrame": 816
+},
+{
+"i": 96,
+"word": "your",
+"start": 35.34,
+"end": 35.44,
+"startFrame": 848,
+"endFrame": 851
+},
+{
+"i": 97,
+"word": "name",
+"start": 35.44,
+"end": 35.72,
+"startFrame": 851,
+"endFrame": 857
+},
+{
+"i": 98,
+"word": "is",
+"start": 35.72,
+"end": 36.04,
+"startFrame": 857,
+"endFrame": 865
+},
+{
+"i": 99,
+"word": "alex",
+"start": 36.04,
+"end": 36.36,
+"startFrame": 865,
+"endFrame": 873
+},
+{
+"i": 100,
+"word": "reyes",
+"start": 36.36,
+"end": 36.92,
+"startFrame": 873,
+"endFrame": 886
+},
+{
+"i": 101,
+"word": "you",
+"start": 37.6,
+"end": 37.7,
+"startFrame": 902,
+"endFrame": 905
+},
+{
+"i": 102,
+"word": "grew",
+"start": 37.7,
+"end": 37.88,
+"startFrame": 905,
+"endFrame": 909
+},
+{
+"i": 103,
+"word": "up",
+"start": 37.88,
+"end": 38.06,
+"startFrame": 909,
+"endFrame": 913
+},
+{
+"i": 104,
+"word": "in",
+"start": 38.06,
+"end": 38.26,
+"startFrame": 913,
+"endFrame": 918
+},
+{
+"i": 105,
+"word": "gotham",
+"start": 38.26,
+"end": 38.48,
+"startFrame": 918,
+"endFrame": 924
+},
+{
+"i": 106,
+"word": "in",
+"start": 38.94,
+"end": 39.0,
+"startFrame": 935,
+"endFrame": 936
+},
+{
+"i": 107,
+"word": "an",
+"start": 39.0,
+"end": 39.12,
+"startFrame": 936,
+"endFrame": 939
+},
+{
+"i": 108,
+"word": "apartment",
+"start": 39.12,
+"end": 39.48,
+"startFrame": 939,
+"endFrame": 948
+},
+{
+"i": 109,
+"word": "above",
+"start": 39.48,
+"end": 39.7,
+"startFrame": 948,
+"endFrame": 953
+},
+{
+"i": 110,
+"word": "your",
+"start": 39.78,
+"end": 39.88,
+"startFrame": 955,
+"endFrame": 957
+},
+{
+"i": 111,
+"word": "father's",
+"start": 39.88,
+"end": 40.26,
+"startFrame": 957,
+"endFrame": 966
+},
+{
+"i": 112,
+"word": "repair",
+"start": 40.38,
+"end": 40.5,
+"startFrame": 969,
+"endFrame": 972
+},
+{
+"i": 113,
+"word": "shop",
+"start": 40.5,
+"end": 40.7,
+"startFrame": 972,
+"endFrame": 977
+},
+{
+"i": 114,
+"word": "every",
+"start": 41.8,
+"end": 41.94,
+"startFrame": 1003,
+"endFrame": 1007
+},
+{
+"i": 115,
+"word": "night",
+"start": 41.94,
+"end": 42.38,
+"startFrame": 1007,
+"endFrame": 1017
+},
+{
+"i": 116,
+"word": "your",
+"start": 42.4,
+"end": 42.5,
+"startFrame": 1018,
+"endFrame": 1020
+},
+{
+"i": 117,
+"word": "father",
+"start": 42.58,
+"end": 42.8,
+"startFrame": 1022,
+"endFrame": 1027
+},
+{
+"i": 118,
+"word": "locked",
+"start": 42.8,
+"end": 43.1,
+"startFrame": 1027,
+"endFrame": 1034
+},
+{
+"i": 119,
+"word": "the",
+"start": 43.1,
+"end": 43.28,
+"startFrame": 1034,
+"endFrame": 1039
+},
+{
+"i": 120,
+"word": "front",
+"start": 43.3,
+"end": 43.46,
+"startFrame": 1039,
+"endFrame": 1043
+},
+{
+"i": 121,
+"word": "door",
+"start": 43.46,
+"end": 43.88,
+"startFrame": 1043,
+"endFrame": 1053
+},
+{
+"i": 122,
+"word": "checked",
+"start": 44.2,
+"end": 44.36,
+"startFrame": 1061,
+"endFrame": 1065
+},
+{
+"i": 123,
+"word": "it",
+"start": 44.38,
+"end": 44.56,
+"startFrame": 1065,
+"endFrame": 1069
+},
+{
+"i": 124,
+"word": "twice",
+"start": 44.56,
+"end": 44.82,
+"startFrame": 1069,
+"endFrame": 1076
+},
+{
+"i": 125,
+"word": "and",
+"start": 45.4,
+"end": 45.5,
+"startFrame": 1090,
+"endFrame": 1092
+},
+{
+"i": 126,
+"word": "left",
+"start": 45.5,
+"end": 45.62,
+"startFrame": 1092,
+"endFrame": 1095
+},
+{
+"i": 127,
+"word": "a",
+"start": 45.62,
+"end": 45.8,
+"startFrame": 1095,
+"endFrame": 1099
+},
+{
+"i": 128,
+"word": "small",
+"start": 45.8,
+"end": 46.12,
+"startFrame": 1099,
+"endFrame": 1107
+},
+{
+"i": 129,
+"word": "lamp",
+"start": 46.12,
+"end": 46.52,
+"startFrame": 1107,
+"endFrame": 1116
+},
+{
+"i": 130,
+"word": "burning",
+"start": 46.66,
+"end": 46.9,
+"startFrame": 1120,
+"endFrame": 1126
+},
+{
+"i": 131,
+"word": "in",
+"start": 46.9,
+"end": 47.08,
+"startFrame": 1126,
+"endFrame": 1130
+},
+{
+"i": 132,
+"word": "the",
+"start": 47.08,
+"end": 47.18,
+"startFrame": 1130,
+"endFrame": 1132
+},
+{
+"i": 133,
+"word": "window",
+"start": 47.18,
+"end": 47.52,
+"startFrame": 1132,
+"endFrame": 1140
+},
+{
+"i": 134,
+"word": "you",
+"start": 48.44,
+"end": 48.54,
+"startFrame": 1163,
+"endFrame": 1165
+},
+{
+"i": 135,
+"word": "once",
+"start": 48.54,
+"end": 48.74,
+"startFrame": 1165,
+"endFrame": 1170
+},
+{
+"i": 136,
+"word": "asked",
+"start": 48.74,
+"end": 48.98,
+"startFrame": 1170,
+"endFrame": 1176
+},
+{
+"i": 137,
+"word": "him",
+"start": 49.02,
+"end": 49.14,
+"startFrame": 1176,
+"endFrame": 1179
+},
+{
+"i": 138,
+"word": "why",
+"start": 49.14,
+"end": 49.3,
+"startFrame": 1179,
+"endFrame": 1183
+},
+{
+"i": 139,
+"word": "he",
+"start": 49.44,
+"end": 49.44,
+"startFrame": 1187,
+"endFrame": 1187
+},
+{
+"i": 140,
+"word": "bothered",
+"start": 49.44,
+"end": 49.54,
+"startFrame": 1187,
+"endFrame": 1189
+},
+{
+"i": 141,
+"word": "a",
+"start": 50.62,
+"end": 50.62,
+"startFrame": 1215,
+"endFrame": 1215
+},
+{
+"i": 142,
+"word": "lamp",
+"start": 50.62,
+"end": 50.9,
+"startFrame": 1215,
+"endFrame": 1222
+},
+{
+"i": 143,
+"word": "wasn't",
+"start": 51.02,
+"end": 51.14,
+"startFrame": 1224,
+"endFrame": 1227
+},
+{
+"i": 144,
+"word": "going",
+"start": 51.14,
+"end": 51.3,
+"startFrame": 1227,
+"endFrame": 1231
+},
+{
+"i": 145,
+"word": "to",
+"start": 51.34,
+"end": 51.44,
+"startFrame": 1232,
+"endFrame": 1235
+},
+{
+"i": 146,
+"word": "stop",
+"start": 51.44,
+"end": 51.62,
+"startFrame": 1235,
+"endFrame": 1239
+},
+{
+"i": 147,
+"word": "a",
+"start": 51.74,
+"end": 51.84,
+"startFrame": 1242,
+"endFrame": 1244
+},
+{
+"i": 148,
+"word": "criminal",
+"start": 51.84,
+"end": 52.04,
+"startFrame": 1244,
+"endFrame": 1249
+},
+{
+"i": 149,
+"word": "no",
+"start": 53.42,
+"end": 53.62,
+"startFrame": 1282,
+"endFrame": 1287
+},
+{
+"i": 150,
+"word": "he",
+"start": 53.7,
+"end": 53.7,
+"startFrame": 1289,
+"endFrame": 1289
+},
+{
+"i": 151,
+"word": "said",
+"start": 53.7,
+"end": 53.96,
+"startFrame": 1289,
+"endFrame": 1295
+},
+{
+"i": 152,
+"word": "but",
+"start": 54.7,
+"end": 54.78,
+"startFrame": 1313,
+"endFrame": 1315
+},
+{
+"i": 153,
+"word": "it",
+"start": 54.78,
+"end": 54.92,
+"startFrame": 1315,
+"endFrame": 1318
+},
+{
+"i": 154,
+"word": "tells",
+"start": 54.94,
+"end": 55.14,
+"startFrame": 1319,
+"endFrame": 1323
+},
+{
+"i": 155,
+"word": "you",
+"start": 55.14,
+"end": 55.34,
+"startFrame": 1323,
+"endFrame": 1328
+},
+{
+"i": 156,
+"word": "which",
+"start": 55.44,
+"end": 55.54,
+"startFrame": 1331,
+"endFrame": 1333
+},
+{
+"i": 157,
+"word": "window",
+"start": 55.54,
+"end": 55.88,
+"startFrame": 1333,
+"endFrame": 1341
+},
+{
+"i": 158,
+"word": "is",
+"start": 55.88,
+"end": 56.14,
+"startFrame": 1341,
+"endFrame": 1347
+},
+{
+"i": 159,
+"word": "home",
+"start": 56.14,
+"end": 56.42,
+"startFrame": 1347,
+"endFrame": 1354
+},
+{
+"i": 160,
+"word": "the",
+"start": 57.62,
+"end": 57.7,
+"startFrame": 1383,
+"endFrame": 1385
+},
+{
+"i": 161,
+"word": "night",
+"start": 57.7,
+"end": 57.82,
+"startFrame": 1385,
+"endFrame": 1388
+},
+{
+"i": 162,
+"word": "you",
+"start": 57.82,
+"end": 57.98,
+"startFrame": 1388,
+"endFrame": 1392
+},
+{
+"i": 163,
+"word": "graduate",
+"start": 57.98,
+"end": 58.36,
+"startFrame": 1392,
+"endFrame": 1401
+},
+{
+"i": 164,
+"word": "from",
+"start": 58.36,
+"end": 58.56,
+"startFrame": 1401,
+"endFrame": 1405
+},
+{
+"i": 165,
+"word": "the",
+"start": 58.56,
+"end": 58.72,
+"startFrame": 1405,
+"endFrame": 1409
+},
+{
+"i": 166,
+"word": "academy",
+"start": 58.72,
+"end": 59.06,
+"startFrame": 1409,
+"endFrame": 1417
+},
+{
+"i": 167,
+"word": "he",
+"start": 59.52,
+"end": 59.54,
+"startFrame": 1428,
+"endFrame": 1429
+},
+{
+"i": 168,
+"word": "gives",
+"start": 59.54,
+"end": 59.68,
+"startFrame": 1429,
+"endFrame": 1432
+},
+{
+"i": 169,
+"word": "you",
+"start": 59.68,
+"end": 59.82,
+"startFrame": 1432,
+"endFrame": 1436
+},
+{
+"i": 170,
+"word": "an",
+"start": 59.82,
+"end": 59.96,
+"startFrame": 1436,
+"endFrame": 1439
+},
+{
+"i": 171,
+"word": "old",
+"start": 59.96,
+"end": 60.24,
+"startFrame": 1439,
+"endFrame": 1446
+},
+{
+"i": 172,
+"word": "flashlight",
+"start": 60.24,
+"end": 60.59,
+"startFrame": 1446,
+"endFrame": 1454
+},
+{
+"i": 173,
+"word": "the",
+"start": 61.7,
+"end": 61.82,
+"startFrame": 1481,
+"endFrame": 1484
+},
+{
+"i": 174,
+"word": "metal",
+"start": 61.82,
+"end": 62.0,
+"startFrame": 1484,
+"endFrame": 1488
+},
+{
+"i": 175,
+"word": "is",
+"start": 62.0,
+"end": 62.24,
+"startFrame": 1488,
+"endFrame": 1494
+},
+{
+"i": 176,
+"word": "scratched",
+"start": 62.24,
+"end": 62.84,
+"startFrame": 1494,
+"endFrame": 1508
+},
+{
+"i": 177,
+"word": "the",
+"start": 62.98,
+"end": 63.1,
+"startFrame": 1512,
+"endFrame": 1514
+},
+{
+"i": 178,
+"word": "switch",
+"start": 63.1,
+"end": 63.3,
+"startFrame": 1514,
+"endFrame": 1519
+},
+{
+"i": 179,
+"word": "is",
+"start": 63.3,
+"end": 63.58,
+"startFrame": 1519,
+"endFrame": 1526
+},
+{
+"i": 180,
+"word": "loose",
+"start": 63.58,
+"end": 63.8,
+"startFrame": 1526,
+"endFrame": 1531
+},
+{
+"i": 181,
+"word": "and",
+"start": 64.22,
+"end": 64.32,
+"startFrame": 1541,
+"endFrame": 1544
+},
+{
+"i": 182,
+"word": "the",
+"start": 64.32,
+"end": 64.5,
+"startFrame": 1544,
+"endFrame": 1548
+},
+{
+"i": 183,
+"word": "beam",
+"start": 64.5,
+"end": 64.68,
+"startFrame": 1548,
+"endFrame": 1552
+},
+{
+"i": 184,
+"word": "flickers",
+"start": 64.68,
+"end": 65.16,
+"startFrame": 1552,
+"endFrame": 1564
+},
+{
+"i": 185,
+"word": "when",
+"start": 65.28,
+"end": 65.4,
+"startFrame": 1567,
+"endFrame": 1570
+},
+{
+"i": 186,
+"word": "you",
+"start": 65.4,
+"end": 65.58,
+"startFrame": 1570,
+"endFrame": 1574
+},
+{
+"i": 187,
+"word": "shake",
+"start": 65.58,
+"end": 65.74,
+"startFrame": 1574,
+"endFrame": 1578
+},
+{
+"i": 188,
+"word": "it",
+"start": 65.74,
+"end": 65.84,
+"startFrame": 1578,
+"endFrame": 1580
+},
+{
+"i": 189,
+"word": "you",
+"start": 66.82,
+"end": 66.94,
+"startFrame": 1604,
+"endFrame": 1607
+},
+{
+"i": 190,
+"word": "laugh",
+"start": 66.94,
+"end": 67.26,
+"startFrame": 1607,
+"endFrame": 1614
+},
+{
+"i": 191,
+"word": "he",
+"start": 68.36,
+"end": 68.46,
+"startFrame": 1641,
+"endFrame": 1643
+},
+{
+"i": 192,
+"word": "doesn't",
+"start": 68.46,
+"end": 68.7,
+"startFrame": 1643,
+"endFrame": 1649
+},
+{
+"i": 193,
+"word": "keep",
+"start": 69.78,
+"end": 69.88,
+"startFrame": 1675,
+"endFrame": 1677
+},
+{
+"i": 194,
+"word": "it",
+"start": 69.88,
+"end": 69.98,
+"startFrame": 1677,
+"endFrame": 1680
+},
+{
+"i": 195,
+"word": "he",
+"start": 70.7,
+"end": 70.8,
+"startFrame": 1697,
+"endFrame": 1699
+},
+{
+"i": 196,
+"word": "says",
+"start": 70.8,
+"end": 70.98,
+"startFrame": 1699,
+"endFrame": 1704
+},
+{
+"i": 197,
+"word": "just",
+"start": 72.1,
+"end": 72.22,
+"startFrame": 1730,
+"endFrame": 1733
+},
+{
+"i": 198,
+"word": "in",
+"start": 72.22,
+"end": 72.36,
+"startFrame": 1733,
+"endFrame": 1737
+},
+{
+"i": 199,
+"word": "case",
+"start": 72.36,
+"end": 72.48,
+"startFrame": 1737,
+"endFrame": 1740
+},
+{
+"i": 200,
+"word": "the",
+"start": 72.48,
+"end": 72.68,
+"startFrame": 1740,
+"endFrame": 1744
+},
+{
+"i": 201,
+"word": "lights",
+"start": 72.68,
+"end": 72.84,
+"startFrame": 1744,
+"endFrame": 1748
+},
+{
+"i": 202,
+"word": "go",
+"start": 72.84,
+"end": 73.06,
+"startFrame": 1748,
+"endFrame": 1753
+},
+{
+"i": 203,
+"word": "out",
+"start": 73.06,
+"end": 73.22,
+"startFrame": 1753,
+"endFrame": 1757
+},
+{
+"i": 204,
+"word": "your",
+"start": 74.34,
+"end": 74.48,
+"startFrame": 1784,
+"endFrame": 1788
+},
+{
+"i": 205,
+"word": "first",
+"start": 74.5,
+"end": 74.7,
+"startFrame": 1788,
+"endFrame": 1793
+},
+{
+"i": 206,
+"word": "partner",
+"start": 74.74,
+"end": 75.0,
+"startFrame": 1794,
+"endFrame": 1800
+},
+{
+"i": 207,
+"word": "is",
+"start": 75.0,
+"end": 75.24,
+"startFrame": 1800,
+"endFrame": 1806
+},
+{
+"i": 208,
+"word": "officer",
+"start": 75.24,
+"end": 75.6,
+"startFrame": 1806,
+"endFrame": 1814
+},
+{
+"i": 209,
+"word": "mara",
+"start": 75.6,
+"end": 75.9,
+"startFrame": 1814,
+"endFrame": 1822
+},
+{
+"i": 210,
+"word": "bennett",
+"start": 75.9,
+"end": 76.2,
+"startFrame": 1822,
+"endFrame": 1829
+},
+{
+"i": 211,
+"word": "she's",
+"start": 76.96,
+"end": 77.1,
+"startFrame": 1847,
+"endFrame": 1850
+},
+{
+"i": 212,
+"word": "been",
+"start": 77.1,
+"end": 77.22,
+"startFrame": 1850,
+"endFrame": 1853
+},
+{
+"i": 213,
+"word": "with",
+"start": 77.22,
+"end": 77.34,
+"startFrame": 1853,
+"endFrame": 1856
+},
+{
+"i": 214,
+"word": "the",
+"start": 77.34,
+"end": 77.5,
+"startFrame": 1856,
+"endFrame": 1860
+},
+{
+"i": 215,
+"word": "gotham",
+"start": 77.5,
+"end": 77.7,
+"startFrame": 1860,
+"endFrame": 1865
+},
+{
+"i": 216,
+"word": "police",
+"start": 77.7,
+"end": 78.06,
+"startFrame": 1865,
+"endFrame": 1873
+},
+{
+"i": 217,
+"word": "long",
+"start": 78.06,
+"end": 78.4,
+"startFrame": 1873,
+"endFrame": 1882
+},
+{
+"i": 218,
+"word": "enough",
+"start": 78.4,
+"end": 78.58,
+"startFrame": 1882,
+"endFrame": 1886
+},
+{
+"i": 219,
+"word": "to",
+"start": 78.66,
+"end": 78.76,
+"startFrame": 1888,
+"endFrame": 1890
+},
+{
+"i": 220,
+"word": "remember",
+"start": 78.76,
+"end": 79.08,
+"startFrame": 1890,
+"endFrame": 1898
+},
+{
+"i": 221,
+"word": "when",
+"start": 79.08,
+"end": 79.26,
+"startFrame": 1898,
+"endFrame": 1902
+},
+{
+"i": 222,
+"word": "the",
+"start": 79.26,
+"end": 79.44,
+"startFrame": 1902,
+"endFrame": 1907
+},
+{
+"i": 223,
+"word": "station",
+"start": 79.46,
+"end": 79.74,
+"startFrame": 1907,
+"endFrame": 1914
+},
+{
+"i": 224,
+"word": "windows",
+"start": 79.74,
+"end": 80.1,
+"startFrame": 1914,
+"endFrame": 1922
+},
+{
+"i": 225,
+"word": "weren't",
+"start": 80.1,
+"end": 80.36,
+"startFrame": 1922,
+"endFrame": 1929
+},
+{
+"i": 226,
+"word": "reinforced",
+"start": 80.36,
+"end": 80.9,
+"startFrame": 1929,
+"endFrame": 1942
+},
+{
+"i": 227,
+"word": "on",
+"start": 82.22,
+"end": 82.32,
+"startFrame": 1973,
+"endFrame": 1976
+},
+{
+"i": 228,
+"word": "your",
+"start": 82.32,
+"end": 82.44,
+"startFrame": 1976,
+"endFrame": 1979
+},
+{
+"i": 229,
+"word": "first",
+"start": 82.44,
+"end": 82.66,
+"startFrame": 1979,
+"endFrame": 1984
+},
+{
+"i": 230,
+"word": "patrol",
+"start": 82.66,
+"end": 83.21,
+"startFrame": 1984,
+"endFrame": 1997
+},
+{
+"i": 231,
+"word": "you",
+"start": 83.34,
+"end": 83.34,
+"startFrame": 2000,
+"endFrame": 2000
+},
+{
+"i": 232,
+"word": "pass",
+"start": 83.34,
+"end": 83.64,
+"startFrame": 2000,
+"endFrame": 2007
+},
+{
+"i": 233,
+"word": "the",
+"start": 83.64,
+"end": 83.86,
+"startFrame": 2007,
+"endFrame": 2013
+},
+{
+"i": 234,
+"word": "ruins",
+"start": 83.86,
+"end": 84.08,
+"startFrame": 2013,
+"endFrame": 2018
+},
+{
+"i": 235,
+"word": "of",
+"start": 84.08,
+"end": 84.3,
+"startFrame": 2018,
+"endFrame": 2023
+},
+{
+"i": 236,
+"word": "a",
+"start": 84.3,
+"end": 84.5,
+"startFrame": 2023,
+"endFrame": 2028
+},
+{
+"i": 237,
+"word": "bank",
+"start": 84.5,
+"end": 84.66,
+"startFrame": 2028,
+"endFrame": 2032
+},
+{
+"i": 238,
+"word": "half",
+"start": 85.52,
+"end": 85.62,
+"startFrame": 2052,
+"endFrame": 2055
+},
+{
+"i": 239,
+"word": "the",
+"start": 85.62,
+"end": 85.76,
+"startFrame": 2055,
+"endFrame": 2058
+},
+{
+"i": 240,
+"word": "front",
+"start": 85.78,
+"end": 85.92,
+"startFrame": 2059,
+"endFrame": 2062
+},
+{
+"i": 241,
+"word": "wall",
+"start": 85.92,
+"end": 86.22,
+"startFrame": 2062,
+"endFrame": 2069
+},
+{
+"i": 242,
+"word": "is",
+"start": 86.22,
+"end": 86.46,
+"startFrame": 2069,
+"endFrame": 2075
+},
+{
+"i": 243,
+"word": "gone",
+"start": 86.46,
+"end": 86.72,
+"startFrame": 2075,
+"endFrame": 2081
+},
+{
+"i": 244,
+"word": "reporters",
+"start": 87.82,
+"end": 88.12,
+"startFrame": 2108,
+"endFrame": 2115
+},
+{
+"i": 245,
+"word": "crowd",
+"start": 88.12,
+"end": 88.46,
+"startFrame": 2115,
+"endFrame": 2123
+},
+{
+"i": 246,
+"word": "behind",
+"start": 88.46,
+"end": 88.72,
+"startFrame": 2123,
+"endFrame": 2129
+},
+{
+"i": 247,
+"word": "a",
+"start": 88.72,
+"end": 88.92,
+"startFrame": 2129,
+"endFrame": 2134
+},
+{
+"i": 248,
+"word": "barricade",
+"start": 88.92,
+"end": 89.46,
+"startFrame": 2134,
+"endFrame": 2147
+},
+{
+"i": 249,
+"word": "waiting",
+"start": 89.74,
+"end": 89.92,
+"startFrame": 2154,
+"endFrame": 2158
+},
+{
+"i": 250,
+"word": "for",
+"start": 89.92,
+"end": 90.12,
+"startFrame": 2158,
+"endFrame": 2163
+},
+{
+"i": 251,
+"word": "someone",
+"start": 90.12,
+"end": 90.32,
+"startFrame": 2163,
+"endFrame": 2168
+},
+{
+"i": 252,
+"word": "to",
+"start": 90.32,
+"end": 90.46,
+"startFrame": 2168,
+"endFrame": 2171
+},
+{
+"i": 253,
+"word": "say",
+"start": 90.46,
+"end": 90.62,
+"startFrame": 2171,
+"endFrame": 2175
+},
+{
+"i": 254,
+"word": "the",
+"start": 90.62,
+"end": 90.82,
+"startFrame": 2175,
+"endFrame": 2180
+},
+{
+"i": 255,
+"word": "joker's",
+"start": 90.82,
+"end": 91.26,
+"startFrame": 2180,
+"endFrame": 2190
+},
+{
+"i": 256,
+"word": "name",
+"start": 91.26,
+"end": 91.5,
+"startFrame": 2190,
+"endFrame": 2196
+},
+{
+"i": 257,
+"word": "mara",
+"start": 92.5,
+"end": 92.66,
+"startFrame": 2220,
+"endFrame": 2224
+},
+{
+"i": 258,
+"word": "walks",
+"start": 92.66,
+"end": 92.94,
+"startFrame": 2224,
+"endFrame": 2231
+},
+{
+"i": 259,
+"word": "past",
+"start": 92.94,
+"end": 93.22,
+"startFrame": 2231,
+"endFrame": 2237
+},
+{
+"i": 260,
+"word": "them",
+"start": 93.22,
+"end": 93.44,
+"startFrame": 2237,
+"endFrame": 2243
+},
+{
+"i": 261,
+"word": "and",
+"start": 93.44,
+"end": 93.58,
+"startFrame": 2243,
+"endFrame": 2246
+},
+{
+"i": 262,
+"word": "stops",
+"start": 93.58,
+"end": 93.82,
+"startFrame": 2246,
+"endFrame": 2252
+},
+{
+"i": 263,
+"word": "beside",
+"start": 93.82,
+"end": 94.14,
+"startFrame": 2252,
+"endFrame": 2259
+},
+{
+"i": 264,
+"word": "a",
+"start": 94.14,
+"end": 94.34,
+"startFrame": 2259,
+"endFrame": 2264
+},
+{
+"i": 265,
+"word": "bank",
+"start": 94.34,
+"end": 94.52,
+"startFrame": 2264,
+"endFrame": 2268
+},
+{
+"i": 266,
+"word": "employee",
+"start": 94.68,
+"end": 94.94,
+"startFrame": 2272,
+"endFrame": 2279
+},
+{
+"i": 267,
+"word": "sitting",
+"start": 95.04,
+"end": 95.26,
+"startFrame": 2281,
+"endFrame": 2286
+},
+{
+"i": 268,
+"word": "on",
+"start": 95.26,
+"end": 95.42,
+"startFrame": 2286,
+"endFrame": 2290
+},
+{
+"i": 269,
+"word": "the",
+"start": 95.48,
+"end": 95.58,
+"startFrame": 2292,
+"endFrame": 2294
+},
+{
+"i": 270,
+"word": "curb",
+"start": 95.58,
+"end": 95.7,
+"startFrame": 2294,
+"endFrame": 2297
+},
+{
+"i": 271,
+"word": "the",
+"start": 96.58,
+"end": 96.72,
+"startFrame": 2318,
+"endFrame": 2321
+},
+{
+"i": 272,
+"word": "woman",
+"start": 96.72,
+"end": 96.92,
+"startFrame": 2321,
+"endFrame": 2326
+},
+{
+"i": 273,
+"word": "keeps",
+"start": 96.92,
+"end": 97.22,
+"startFrame": 2326,
+"endFrame": 2333
+},
+{
+"i": 274,
+"word": "staring",
+"start": 97.22,
+"end": 97.6,
+"startFrame": 2333,
+"endFrame": 2342
+},
+{
+"i": 275,
+"word": "at",
+"start": 97.6,
+"end": 97.74,
+"startFrame": 2342,
+"endFrame": 2346
+},
+{
+"i": 276,
+"word": "her",
+"start": 97.78,
+"end": 97.88,
+"startFrame": 2347,
+"endFrame": 2349
+},
+{
+"i": 277,
+"word": "hands",
+"start": 97.88,
+"end": 98.02,
+"startFrame": 2349,
+"endFrame": 2352
+},
+{
+"i": 278,
+"word": "her",
+"start": 99.34,
+"end": 99.34,
+"startFrame": 2384,
+"endFrame": 2384
+},
+{
+"i": 279,
+"word": "brother",
+"start": 99.34,
+"end": 99.58,
+"startFrame": 2384,
+"endFrame": 2390
+},
+{
+"i": 280,
+"word": "worked",
+"start": 99.58,
+"end": 99.9,
+"startFrame": 2390,
+"endFrame": 2398
+},
+{
+"i": 281,
+"word": "inside",
+"start": 99.9,
+"end": 100.3,
+"startFrame": 2398,
+"endFrame": 2407
+},
+{
+"i": 282,
+"word": "no",
+"start": 101.28,
+"end": 101.38,
+"startFrame": 2431,
+"endFrame": 2433
+},
+{
+"i": 283,
+"word": "one",
+"start": 101.38,
+"end": 101.48,
+"startFrame": 2433,
+"endFrame": 2436
+},
+{
+"i": 284,
+"word": "has",
+"start": 101.48,
+"end": 101.66,
+"startFrame": 2436,
+"endFrame": 2440
+},
+{
+"i": 285,
+"word": "told",
+"start": 101.66,
+"end": 101.86,
+"startFrame": 2440,
+"endFrame": 2445
+},
+{
+"i": 286,
+"word": "her",
+"start": 101.86,
+"end": 102.02,
+"startFrame": 2445,
+"endFrame": 2448
+},
+{
+"i": 287,
+"word": "whether",
+"start": 102.02,
+"end": 102.18,
+"startFrame": 2448,
+"endFrame": 2452
+},
+{
+"i": 288,
+"word": "he",
+"start": 102.18,
+"end": 102.32,
+"startFrame": 2452,
+"endFrame": 2456
+},
+{
+"i": 289,
+"word": "made",
+"start": 102.32,
+"end": 102.5,
+"startFrame": 2456,
+"endFrame": 2460
+},
+{
+"i": 290,
+"word": "it",
+"start": 102.5,
+"end": 102.62,
+"startFrame": 2460,
+"endFrame": 2463
+},
+{
+"i": 291,
+"word": "out",
+"start": 102.62,
+"end": 102.8,
+"startFrame": 2463,
+"endFrame": 2467
+},
+{
+"i": 292,
+"word": "you",
+"start": 103.9,
+"end": 103.98,
+"startFrame": 2494,
+"endFrame": 2496
+},
+{
+"i": 293,
+"word": "want",
+"start": 103.98,
+"end": 104.14,
+"startFrame": 2496,
+"endFrame": 2499
+},
+{
+"i": 294,
+"word": "to",
+"start": 104.14,
+"end": 104.28,
+"startFrame": 2499,
+"endFrame": 2503
+},
+{
+"i": 295,
+"word": "chase",
+"start": 104.28,
+"end": 104.4,
+"startFrame": 2503,
+"endFrame": 2506
+},
+{
+"i": 296,
+"word": "the",
+"start": 104.4,
+"end": 104.58,
+"startFrame": 2506,
+"endFrame": 2510
+},
+{
+"i": 297,
+"word": "story",
+"start": 104.58,
+"end": 104.9,
+"startFrame": 2510,
+"endFrame": 2518
+},
+{
+"i": 298,
+"word": "mara",
+"start": 105.88,
+"end": 106.02,
+"startFrame": 2541,
+"endFrame": 2544
+},
+{
+"i": 299,
+"word": "hands",
+"start": 106.02,
+"end": 106.32,
+"startFrame": 2544,
+"endFrame": 2552
+},
+{
+"i": 300,
+"word": "you",
+"start": 106.32,
+"end": 106.46,
+"startFrame": 2552,
+"endFrame": 2555
+},
+{
+"i": 301,
+"word": "a",
+"start": 106.46,
+"end": 106.64,
+"startFrame": 2555,
+"endFrame": 2559
+},
+{
+"i": 302,
+"word": "bottle",
+"start": 106.64,
+"end": 106.78,
+"startFrame": 2559,
+"endFrame": 2563
+},
+{
+"i": 303,
+"word": "of",
+"start": 106.78,
+"end": 107.0,
+"startFrame": 2563,
+"endFrame": 2568
+},
+{
+"i": 304,
+"word": "water",
+"start": 107.0,
+"end": 107.2,
+"startFrame": 2568,
+"endFrame": 2573
+},
+{
+"i": 305,
+"word": "and",
+"start": 107.2,
+"end": 107.4,
+"startFrame": 2573,
+"endFrame": 2578
+},
+{
+"i": 306,
+"word": "asks",
+"start": 107.4,
+"end": 107.62,
+"startFrame": 2578,
+"endFrame": 2583
+},
+{
+"i": 307,
+"word": "you",
+"start": 107.62,
+"end": 107.76,
+"startFrame": 2583,
+"endFrame": 2586
+},
+{
+"i": 308,
+"word": "to",
+"start": 107.76,
+"end": 107.94,
+"startFrame": 2586,
+"endFrame": 2591
+},
+{
+"i": 309,
+"word": "stay",
+"start": 107.98,
+"end": 108.12,
+"startFrame": 2592,
+"endFrame": 2595
+},
+{
+"i": 310,
+"word": "with",
+"start": 108.12,
+"end": 108.28,
+"startFrame": 2595,
+"endFrame": 2599
+},
+{
+"i": 311,
+"word": "the",
+"start": 108.32,
+"end": 108.42,
+"startFrame": 2600,
+"endFrame": 2602
+},
+{
+"i": 312,
+"word": "woman",
+"start": 108.42,
+"end": 108.58,
+"startFrame": 2602,
+"endFrame": 2606
+},
+{
+"i": 313,
+"word": "while",
+"start": 108.58,
+"end": 108.8,
+"startFrame": 2606,
+"endFrame": 2611
+},
+{
+"i": 314,
+"word": "she",
+"start": 108.8,
+"end": 108.94,
+"startFrame": 2611,
+"endFrame": 2615
+},
+{
+"i": 315,
+"word": "finds",
+"start": 109.02,
+"end": 109.2,
+"startFrame": 2616,
+"endFrame": 2621
+},
+{
+"i": 316,
+"word": "out",
+"start": 109.2,
+"end": 109.4,
+"startFrame": 2621,
+"endFrame": 2626
+},
+{
+"i": 317,
+"word": "twenty",
+"start": 110.5,
+"end": 110.66,
+"startFrame": 2652,
+"endFrame": 2656
+},
+{
+"i": 318,
+"word": "minutes",
+"start": 110.66,
+"end": 110.84,
+"startFrame": 2656,
+"endFrame": 2660
+},
+{
+"i": 319,
+"word": "later",
+"start": 110.84,
+"end": 111.26,
+"startFrame": 2660,
+"endFrame": 2670
+},
+{
+"i": 320,
+"word": "mara",
+"start": 111.26,
+"end": 111.46,
+"startFrame": 2670,
+"endFrame": 2675
+},
+{
+"i": 321,
+"word": "comes",
+"start": 111.46,
+"end": 111.7,
+"startFrame": 2675,
+"endFrame": 2681
+},
+{
+"i": 322,
+"word": "back",
+"start": 111.7,
+"end": 111.92,
+"startFrame": 2681,
+"endFrame": 2686
+},
+{
+"i": 323,
+"word": "the",
+"start": 112.88,
+"end": 113.0,
+"startFrame": 2709,
+"endFrame": 2712
+},
+{
+"i": 324,
+"word": "woman's",
+"start": 113.24,
+"end": 113.34,
+"startFrame": 2718,
+"endFrame": 2720
+},
+{
+"i": 325,
+"word": "brother",
+"start": 113.34,
+"end": 113.52,
+"startFrame": 2720,
+"endFrame": 2724
+},
+{
+"i": 326,
+"word": "is",
+"start": 113.52,
+"end": 113.7,
+"startFrame": 2724,
+"endFrame": 2729
+},
+{
+"i": 327,
+"word": "alive",
+"start": 113.7,
+"end": 114.08,
+"startFrame": 2729,
+"endFrame": 2738
+},
+{
+"i": 328,
+"word": "he",
+"start": 114.78,
+"end": 114.9,
+"startFrame": 2755,
+"endFrame": 2758
+},
+{
+"i": 329,
+"word": "was",
+"start": 114.94,
+"end": 115.04,
+"startFrame": 2759,
+"endFrame": 2761
+},
+{
+"i": 330,
+"word": "taken",
+"start": 115.04,
+"end": 115.2,
+"startFrame": 2761,
+"endFrame": 2765
+},
+{
+"i": 331,
+"word": "to",
+"start": 115.2,
+"end": 115.32,
+"startFrame": 2765,
+"endFrame": 2768
+},
+{
+"i": 332,
+"word": "a",
+"start": 115.32,
+"end": 115.5,
+"startFrame": 2768,
+"endFrame": 2772
+},
+{
+"i": 333,
+"word": "hospital",
+"start": 115.5,
+"end": 115.78,
+"startFrame": 2772,
+"endFrame": 2779
+},
+{
+"i": 334,
+"word": "across",
+"start": 115.78,
+"end": 116.08,
+"startFrame": 2779,
+"endFrame": 2786
+},
+{
+"i": 335,
+"word": "town",
+"start": 116.08,
+"end": 116.46,
+"startFrame": 2786,
+"endFrame": 2795
+},
+{
+"i": 336,
+"word": "there",
+"start": 117.6,
+"end": 117.72,
+"startFrame": 2822,
+"endFrame": 2825
+},
+{
+"i": 337,
+"word": "are",
+"start": 117.72,
+"end": 117.82,
+"startFrame": 2825,
+"endFrame": 2828
+},
+{
+"i": 338,
+"word": "no",
+"start": 117.82,
+"end": 117.94,
+"startFrame": 2828,
+"endFrame": 2831
+},
+{
+"i": 339,
+"word": "cameras",
+"start": 118.06,
+"end": 118.34,
+"startFrame": 2833,
+"endFrame": 2840
+},
+{
+"i": 340,
+"word": "when",
+"start": 118.34,
+"end": 118.54,
+"startFrame": 2840,
+"endFrame": 2845
+},
+{
+"i": 341,
+"word": "she",
+"start": 118.54,
+"end": 118.66,
+"startFrame": 2845,
+"endFrame": 2848
+},
+{
+"i": 342,
+"word": "tells",
+"start": 118.72,
+"end": 118.92,
+"startFrame": 2849,
+"endFrame": 2854
+},
+{
+"i": 343,
+"word": "her",
+"start": 118.92,
+"end": 119.42,
+"startFrame": 2854,
+"endFrame": 2866
+},
+{
+"i": 344,
+"word": "the",
+"start": 119.94,
+"end": 120.04,
+"startFrame": 2879,
+"endFrame": 2881
+},
+{
+"i": 345,
+"word": "reporters",
+"start": 120.04,
+"end": 120.4,
+"startFrame": 2881,
+"endFrame": 2890
+},
+{
+"i": 346,
+"word": "are",
+"start": 120.4,
+"end": 120.6,
+"startFrame": 2890,
+"endFrame": 2894
+},
+{
+"i": 347,
+"word": "still",
+"start": 120.6,
+"end": 120.78,
+"startFrame": 2894,
+"endFrame": 2899
+},
+{
+"i": 348,
+"word": "pointing",
+"start": 120.78,
+"end": 121.12,
+"startFrame": 2899,
+"endFrame": 2907
+},
+{
+"i": 349,
+"word": "their",
+"start": 121.12,
+"end": 121.32,
+"startFrame": 2907,
+"endFrame": 2912
+},
+{
+"i": 350,
+"word": "lenses",
+"start": 121.32,
+"end": 121.6,
+"startFrame": 2912,
+"endFrame": 2918
+},
+{
+"i": 351,
+"word": "at",
+"start": 121.6,
+"end": 121.82,
+"startFrame": 2918,
+"endFrame": 2924
+},
+{
+"i": 352,
+"word": "the",
+"start": 121.82,
+"end": 121.92,
+"startFrame": 2924,
+"endFrame": 2926
+},
+{
+"i": 353,
+"word": "hole",
+"start": 121.92,
+"end": 122.14,
+"startFrame": 2926,
+"endFrame": 2931
+},
+{
+"i": 354,
+"word": "in",
+"start": 122.14,
+"end": 122.3,
+"startFrame": 2931,
+"endFrame": 2935
+},
+{
+"i": 355,
+"word": "the",
+"start": 122.3,
+"end": 122.46,
+"startFrame": 2935,
+"endFrame": 2939
+},
+{
+"i": 356,
+"word": "wall",
+"start": 122.46,
+"end": 123.01,
+"startFrame": 2939,
+"endFrame": 2952
+},
+{
+"i": 357,
+"word": "that",
+"start": 123.84,
+"end": 123.84,
+"startFrame": 2972,
+"endFrame": 2972
+},
+{
+"i": 358,
+"word": "night",
+"start": 123.84,
+"end": 124.1,
+"startFrame": 2972,
+"endFrame": 2978
+},
+{
+"i": 359,
+"word": "you",
+"start": 124.56,
+"end": 124.56,
+"startFrame": 2989,
+"endFrame": 2989
+},
+{
+"i": 360,
+"word": "see",
+"start": 124.56,
+"end": 124.68,
+"startFrame": 2989,
+"endFrame": 2992
+},
+{
+"i": 361,
+"word": "the",
+"start": 124.68,
+"end": 124.84,
+"startFrame": 2992,
+"endFrame": 2996
+},
+{
+"i": 362,
+"word": "bat",
+"start": 125.1,
+"end": 125.42,
+"startFrame": 3002,
+"endFrame": 3010
+},
+{
+"i": 363,
+"word": "signal",
+"start": 125.1,
+"end": 125.42,
+"startFrame": 3002,
+"endFrame": 3010
+},
+{
+"i": 364,
+"word": "for",
+"start": 125.42,
+"end": 125.6,
+"startFrame": 3010,
+"endFrame": 3014
+},
+{
+"i": 365,
+"word": "the",
+"start": 125.6,
+"end": 125.7,
+"startFrame": 3014,
+"endFrame": 3017
+},
+{
+"i": 366,
+"word": "first",
+"start": 125.74,
+"end": 125.88,
+"startFrame": 3018,
+"endFrame": 3021
+},
+{
+"i": 367,
+"word": "time",
+"start": 125.88,
+"end": 126.2,
+"startFrame": 3021,
+"endFrame": 3029
+},
+{
+"i": 368,
+"word": "a",
+"start": 127.0,
+"end": 127.0,
+"startFrame": 3048,
+"endFrame": 3048
+},
+{
+"i": 369,
+"word": "great",
+"start": 127.0,
+"end": 127.3,
+"startFrame": 3048,
+"endFrame": 3055
+},
+{
+"i": 370,
+"word": "black",
+"start": 127.42,
+"end": 127.68,
+"startFrame": 3058,
+"endFrame": 3064
+},
+{
+"i": 371,
+"word": "shape",
+"start": 127.72,
+"end": 128.2,
+"startFrame": 3065,
+"endFrame": 3077
+},
+{
+"i": 372,
+"word": "against",
+"start": 128.36,
+"end": 128.66,
+"startFrame": 3081,
+"endFrame": 3088
+},
+{
+"i": 373,
+"word": "the",
+"start": 128.8,
+"end": 128.9,
+"startFrame": 3091,
+"endFrame": 3094
+},
+{
+"i": 374,
+"word": "clouds",
+"start": 128.9,
+"end": 129.2,
+"startFrame": 3094,
+"endFrame": 3101
+},
+{
+"i": 375,
+"word": "for",
+"start": 130.02,
+"end": 130.1,
+"startFrame": 3120,
+"endFrame": 3122
+},
+{
+"i": 376,
+"word": "a",
+"start": 130.1,
+"end": 130.3,
+"startFrame": 3122,
+"endFrame": 3127
+},
+{
+"i": 377,
+"word": "moment",
+"start": 130.3,
+"end": 130.56,
+"startFrame": 3127,
+"endFrame": 3133
+},
+{
+"i": 378,
+"word": "even",
+"start": 130.96,
+"end": 130.96,
+"startFrame": 3143,
+"endFrame": 3143
+},
+{
+"i": 379,
+"word": "the",
+"start": 131.14,
+"end": 131.24,
+"startFrame": 3147,
+"endFrame": 3150
+},
+{
+"i": 380,
+"word": "traffic",
+"start": 131.24,
+"end": 131.54,
+"startFrame": 3150,
+"endFrame": 3157
+},
+{
+"i": 381,
+"word": "seems",
+"start": 131.54,
+"end": 131.9,
+"startFrame": 3157,
+"endFrame": 3166
+},
+{
+"i": 382,
+"word": "to",
+"start": 131.9,
+"end": 132.08,
+"startFrame": 3166,
+"endFrame": 3170
+},
+{
+"i": 383,
+"word": "slow",
+"start": 132.08,
+"end": 132.58,
+"startFrame": 3170,
+"endFrame": 3182
+},
+{
+"i": 384,
+"word": "you",
+"start": 133.5,
+"end": 133.54,
+"startFrame": 3204,
+"endFrame": 3205
+},
+{
+"i": 385,
+"word": "look",
+"start": 133.54,
+"end": 133.74,
+"startFrame": 3205,
+"endFrame": 3210
+},
+{
+"i": 386,
+"word": "up",
+"start": 133.74,
+"end": 134.24,
+"startFrame": 3210,
+"endFrame": 3222
+},
+{
+"i": 387,
+"word": "mara",
+"start": 134.82,
+"end": 135.04,
+"startFrame": 3236,
+"endFrame": 3241
+},
+{
+"i": 388,
+"word": "keeps",
+"start": 135.04,
+"end": 135.34,
+"startFrame": 3241,
+"endFrame": 3248
+},
+{
+"i": 389,
+"word": "driving",
+"start": 135.34,
+"end": 135.72,
+"startFrame": 3248,
+"endFrame": 3257
+},
+{
+"i": 390,
+"word": "you",
+"start": 136.8,
+"end": 136.9,
+"startFrame": 3283,
+"endFrame": 3286
+},
+{
+"i": 391,
+"word": "ask",
+"start": 136.9,
+"end": 137.2,
+"startFrame": 3286,
+"endFrame": 3293
+},
+{
+"i": 392,
+"word": "if",
+"start": 137.24,
+"end": 137.42,
+"startFrame": 3294,
+"endFrame": 3298
+},
+{
+"i": 393,
+"word": "batman",
+"start": 137.44,
+"end": 137.82,
+"startFrame": 3299,
+"endFrame": 3308
+},
+{
+"i": 394,
+"word": "will",
+"start": 137.82,
+"end": 138.1,
+"startFrame": 3308,
+"endFrame": 3314
+},
+{
+"i": 395,
+"word": "catch",
+"start": 138.1,
+"end": 138.4,
+"startFrame": 3314,
+"endFrame": 3322
+},
+{
+"i": 396,
+"word": "the",
+"start": 138.48,
+"end": 138.64,
+"startFrame": 3324,
+"endFrame": 3327
+},
+{
+"i": 397,
+"word": "joker",
+"start": 138.64,
+"end": 138.92,
+"startFrame": 3327,
+"endFrame": 3334
+},
+{
+"i": 398,
+"word": "maybe",
+"start": 140.24,
+"end": 140.5,
+"startFrame": 3366,
+"endFrame": 3372
+},
+{
+"i": 399,
+"word": "she",
+"start": 140.86,
+"end": 141.02,
+"startFrame": 3381,
+"endFrame": 3384
+},
+{
+"i": 400,
+"word": "says",
+"start": 141.02,
+"end": 141.22,
+"startFrame": 3384,
+"endFrame": 3389
+},
+{
+"i": 401,
+"word": "but",
+"start": 142.3,
+"end": 142.4,
+"startFrame": 3415,
+"endFrame": 3418
+},
+{
+"i": 402,
+"word": "even",
+"start": 142.4,
+"end": 142.56,
+"startFrame": 3418,
+"endFrame": 3421
+},
+{
+"i": 403,
+"word": "if",
+"start": 142.56,
+"end": 142.7,
+"startFrame": 3421,
+"endFrame": 3425
+},
+{
+"i": 404,
+"word": "he",
+"start": 142.7,
+"end": 142.84,
+"startFrame": 3425,
+"endFrame": 3428
+},
+{
+"i": 405,
+"word": "does",
+"start": 142.84,
+"end": 143.19,
+"startFrame": 3428,
+"endFrame": 3437
+},
+{
+"i": 406,
+"word": "somebody",
+"start": 143.86,
+"end": 144.12,
+"startFrame": 3453,
+"endFrame": 3459
+},
+{
+"i": 407,
+"word": "still",
+"start": 144.12,
+"end": 144.4,
+"startFrame": 3459,
+"endFrame": 3466
+},
+{
+"i": 408,
+"word": "has",
+"start": 144.42,
+"end": 144.58,
+"startFrame": 3466,
+"endFrame": 3470
+},
+{
+"i": 409,
+"word": "to",
+"start": 144.66,
+"end": 144.76,
+"startFrame": 3472,
+"endFrame": 3474
+},
+{
+"i": 410,
+"word": "answer",
+"start": 144.76,
+"end": 144.96,
+"startFrame": 3474,
+"endFrame": 3479
+},
+{
+"i": 411,
+"word": "the",
+"start": 144.96,
+"end": 145.16,
+"startFrame": 3479,
+"endFrame": 3484
+},
+{
+"i": 412,
+"word": "phones",
+"start": 145.16,
+"end": 145.42,
+"startFrame": 3484,
+"endFrame": 3490
+},
+{
+"i": 413,
+"word": "on",
+"start": 146.7,
+"end": 146.8,
+"startFrame": 3521,
+"endFrame": 3523
+},
+{
+"i": 414,
+"word": "your",
+"start": 146.8,
+"end": 146.98,
+"startFrame": 3523,
+"endFrame": 3528
+},
+{
+"i": 415,
+"word": "third",
+"start": 146.98,
+"end": 147.2,
+"startFrame": 3528,
+"endFrame": 3533
+},
+{
+"i": 416,
+"word": "night",
+"start": 147.2,
+"end": 147.42,
+"startFrame": 3533,
+"endFrame": 3538
+},
+{
+"i": 417,
+"word": "a",
+"start": 148.06,
+"end": 148.06,
+"startFrame": 3553,
+"endFrame": 3553
+},
+{
+"i": 418,
+"word": "robbery",
+"start": 148.06,
+"end": 148.44,
+"startFrame": 3553,
+"endFrame": 3563
+},
+{
+"i": 419,
+"word": "turns",
+"start": 148.44,
+"end": 148.86,
+"startFrame": 3563,
+"endFrame": 3573
+},
+{
+"i": 420,
+"word": "into",
+"start": 148.86,
+"end": 149.06,
+"startFrame": 3573,
+"endFrame": 3577
+},
+{
+"i": 421,
+"word": "a",
+"start": 149.06,
+"end": 149.32,
+"startFrame": 3577,
+"endFrame": 3584
+},
+{
+"i": 422,
+"word": "chase",
+"start": 149.32,
+"end": 149.56,
+"startFrame": 3584,
+"endFrame": 3589
+},
+{
+"i": 423,
+"word": "through",
+"start": 149.76,
+"end": 149.86,
+"startFrame": 3594,
+"endFrame": 3597
+},
+{
+"i": 424,
+"word": "the",
+"start": 149.86,
+"end": 150.06,
+"startFrame": 3597,
+"endFrame": 3601
+},
+{
+"i": 425,
+"word": "narrows",
+"start": 150.06,
+"end": 150.36,
+"startFrame": 3601,
+"endFrame": 3609
+},
+{
+"i": 426,
+"word": "by",
+"start": 151.52,
+"end": 151.54,
+"startFrame": 3636,
+"endFrame": 3637
+},
+{
+"i": 427,
+"word": "the",
+"start": 151.54,
+"end": 151.68,
+"startFrame": 3637,
+"endFrame": 3640
+},
+{
+"i": 428,
+"word": "time",
+"start": 151.68,
+"end": 151.86,
+"startFrame": 3640,
+"endFrame": 3645
+},
+{
+"i": 429,
+"word": "you",
+"start": 151.86,
+"end": 152.02,
+"startFrame": 3645,
+"endFrame": 3648
+},
+{
+"i": 430,
+"word": "arrive",
+"start": 152.02,
+"end": 152.42,
+"startFrame": 3648,
+"endFrame": 3658
+},
+{
+"i": 431,
+"word": "the",
+"start": 152.98,
+"end": 152.98,
+"startFrame": 3672,
+"endFrame": 3672
+},
+{
+"i": 432,
+"word": "robber",
+"start": 152.98,
+"end": 153.2,
+"startFrame": 3672,
+"endFrame": 3677
+},
+{
+"i": 433,
+"word": "is",
+"start": 153.2,
+"end": 153.42,
+"startFrame": 3677,
+"endFrame": 3682
+},
+{
+"i": 434,
+"word": "hanging",
+"start": 153.42,
+"end": 153.68,
+"startFrame": 3682,
+"endFrame": 3688
+},
+{
+"i": 435,
+"word": "upside",
+"start": 153.68,
+"end": 154.02,
+"startFrame": 3688,
+"endFrame": 3696
+},
+{
+"i": 436,
+"word": "down",
+"start": 154.02,
+"end": 154.38,
+"startFrame": 3696,
+"endFrame": 3705
+},
+{
+"i": 437,
+"word": "from",
+"start": 154.38,
+"end": 154.58,
+"startFrame": 3705,
+"endFrame": 3710
+},
+{
+"i": 438,
+"word": "a",
+"start": 154.72,
+"end": 154.82,
+"startFrame": 3713,
+"endFrame": 3716
+},
+{
+"i": 439,
+"word": "fire",
+"start": 154.82,
+"end": 155.04,
+"startFrame": 3716,
+"endFrame": 3721
+},
+{
+"i": 440,
+"word": "escape",
+"start": 155.04,
+"end": 155.24,
+"startFrame": 3721,
+"endFrame": 3726
+},
+{
+"i": 441,
+"word": "wrapped",
+"start": 155.96,
+"end": 156.1,
+"startFrame": 3743,
+"endFrame": 3746
+},
+{
+"i": 442,
+"word": "in",
+"start": 156.1,
+"end": 156.28,
+"startFrame": 3746,
+"endFrame": 3751
+},
+{
+"i": 443,
+"word": "a",
+"start": 156.36,
+"end": 156.46,
+"startFrame": 3753,
+"endFrame": 3755
+},
+{
+"i": 444,
+"word": "cable",
+"start": 156.46,
+"end": 156.62,
+"startFrame": 3755,
+"endFrame": 3759
+},
+{
+"i": 445,
+"word": "a",
+"start": 157.58,
+"end": 157.66,
+"startFrame": 3782,
+"endFrame": 3784
+},
+{
+"i": 446,
+"word": "stolen",
+"start": 157.66,
+"end": 157.94,
+"startFrame": 3784,
+"endFrame": 3791
+},
+{
+"i": 447,
+"word": "bag",
+"start": 157.94,
+"end": 158.34,
+"startFrame": 3791,
+"endFrame": 3800
+},
+{
+"i": 448,
+"word": "lies",
+"start": 158.46,
+"end": 158.72,
+"startFrame": 3803,
+"endFrame": 3809
+},
+{
+"i": 449,
+"word": "beneath",
+"start": 158.72,
+"end": 159.02,
+"startFrame": 3809,
+"endFrame": 3816
+},
+{
+"i": 450,
+"word": "him",
+"start": 159.02,
+"end": 159.12,
+"startFrame": 3816,
+"endFrame": 3819
+},
+{
+"i": 451,
+"word": "untouched",
+"start": 159.74,
+"end": 160.0,
+"startFrame": 3834,
+"endFrame": 3840
+},
+{
+"i": 452,
+"word": "you",
+"start": 161.18,
+"end": 161.3,
+"startFrame": 3868,
+"endFrame": 3871
+},
+{
+"i": 453,
+"word": "look",
+"start": 161.3,
+"end": 161.48,
+"startFrame": 3871,
+"endFrame": 3876
+},
+{
+"i": 454,
+"word": "up",
+"start": 161.48,
+"end": 161.66,
+"startFrame": 3876,
+"endFrame": 3880
+},
+{
+"i": 455,
+"word": "a",
+"start": 162.42,
+"end": 162.52,
+"startFrame": 3898,
+"endFrame": 3900
+},
+{
+"i": 456,
+"word": "cape",
+"start": 162.52,
+"end": 162.76,
+"startFrame": 3900,
+"endFrame": 3906
+},
+{
+"i": 457,
+"word": "disappears",
+"start": 162.9,
+"end": 163.42,
+"startFrame": 3910,
+"endFrame": 3922
+},
+{
+"i": 458,
+"word": "over",
+"start": 163.42,
+"end": 163.78,
+"startFrame": 3922,
+"endFrame": 3931
+},
+{
+"i": 459,
+"word": "the",
+"start": 163.78,
+"end": 163.96,
+"startFrame": 3931,
+"endFrame": 3935
+},
+{
+"i": 460,
+"word": "edge",
+"start": 163.96,
+"end": 164.12,
+"startFrame": 3935,
+"endFrame": 3939
+},
+{
+"i": 461,
+"word": "of",
+"start": 164.18,
+"end": 164.28,
+"startFrame": 3940,
+"endFrame": 3943
+},
+{
+"i": 462,
+"word": "a",
+"start": 164.28,
+"end": 164.44,
+"startFrame": 3943,
+"endFrame": 3947
+},
+{
+"i": 463,
+"word": "roof",
+"start": 164.44,
+"end": 164.6,
+"startFrame": 3947,
+"endFrame": 3950
+},
+{
+"i": 464,
+"word": "your",
+"start": 165.62,
+"end": 165.76,
+"startFrame": 3975,
+"endFrame": 3978
+},
+{
+"i": 465,
+"word": "first",
+"start": 165.8,
+"end": 166.0,
+"startFrame": 3979,
+"endFrame": 3984
+},
+{
+"i": 466,
+"word": "real",
+"start": 166.06,
+"end": 166.3,
+"startFrame": 3985,
+"endFrame": 3991
+},
+{
+"i": 467,
+"word": "glimpse",
+"start": 166.3,
+"end": 166.58,
+"startFrame": 3991,
+"endFrame": 3998
+},
+{
+"i": 468,
+"word": "of",
+"start": 166.58,
+"end": 166.84,
+"startFrame": 3998,
+"endFrame": 4004
+},
+{
+"i": 469,
+"word": "batman",
+"start": 166.84,
+"end": 167.24,
+"startFrame": 4004,
+"endFrame": 4014
+},
+{
+"i": 470,
+"word": "lasts",
+"start": 167.72,
+"end": 168.08,
+"startFrame": 4025,
+"endFrame": 4034
+},
+{
+"i": 471,
+"word": "less",
+"start": 168.12,
+"end": 168.36,
+"startFrame": 4035,
+"endFrame": 4041
+},
+{
+"i": 472,
+"word": "than",
+"start": 168.36,
+"end": 168.52,
+"startFrame": 4041,
+"endFrame": 4044
+},
+{
+"i": 473,
+"word": "a",
+"start": 168.52,
+"end": 168.74,
+"startFrame": 4044,
+"endFrame": 4050
+},
+{
+"i": 474,
+"word": "second",
+"start": 168.74,
+"end": 168.84,
+"startFrame": 4050,
+"endFrame": 4052
+},
+{
+"i": 475,
+"word": "the",
+"start": 170.18,
+"end": 170.32,
+"startFrame": 4084,
+"endFrame": 4088
+},
+{
+"i": 476,
+"word": "robber",
+"start": 170.32,
+"end": 170.56,
+"startFrame": 4088,
+"endFrame": 4093
+},
+{
+"i": 477,
+"word": "is",
+"start": 170.56,
+"end": 170.78,
+"startFrame": 4093,
+"endFrame": 4099
+},
+{
+"i": 478,
+"word": "yelling",
+"start": 170.78,
+"end": 171.14,
+"startFrame": 4099,
+"endFrame": 4107
+},
+{
+"i": 479,
+"word": "that",
+"start": 171.14,
+"end": 171.36,
+"startFrame": 4107,
+"endFrame": 4113
+},
+{
+"i": 480,
+"word": "the",
+"start": 171.36,
+"end": 171.58,
+"startFrame": 4113,
+"endFrame": 4118
+},
+{
+"i": 481,
+"word": "bat",
+"start": 171.58,
+"end": 171.74,
+"startFrame": 4118,
+"endFrame": 4122
+},
+{
+"i": 482,
+"word": "broke",
+"start": 171.86,
+"end": 172.0,
+"startFrame": 4125,
+"endFrame": 4128
+},
+{
+"i": 483,
+"word": "his",
+"start": 172.0,
+"end": 172.22,
+"startFrame": 4128,
+"endFrame": 4133
+},
+{
+"i": 484,
+"word": "arm",
+"start": 172.22,
+"end": 172.52,
+"startFrame": 4133,
+"endFrame": 4140
+},
+{
+"i": 485,
+"word": "the",
+"start": 173.28,
+"end": 173.38,
+"startFrame": 4159,
+"endFrame": 4161
+},
+{
+"i": 486,
+"word": "paramedics",
+"start": 173.38,
+"end": 173.74,
+"startFrame": 4161,
+"endFrame": 4170
+},
+{
+"i": 487,
+"word": "say",
+"start": 173.74,
+"end": 174.04,
+"startFrame": 4170,
+"endFrame": 4177
+},
+{
+"i": 488,
+"word": "his",
+"start": 174.04,
+"end": 174.22,
+"startFrame": 4177,
+"endFrame": 4181
+},
+{
+"i": 489,
+"word": "arm",
+"start": 174.22,
+"end": 174.36,
+"startFrame": 4181,
+"endFrame": 4185
+},
+{
+"i": 490,
+"word": "is",
+"start": 174.36,
+"end": 174.56,
+"startFrame": 4185,
+"endFrame": 4189
+},
+{
+"i": 491,
+"word": "fine",
+"start": 174.56,
+"end": 174.88,
+"startFrame": 4189,
+"endFrame": 4197
+},
+{
+"i": 492,
+"word": "his",
+"start": 175.64,
+"end": 175.64,
+"startFrame": 4215,
+"endFrame": 4215
+},
+{
+"i": 493,
+"word": "pride",
+"start": 175.78,
+"end": 176.04,
+"startFrame": 4219,
+"endFrame": 4225
+},
+{
+"i": 494,
+"word": "is",
+"start": 176.04,
+"end": 176.28,
+"startFrame": 4225,
+"endFrame": 4231
+},
+{
+"i": 495,
+"word": "a",
+"start": 176.28,
+"end": 176.42,
+"startFrame": 4231,
+"endFrame": 4234
+},
+{
+"i": 496,
+"word": "different",
+"start": 176.42,
+"end": 176.56,
+"startFrame": 4234,
+"endFrame": 4237
+},
+{
+"i": 497,
+"word": "story",
+"start": 176.56,
+"end": 176.94,
+"startFrame": 4237,
+"endFrame": 4247
+},
+{
+"i": 498,
+"word": "you",
+"start": 178.12,
+"end": 178.14,
+"startFrame": 4275,
+"endFrame": 4275
+},
+{
+"i": 499,
+"word": "almost",
+"start": 178.44,
+"end": 178.54,
+"startFrame": 4283,
+"endFrame": 4285
+},
+{
+"i": 500,
+"word": "smile",
+"start": 178.54,
+"end": 178.79,
+"startFrame": 4285,
+"endFrame": 4291
+},
+{
+"i": 501,
+"word": "mara",
+"start": 179.98,
+"end": 180.22,
+"startFrame": 4320,
+"endFrame": 4325
+},
+{
+"i": 502,
+"word": "doesn't",
+"start": 180.22,
+"end": 180.54,
+"startFrame": 4325,
+"endFrame": 4333
+},
+{
+"i": 503,
+"word": "she",
+"start": 181.7,
+"end": 181.8,
+"startFrame": 4361,
+"endFrame": 4363
+},
+{
+"i": 504,
+"word": "points",
+"start": 181.8,
+"end": 182.04,
+"startFrame": 4363,
+"endFrame": 4369
+},
+{
+"i": 505,
+"word": "to",
+"start": 182.04,
+"end": 182.26,
+"startFrame": 4369,
+"endFrame": 4374
+},
+{
+"i": 506,
+"word": "the",
+"start": 182.26,
+"end": 182.38,
+"startFrame": 4374,
+"endFrame": 4377
+},
+{
+"i": 507,
+"word": "people",
+"start": 182.4,
+"end": 182.62,
+"startFrame": 4378,
+"endFrame": 4383
+},
+{
+"i": 508,
+"word": "watching",
+"start": 182.62,
+"end": 183.06,
+"startFrame": 4383,
+"endFrame": 4393
+},
+{
+"i": 509,
+"word": "from",
+"start": 183.06,
+"end": 183.32,
+"startFrame": 4393,
+"endFrame": 4400
+},
+{
+"i": 510,
+"word": "their",
+"start": 183.32,
+"end": 183.5,
+"startFrame": 4400,
+"endFrame": 4404
+},
+{
+"i": 511,
+"word": "windows",
+"start": 183.5,
+"end": 183.84,
+"startFrame": 4404,
+"endFrame": 4412
+},
+{
+"i": 512,
+"word": "they're",
+"start": 184.84,
+"end": 184.9,
+"startFrame": 4436,
+"endFrame": 4438
+},
+{
+"i": 513,
+"word": "not",
+"start": 184.9,
+"end": 185.04,
+"startFrame": 4438,
+"endFrame": 4441
+},
+{
+"i": 514,
+"word": "watching",
+"start": 185.04,
+"end": 185.38,
+"startFrame": 4441,
+"endFrame": 4449
+},
+{
+"i": 515,
+"word": "the",
+"start": 185.38,
+"end": 185.6,
+"startFrame": 4449,
+"endFrame": 4454
+},
+{
+"i": 516,
+"word": "robber",
+"start": 185.6,
+"end": 185.82,
+"startFrame": 4454,
+"endFrame": 4460
+},
+{
+"i": 517,
+"word": "they're",
+"start": 186.78,
+"end": 186.94,
+"startFrame": 4483,
+"endFrame": 4487
+},
+{
+"i": 518,
+"word": "watching",
+"start": 186.94,
+"end": 187.2,
+"startFrame": 4487,
+"endFrame": 4493
+},
+{
+"i": 519,
+"word": "the",
+"start": 187.26,
+"end": 187.4,
+"startFrame": 4494,
+"endFrame": 4498
+},
+{
+"i": 520,
+"word": "roof",
+"start": 187.4,
+"end": 187.58,
+"startFrame": 4498,
+"endFrame": 4502
+},
+{
+"i": 521,
+"word": "in",
+"start": 188.72,
+"end": 188.84,
+"startFrame": 4529,
+"endFrame": 4532
+},
+{
+"i": 522,
+"word": "gotham",
+"start": 188.84,
+"end": 189.14,
+"startFrame": 4532,
+"endFrame": 4539
+},
+{
+"i": 523,
+"word": "she",
+"start": 189.58,
+"end": 189.72,
+"startFrame": 4550,
+"endFrame": 4553
+},
+{
+"i": 524,
+"word": "says",
+"start": 189.72,
+"end": 190.06,
+"startFrame": 4553,
+"endFrame": 4561
+},
+{
+"i": 525,
+"word": "even",
+"start": 190.78,
+"end": 190.94,
+"startFrame": 4579,
+"endFrame": 4583
+},
+{
+"i": 526,
+"word": "the",
+"start": 190.94,
+"end": 191.14,
+"startFrame": 4583,
+"endFrame": 4587
+},
+{
+"i": 527,
+"word": "good",
+"start": 191.14,
+"end": 191.28,
+"startFrame": 4587,
+"endFrame": 4591
+},
+{
+"i": 528,
+"word": "news",
+"start": 191.28,
+"end": 191.6,
+"startFrame": 4591,
+"endFrame": 4598
+},
+{
+"i": 529,
+"word": "makes",
+"start": 191.68,
+"end": 191.86,
+"startFrame": 4600,
+"endFrame": 4605
+},
+{
+"i": 530,
+"word": "people",
+"start": 192.04,
+"end": 192.14,
+"startFrame": 4609,
+"endFrame": 4611
+},
+{
+"i": 531,
+"word": "afraid",
+"start": 192.14,
+"end": 192.5,
+"startFrame": 4611,
+"endFrame": 4620
+},
+{
+"i": 532,
+"word": "to",
+"start": 192.5,
+"end": 192.72,
+"startFrame": 4620,
+"endFrame": 4625
+},
+{
+"i": 533,
+"word": "look",
+"start": 192.72,
+"end": 192.84,
+"startFrame": 4625,
+"endFrame": 4628
+},
+{
+"i": 534,
+"word": "up",
+"start": 192.84,
+"end": 193.02,
+"startFrame": 4628,
+"endFrame": 4632
+},
+{
+"i": 535,
+"word": "on",
+"start": 194.12,
+"end": 194.24,
+"startFrame": 4659,
+"endFrame": 4662
+},
+{
+"i": 536,
+"word": "your",
+"start": 194.24,
+"end": 194.4,
+"startFrame": 4662,
+"endFrame": 4666
+},
+{
+"i": 537,
+"word": "fourth",
+"start": 194.5,
+"end": 194.74,
+"startFrame": 4668,
+"endFrame": 4674
+},
+{
+"i": 538,
+"word": "day",
+"start": 194.74,
+"end": 194.84,
+"startFrame": 4674,
+"endFrame": 4676
+},
+{
+"i": 539,
+"word": "a",
+"start": 195.54,
+"end": 195.64,
+"startFrame": 4693,
+"endFrame": 4695
+},
+{
+"i": 540,
+"word": "package",
+"start": 195.64,
+"end": 195.98,
+"startFrame": 4695,
+"endFrame": 4704
+},
+{
+"i": 541,
+"word": "arrives",
+"start": 195.98,
+"end": 196.4,
+"startFrame": 4704,
+"endFrame": 4714
+},
+{
+"i": 542,
+"word": "at",
+"start": 196.4,
+"end": 196.6,
+"startFrame": 4714,
+"endFrame": 4718
+},
+{
+"i": 543,
+"word": "the",
+"start": 196.62,
+"end": 196.76,
+"startFrame": 4719,
+"endFrame": 4722
+},
+{
+"i": 544,
+"word": "station",
+"start": 196.76,
+"end": 197.1,
+"startFrame": 4722,
+"endFrame": 4730
+},
+{
+"i": 545,
+"word": "no",
+"start": 197.82,
+"end": 197.98,
+"startFrame": 4748,
+"endFrame": 4752
+},
+{
+"i": 546,
+"word": "return",
+"start": 197.98,
+"end": 198.38,
+"startFrame": 4752,
+"endFrame": 4761
+},
+{
+"i": 547,
+"word": "address",
+"start": 198.38,
+"end": 198.9,
+"startFrame": 4761,
+"endFrame": 4774
+},
+{
+"i": 548,
+"word": "a",
+"start": 199.68,
+"end": 199.78,
+"startFrame": 4792,
+"endFrame": 4795
+},
+{
+"i": 549,
+"word": "bright",
+"start": 199.78,
+"end": 200.08,
+"startFrame": 4795,
+"endFrame": 4802
+},
+{
+"i": 550,
+"word": "red",
+"start": 200.08,
+"end": 200.34,
+"startFrame": 4802,
+"endFrame": 4808
+},
+{
+"i": 551,
+"word": "ribbon",
+"start": 200.34,
+"end": 200.68,
+"startFrame": 4808,
+"endFrame": 4816
+},
+{
+"i": 552,
+"word": "around",
+"start": 200.68,
+"end": 201.02,
+"startFrame": 4816,
+"endFrame": 4824
+},
+{
+"i": 553,
+"word": "a",
+"start": 201.02,
+"end": 201.3,
+"startFrame": 4824,
+"endFrame": 4831
+},
+{
+"i": 554,
+"word": "plain",
+"start": 201.3,
+"end": 201.56,
+"startFrame": 4831,
+"endFrame": 4837
+},
+{
+"i": 555,
+"word": "white",
+"start": 201.56,
+"end": 201.8,
+"startFrame": 4837,
+"endFrame": 4843
+},
+{
+"i": 556,
+"word": "box",
+"start": 201.8,
+"end": 201.9,
+"startFrame": 4843,
+"endFrame": 4846
+},
+{
+"i": 557,
+"word": "the",
+"start": 203.44,
+"end": 203.44,
+"startFrame": 4883,
+"endFrame": 4883
+},
+{
+"i": 558,
+"word": "desk",
+"start": 203.44,
+"end": 203.7,
+"startFrame": 4883,
+"endFrame": 4889
+},
+{
+"i": 559,
+"word": "sergeant",
+"start": 203.74,
+"end": 204.08,
+"startFrame": 4890,
+"endFrame": 4898
+},
+{
+"i": 560,
+"word": "clears",
+"start": 204.26,
+"end": 204.44,
+"startFrame": 4902,
+"endFrame": 4907
+},
+{
+"i": 561,
+"word": "the",
+"start": 204.44,
+"end": 204.68,
+"startFrame": 4907,
+"endFrame": 4912
+},
+{
+"i": 562,
+"word": "room",
+"start": 204.68,
+"end": 204.9,
+"startFrame": 4912,
+"endFrame": 4918
+},
+{
+"i": 563,
+"word": "and",
+"start": 204.9,
+"end": 205.08,
+"startFrame": 4918,
+"endFrame": 4922
+},
+{
+"i": 564,
+"word": "calls",
+"start": 205.08,
+"end": 205.26,
+"startFrame": 4922,
+"endFrame": 4926
+},
+{
+"i": 565,
+"word": "the",
+"start": 205.26,
+"end": 205.46,
+"startFrame": 4926,
+"endFrame": 4931
+},
+{
+"i": 566,
+"word": "bomb",
+"start": 205.46,
+"end": 205.66,
+"startFrame": 4931,
+"endFrame": 4936
+},
+{
+"i": 567,
+"word": "squad",
+"start": 205.66,
+"end": 205.8,
+"startFrame": 4936,
+"endFrame": 4939
+},
+{
+"i": 568,
+"word": "inside",
+"start": 207.24,
+"end": 207.44,
+"startFrame": 4974,
+"endFrame": 4979
+},
+{
+"i": 569,
+"word": "they",
+"start": 208.0,
+"end": 208.0,
+"startFrame": 4992,
+"endFrame": 4992
+},
+{
+"i": 570,
+"word": "find",
+"start": 208.02,
+"end": 208.2,
+"startFrame": 4992,
+"endFrame": 4997
+},
+{
+"i": 571,
+"word": "a",
+"start": 208.2,
+"end": 208.38,
+"startFrame": 4997,
+"endFrame": 5001
+},
+{
+"i": 572,
+"word": "cheap",
+"start": 208.38,
+"end": 208.6,
+"startFrame": 5001,
+"endFrame": 5006
+},
+{
+"i": 573,
+"word": "wind",
+"start": 208.72,
+"end": 209.14,
+"startFrame": 5009,
+"endFrame": 5019
+},
+{
+"i": 574,
+"word": "up",
+"start": 208.72,
+"end": 209.14,
+"startFrame": 5009,
+"endFrame": 5019
+},
+{
+"i": 575,
+"word": "toy",
+"start": 209.14,
+"end": 209.46,
+"startFrame": 5019,
+"endFrame": 5027
+},
+{
+"i": 576,
+"word": "a",
+"start": 210.12,
+"end": 210.22,
+"startFrame": 5043,
+"endFrame": 5045
+},
+{
+"i": 577,
+"word": "little",
+"start": 210.22,
+"end": 210.42,
+"startFrame": 5045,
+"endFrame": 5050
+},
+{
+"i": 578,
+"word": "policeman",
+"start": 210.44,
+"end": 210.86,
+"startFrame": 5051,
+"endFrame": 5061
+},
+{
+"i": 579,
+"word": "with",
+"start": 210.86,
+"end": 211.08,
+"startFrame": 5061,
+"endFrame": 5066
+},
+{
+"i": 580,
+"word": "a",
+"start": 211.12,
+"end": 211.22,
+"startFrame": 5067,
+"endFrame": 5069
+},
+{
+"i": 581,
+"word": "painted",
+"start": 211.22,
+"end": 211.46,
+"startFrame": 5069,
+"endFrame": 5075
+},
+{
+"i": 582,
+"word": "smile",
+"start": 211.46,
+"end": 211.86,
+"startFrame": 5075,
+"endFrame": 5085
+},
+{
+"i": 583,
+"word": "its",
+"start": 212.9,
+"end": 213.04,
+"startFrame": 5110,
+"endFrame": 5113
+},
+{
+"i": 584,
+"word": "key",
+"start": 213.04,
+"end": 213.34,
+"startFrame": 5113,
+"endFrame": 5120
+},
+{
+"i": 585,
+"word": "has",
+"start": 213.48,
+"end": 213.58,
+"startFrame": 5124,
+"endFrame": 5126
+},
+{
+"i": 586,
+"word": "been",
+"start": 213.58,
+"end": 213.72,
+"startFrame": 5126,
+"endFrame": 5129
+},
+{
+"i": 587,
+"word": "turned",
+"start": 213.72,
+"end": 214.08,
+"startFrame": 5129,
+"endFrame": 5138
+},
+{
+"i": 588,
+"word": "all",
+"start": 214.08,
+"end": 214.34,
+"startFrame": 5138,
+"endFrame": 5144
+},
+{
+"i": 589,
+"word": "the",
+"start": 214.34,
+"end": 214.5,
+"startFrame": 5144,
+"endFrame": 5148
+},
+{
+"i": 590,
+"word": "way",
+"start": 214.5,
+"end": 214.74,
+"startFrame": 5148,
+"endFrame": 5154
+},
+{
+"i": 591,
+"word": "when",
+"start": 215.66,
+"end": 215.76,
+"startFrame": 5176,
+"endFrame": 5178
+},
+{
+"i": 592,
+"word": "the",
+"start": 215.76,
+"end": 215.94,
+"startFrame": 5178,
+"endFrame": 5183
+},
+{
+"i": 593,
+"word": "specialist",
+"start": 215.94,
+"end": 216.3,
+"startFrame": 5183,
+"endFrame": 5191
+},
+{
+"i": 594,
+"word": "releases",
+"start": 216.3,
+"end": 216.8,
+"startFrame": 5191,
+"endFrame": 5203
+},
+{
+"i": 595,
+"word": "it",
+"start": 216.8,
+"end": 216.96,
+"startFrame": 5203,
+"endFrame": 5207
+},
+{
+"i": 596,
+"word": "the",
+"start": 217.54,
+"end": 217.64,
+"startFrame": 5221,
+"endFrame": 5223
+},
+{
+"i": 597,
+"word": "toy",
+"start": 217.68,
+"end": 217.86,
+"startFrame": 5224,
+"endFrame": 5229
+},
+{
+"i": 598,
+"word": "marches",
+"start": 217.86,
+"end": 218.28,
+"startFrame": 5229,
+"endFrame": 5239
+},
+{
+"i": 599,
+"word": "across",
+"start": 218.28,
+"end": 218.66,
+"startFrame": 5239,
+"endFrame": 5248
+},
+{
+"i": 600,
+"word": "the",
+"start": 218.66,
+"end": 218.88,
+"startFrame": 5248,
+"endFrame": 5253
+},
+{
+"i": 601,
+"word": "table",
+"start": 218.88,
+"end": 219.2,
+"startFrame": 5253,
+"endFrame": 5261
+},
+{
+"i": 602,
+"word": "bumps",
+"start": 219.44,
+"end": 219.62,
+"startFrame": 5267,
+"endFrame": 5271
+},
+{
+"i": 603,
+"word": "into",
+"start": 219.62,
+"end": 219.86,
+"startFrame": 5271,
+"endFrame": 5277
+},
+{
+"i": 604,
+"word": "a",
+"start": 219.86,
+"end": 220.1,
+"startFrame": 5277,
+"endFrame": 5282
+},
+{
+"i": 605,
+"word": "wall",
+"start": 220.1,
+"end": 220.36,
+"startFrame": 5282,
+"endFrame": 5289
+},
+{
+"i": 606,
+"word": "and",
+"start": 220.44,
+"end": 220.64,
+"startFrame": 5291,
+"endFrame": 5295
+},
+{
+"i": 607,
+"word": "falls",
+"start": 220.64,
+"end": 220.9,
+"startFrame": 5295,
+"endFrame": 5302
+},
+{
+"i": 608,
+"word": "over",
+"start": 220.9,
+"end": 221.3,
+"startFrame": 5302,
+"endFrame": 5311
+},
+{
+"i": 609,
+"word": "taped",
+"start": 222.22,
+"end": 222.36,
+"startFrame": 5333,
+"endFrame": 5337
+},
+{
+"i": 610,
+"word": "to",
+"start": 222.4,
+"end": 222.5,
+"startFrame": 5338,
+"endFrame": 5340
+},
+{
+"i": 611,
+"word": "its",
+"start": 222.5,
+"end": 222.68,
+"startFrame": 5340,
+"endFrame": 5344
+},
+{
+"i": 612,
+"word": "back",
+"start": 222.72,
+"end": 222.96,
+"startFrame": 5345,
+"endFrame": 5351
+},
+{
+"i": 613,
+"word": "is",
+"start": 223.04,
+"end": 223.14,
+"startFrame": 5353,
+"endFrame": 5355
+},
+{
+"i": 614,
+"word": "a",
+"start": 223.14,
+"end": 223.3,
+"startFrame": 5355,
+"endFrame": 5359
+},
+{
+"i": 615,
+"word": "message",
+"start": 223.3,
+"end": 223.7,
+"startFrame": 5359,
+"endFrame": 5369
+},
+{
+"i": 616,
+"word": "how",
+"start": 224.68,
+"end": 224.8,
+"startFrame": 5392,
+"endFrame": 5395
+},
+{
+"i": 617,
+"word": "many",
+"start": 224.8,
+"end": 225.0,
+"startFrame": 5395,
+"endFrame": 5400
+},
+{
+"i": 618,
+"word": "cops",
+"start": 225.0,
+"end": 225.38,
+"startFrame": 5400,
+"endFrame": 5409
+},
+{
+"i": 619,
+"word": "does",
+"start": 225.5,
+"end": 225.64,
+"startFrame": 5412,
+"endFrame": 5415
+},
+{
+"i": 620,
+"word": "it",
+"start": 225.64,
+"end": 225.76,
+"startFrame": 5415,
+"endFrame": 5418
+},
+{
+"i": 621,
+"word": "take",
+"start": 225.8,
+"end": 225.94,
+"startFrame": 5419,
+"endFrame": 5423
+},
+{
+"i": 622,
+"word": "to",
+"start": 225.94,
+"end": 226.16,
+"startFrame": 5423,
+"endFrame": 5428
+},
+{
+"i": 623,
+"word": "save",
+"start": 226.16,
+"end": 226.36,
+"startFrame": 5428,
+"endFrame": 5433
+},
+{
+"i": 624,
+"word": "gotham",
+"start": 226.36,
+"end": 226.66,
+"startFrame": 5433,
+"endFrame": 5440
+},
+{
+"i": 625,
+"word": "underneath",
+"start": 228.02,
+"end": 228.28,
+"startFrame": 5472,
+"endFrame": 5479
+},
+{
+"i": 626,
+"word": "in",
+"start": 228.78,
+"end": 228.78,
+"startFrame": 5491,
+"endFrame": 5491
+},
+{
+"i": 627,
+"word": "red",
+"start": 228.78,
+"end": 229.0,
+"startFrame": 5491,
+"endFrame": 5496
+},
+{
+"i": 628,
+"word": "ink",
+"start": 229.0,
+"end": 229.16,
+"startFrame": 5496,
+"endFrame": 5500
+},
+{
+"i": 629,
+"word": "let's",
+"start": 230.12,
+"end": 230.26,
+"startFrame": 5523,
+"endFrame": 5526
+},
+{
+"i": 630,
+"word": "find",
+"start": 230.32,
+"end": 230.46,
+"startFrame": 5528,
+"endFrame": 5531
+},
+{
+"i": 631,
+"word": "out",
+"start": 230.46,
+"end": 230.72,
+"startFrame": 5531,
+"endFrame": 5537
+},
+{
+"i": 632,
+"word": "by",
+"start": 231.86,
+"end": 231.86,
+"startFrame": 5565,
+"endFrame": 5565
+},
+{
+"i": 633,
+"word": "evening",
+"start": 231.86,
+"end": 232.44,
+"startFrame": 5565,
+"endFrame": 5579
+},
+{
+"i": 634,
+"word": "the",
+"start": 232.56,
+"end": 232.56,
+"startFrame": 5581,
+"endFrame": 5581
+},
+{
+"i": 635,
+"word": "toy",
+"start": 232.6,
+"end": 232.82,
+"startFrame": 5582,
+"endFrame": 5588
+},
+{
+"i": 636,
+"word": "is",
+"start": 232.82,
+"end": 233.02,
+"startFrame": 5588,
+"endFrame": 5592
+},
+{
+"i": 637,
+"word": "in",
+"start": 233.02,
+"end": 233.18,
+"startFrame": 5592,
+"endFrame": 5596
+},
+{
+"i": 638,
+"word": "evidence",
+"start": 233.18,
+"end": 233.34,
+"startFrame": 5596,
+"endFrame": 5600
+},
+{
+"i": 639,
+"word": "everyone",
+"start": 234.42,
+"end": 234.6,
+"startFrame": 5626,
+"endFrame": 5630
+},
+{
+"i": 640,
+"word": "at",
+"start": 234.6,
+"end": 234.76,
+"startFrame": 5630,
+"endFrame": 5634
+},
+{
+"i": 641,
+"word": "the",
+"start": 234.76,
+"end": 234.9,
+"startFrame": 5634,
+"endFrame": 5638
+},
+{
+"i": 642,
+"word": "station",
+"start": 234.9,
+"end": 235.18,
+"startFrame": 5638,
+"endFrame": 5644
+},
+{
+"i": 643,
+"word": "is",
+"start": 235.18,
+"end": 235.36,
+"startFrame": 5644,
+"endFrame": 5649
+},
+{
+"i": 644,
+"word": "pretending",
+"start": 235.56,
+"end": 235.8,
+"startFrame": 5653,
+"endFrame": 5659
+},
+{
+"i": 645,
+"word": "they",
+"start": 235.8,
+"end": 236.06,
+"startFrame": 5659,
+"endFrame": 5665
+},
+{
+"i": 646,
+"word": "aren't",
+"start": 236.06,
+"end": 236.24,
+"startFrame": 5665,
+"endFrame": 5670
+},
+{
+"i": 647,
+"word": "thinking",
+"start": 236.38,
+"end": 236.48,
+"startFrame": 5673,
+"endFrame": 5676
+},
+{
+"i": 648,
+"word": "about",
+"start": 236.48,
+"end": 236.76,
+"startFrame": 5676,
+"endFrame": 5682
+},
+{
+"i": 649,
+"word": "it",
+"start": 236.76,
+"end": 236.86,
+"startFrame": 5682,
+"endFrame": 5685
+},
+{
+"i": 650,
+"word": "mara",
+"start": 238.02,
+"end": 238.2,
+"startFrame": 5712,
+"endFrame": 5717
+},
+{
+"i": 651,
+"word": "tells",
+"start": 238.2,
+"end": 238.46,
+"startFrame": 5717,
+"endFrame": 5723
+},
+{
+"i": 652,
+"word": "you",
+"start": 238.46,
+"end": 238.58,
+"startFrame": 5723,
+"endFrame": 5726
+},
+{
+"i": 653,
+"word": "to",
+"start": 238.58,
+"end": 238.68,
+"startFrame": 5726,
+"endFrame": 5728
+},
+{
+"i": 654,
+"word": "go",
+"start": 238.7,
+"end": 238.84,
+"startFrame": 5729,
+"endFrame": 5732
+},
+{
+"i": 655,
+"word": "home",
+"start": 238.84,
+"end": 239.04,
+"startFrame": 5732,
+"endFrame": 5737
+},
+{
+"i": 656,
+"word": "and",
+"start": 239.14,
+"end": 239.26,
+"startFrame": 5739,
+"endFrame": 5742
+},
+{
+"i": 657,
+"word": "sleep",
+"start": 239.26,
+"end": 239.54,
+"startFrame": 5742,
+"endFrame": 5749
+},
+{
+"i": 658,
+"word": "you",
+"start": 240.6,
+"end": 240.7,
+"startFrame": 5774,
+"endFrame": 5777
+},
+{
+"i": 659,
+"word": "call",
+"start": 240.7,
+"end": 240.86,
+"startFrame": 5777,
+"endFrame": 5781
+},
+{
+"i": 660,
+"word": "your",
+"start": 240.86,
+"end": 241.04,
+"startFrame": 5781,
+"endFrame": 5785
+},
+{
+"i": 661,
+"word": "father",
+"start": 241.06,
+"end": 241.34,
+"startFrame": 5785,
+"endFrame": 5792
+},
+{
+"i": 662,
+"word": "instead",
+"start": 241.34,
+"end": 241.79,
+"startFrame": 5792,
+"endFrame": 5803
+},
+{
+"i": 663,
+"word": "he",
+"start": 242.6,
+"end": 242.72,
+"startFrame": 5822,
+"endFrame": 5825
+},
+{
+"i": 664,
+"word": "says",
+"start": 242.72,
+"end": 242.92,
+"startFrame": 5825,
+"endFrame": 5830
+},
+{
+"i": 665,
+"word": "the",
+"start": 242.92,
+"end": 243.12,
+"startFrame": 5830,
+"endFrame": 5835
+},
+{
+"i": 666,
+"word": "shop",
+"start": 243.12,
+"end": 243.36,
+"startFrame": 5835,
+"endFrame": 5841
+},
+{
+"i": 667,
+"word": "lights",
+"start": 243.4,
+"end": 243.58,
+"startFrame": 5842,
+"endFrame": 5846
+},
+{
+"i": 668,
+"word": "have",
+"start": 243.58,
+"end": 243.76,
+"startFrame": 5846,
+"endFrame": 5850
+},
+{
+"i": 669,
+"word": "been",
+"start": 243.76,
+"end": 243.88,
+"startFrame": 5850,
+"endFrame": 5853
+},
+{
+"i": 670,
+"word": "flickering",
+"start": 243.94,
+"end": 244.18,
+"startFrame": 5855,
+"endFrame": 5860
+},
+{
+"i": 671,
+"word": "again",
+"start": 244.18,
+"end": 244.54,
+"startFrame": 5860,
+"endFrame": 5869
+},
+{
+"i": 672,
+"word": "you",
+"start": 245.36,
+"end": 245.48,
+"startFrame": 5889,
+"endFrame": 5892
+},
+{
+"i": 673,
+"word": "promise",
+"start": 245.52,
+"end": 245.74,
+"startFrame": 5892,
+"endFrame": 5898
+},
+{
+"i": 674,
+"word": "to",
+"start": 245.74,
+"end": 246.02,
+"startFrame": 5898,
+"endFrame": 5904
+},
+{
+"i": 675,
+"word": "stop",
+"start": 246.02,
+"end": 246.2,
+"startFrame": 5904,
+"endFrame": 5909
+},
+{
+"i": 676,
+"word": "by",
+"start": 246.26,
+"end": 246.48,
+"startFrame": 5910,
+"endFrame": 5916
+},
+{
+"i": 677,
+"word": "after",
+"start": 246.48,
+"end": 246.76,
+"startFrame": 5916,
+"endFrame": 5922
+},
+{
+"i": 678,
+"word": "your",
+"start": 246.76,
+"end": 246.96,
+"startFrame": 5922,
+"endFrame": 5927
+},
+{
+"i": 679,
+"word": "shift",
+"start": 246.96,
+"end": 247.2,
+"startFrame": 5927,
+"endFrame": 5933
+},
+{
+"i": 680,
+"word": "and",
+"start": 247.28,
+"end": 247.46,
+"startFrame": 5935,
+"endFrame": 5939
+},
+{
+"i": 681,
+"word": "fix",
+"start": 247.48,
+"end": 247.64,
+"startFrame": 5940,
+"endFrame": 5943
+},
+{
+"i": 682,
+"word": "the",
+"start": 247.74,
+"end": 247.86,
+"startFrame": 5946,
+"endFrame": 5949
+},
+{
+"i": 683,
+"word": "loose",
+"start": 247.86,
+"end": 248.02,
+"startFrame": 5949,
+"endFrame": 5952
+},
+{
+"i": 684,
+"word": "switch",
+"start": 248.02,
+"end": 248.52,
+"startFrame": 5952,
+"endFrame": 5964
+},
+{
+"i": 685,
+"word": "then",
+"start": 249.5,
+"end": 249.72,
+"startFrame": 5988,
+"endFrame": 5993
+},
+{
+"i": 686,
+"word": "the",
+"start": 249.72,
+"end": 249.96,
+"startFrame": 5993,
+"endFrame": 5999
+},
+{
+"i": 687,
+"word": "line",
+"start": 249.96,
+"end": 250.18,
+"startFrame": 5999,
+"endFrame": 6004
+},
+{
+"i": 688,
+"word": "goes",
+"start": 250.18,
+"end": 250.4,
+"startFrame": 6004,
+"endFrame": 6010
+},
+{
+"i": 689,
+"word": "dead",
+"start": 250.4,
+"end": 250.5,
+"startFrame": 6010,
+"endFrame": 6012
+},
+{
+"i": 690,
+"word": "on",
+"start": 251.68,
+"end": 251.8,
+"startFrame": 6040,
+"endFrame": 6043
+},
+{
+"i": 691,
+"word": "your",
+"start": 251.8,
+"end": 252.08,
+"startFrame": 6043,
+"endFrame": 6050
+},
+{
+"i": 692,
+"word": "sixth",
+"start": 252.08,
+"end": 252.32,
+"startFrame": 6050,
+"endFrame": 6056
+},
+{
+"i": 693,
+"word": "night",
+"start": 252.32,
+"end": 252.42,
+"startFrame": 6056,
+"endFrame": 6058
+},
+{
+"i": 694,
+"word": "gotham",
+"start": 253.14,
+"end": 253.42,
+"startFrame": 6075,
+"endFrame": 6082
+},
+{
+"i": 695,
+"word": "loses",
+"start": 253.42,
+"end": 253.78,
+"startFrame": 6082,
+"endFrame": 6091
+},
+{
+"i": 696,
+"word": "power",
+"start": 253.78,
+"end": 254.18,
+"startFrame": 6091,
+"endFrame": 6100
+},
+{
+"i": 697,
+"word": "not",
+"start": 255.3,
+"end": 255.36,
+"startFrame": 6127,
+"endFrame": 6129
+},
+{
+"i": 698,
+"word": "all",
+"start": 255.36,
+"end": 255.5,
+"startFrame": 6129,
+"endFrame": 6132
+},
+{
+"i": 699,
+"word": "at",
+"start": 255.5,
+"end": 255.66,
+"startFrame": 6132,
+"endFrame": 6136
+},
+{
+"i": 700,
+"word": "once",
+"start": 255.66,
+"end": 256.02,
+"startFrame": 6136,
+"endFrame": 6144
+},
+{
+"i": 701,
+"word": "first",
+"start": 256.76,
+"end": 256.92,
+"startFrame": 6162,
+"endFrame": 6166
+},
+{
+"i": 702,
+"word": "a",
+"start": 256.92,
+"end": 257.06,
+"startFrame": 6166,
+"endFrame": 6169
+},
+{
+"i": 703,
+"word": "few",
+"start": 257.08,
+"end": 257.2,
+"startFrame": 6170,
+"endFrame": 6173
+},
+{
+"i": 704,
+"word": "blocks",
+"start": 257.2,
+"end": 257.56,
+"startFrame": 6173,
+"endFrame": 6181
+},
+{
+"i": 705,
+"word": "then",
+"start": 258.22,
+"end": 258.32,
+"startFrame": 6197,
+"endFrame": 6200
+},
+{
+"i": 706,
+"word": "another",
+"start": 258.32,
+"end": 258.54,
+"startFrame": 6200,
+"endFrame": 6205
+},
+{
+"i": 707,
+"word": "traffic",
+"start": 259.52,
+"end": 259.74,
+"startFrame": 6228,
+"endFrame": 6234
+},
+{
+"i": 708,
+"word": "lights",
+"start": 259.78,
+"end": 260.0,
+"startFrame": 6235,
+"endFrame": 6240
+},
+{
+"i": 709,
+"word": "go",
+"start": 260.1,
+"end": 260.2,
+"startFrame": 6242,
+"endFrame": 6245
+},
+{
+"i": 710,
+"word": "black",
+"start": 260.2,
+"end": 260.56,
+"startFrame": 6245,
+"endFrame": 6253
+},
+{
+"i": 711,
+"word": "storefronts",
+"start": 261.2,
+"end": 261.8,
+"startFrame": 6269,
+"endFrame": 6283
+},
+{
+"i": 712,
+"word": "disappear",
+"start": 261.8,
+"end": 262.32,
+"startFrame": 6283,
+"endFrame": 6296
+},
+{
+"i": 713,
+"word": "far",
+"start": 263.16,
+"end": 263.32,
+"startFrame": 6316,
+"endFrame": 6320
+},
+{
+"i": 714,
+"word": "away",
+"start": 263.32,
+"end": 263.66,
+"startFrame": 6320,
+"endFrame": 6328
+},
+{
+"i": 715,
+"word": "the",
+"start": 264.02,
+"end": 264.08,
+"startFrame": 6336,
+"endFrame": 6338
+},
+{
+"i": 716,
+"word": "bat",
+"start": 264.08,
+"end": 264.6,
+"startFrame": 6338,
+"endFrame": 6350
+},
+{
+"i": 717,
+"word": "signal",
+"start": 264.08,
+"end": 264.6,
+"startFrame": 6338,
+"endFrame": 6350
+},
+{
+"i": 718,
+"word": "clicks",
+"start": 264.7,
+"end": 264.9,
+"startFrame": 6353,
+"endFrame": 6358
+},
+{
+"i": 719,
+"word": "off",
+"start": 264.9,
+"end": 265.24,
+"startFrame": 6358,
+"endFrame": 6366
+},
+{
+"i": 720,
+"word": "halfway",
+"start": 265.3,
+"end": 265.62,
+"startFrame": 6367,
+"endFrame": 6375
+},
+{
+"i": 721,
+"word": "through",
+"start": 265.62,
+"end": 265.9,
+"startFrame": 6375,
+"endFrame": 6382
+},
+{
+"i": 722,
+"word": "its",
+"start": 265.9,
+"end": 266.06,
+"startFrame": 6382,
+"endFrame": 6385
+},
+{
+"i": 723,
+"word": "sweep",
+"start": 266.06,
+"end": 266.34,
+"startFrame": 6385,
+"endFrame": 6392
+},
+{
+"i": 724,
+"word": "leaving",
+"start": 267.02,
+"end": 267.06,
+"startFrame": 6408,
+"endFrame": 6409
+},
+{
+"i": 725,
+"word": "an",
+"start": 267.06,
+"end": 267.3,
+"startFrame": 6409,
+"endFrame": 6415
+},
+{
+"i": 726,
+"word": "empty",
+"start": 267.46,
+"end": 267.56,
+"startFrame": 6419,
+"endFrame": 6421
+},
+{
+"i": 727,
+"word": "circle",
+"start": 267.56,
+"end": 267.96,
+"startFrame": 6421,
+"endFrame": 6431
+},
+{
+"i": 728,
+"word": "in",
+"start": 267.96,
+"end": 268.12,
+"startFrame": 6431,
+"endFrame": 6435
+},
+{
+"i": 729,
+"word": "the",
+"start": 268.2,
+"end": 268.3,
+"startFrame": 6437,
+"endFrame": 6439
+},
+{
+"i": 730,
+"word": "clouds",
+"start": 268.3,
+"end": 268.7,
+"startFrame": 6439,
+"endFrame": 6449
+},
+{
+"i": 731,
+"word": "calls",
+"start": 269.32,
+"end": 269.7,
+"startFrame": 6464,
+"endFrame": 6473
+},
+{
+"i": 732,
+"word": "flood",
+"start": 269.7,
+"end": 270.04,
+"startFrame": 6473,
+"endFrame": 6481
+},
+{
+"i": 733,
+"word": "the",
+"start": 270.04,
+"end": 270.28,
+"startFrame": 6481,
+"endFrame": 6487
+},
+{
+"i": 734,
+"word": "radio",
+"start": 270.28,
+"end": 270.62,
+"startFrame": 6487,
+"endFrame": 6495
+},
+{
+"i": 735,
+"word": "a",
+"start": 271.4,
+"end": 271.54,
+"startFrame": 6514,
+"endFrame": 6517
+},
+{
+"i": 736,
+"word": "bridge",
+"start": 271.54,
+"end": 271.8,
+"startFrame": 6517,
+"endFrame": 6523
+},
+{
+"i": 737,
+"word": "is",
+"start": 271.8,
+"end": 272.0,
+"startFrame": 6523,
+"endFrame": 6528
+},
+{
+"i": 738,
+"word": "jammed",
+"start": 272.0,
+"end": 272.32,
+"startFrame": 6528,
+"endFrame": 6536
+},
+{
+"i": 739,
+"word": "an",
+"start": 273.12,
+"end": 273.22,
+"startFrame": 6555,
+"endFrame": 6557
+},
+{
+"i": 740,
+"word": "alarm",
+"start": 273.22,
+"end": 273.56,
+"startFrame": 6557,
+"endFrame": 6565
+},
+{
+"i": 741,
+"word": "is",
+"start": 273.56,
+"end": 273.76,
+"startFrame": 6565,
+"endFrame": 6570
+},
+{
+"i": 742,
+"word": "ringing",
+"start": 273.76,
+"end": 274.0,
+"startFrame": 6570,
+"endFrame": 6576
+},
+{
+"i": 743,
+"word": "at",
+"start": 274.0,
+"end": 274.2,
+"startFrame": 6576,
+"endFrame": 6581
+},
+{
+"i": 744,
+"word": "a",
+"start": 274.26,
+"end": 274.38,
+"startFrame": 6582,
+"endFrame": 6585
+},
+{
+"i": 745,
+"word": "hospital",
+"start": 274.38,
+"end": 274.58,
+"startFrame": 6585,
+"endFrame": 6590
+},
+{
+"i": 746,
+"word": "somewhere",
+"start": 275.88,
+"end": 276.1,
+"startFrame": 6621,
+"endFrame": 6626
+},
+{
+"i": 747,
+"word": "near",
+"start": 276.1,
+"end": 276.36,
+"startFrame": 6626,
+"endFrame": 6633
+},
+{
+"i": 748,
+"word": "robinson",
+"start": 276.36,
+"end": 276.76,
+"startFrame": 6633,
+"endFrame": 6642
+},
+{
+"i": 749,
+"word": "park",
+"start": 276.76,
+"end": 277.24,
+"startFrame": 6642,
+"endFrame": 6654
+},
+{
+"i": 750,
+"word": "people",
+"start": 277.44,
+"end": 277.56,
+"startFrame": 6659,
+"endFrame": 6661
+},
+{
+"i": 751,
+"word": "report",
+"start": 277.56,
+"end": 277.9,
+"startFrame": 6661,
+"endFrame": 6670
+},
+{
+"i": 752,
+"word": "a",
+"start": 277.9,
+"end": 278.1,
+"startFrame": 6670,
+"endFrame": 6674
+},
+{
+"i": 753,
+"word": "bus",
+"start": 278.12,
+"end": 278.3,
+"startFrame": 6675,
+"endFrame": 6679
+},
+{
+"i": 754,
+"word": "stopped",
+"start": 278.3,
+"end": 278.8,
+"startFrame": 6679,
+"endFrame": 6691
+},
+{
+"i": 755,
+"word": "in",
+"start": 278.86,
+"end": 278.96,
+"startFrame": 6693,
+"endFrame": 6695
+},
+{
+"i": 756,
+"word": "the",
+"start": 278.96,
+"end": 279.08,
+"startFrame": 6695,
+"endFrame": 6698
+},
+{
+"i": 757,
+"word": "middle",
+"start": 279.08,
+"end": 279.2,
+"startFrame": 6698,
+"endFrame": 6701
+},
+{
+"i": 758,
+"word": "of",
+"start": 279.2,
+"end": 279.36,
+"startFrame": 6701,
+"endFrame": 6705
+},
+{
+"i": 759,
+"word": "the",
+"start": 279.44,
+"end": 279.56,
+"startFrame": 6707,
+"endFrame": 6709
+},
+{
+"i": 760,
+"word": "street",
+"start": 279.56,
+"end": 279.72,
+"startFrame": 6709,
+"endFrame": 6713
+},
+{
+"i": 761,
+"word": "you",
+"start": 281.1,
+"end": 281.1,
+"startFrame": 6746,
+"endFrame": 6746
+},
+{
+"i": 762,
+"word": "and",
+"start": 281.1,
+"end": 281.32,
+"startFrame": 6746,
+"endFrame": 6752
+},
+{
+"i": 763,
+"word": "mara",
+"start": 281.32,
+"end": 281.56,
+"startFrame": 6752,
+"endFrame": 6757
+},
+{
+"i": 764,
+"word": "are",
+"start": 281.56,
+"end": 281.88,
+"startFrame": 6757,
+"endFrame": 6765
+},
+{
+"i": 765,
+"word": "closest",
+"start": 281.88,
+"end": 282.04,
+"startFrame": 6765,
+"endFrame": 6769
+},
+{
+"i": 766,
+"word": "when",
+"start": 283.68,
+"end": 283.78,
+"startFrame": 6808,
+"endFrame": 6811
+},
+{
+"i": 767,
+"word": "you",
+"start": 283.78,
+"end": 283.9,
+"startFrame": 6811,
+"endFrame": 6814
+},
+{
+"i": 768,
+"word": "arrive",
+"start": 283.9,
+"end": 284.2,
+"startFrame": 6814,
+"endFrame": 6821
+},
+{
+"i": 769,
+"word": "the",
+"start": 285.04,
+"end": 285.04,
+"startFrame": 6841,
+"endFrame": 6841
+},
+{
+"i": 770,
+"word": "bus",
+"start": 285.04,
+"end": 285.22,
+"startFrame": 6841,
+"endFrame": 6845
+},
+{
+"i": 771,
+"word": "is",
+"start": 285.22,
+"end": 285.46,
+"startFrame": 6845,
+"endFrame": 6851
+},
+{
+"i": 772,
+"word": "empty",
+"start": 285.46,
+"end": 285.78,
+"startFrame": 6851,
+"endFrame": 6859
+},
+{
+"i": 773,
+"word": "except",
+"start": 286.62,
+"end": 286.74,
+"startFrame": 6879,
+"endFrame": 6882
+},
+{
+"i": 774,
+"word": "for",
+"start": 286.74,
+"end": 287.0,
+"startFrame": 6882,
+"endFrame": 6888
+},
+{
+"i": 775,
+"word": "one",
+"start": 287.0,
+"end": 287.2,
+"startFrame": 6888,
+"endFrame": 6893
+},
+{
+"i": 776,
+"word": "child",
+"start": 287.2,
+"end": 287.54,
+"startFrame": 6893,
+"endFrame": 6901
+},
+{
+"i": 777,
+"word": "she's",
+"start": 288.74,
+"end": 288.96,
+"startFrame": 6930,
+"endFrame": 6935
+},
+{
+"i": 778,
+"word": "sitting",
+"start": 288.98,
+"end": 289.16,
+"startFrame": 6936,
+"endFrame": 6940
+},
+{
+"i": 779,
+"word": "in",
+"start": 289.16,
+"end": 289.3,
+"startFrame": 6940,
+"endFrame": 6943
+},
+{
+"i": 780,
+"word": "the",
+"start": 289.3,
+"end": 289.44,
+"startFrame": 6943,
+"endFrame": 6947
+},
+{
+"i": 781,
+"word": "back",
+"start": 289.44,
+"end": 289.66,
+"startFrame": 6947,
+"endFrame": 6952
+},
+{
+"i": 782,
+"word": "wearing",
+"start": 290.3,
+"end": 290.32,
+"startFrame": 6967,
+"endFrame": 6968
+},
+{
+"i": 783,
+"word": "a",
+"start": 290.32,
+"end": 290.52,
+"startFrame": 6968,
+"endFrame": 6972
+},
+{
+"i": 784,
+"word": "yellow",
+"start": 290.52,
+"end": 290.78,
+"startFrame": 6972,
+"endFrame": 6979
+},
+{
+"i": 785,
+"word": "raincoat",
+"start": 290.78,
+"end": 291.14,
+"startFrame": 6979,
+"endFrame": 6987
+},
+{
+"i": 786,
+"word": "holding",
+"start": 292.1,
+"end": 292.24,
+"startFrame": 7010,
+"endFrame": 7014
+},
+{
+"i": 787,
+"word": "a",
+"start": 292.24,
+"end": 292.42,
+"startFrame": 7014,
+"endFrame": 7018
+},
+{
+"i": 788,
+"word": "small",
+"start": 292.42,
+"end": 292.72,
+"startFrame": 7018,
+"endFrame": 7025
+},
+{
+"i": 789,
+"word": "flashlight",
+"start": 292.72,
+"end": 293.28,
+"startFrame": 7025,
+"endFrame": 7039
+},
+{
+"i": 790,
+"word": "against",
+"start": 293.28,
+"end": 293.6,
+"startFrame": 7039,
+"endFrame": 7046
+},
+{
+"i": 791,
+"word": "the",
+"start": 293.68,
+"end": 293.8,
+"startFrame": 7048,
+"endFrame": 7051
+},
+{
+"i": 792,
+"word": "window",
+"start": 293.8,
+"end": 294.0,
+"startFrame": 7051,
+"endFrame": 7056
+},
+{
+"i": 793,
+"word": "the",
+"start": 295.46,
+"end": 295.58,
+"startFrame": 7091,
+"endFrame": 7094
+},
+{
+"i": 794,
+"word": "driver",
+"start": 295.58,
+"end": 295.86,
+"startFrame": 7094,
+"endFrame": 7101
+},
+{
+"i": 795,
+"word": "is",
+"start": 295.86,
+"end": 296.08,
+"startFrame": 7101,
+"endFrame": 7106
+},
+{
+"i": 796,
+"word": "outside",
+"start": 296.08,
+"end": 296.54,
+"startFrame": 7106,
+"endFrame": 7117
+},
+{
+"i": 797,
+"word": "shaking",
+"start": 297.04,
+"end": 297.24,
+"startFrame": 7129,
+"endFrame": 7134
+},
+{
+"i": 798,
+"word": "he",
+"start": 298.36,
+"end": 298.48,
+"startFrame": 7161,
+"endFrame": 7164
+},
+{
+"i": 799,
+"word": "says",
+"start": 298.48,
+"end": 298.64,
+"startFrame": 7164,
+"endFrame": 7167
+},
+{
+"i": 800,
+"word": "a",
+"start": 298.64,
+"end": 298.82,
+"startFrame": 7167,
+"endFrame": 7172
+},
+{
+"i": 801,
+"word": "man",
+"start": 298.82,
+"end": 299.12,
+"startFrame": 7172,
+"endFrame": 7179
+},
+{
+"i": 802,
+"word": "in",
+"start": 299.12,
+"end": 299.24,
+"startFrame": 7179,
+"endFrame": 7182
+},
+{
+"i": 803,
+"word": "a",
+"start": 299.24,
+"end": 299.46,
+"startFrame": 7182,
+"endFrame": 7187
+},
+{
+"i": 804,
+"word": "purple",
+"start": 299.46,
+"end": 299.68,
+"startFrame": 7187,
+"endFrame": 7192
+},
+{
+"i": 805,
+"word": "coat",
+"start": 299.8,
+"end": 300.02,
+"startFrame": 7195,
+"endFrame": 7200
+},
+{
+"i": 806,
+"word": "stopped",
+"start": 300.08,
+"end": 300.44,
+"startFrame": 7202,
+"endFrame": 7211
+},
+{
+"i": 807,
+"word": "the",
+"start": 300.52,
+"end": 300.66,
+"startFrame": 7212,
+"endFrame": 7216
+},
+{
+"i": 808,
+"word": "bus",
+"start": 300.66,
+"end": 300.76,
+"startFrame": 7216,
+"endFrame": 7218
+},
+{
+"i": 809,
+"word": "sent",
+"start": 301.6,
+"end": 301.72,
+"startFrame": 7238,
+"endFrame": 7241
+},
+{
+"i": 810,
+"word": "everyone",
+"start": 301.72,
+"end": 302.1,
+"startFrame": 7241,
+"endFrame": 7250
+},
+{
+"i": 811,
+"word": "else",
+"start": 302.1,
+"end": 302.32,
+"startFrame": 7250,
+"endFrame": 7256
+},
+{
+"i": 812,
+"word": "away",
+"start": 302.32,
+"end": 302.68,
+"startFrame": 7256,
+"endFrame": 7264
+},
+{
+"i": 813,
+"word": "and",
+"start": 303.36,
+"end": 303.46,
+"startFrame": 7281,
+"endFrame": 7283
+},
+{
+"i": 814,
+"word": "locked",
+"start": 303.46,
+"end": 303.8,
+"startFrame": 7283,
+"endFrame": 7291
+},
+{
+"i": 815,
+"word": "the",
+"start": 303.88,
+"end": 304.0,
+"startFrame": 7293,
+"endFrame": 7296
+},
+{
+"i": 816,
+"word": "girl",
+"start": 304.0,
+"end": 304.26,
+"startFrame": 7296,
+"endFrame": 7302
+},
+{
+"i": 817,
+"word": "inside",
+"start": 304.26,
+"end": 304.76,
+"startFrame": 7302,
+"endFrame": 7314
+},
+{
+"i": 818,
+"word": "a",
+"start": 306.44,
+"end": 306.6,
+"startFrame": 7355,
+"endFrame": 7358
+},
+{
+"i": 819,
+"word": "telephone",
+"start": 306.62,
+"end": 307.0,
+"startFrame": 7359,
+"endFrame": 7368
+},
+{
+"i": 820,
+"word": "rings",
+"start": 307.0,
+"end": 307.36,
+"startFrame": 7368,
+"endFrame": 7377
+},
+{
+"i": 821,
+"word": "in",
+"start": 307.36,
+"end": 307.6,
+"startFrame": 7377,
+"endFrame": 7382
+},
+{
+"i": 822,
+"word": "the",
+"start": 307.6,
+"end": 307.74,
+"startFrame": 7382,
+"endFrame": 7386
+},
+{
+"i": 823,
+"word": "driver's",
+"start": 307.74,
+"end": 308.24,
+"startFrame": 7386,
+"endFrame": 7398
+},
+{
+"i": 824,
+"word": "pocket",
+"start": 308.24,
+"end": 308.34,
+"startFrame": 7398,
+"endFrame": 7400
+},
+{
+"i": 825,
+"word": "he",
+"start": 309.66,
+"end": 309.76,
+"startFrame": 7432,
+"endFrame": 7434
+},
+{
+"i": 826,
+"word": "says",
+"start": 309.76,
+"end": 309.94,
+"startFrame": 7434,
+"endFrame": 7439
+},
+{
+"i": 827,
+"word": "the",
+"start": 309.94,
+"end": 310.1,
+"startFrame": 7439,
+"endFrame": 7442
+},
+{
+"i": 828,
+"word": "man",
+"start": 310.1,
+"end": 310.3,
+"startFrame": 7442,
+"endFrame": 7447
+},
+{
+"i": 829,
+"word": "gave",
+"start": 310.3,
+"end": 310.54,
+"startFrame": 7447,
+"endFrame": 7453
+},
+{
+"i": 830,
+"word": "it",
+"start": 310.54,
+"end": 310.68,
+"startFrame": 7453,
+"endFrame": 7456
+},
+{
+"i": 831,
+"word": "to",
+"start": 310.7,
+"end": 310.8,
+"startFrame": 7457,
+"endFrame": 7459
+},
+{
+"i": 832,
+"word": "him",
+"start": 310.8,
+"end": 310.9,
+"startFrame": 7459,
+"endFrame": 7462
+},
+{
+"i": 833,
+"word": "he",
+"start": 312.08,
+"end": 312.08,
+"startFrame": 7490,
+"endFrame": 7490
+},
+{
+"i": 834,
+"word": "was",
+"start": 312.08,
+"end": 312.16,
+"startFrame": 7490,
+"endFrame": 7492
+},
+{
+"i": 835,
+"word": "told",
+"start": 312.16,
+"end": 312.32,
+"startFrame": 7492,
+"endFrame": 7496
+},
+{
+"i": 836,
+"word": "to",
+"start": 312.32,
+"end": 312.54,
+"startFrame": 7496,
+"endFrame": 7501
+},
+{
+"i": 837,
+"word": "answer",
+"start": 312.54,
+"end": 312.84,
+"startFrame": 7501,
+"endFrame": 7508
+},
+{
+"i": 838,
+"word": "when",
+"start": 312.98,
+"end": 313.08,
+"startFrame": 7512,
+"endFrame": 7514
+},
+{
+"i": 839,
+"word": "a",
+"start": 313.08,
+"end": 313.2,
+"startFrame": 7514,
+"endFrame": 7517
+},
+{
+"i": 840,
+"word": "police",
+"start": 313.36,
+"end": 313.46,
+"startFrame": 7521,
+"endFrame": 7523
+},
+{
+"i": 841,
+"word": "officer",
+"start": 313.46,
+"end": 313.86,
+"startFrame": 7523,
+"endFrame": 7533
+},
+{
+"i": 842,
+"word": "arrived",
+"start": 313.86,
+"end": 314.22,
+"startFrame": 7533,
+"endFrame": 7541
+},
+{
+"i": 843,
+"word": "you",
+"start": 315.84,
+"end": 315.86,
+"startFrame": 7580,
+"endFrame": 7581
+},
+{
+"i": 844,
+"word": "tell",
+"start": 315.86,
+"end": 316.08,
+"startFrame": 7581,
+"endFrame": 7586
+},
+{
+"i": 845,
+"word": "him",
+"start": 316.08,
+"end": 316.2,
+"startFrame": 7586,
+"endFrame": 7589
+},
+{
+"i": 846,
+"word": "not",
+"start": 316.2,
+"end": 316.36,
+"startFrame": 7589,
+"endFrame": 7593
+},
+{
+"i": 847,
+"word": "to",
+"start": 316.42,
+"end": 316.52,
+"startFrame": 7594,
+"endFrame": 7596
+},
+{
+"i": 848,
+"word": "touch",
+"start": 316.52,
+"end": 316.68,
+"startFrame": 7596,
+"endFrame": 7600
+},
+{
+"i": 849,
+"word": "it",
+"start": 316.68,
+"end": 317.08,
+"startFrame": 7600,
+"endFrame": 7610
+},
+{
+"i": 850,
+"word": "mara",
+"start": 317.88,
+"end": 318.1,
+"startFrame": 7629,
+"endFrame": 7634
+},
+{
+"i": 851,
+"word": "steps",
+"start": 318.1,
+"end": 318.38,
+"startFrame": 7634,
+"endFrame": 7641
+},
+{
+"i": 852,
+"word": "between",
+"start": 318.48,
+"end": 318.78,
+"startFrame": 7644,
+"endFrame": 7651
+},
+{
+"i": 853,
+"word": "him",
+"start": 318.78,
+"end": 319.08,
+"startFrame": 7651,
+"endFrame": 7658
+},
+{
+"i": 854,
+"word": "and",
+"start": 319.08,
+"end": 319.2,
+"startFrame": 7658,
+"endFrame": 7661
+},
+{
+"i": 855,
+"word": "the",
+"start": 319.2,
+"end": 319.36,
+"startFrame": 7661,
+"endFrame": 7665
+},
+{
+"i": 856,
+"word": "bus",
+"start": 319.36,
+"end": 319.58,
+"startFrame": 7665,
+"endFrame": 7670
+},
+{
+"i": 857,
+"word": "and",
+"start": 319.58,
+"end": 319.8,
+"startFrame": 7670,
+"endFrame": 7675
+},
+{
+"i": 858,
+"word": "calls",
+"start": 319.84,
+"end": 320.02,
+"startFrame": 7676,
+"endFrame": 7680
+},
+{
+"i": 859,
+"word": "for",
+"start": 320.02,
+"end": 320.22,
+"startFrame": 7680,
+"endFrame": 7685
+},
+{
+"i": 860,
+"word": "the",
+"start": 320.22,
+"end": 320.36,
+"startFrame": 7685,
+"endFrame": 7689
+},
+{
+"i": 861,
+"word": "bomb",
+"start": 320.36,
+"end": 320.54,
+"startFrame": 7689,
+"endFrame": 7693
+},
+{
+"i": 862,
+"word": "squad",
+"start": 320.54,
+"end": 320.66,
+"startFrame": 7693,
+"endFrame": 7696
+},
+{
+"i": 863,
+"word": "the",
+"start": 322.14,
+"end": 322.24,
+"startFrame": 7731,
+"endFrame": 7734
+},
+{
+"i": 864,
+"word": "little",
+"start": 322.24,
+"end": 322.44,
+"startFrame": 7734,
+"endFrame": 7739
+},
+{
+"i": 865,
+"word": "girl",
+"start": 322.44,
+"end": 322.64,
+"startFrame": 7739,
+"endFrame": 7743
+},
+{
+"i": 866,
+"word": "sees",
+"start": 322.64,
+"end": 322.94,
+"startFrame": 7743,
+"endFrame": 7751
+},
+{
+"i": 867,
+"word": "your",
+"start": 322.94,
+"end": 323.14,
+"startFrame": 7751,
+"endFrame": 7755
+},
+{
+"i": 868,
+"word": "uniform",
+"start": 323.14,
+"end": 323.58,
+"startFrame": 7755,
+"endFrame": 7766
+},
+{
+"i": 869,
+"word": "and",
+"start": 323.58,
+"end": 323.8,
+"startFrame": 7766,
+"endFrame": 7771
+},
+{
+"i": 870,
+"word": "starts",
+"start": 323.8,
+"end": 324.04,
+"startFrame": 7771,
+"endFrame": 7777
+},
+{
+"i": 871,
+"word": "banging",
+"start": 324.1,
+"end": 324.34,
+"startFrame": 7778,
+"endFrame": 7784
+},
+{
+"i": 872,
+"word": "on",
+"start": 324.34,
+"end": 324.56,
+"startFrame": 7784,
+"endFrame": 7789
+},
+{
+"i": 873,
+"word": "the",
+"start": 324.56,
+"end": 324.7,
+"startFrame": 7789,
+"endFrame": 7793
+},
+{
+"i": 874,
+"word": "window",
+"start": 324.7,
+"end": 324.84,
+"startFrame": 7793,
+"endFrame": 7796
+},
+{
+"i": 875,
+"word": "the",
+"start": 326.34,
+"end": 326.46,
+"startFrame": 7832,
+"endFrame": 7835
+},
+{
+"i": 876,
+"word": "phone",
+"start": 326.48,
+"end": 326.72,
+"startFrame": 7836,
+"endFrame": 7841
+},
+{
+"i": 877,
+"word": "keeps",
+"start": 326.72,
+"end": 327.0,
+"startFrame": 7841,
+"endFrame": 7848
+},
+{
+"i": 878,
+"word": "ringing",
+"start": 327.0,
+"end": 327.24,
+"startFrame": 7848,
+"endFrame": 7854
+},
+{
+"i": 879,
+"word": "mara",
+"start": 328.46,
+"end": 328.74,
+"startFrame": 7883,
+"endFrame": 7890
+},
+{
+"i": 880,
+"word": "answers",
+"start": 328.74,
+"end": 329.12,
+"startFrame": 7890,
+"endFrame": 7899
+},
+{
+"i": 881,
+"word": "on",
+"start": 329.12,
+"end": 329.4,
+"startFrame": 7899,
+"endFrame": 7906
+},
+{
+"i": 882,
+"word": "speaker",
+"start": 329.4,
+"end": 329.68,
+"startFrame": 7906,
+"endFrame": 7912
+},
+{
+"i": 883,
+"word": "a",
+"start": 330.86,
+"end": 331.0,
+"startFrame": 7941,
+"endFrame": 7944
+},
+{
+"i": 884,
+"word": "man's",
+"start": 331.0,
+"end": 331.3,
+"startFrame": 7944,
+"endFrame": 7951
+},
+{
+"i": 885,
+"word": "voice",
+"start": 331.3,
+"end": 331.6,
+"startFrame": 7951,
+"endFrame": 7958
+},
+{
+"i": 886,
+"word": "asks",
+"start": 331.6,
+"end": 332.24,
+"startFrame": 7958,
+"endFrame": 7974
+},
+{
+"i": 887,
+"word": "whether",
+"start": 332.24,
+"end": 332.56,
+"startFrame": 7974,
+"endFrame": 7981
+},
+{
+"i": 888,
+"word": "the",
+"start": 332.74,
+"end": 332.84,
+"startFrame": 7986,
+"endFrame": 7988
+},
+{
+"i": 889,
+"word": "city",
+"start": 332.84,
+"end": 333.02,
+"startFrame": 7988,
+"endFrame": 7992
+},
+{
+"i": 890,
+"word": "is",
+"start": 333.02,
+"end": 333.26,
+"startFrame": 7992,
+"endFrame": 7998
+},
+{
+"i": 891,
+"word": "enjoying",
+"start": 333.26,
+"end": 333.78,
+"startFrame": 7998,
+"endFrame": 8011
+},
+{
+"i": 892,
+"word": "the",
+"start": 333.78,
+"end": 334.12,
+"startFrame": 8011,
+"endFrame": 8019
+},
+{
+"i": 893,
+"word": "dark",
+"start": 334.12,
+"end": 334.4,
+"startFrame": 8019,
+"endFrame": 8026
+},
+{
+"i": 894,
+"word": "you",
+"start": 335.72,
+"end": 335.84,
+"startFrame": 8057,
+"endFrame": 8060
+},
+{
+"i": 895,
+"word": "know",
+"start": 335.84,
+"end": 335.98,
+"startFrame": 8060,
+"endFrame": 8064
+},
+{
+"i": 896,
+"word": "that",
+"start": 335.98,
+"end": 336.2,
+"startFrame": 8064,
+"endFrame": 8069
+},
+{
+"i": 897,
+"word": "voice",
+"start": 336.2,
+"end": 336.6,
+"startFrame": 8069,
+"endFrame": 8078
+},
+{
+"i": 898,
+"word": "even",
+"start": 337.34,
+"end": 337.38,
+"startFrame": 8096,
+"endFrame": 8097
+},
+{
+"i": 899,
+"word": "though",
+"start": 337.38,
+"end": 337.52,
+"startFrame": 8097,
+"endFrame": 8100
+},
+{
+"i": 900,
+"word": "you",
+"start": 337.52,
+"end": 337.68,
+"startFrame": 8100,
+"endFrame": 8104
+},
+{
+"i": 901,
+"word": "have",
+"start": 337.68,
+"end": 337.8,
+"startFrame": 8104,
+"endFrame": 8107
+},
+{
+"i": 902,
+"word": "never",
+"start": 337.8,
+"end": 338.08,
+"startFrame": 8107,
+"endFrame": 8114
+},
+{
+"i": 903,
+"word": "heard",
+"start": 338.08,
+"end": 338.28,
+"startFrame": 8114,
+"endFrame": 8119
+},
+{
+"i": 904,
+"word": "it",
+"start": 338.28,
+"end": 338.42,
+"startFrame": 8119,
+"endFrame": 8122
+},
+{
+"i": 905,
+"word": "in",
+"start": 338.46,
+"end": 338.6,
+"startFrame": 8123,
+"endFrame": 8126
+},
+{
+"i": 906,
+"word": "person",
+"start": 338.6,
+"end": 338.95,
+"startFrame": 8126,
+"endFrame": 8135
+},
+{
+"i": 907,
+"word": "every",
+"start": 340.48,
+"end": 340.52,
+"startFrame": 8172,
+"endFrame": 8172
+},
+{
+"i": 908,
+"word": "cop",
+"start": 340.52,
+"end": 340.78,
+"startFrame": 8172,
+"endFrame": 8179
+},
+{
+"i": 909,
+"word": "in",
+"start": 340.84,
+"end": 341.0,
+"startFrame": 8180,
+"endFrame": 8184
+},
+{
+"i": 910,
+"word": "gotham",
+"start": 341.0,
+"end": 341.24,
+"startFrame": 8184,
+"endFrame": 8190
+},
+{
+"i": 911,
+"word": "does",
+"start": 341.24,
+"end": 341.56,
+"startFrame": 8190,
+"endFrame": 8197
+},
+{
+"i": 912,
+"word": "the",
+"start": 342.92,
+"end": 342.98,
+"startFrame": 8230,
+"endFrame": 8232
+},
+{
+"i": 913,
+"word": "joker",
+"start": 342.98,
+"end": 343.22,
+"startFrame": 8232,
+"endFrame": 8237
+},
+{
+"i": 914,
+"word": "says",
+"start": 343.22,
+"end": 343.52,
+"startFrame": 8237,
+"endFrame": 8244
+},
+{
+"i": 915,
+"word": "the",
+"start": 343.52,
+"end": 343.68,
+"startFrame": 8244,
+"endFrame": 8248
+},
+{
+"i": 916,
+"word": "bus",
+"start": 343.68,
+"end": 343.88,
+"startFrame": 8248,
+"endFrame": 8253
+},
+{
+"i": 917,
+"word": "door",
+"start": 343.88,
+"end": 344.14,
+"startFrame": 8253,
+"endFrame": 8259
+},
+{
+"i": 918,
+"word": "is",
+"start": 344.14,
+"end": 344.32,
+"startFrame": 8259,
+"endFrame": 8264
+},
+{
+"i": 919,
+"word": "connected",
+"start": 344.34,
+"end": 344.6,
+"startFrame": 8264,
+"endFrame": 8270
+},
+{
+"i": 920,
+"word": "to",
+"start": 344.6,
+"end": 344.82,
+"startFrame": 8270,
+"endFrame": 8276
+},
+{
+"i": 921,
+"word": "a",
+"start": 344.82,
+"end": 345.0,
+"startFrame": 8276,
+"endFrame": 8280
+},
+{
+"i": 922,
+"word": "device",
+"start": 345.0,
+"end": 345.44,
+"startFrame": 8280,
+"endFrame": 8291
+},
+{
+"i": 923,
+"word": "open",
+"start": 346.08,
+"end": 346.26,
+"startFrame": 8306,
+"endFrame": 8310
+},
+{
+"i": 924,
+"word": "it",
+"start": 346.26,
+"end": 346.36,
+"startFrame": 8310,
+"endFrame": 8313
+},
+{
+"i": 925,
+"word": "and",
+"start": 346.92,
+"end": 346.96,
+"startFrame": 8326,
+"endFrame": 8327
+},
+{
+"i": 926,
+"word": "something",
+"start": 346.98,
+"end": 347.2,
+"startFrame": 8328,
+"endFrame": 8333
+},
+{
+"i": 927,
+"word": "goes",
+"start": 347.26,
+"end": 347.4,
+"startFrame": 8334,
+"endFrame": 8338
+},
+{
+"i": 928,
+"word": "off",
+"start": 347.4,
+"end": 347.62,
+"startFrame": 8338,
+"endFrame": 8343
+},
+{
+"i": 929,
+"word": "he",
+"start": 348.76,
+"end": 348.86,
+"startFrame": 8370,
+"endFrame": 8373
+},
+{
+"i": 930,
+"word": "doesn't",
+"start": 348.86,
+"end": 349.04,
+"startFrame": 8373,
+"endFrame": 8377
+},
+{
+"i": 931,
+"word": "say",
+"start": 349.04,
+"end": 349.26,
+"startFrame": 8377,
+"endFrame": 8382
+},
+{
+"i": 932,
+"word": "what",
+"start": 349.26,
+"end": 349.56,
+"startFrame": 8382,
+"endFrame": 8389
+},
+{
+"i": 933,
+"word": "he",
+"start": 350.36,
+"end": 350.46,
+"startFrame": 8409,
+"endFrame": 8411
+},
+{
+"i": 934,
+"word": "doesn't",
+"start": 350.46,
+"end": 350.68,
+"startFrame": 8411,
+"endFrame": 8416
+},
+{
+"i": 935,
+"word": "say",
+"start": 350.68,
+"end": 350.86,
+"startFrame": 8416,
+"endFrame": 8421
+},
+{
+"i": 936,
+"word": "where",
+"start": 350.86,
+"end": 351.26,
+"startFrame": 8421,
+"endFrame": 8430
+},
+{
+"i": 937,
+"word": "then",
+"start": 352.5,
+"end": 352.62,
+"startFrame": 8460,
+"endFrame": 8463
+},
+{
+"i": 938,
+"word": "he",
+"start": 352.62,
+"end": 352.8,
+"startFrame": 8463,
+"endFrame": 8467
+},
+{
+"i": 939,
+"word": "laughs",
+"start": 352.8,
+"end": 353.12,
+"startFrame": 8467,
+"endFrame": 8475
+},
+{
+"i": 940,
+"word": "and",
+"start": 354.02,
+"end": 354.12,
+"startFrame": 8496,
+"endFrame": 8499
+},
+{
+"i": 941,
+"word": "hangs",
+"start": 354.12,
+"end": 354.38,
+"startFrame": 8499,
+"endFrame": 8505
+},
+{
+"i": 942,
+"word": "up",
+"start": 354.38,
+"end": 354.56,
+"startFrame": 8505,
+"endFrame": 8509
+},
+{
+"i": 943,
+"word": "you",
+"start": 355.82,
+"end": 355.92,
+"startFrame": 8540,
+"endFrame": 8542
+},
+{
+"i": 944,
+"word": "look",
+"start": 355.92,
+"end": 356.06,
+"startFrame": 8542,
+"endFrame": 8545
+},
+{
+"i": 945,
+"word": "at",
+"start": 356.06,
+"end": 356.16,
+"startFrame": 8545,
+"endFrame": 8548
+},
+{
+"i": 946,
+"word": "the",
+"start": 356.18,
+"end": 356.28,
+"startFrame": 8548,
+"endFrame": 8551
+},
+{
+"i": 947,
+"word": "girl",
+"start": 356.28,
+"end": 356.53,
+"startFrame": 8551,
+"endFrame": 8557
+},
+{
+"i": 948,
+"word": "she",
+"start": 357.28,
+"end": 357.44,
+"startFrame": 8575,
+"endFrame": 8579
+},
+{
+"i": 949,
+"word": "presses",
+"start": 357.5,
+"end": 357.72,
+"startFrame": 8580,
+"endFrame": 8585
+},
+{
+"i": 950,
+"word": "a",
+"start": 357.78,
+"end": 357.98,
+"startFrame": 8587,
+"endFrame": 8592
+},
+{
+"i": 951,
+"word": "hand",
+"start": 357.98,
+"end": 358.22,
+"startFrame": 8592,
+"endFrame": 8597
+},
+{
+"i": 952,
+"word": "against",
+"start": 358.22,
+"end": 358.48,
+"startFrame": 8597,
+"endFrame": 8604
+},
+{
+"i": 953,
+"word": "the",
+"start": 358.48,
+"end": 358.64,
+"startFrame": 8604,
+"endFrame": 8607
+},
+{
+"i": 954,
+"word": "glass",
+"start": 358.64,
+"end": 358.96,
+"startFrame": 8607,
+"endFrame": 8615
+},
+{
+"i": 955,
+"word": "her",
+"start": 360.1,
+"end": 360.24,
+"startFrame": 8642,
+"endFrame": 8646
+},
+{
+"i": 956,
+"word": "flashlight",
+"start": 360.28,
+"end": 360.7,
+"startFrame": 8647,
+"endFrame": 8657
+},
+{
+"i": 957,
+"word": "slips",
+"start": 360.7,
+"end": 361.16,
+"startFrame": 8657,
+"endFrame": 8668
+},
+{
+"i": 958,
+"word": "from",
+"start": 361.28,
+"end": 361.4,
+"startFrame": 8671,
+"endFrame": 8674
+},
+{
+"i": 959,
+"word": "her",
+"start": 361.4,
+"end": 361.54,
+"startFrame": 8674,
+"endFrame": 8677
+},
+{
+"i": 960,
+"word": "fingers",
+"start": 361.58,
+"end": 361.84,
+"startFrame": 8678,
+"endFrame": 8684
+},
+{
+"i": 961,
+"word": "and",
+"start": 362.02,
+"end": 362.12,
+"startFrame": 8688,
+"endFrame": 8691
+},
+{
+"i": 962,
+"word": "rolls",
+"start": 362.12,
+"end": 362.44,
+"startFrame": 8691,
+"endFrame": 8699
+},
+{
+"i": 963,
+"word": "beneath",
+"start": 362.44,
+"end": 362.76,
+"startFrame": 8699,
+"endFrame": 8706
+},
+{
+"i": 964,
+"word": "a",
+"start": 362.86,
+"end": 363.0,
+"startFrame": 8709,
+"endFrame": 8712
+},
+{
+"i": 965,
+"word": "seat",
+"start": 363.0,
+"end": 363.14,
+"startFrame": 8712,
+"endFrame": 8715
+},
+{
+"i": 966,
+"word": "the",
+"start": 364.4,
+"end": 364.52,
+"startFrame": 8746,
+"endFrame": 8748
+},
+{
+"i": 967,
+"word": "bomb",
+"start": 364.52,
+"end": 364.72,
+"startFrame": 8748,
+"endFrame": 8753
+},
+{
+"i": 968,
+"word": "squad",
+"start": 364.72,
+"end": 365.02,
+"startFrame": 8753,
+"endFrame": 8760
+},
+{
+"i": 969,
+"word": "is",
+"start": 365.02,
+"end": 365.2,
+"startFrame": 8760,
+"endFrame": 8765
+},
+{
+"i": 970,
+"word": "on",
+"start": 365.2,
+"end": 365.32,
+"startFrame": 8765,
+"endFrame": 8768
+},
+{
+"i": 971,
+"word": "its",
+"start": 365.32,
+"end": 365.46,
+"startFrame": 8768,
+"endFrame": 8771
+},
+{
+"i": 972,
+"word": "way",
+"start": 365.46,
+"end": 365.72,
+"startFrame": 8771,
+"endFrame": 8777
+},
+{
+"i": 973,
+"word": "but",
+"start": 365.92,
+"end": 365.92,
+"startFrame": 8782,
+"endFrame": 8782
+},
+{
+"i": 974,
+"word": "the",
+"start": 365.92,
+"end": 366.02,
+"startFrame": 8782,
+"endFrame": 8784
+},
+{
+"i": 975,
+"word": "roads",
+"start": 366.02,
+"end": 366.28,
+"startFrame": 8784,
+"endFrame": 8791
+},
+{
+"i": 976,
+"word": "are",
+"start": 366.28,
+"end": 366.46,
+"startFrame": 8791,
+"endFrame": 8795
+},
+{
+"i": 977,
+"word": "blocked",
+"start": 366.46,
+"end": 366.76,
+"startFrame": 8795,
+"endFrame": 8802
+},
+{
+"i": 978,
+"word": "the",
+"start": 367.82,
+"end": 367.86,
+"startFrame": 8828,
+"endFrame": 8829
+},
+{
+"i": 979,
+"word": "driver",
+"start": 367.86,
+"end": 368.1,
+"startFrame": 8829,
+"endFrame": 8834
+},
+{
+"i": 980,
+"word": "says",
+"start": 368.1,
+"end": 368.32,
+"startFrame": 8834,
+"endFrame": 8840
+},
+{
+"i": 981,
+"word": "the",
+"start": 368.32,
+"end": 368.46,
+"startFrame": 8840,
+"endFrame": 8843
+},
+{
+"i": 982,
+"word": "girl",
+"start": 368.46,
+"end": 368.66,
+"startFrame": 8843,
+"endFrame": 8848
+},
+{
+"i": 983,
+"word": "has",
+"start": 368.66,
+"end": 368.8,
+"startFrame": 8848,
+"endFrame": 8851
+},
+{
+"i": 984,
+"word": "been",
+"start": 368.8,
+"end": 368.94,
+"startFrame": 8851,
+"endFrame": 8855
+},
+{
+"i": 985,
+"word": "alone",
+"start": 368.94,
+"end": 369.22,
+"startFrame": 8855,
+"endFrame": 8861
+},
+{
+"i": 986,
+"word": "for",
+"start": 369.22,
+"end": 369.48,
+"startFrame": 8861,
+"endFrame": 8868
+},
+{
+"i": 987,
+"word": "nearly",
+"start": 369.48,
+"end": 369.72,
+"startFrame": 8868,
+"endFrame": 8873
+},
+{
+"i": 988,
+"word": "half",
+"start": 369.72,
+"end": 370.0,
+"startFrame": 8873,
+"endFrame": 8880
+},
+{
+"i": 989,
+"word": "an",
+"start": 370.02,
+"end": 370.22,
+"startFrame": 8880,
+"endFrame": 8885
+},
+{
+"i": 990,
+"word": "hour",
+"start": 370.22,
+"end": 370.44,
+"startFrame": 8885,
+"endFrame": 8891
+},
+{
+"i": 991,
+"word": "the",
+"start": 371.38,
+"end": 371.48,
+"startFrame": 8913,
+"endFrame": 8916
+},
+{
+"i": 992,
+"word": "windows",
+"start": 371.48,
+"end": 371.82,
+"startFrame": 8916,
+"endFrame": 8924
+},
+{
+"i": 993,
+"word": "are",
+"start": 371.86,
+"end": 372.02,
+"startFrame": 8925,
+"endFrame": 8928
+},
+{
+"i": 994,
+"word": "getting",
+"start": 372.02,
+"end": 372.2,
+"startFrame": 8928,
+"endFrame": 8933
+},
+{
+"i": 995,
+"word": "harder",
+"start": 372.24,
+"end": 372.5,
+"startFrame": 8934,
+"endFrame": 8940
+},
+{
+"i": 996,
+"word": "to",
+"start": 372.58,
+"end": 372.68,
+"startFrame": 8942,
+"endFrame": 8944
+},
+{
+"i": 997,
+"word": "see",
+"start": 372.68,
+"end": 372.88,
+"startFrame": 8944,
+"endFrame": 8949
+},
+{
+"i": 998,
+"word": "through",
+"start": 372.88,
+"end": 372.98,
+"startFrame": 8949,
+"endFrame": 8952
+},
+{
+"i": 999,
+"word": "you",
+"start": 373.96,
+"end": 374.06,
+"startFrame": 8975,
+"endFrame": 8977
+},
+{
+"i": 1000,
+"word": "take",
+"start": 374.06,
+"end": 374.24,
+"startFrame": 8977,
+"endFrame": 8982
+},
+{
+"i": 1001,
+"word": "a",
+"start": 374.24,
+"end": 374.42,
+"startFrame": 8982,
+"endFrame": 8986
+},
+{
+"i": 1002,
+"word": "step",
+"start": 374.42,
+"end": 374.62,
+"startFrame": 8986,
+"endFrame": 8991
+},
+{
+"i": 1003,
+"word": "toward",
+"start": 374.7,
+"end": 374.9,
+"startFrame": 8993,
+"endFrame": 8998
+},
+{
+"i": 1004,
+"word": "the",
+"start": 374.9,
+"end": 375.08,
+"startFrame": 8998,
+"endFrame": 9002
+},
+{
+"i": 1005,
+"word": "door",
+"start": 375.08,
+"end": 375.42,
+"startFrame": 9002,
+"endFrame": 9010
+},
+{
+"i": 1006,
+"word": "something",
+"start": 376.48,
+"end": 376.76,
+"startFrame": 9036,
+"endFrame": 9042
+},
+{
+"i": 1007,
+"word": "lands",
+"start": 376.76,
+"end": 377.16,
+"startFrame": 9042,
+"endFrame": 9052
+},
+{
+"i": 1008,
+"word": "on",
+"start": 377.16,
+"end": 377.38,
+"startFrame": 9052,
+"endFrame": 9057
+},
+{
+"i": 1009,
+"word": "the",
+"start": 377.44,
+"end": 377.54,
+"startFrame": 9059,
+"endFrame": 9061
+},
+{
+"i": 1010,
+"word": "roof",
+"start": 377.54,
+"end": 377.7,
+"startFrame": 9061,
+"endFrame": 9065
+},
+{
+"i": 1011,
+"word": "above",
+"start": 377.86,
+"end": 377.98,
+"startFrame": 9069,
+"endFrame": 9072
+},
+{
+"i": 1012,
+"word": "you",
+"start": 377.98,
+"end": 378.08,
+"startFrame": 9072,
+"endFrame": 9074
+},
+{
+"i": 1013,
+"word": "a",
+"start": 378.98,
+"end": 379.08,
+"startFrame": 9096,
+"endFrame": 9098
+},
+{
+"i": 1014,
+"word": "heavy",
+"start": 379.08,
+"end": 379.28,
+"startFrame": 9098,
+"endFrame": 9103
+},
+{
+"i": 1015,
+"word": "shape",
+"start": 379.28,
+"end": 379.64,
+"startFrame": 9103,
+"endFrame": 9111
+},
+{
+"i": 1016,
+"word": "a",
+"start": 380.58,
+"end": 380.68,
+"startFrame": 9134,
+"endFrame": 9136
+},
+{
+"i": 1017,
+"word": "cape",
+"start": 380.68,
+"end": 380.88,
+"startFrame": 9136,
+"endFrame": 9141
+},
+{
+"i": 1018,
+"word": "settles",
+"start": 381.08,
+"end": 381.28,
+"startFrame": 9146,
+"endFrame": 9151
+},
+{
+"i": 1019,
+"word": "against",
+"start": 381.4,
+"end": 381.66,
+"startFrame": 9154,
+"endFrame": 9160
+},
+{
+"i": 1020,
+"word": "the",
+"start": 381.66,
+"end": 381.9,
+"startFrame": 9160,
+"endFrame": 9166
+},
+{
+"i": 1021,
+"word": "brick",
+"start": 381.9,
+"end": 382.08,
+"startFrame": 9166,
+"endFrame": 9170
+},
+{
+"i": 1022,
+"word": "batman",
+"start": 383.18,
+"end": 383.56,
+"startFrame": 9196,
+"endFrame": 9205
+},
+{
+"i": 1023,
+"word": "drops",
+"start": 384.26,
+"end": 384.46,
+"startFrame": 9222,
+"endFrame": 9227
+},
+{
+"i": 1024,
+"word": "into",
+"start": 384.46,
+"end": 384.72,
+"startFrame": 9227,
+"endFrame": 9233
+},
+{
+"i": 1025,
+"word": "the",
+"start": 384.72,
+"end": 384.92,
+"startFrame": 9233,
+"endFrame": 9238
+},
+{
+"i": 1026,
+"word": "street",
+"start": 384.92,
+"end": 385.1,
+"startFrame": 9238,
+"endFrame": 9242
+},
+{
+"i": 1027,
+"word": "for",
+"start": 386.28,
+"end": 386.38,
+"startFrame": 9271,
+"endFrame": 9273
+},
+{
+"i": 1028,
+"word": "a",
+"start": 386.38,
+"end": 386.58,
+"startFrame": 9273,
+"endFrame": 9278
+},
+{
+"i": 1029,
+"word": "second",
+"start": 386.58,
+"end": 386.84,
+"startFrame": 9278,
+"endFrame": 9284
+},
+{
+"i": 1030,
+"word": "nobody",
+"start": 387.0,
+"end": 387.06,
+"startFrame": 9288,
+"endFrame": 9289
+},
+{
+"i": 1031,
+"word": "moves",
+"start": 387.06,
+"end": 387.56,
+"startFrame": 9289,
+"endFrame": 9301
+},
+{
+"i": 1032,
+"word": "the",
+"start": 388.24,
+"end": 388.36,
+"startFrame": 9318,
+"endFrame": 9321
+},
+{
+"i": 1033,
+"word": "driver",
+"start": 388.36,
+"end": 388.62,
+"startFrame": 9321,
+"endFrame": 9327
+},
+{
+"i": 1034,
+"word": "steps",
+"start": 388.62,
+"end": 388.98,
+"startFrame": 9327,
+"endFrame": 9336
+},
+{
+"i": 1035,
+"word": "back",
+"start": 388.98,
+"end": 389.32,
+"startFrame": 9336,
+"endFrame": 9344
+},
+{
+"i": 1036,
+"word": "even",
+"start": 389.96,
+"end": 390.18,
+"startFrame": 9359,
+"endFrame": 9364
+},
+{
+"i": 1037,
+"word": "mara",
+"start": 390.18,
+"end": 390.5,
+"startFrame": 9364,
+"endFrame": 9372
+},
+{
+"i": 1038,
+"word": "looks",
+"start": 390.5,
+"end": 390.74,
+"startFrame": 9372,
+"endFrame": 9378
+},
+{
+"i": 1039,
+"word": "up",
+"start": 390.74,
+"end": 390.94,
+"startFrame": 9378,
+"endFrame": 9383
+},
+{
+"i": 1040,
+"word": "you",
+"start": 392.22,
+"end": 392.32,
+"startFrame": 9413,
+"endFrame": 9416
+},
+{
+"i": 1041,
+"word": "start",
+"start": 392.32,
+"end": 392.5,
+"startFrame": 9416,
+"endFrame": 9420
+},
+{
+"i": 1042,
+"word": "explaining",
+"start": 392.5,
+"end": 392.95,
+"startFrame": 9420,
+"endFrame": 9431
+},
+{
+"i": 1043,
+"word": "but",
+"start": 393.32,
+"end": 393.32,
+"startFrame": 9440,
+"endFrame": 9440
+},
+{
+"i": 1044,
+"word": "batman",
+"start": 393.36,
+"end": 393.68,
+"startFrame": 9441,
+"endFrame": 9448
+},
+{
+"i": 1045,
+"word": "has",
+"start": 393.68,
+"end": 393.88,
+"startFrame": 9448,
+"endFrame": 9453
+},
+{
+"i": 1046,
+"word": "already",
+"start": 393.88,
+"end": 394.18,
+"startFrame": 9453,
+"endFrame": 9460
+},
+{
+"i": 1047,
+"word": "seen",
+"start": 394.18,
+"end": 394.48,
+"startFrame": 9460,
+"endFrame": 9468
+},
+{
+"i": 1048,
+"word": "the",
+"start": 394.48,
+"end": 394.68,
+"startFrame": 9468,
+"endFrame": 9472
+},
+{
+"i": 1049,
+"word": "wire",
+"start": 394.68,
+"end": 395.0,
+"startFrame": 9472,
+"endFrame": 9480
+},
+{
+"i": 1050,
+"word": "near",
+"start": 395.0,
+"end": 395.22,
+"startFrame": 9480,
+"endFrame": 9485
+},
+{
+"i": 1051,
+"word": "the",
+"start": 395.3,
+"end": 395.4,
+"startFrame": 9487,
+"endFrame": 9490
+},
+{
+"i": 1052,
+"word": "door",
+"start": 395.4,
+"end": 395.74,
+"startFrame": 9490,
+"endFrame": 9498
+},
+{
+"i": 1053,
+"word": "he",
+"start": 396.6,
+"end": 396.68,
+"startFrame": 9518,
+"endFrame": 9520
+},
+{
+"i": 1054,
+"word": "takes",
+"start": 396.72,
+"end": 396.88,
+"startFrame": 9521,
+"endFrame": 9525
+},
+{
+"i": 1055,
+"word": "your",
+"start": 396.88,
+"end": 397.08,
+"startFrame": 9525,
+"endFrame": 9530
+},
+{
+"i": 1056,
+"word": "radio",
+"start": 397.08,
+"end": 397.52,
+"startFrame": 9530,
+"endFrame": 9540
+},
+{
+"i": 1057,
+"word": "don't",
+"start": 398.54,
+"end": 398.88,
+"startFrame": 9565,
+"endFrame": 9573
+},
+{
+"i": 1058,
+"word": "open",
+"start": 398.92,
+"end": 399.2,
+"startFrame": 9574,
+"endFrame": 9581
+},
+{
+"i": 1059,
+"word": "it",
+"start": 399.2,
+"end": 400.05,
+"startFrame": 9581,
+"endFrame": 9601
+},
+{
+"i": 1060,
+"word": "then",
+"start": 400.34,
+"end": 400.48,
+"startFrame": 9608,
+"endFrame": 9612
+},
+{
+"i": 1061,
+"word": "he",
+"start": 400.48,
+"end": 400.56,
+"startFrame": 9612,
+"endFrame": 9613
+},
+{
+"i": 1062,
+"word": "tells",
+"start": 400.56,
+"end": 400.78,
+"startFrame": 9613,
+"endFrame": 9619
+},
+{
+"i": 1063,
+"word": "dispatch",
+"start": 400.78,
+"end": 401.16,
+"startFrame": 9619,
+"endFrame": 9628
+},
+{
+"i": 1064,
+"word": "what",
+"start": 401.16,
+"end": 401.4,
+"startFrame": 9628,
+"endFrame": 9634
+},
+{
+"i": 1065,
+"word": "he's",
+"start": 401.52,
+"end": 401.62,
+"startFrame": 9636,
+"endFrame": 9639
+},
+{
+"i": 1066,
+"word": "found",
+"start": 401.62,
+"end": 401.82,
+"startFrame": 9639,
+"endFrame": 9644
+},
+{
+"i": 1067,
+"word": "his",
+"start": 402.78,
+"end": 402.92,
+"startFrame": 9667,
+"endFrame": 9670
+},
+{
+"i": 1068,
+"word": "voice",
+"start": 402.92,
+"end": 403.12,
+"startFrame": 9670,
+"endFrame": 9675
+},
+{
+"i": 1069,
+"word": "is",
+"start": 403.12,
+"end": 403.46,
+"startFrame": 9675,
+"endFrame": 9683
+},
+{
+"i": 1070,
+"word": "low",
+"start": 403.46,
+"end": 403.66,
+"startFrame": 9683,
+"endFrame": 9688
+},
+{
+"i": 1071,
+"word": "steady",
+"start": 404.26,
+"end": 404.64,
+"startFrame": 9702,
+"endFrame": 9711
+},
+{
+"i": 1072,
+"word": "he",
+"start": 405.64,
+"end": 405.76,
+"startFrame": 9735,
+"endFrame": 9738
+},
+{
+"i": 1073,
+"word": "asks",
+"start": 405.76,
+"end": 406.04,
+"startFrame": 9738,
+"endFrame": 9745
+},
+{
+"i": 1074,
+"word": "mara",
+"start": 406.04,
+"end": 406.38,
+"startFrame": 9745,
+"endFrame": 9753
+},
+{
+"i": 1075,
+"word": "to",
+"start": 406.38,
+"end": 406.56,
+"startFrame": 9753,
+"endFrame": 9757
+},
+{
+"i": 1076,
+"word": "move",
+"start": 406.56,
+"end": 406.72,
+"startFrame": 9757,
+"endFrame": 9761
+},
+{
+"i": 1077,
+"word": "everyone",
+"start": 406.72,
+"end": 407.08,
+"startFrame": 9761,
+"endFrame": 9770
+},
+{
+"i": 1078,
+"word": "back",
+"start": 407.08,
+"end": 407.4,
+"startFrame": 9770,
+"endFrame": 9778
+},
+{
+"i": 1079,
+"word": "you",
+"start": 408.42,
+"end": 408.52,
+"startFrame": 9802,
+"endFrame": 9804
+},
+{
+"i": 1080,
+"word": "expect",
+"start": 408.52,
+"end": 408.86,
+"startFrame": 9804,
+"endFrame": 9813
+},
+{
+"i": 1081,
+"word": "him",
+"start": 408.86,
+"end": 409.04,
+"startFrame": 9813,
+"endFrame": 9817
+},
+{
+"i": 1082,
+"word": "to",
+"start": 409.04,
+"end": 409.18,
+"startFrame": 9817,
+"endFrame": 9820
+},
+{
+"i": 1083,
+"word": "open",
+"start": 409.2,
+"end": 409.36,
+"startFrame": 9821,
+"endFrame": 9825
+},
+{
+"i": 1084,
+"word": "the",
+"start": 409.4,
+"end": 409.5,
+"startFrame": 9826,
+"endFrame": 9828
+},
+{
+"i": 1085,
+"word": "bus",
+"start": 409.5,
+"end": 409.68,
+"startFrame": 9828,
+"endFrame": 9832
+},
+{
+"i": 1086,
+"word": "himself",
+"start": 409.68,
+"end": 410.13,
+"startFrame": 9832,
+"endFrame": 9843
+},
+{
+"i": 1087,
+"word": "he",
+"start": 411.3,
+"end": 411.44,
+"startFrame": 9871,
+"endFrame": 9875
+},
+{
+"i": 1088,
+"word": "doesn't",
+"start": 411.44,
+"end": 411.54,
+"startFrame": 9875,
+"endFrame": 9877
+},
+{
+"i": 1089,
+"word": "he",
+"start": 412.5,
+"end": 412.62,
+"startFrame": 9900,
+"endFrame": 9903
+},
+{
+"i": 1090,
+"word": "checks",
+"start": 412.62,
+"end": 412.78,
+"startFrame": 9903,
+"endFrame": 9907
+},
+{
+"i": 1091,
+"word": "the",
+"start": 412.82,
+"end": 413.02,
+"startFrame": 9908,
+"endFrame": 9912
+},
+{
+"i": 1092,
+"word": "street",
+"start": 413.02,
+"end": 413.28,
+"startFrame": 9912,
+"endFrame": 9919
+},
+{
+"i": 1093,
+"word": "the",
+"start": 413.78,
+"end": 413.88,
+"startFrame": 9931,
+"endFrame": 9933
+},
+{
+"i": 1094,
+"word": "rooftops",
+"start": 413.88,
+"end": 414.5,
+"startFrame": 9933,
+"endFrame": 9948
+},
+{
+"i": 1095,
+"word": "the",
+"start": 414.9,
+"end": 415.0,
+"startFrame": 9958,
+"endFrame": 9960
+},
+{
+"i": 1096,
+"word": "abandoned",
+"start": 415.0,
+"end": 415.32,
+"startFrame": 9960,
+"endFrame": 9968
+},
+{
+"i": 1097,
+"word": "cars",
+"start": 415.32,
+"end": 415.84,
+"startFrame": 9968,
+"endFrame": 9980
+},
+{
+"i": 1098,
+"word": "the",
+"start": 416.64,
+"end": 416.74,
+"startFrame": 9999,
+"endFrame": 10002
+},
+{
+"i": 1099,
+"word": "joker",
+"start": 416.74,
+"end": 417.0,
+"startFrame": 10002,
+"endFrame": 10008
+},
+{
+"i": 1100,
+"word": "wanted",
+"start": 417.0,
+"end": 417.36,
+"startFrame": 10008,
+"endFrame": 10017
+},
+{
+"i": 1101,
+"word": "an",
+"start": 417.36,
+"end": 417.62,
+"startFrame": 10017,
+"endFrame": 10023
+},
+{
+"i": 1102,
+"word": "audience",
+"start": 417.62,
+"end": 418.12,
+"startFrame": 10023,
+"endFrame": 10035
+},
+{
+"i": 1103,
+"word": "batman",
+"start": 419.02,
+"end": 419.34,
+"startFrame": 10056,
+"endFrame": 10064
+},
+{
+"i": 1104,
+"word": "wants",
+"start": 419.34,
+"end": 419.64,
+"startFrame": 10064,
+"endFrame": 10071
+},
+{
+"i": 1105,
+"word": "to",
+"start": 419.7,
+"end": 419.8,
+"startFrame": 10073,
+"endFrame": 10075
+},
+{
+"i": 1106,
+"word": "know",
+"start": 419.8,
+"end": 419.94,
+"startFrame": 10075,
+"endFrame": 10079
+},
+{
+"i": 1107,
+"word": "where",
+"start": 419.94,
+"end": 420.14,
+"startFrame": 10079,
+"endFrame": 10083
+},
+{
+"i": 1108,
+"word": "the",
+"start": 420.22,
+"end": 420.36,
+"startFrame": 10085,
+"endFrame": 10089
+},
+{
+"i": 1109,
+"word": "audience",
+"start": 420.36,
+"end": 420.66,
+"startFrame": 10089,
+"endFrame": 10096
+},
+{
+"i": 1110,
+"word": "is",
+"start": 420.84,
+"end": 420.94,
+"startFrame": 10100,
+"endFrame": 10103
+},
+{
+"i": 1111,
+"word": "hiding",
+"start": 420.94,
+"end": 421.16,
+"startFrame": 10103,
+"endFrame": 10108
+},
+{
+"i": 1112,
+"word": "the",
+"start": 422.54,
+"end": 422.54,
+"startFrame": 10141,
+"endFrame": 10141
+},
+{
+"i": 1113,
+"word": "phone",
+"start": 422.54,
+"end": 422.74,
+"startFrame": 10141,
+"endFrame": 10146
+},
+{
+"i": 1114,
+"word": "rings",
+"start": 422.74,
+"end": 422.96,
+"startFrame": 10146,
+"endFrame": 10151
+},
+{
+"i": 1115,
+"word": "again",
+"start": 422.96,
+"end": 423.26,
+"startFrame": 10151,
+"endFrame": 10158
+},
+{
+"i": 1116,
+"word": "this",
+"start": 424.44,
+"end": 424.46,
+"startFrame": 10187,
+"endFrame": 10187
+},
+{
+"i": 1117,
+"word": "time",
+"start": 424.46,
+"end": 424.68,
+"startFrame": 10187,
+"endFrame": 10192
+},
+{
+"i": 1118,
+"word": "batman",
+"start": 424.68,
+"end": 425.0,
+"startFrame": 10192,
+"endFrame": 10200
+},
+{
+"i": 1119,
+"word": "answers",
+"start": 425.0,
+"end": 425.26,
+"startFrame": 10200,
+"endFrame": 10206
+},
+{
+"i": 1120,
+"word": "the",
+"start": 426.74,
+"end": 426.78,
+"startFrame": 10242,
+"endFrame": 10243
+},
+{
+"i": 1121,
+"word": "joker",
+"start": 426.78,
+"end": 426.98,
+"startFrame": 10243,
+"endFrame": 10248
+},
+{
+"i": 1122,
+"word": "sounds",
+"start": 427.02,
+"end": 427.3,
+"startFrame": 10248,
+"endFrame": 10255
+},
+{
+"i": 1123,
+"word": "delighted",
+"start": 427.3,
+"end": 427.7,
+"startFrame": 10255,
+"endFrame": 10265
+},
+{
+"i": 1124,
+"word": "he",
+"start": 428.92,
+"end": 428.94,
+"startFrame": 10294,
+"endFrame": 10295
+},
+{
+"i": 1125,
+"word": "says",
+"start": 428.94,
+"end": 429.12,
+"startFrame": 10295,
+"endFrame": 10299
+},
+{
+"i": 1126,
+"word": "there",
+"start": 429.12,
+"end": 429.26,
+"startFrame": 10299,
+"endFrame": 10302
+},
+{
+"i": 1127,
+"word": "are",
+"start": 429.26,
+"end": 429.48,
+"startFrame": 10302,
+"endFrame": 10308
+},
+{
+"i": 1128,
+"word": "two",
+"start": 429.5,
+"end": 429.62,
+"startFrame": 10308,
+"endFrame": 10311
+},
+{
+"i": 1129,
+"word": "problems",
+"start": 429.62,
+"end": 430.12,
+"startFrame": 10311,
+"endFrame": 10323
+},
+{
+"i": 1130,
+"word": "tonight",
+"start": 430.12,
+"end": 430.46,
+"startFrame": 10323,
+"endFrame": 10331
+},
+{
+"i": 1131,
+"word": "a",
+"start": 431.38,
+"end": 431.48,
+"startFrame": 10353,
+"endFrame": 10356
+},
+{
+"i": 1132,
+"word": "child",
+"start": 431.48,
+"end": 431.78,
+"startFrame": 10356,
+"endFrame": 10363
+},
+{
+"i": 1133,
+"word": "on",
+"start": 431.78,
+"end": 431.96,
+"startFrame": 10363,
+"endFrame": 10367
+},
+{
+"i": 1134,
+"word": "a",
+"start": 431.96,
+"end": 432.12,
+"startFrame": 10367,
+"endFrame": 10371
+},
+{
+"i": 1135,
+"word": "bus",
+"start": 432.12,
+"end": 432.46,
+"startFrame": 10371,
+"endFrame": 10379
+},
+{
+"i": 1136,
+"word": "and",
+"start": 433.26,
+"end": 433.28,
+"startFrame": 10398,
+"endFrame": 10399
+},
+{
+"i": 1137,
+"word": "a",
+"start": 433.28,
+"end": 433.42,
+"startFrame": 10399,
+"endFrame": 10402
+},
+{
+"i": 1138,
+"word": "room",
+"start": 433.42,
+"end": 433.6,
+"startFrame": 10402,
+"endFrame": 10406
+},
+{
+"i": 1139,
+"word": "full",
+"start": 433.6,
+"end": 433.8,
+"startFrame": 10406,
+"endFrame": 10411
+},
+{
+"i": 1140,
+"word": "of",
+"start": 433.92,
+"end": 434.06,
+"startFrame": 10414,
+"endFrame": 10417
+},
+{
+"i": 1141,
+"word": "patients",
+"start": 434.06,
+"end": 434.34,
+"startFrame": 10417,
+"endFrame": 10424
+},
+{
+"i": 1142,
+"word": "at",
+"start": 434.34,
+"end": 434.52,
+"startFrame": 10424,
+"endFrame": 10428
+},
+{
+"i": 1143,
+"word": "a",
+"start": 434.6,
+"end": 434.7,
+"startFrame": 10430,
+"endFrame": 10433
+},
+{
+"i": 1144,
+"word": "hospital",
+"start": 434.7,
+"end": 435.08,
+"startFrame": 10433,
+"endFrame": 10442
+},
+{
+"i": 1145,
+"word": "whose",
+"start": 435.08,
+"end": 435.32,
+"startFrame": 10442,
+"endFrame": 10448
+},
+{
+"i": 1146,
+"word": "backup",
+"start": 435.38,
+"end": 435.7,
+"startFrame": 10449,
+"endFrame": 10457
+},
+{
+"i": 1147,
+"word": "power",
+"start": 435.8,
+"end": 436.08,
+"startFrame": 10459,
+"endFrame": 10466
+},
+{
+"i": 1148,
+"word": "is",
+"start": 436.08,
+"end": 436.26,
+"startFrame": 10466,
+"endFrame": 10470
+},
+{
+"i": 1149,
+"word": "about",
+"start": 436.28,
+"end": 436.42,
+"startFrame": 10471,
+"endFrame": 10474
+},
+{
+"i": 1150,
+"word": "to",
+"start": 436.56,
+"end": 436.66,
+"startFrame": 10477,
+"endFrame": 10480
+},
+{
+"i": 1151,
+"word": "fail",
+"start": 436.66,
+"end": 436.78,
+"startFrame": 10480,
+"endFrame": 10483
+},
+{
+"i": 1152,
+"word": "he",
+"start": 438.0,
+"end": 438.1,
+"startFrame": 10512,
+"endFrame": 10514
+},
+{
+"i": 1153,
+"word": "tells",
+"start": 438.1,
+"end": 438.36,
+"startFrame": 10514,
+"endFrame": 10521
+},
+{
+"i": 1154,
+"word": "batman",
+"start": 438.36,
+"end": 438.76,
+"startFrame": 10521,
+"endFrame": 10530
+},
+{
+"i": 1155,
+"word": "he",
+"start": 438.76,
+"end": 438.96,
+"startFrame": 10530,
+"endFrame": 10535
+},
+{
+"i": 1156,
+"word": "can",
+"start": 438.96,
+"end": 439.12,
+"startFrame": 10535,
+"endFrame": 10539
+},
+{
+"i": 1157,
+"word": "save",
+"start": 439.12,
+"end": 439.34,
+"startFrame": 10539,
+"endFrame": 10544
+},
+{
+"i": 1158,
+"word": "one",
+"start": 439.34,
+"end": 439.7,
+"startFrame": 10544,
+"endFrame": 10553
+},
+{
+"i": 1159,
+"word": "but",
+"start": 440.2,
+"end": 440.32,
+"startFrame": 10565,
+"endFrame": 10568
+},
+{
+"i": 1160,
+"word": "not",
+"start": 440.34,
+"end": 440.52,
+"startFrame": 10568,
+"endFrame": 10572
+},
+{
+"i": 1161,
+"word": "both",
+"start": 440.52,
+"end": 440.78,
+"startFrame": 10572,
+"endFrame": 10579
+},
+{
+"i": 1162,
+"word": "batman",
+"start": 442.08,
+"end": 442.34,
+"startFrame": 10610,
+"endFrame": 10616
+},
+{
+"i": 1163,
+"word": "asks",
+"start": 442.34,
+"end": 442.64,
+"startFrame": 10616,
+"endFrame": 10623
+},
+{
+"i": 1164,
+"word": "which",
+"start": 442.74,
+"end": 442.88,
+"startFrame": 10626,
+"endFrame": 10629
+},
+{
+"i": 1165,
+"word": "hospital",
+"start": 442.88,
+"end": 443.18,
+"startFrame": 10629,
+"endFrame": 10636
+},
+{
+"i": 1166,
+"word": "the",
+"start": 444.3,
+"end": 444.4,
+"startFrame": 10663,
+"endFrame": 10666
+},
+{
+"i": 1167,
+"word": "joker",
+"start": 444.4,
+"end": 444.62,
+"startFrame": 10666,
+"endFrame": 10671
+},
+{
+"i": 1168,
+"word": "laughs",
+"start": 444.62,
+"end": 445.14,
+"startFrame": 10671,
+"endFrame": 10683
+},
+{
+"i": 1169,
+"word": "find",
+"start": 445.54,
+"end": 445.72,
+"startFrame": 10693,
+"endFrame": 10697
+},
+{
+"i": 1170,
+"word": "out",
+"start": 445.72,
+"end": 445.98,
+"startFrame": 10697,
+"endFrame": 10704
+},
+{
+"i": 1171,
+"word": "the",
+"start": 446.98,
+"end": 447.16,
+"startFrame": 10728,
+"endFrame": 10732
+},
+{
+"i": 1172,
+"word": "call",
+"start": 447.2,
+"end": 447.34,
+"startFrame": 10733,
+"endFrame": 10736
+},
+{
+"i": 1173,
+"word": "ends",
+"start": 447.34,
+"end": 447.5,
+"startFrame": 10736,
+"endFrame": 10740
+},
+{
+"i": 1174,
+"word": "batman",
+"start": 449.24,
+"end": 449.24,
+"startFrame": 10782,
+"endFrame": 10782
+},
+{
+"i": 1175,
+"word": "looks",
+"start": 449.24,
+"end": 449.44,
+"startFrame": 10782,
+"endFrame": 10787
+},
+{
+"i": 1176,
+"word": "at",
+"start": 449.44,
+"end": 449.7,
+"startFrame": 10787,
+"endFrame": 10793
+},
+{
+"i": 1177,
+"word": "mara",
+"start": 449.7,
+"end": 449.96,
+"startFrame": 10793,
+"endFrame": 10799
+},
+{
+"i": 1178,
+"word": "she",
+"start": 450.48,
+"end": 450.5,
+"startFrame": 10812,
+"endFrame": 10812
+},
+{
+"i": 1179,
+"word": "has",
+"start": 450.5,
+"end": 450.62,
+"startFrame": 10812,
+"endFrame": 10815
+},
+{
+"i": 1180,
+"word": "already",
+"start": 450.62,
+"end": 450.92,
+"startFrame": 10815,
+"endFrame": 10822
+},
+{
+"i": 1181,
+"word": "requested",
+"start": 450.92,
+"end": 451.36,
+"startFrame": 10822,
+"endFrame": 10833
+},
+{
+"i": 1182,
+"word": "confirmation",
+"start": 451.48,
+"end": 451.9,
+"startFrame": 10836,
+"endFrame": 10846
+},
+{
+"i": 1183,
+"word": "from",
+"start": 451.9,
+"end": 452.28,
+"startFrame": 10846,
+"endFrame": 10855
+},
+{
+"i": 1184,
+"word": "dispatch",
+"start": 452.28,
+"end": 452.64,
+"startFrame": 10855,
+"endFrame": 10863
+},
+{
+"i": 1185,
+"word": "a",
+"start": 453.26,
+"end": 453.34,
+"startFrame": 10878,
+"endFrame": 10880
+},
+{
+"i": 1186,
+"word": "moment",
+"start": 453.34,
+"end": 453.44,
+"startFrame": 10880,
+"endFrame": 10883
+},
+{
+"i": 1187,
+"word": "later",
+"start": 453.44,
+"end": 453.9,
+"startFrame": 10883,
+"endFrame": 10894
+},
+{
+"i": 1188,
+"word": "the",
+"start": 453.98,
+"end": 453.98,
+"startFrame": 10896,
+"endFrame": 10896
+},
+{
+"i": 1189,
+"word": "report",
+"start": 453.98,
+"end": 454.24,
+"startFrame": 10896,
+"endFrame": 10902
+},
+{
+"i": 1190,
+"word": "comes",
+"start": 454.24,
+"end": 454.48,
+"startFrame": 10902,
+"endFrame": 10908
+},
+{
+"i": 1191,
+"word": "back",
+"start": 454.48,
+"end": 454.7,
+"startFrame": 10908,
+"endFrame": 10913
+},
+{
+"i": 1192,
+"word": "one",
+"start": 455.46,
+"end": 455.64,
+"startFrame": 10931,
+"endFrame": 10935
+},
+{
+"i": 1193,
+"word": "hospital",
+"start": 455.64,
+"end": 456.12,
+"startFrame": 10935,
+"endFrame": 10947
+},
+{
+"i": 1194,
+"word": "has",
+"start": 456.24,
+"end": 456.34,
+"startFrame": 10950,
+"endFrame": 10952
+},
+{
+"i": 1195,
+"word": "lost",
+"start": 456.34,
+"end": 456.62,
+"startFrame": 10952,
+"endFrame": 10959
+},
+{
+"i": 1196,
+"word": "backup",
+"start": 456.62,
+"end": 456.96,
+"startFrame": 10959,
+"endFrame": 10967
+},
+{
+"i": 1197,
+"word": "power",
+"start": 456.96,
+"end": 457.34,
+"startFrame": 10967,
+"endFrame": 10976
+},
+{
+"i": 1198,
+"word": "and",
+"start": 457.7,
+"end": 457.8,
+"startFrame": 10985,
+"endFrame": 10987
+},
+{
+"i": 1199,
+"word": "emergency",
+"start": 457.8,
+"end": 458.2,
+"startFrame": 10987,
+"endFrame": 10997
+},
+{
+"i": 1200,
+"word": "crews",
+"start": 458.2,
+"end": 458.52,
+"startFrame": 10997,
+"endFrame": 11004
+},
+{
+"i": 1201,
+"word": "are",
+"start": 458.52,
+"end": 458.68,
+"startFrame": 11004,
+"endFrame": 11008
+},
+{
+"i": 1202,
+"word": "responding",
+"start": 458.68,
+"end": 459.18,
+"startFrame": 11008,
+"endFrame": 11020
+},
+{
+"i": 1203,
+"word": "no",
+"start": 459.78,
+"end": 459.94,
+"startFrame": 11035,
+"endFrame": 11039
+},
+{
+"i": 1204,
+"word": "one",
+"start": 459.94,
+"end": 460.08,
+"startFrame": 11039,
+"endFrame": 11042
+},
+{
+"i": 1205,
+"word": "yet",
+"start": 460.08,
+"end": 460.24,
+"startFrame": 11042,
+"endFrame": 11046
+},
+{
+"i": 1206,
+"word": "knows",
+"start": 460.24,
+"end": 460.54,
+"startFrame": 11046,
+"endFrame": 11053
+},
+{
+"i": 1207,
+"word": "whether",
+"start": 460.54,
+"end": 460.78,
+"startFrame": 11053,
+"endFrame": 11059
+},
+{
+"i": 1208,
+"word": "the",
+"start": 460.9,
+"end": 461.0,
+"startFrame": 11062,
+"endFrame": 11064
+},
+{
+"i": 1209,
+"word": "joker",
+"start": 461.0,
+"end": 461.2,
+"startFrame": 11064,
+"endFrame": 11069
+},
+{
+"i": 1210,
+"word": "caused",
+"start": 461.3,
+"end": 461.54,
+"startFrame": 11071,
+"endFrame": 11077
+},
+{
+"i": 1211,
+"word": "it",
+"start": 461.54,
+"end": 461.64,
+"startFrame": 11077,
+"endFrame": 11079
+},
+{
+"i": 1212,
+"word": "batman",
+"start": 462.68,
+"end": 462.9,
+"startFrame": 11104,
+"endFrame": 11110
+},
+{
+"i": 1213,
+"word": "looks",
+"start": 462.9,
+"end": 463.1,
+"startFrame": 11110,
+"endFrame": 11114
+},
+{
+"i": 1214,
+"word": "at",
+"start": 463.1,
+"end": 463.24,
+"startFrame": 11114,
+"endFrame": 11118
+},
+{
+"i": 1215,
+"word": "the",
+"start": 463.26,
+"end": 463.36,
+"startFrame": 11118,
+"endFrame": 11121
+},
+{
+"i": 1216,
+"word": "child",
+"start": 463.36,
+"end": 463.62,
+"startFrame": 11121,
+"endFrame": 11127
+},
+{
+"i": 1217,
+"word": "then",
+"start": 464.44,
+"end": 464.54,
+"startFrame": 11147,
+"endFrame": 11149
+},
+{
+"i": 1218,
+"word": "at",
+"start": 464.54,
+"end": 464.64,
+"startFrame": 11149,
+"endFrame": 11151
+},
+{
+"i": 1219,
+"word": "the",
+"start": 464.64,
+"end": 464.76,
+"startFrame": 11151,
+"endFrame": 11154
+},
+{
+"i": 1220,
+"word": "far",
+"start": 464.78,
+"end": 464.96,
+"startFrame": 11155,
+"endFrame": 11159
+},
+{
+"i": 1221,
+"word": "end",
+"start": 464.96,
+"end": 465.12,
+"startFrame": 11159,
+"endFrame": 11163
+},
+{
+"i": 1222,
+"word": "of",
+"start": 465.12,
+"end": 465.22,
+"startFrame": 11163,
+"endFrame": 11165
+},
+{
+"i": 1223,
+"word": "the",
+"start": 465.22,
+"end": 465.36,
+"startFrame": 11165,
+"endFrame": 11169
+},
+{
+"i": 1224,
+"word": "street",
+"start": 465.36,
+"end": 465.52,
+"startFrame": 11169,
+"endFrame": 11172
+},
+{
+"i": 1225,
+"word": "you",
+"start": 466.52,
+"end": 466.72,
+"startFrame": 11196,
+"endFrame": 11201
+},
+{
+"i": 1226,
+"word": "think",
+"start": 466.76,
+"end": 466.9,
+"startFrame": 11202,
+"endFrame": 11206
+},
+{
+"i": 1227,
+"word": "he's",
+"start": 466.9,
+"end": 467.06,
+"startFrame": 11206,
+"endFrame": 11209
+},
+{
+"i": 1228,
+"word": "about",
+"start": 467.06,
+"end": 467.22,
+"startFrame": 11209,
+"endFrame": 11213
+},
+{
+"i": 1229,
+"word": "to",
+"start": 467.22,
+"end": 467.4,
+"startFrame": 11213,
+"endFrame": 11218
+},
+{
+"i": 1230,
+"word": "leave",
+"start": 467.4,
+"end": 467.56,
+"startFrame": 11218,
+"endFrame": 11221
+},
+{
+"i": 1231,
+"word": "her",
+"start": 467.56,
+"end": 467.66,
+"startFrame": 11221,
+"endFrame": 11224
+},
+{
+"i": 1232,
+"word": "he",
+"start": 468.64,
+"end": 468.74,
+"startFrame": 11247,
+"endFrame": 11250
+},
+{
+"i": 1233,
+"word": "tells",
+"start": 468.74,
+"end": 468.96,
+"startFrame": 11250,
+"endFrame": 11255
+},
+{
+"i": 1234,
+"word": "mara",
+"start": 468.96,
+"end": 469.24,
+"startFrame": 11255,
+"endFrame": 11262
+},
+{
+"i": 1235,
+"word": "the",
+"start": 469.24,
+"end": 469.44,
+"startFrame": 11262,
+"endFrame": 11267
+},
+{
+"i": 1236,
+"word": "bomb",
+"start": 469.44,
+"end": 469.64,
+"startFrame": 11267,
+"endFrame": 11271
+},
+{
+"i": 1237,
+"word": "squad",
+"start": 469.64,
+"end": 469.92,
+"startFrame": 11271,
+"endFrame": 11278
+},
+{
+"i": 1238,
+"word": "is",
+"start": 469.92,
+"end": 470.1,
+"startFrame": 11278,
+"endFrame": 11282
+},
+{
+"i": 1239,
+"word": "two",
+"start": 470.1,
+"end": 470.28,
+"startFrame": 11282,
+"endFrame": 11287
+},
+{
+"i": 1240,
+"word": "blocks",
+"start": 470.44,
+"end": 470.54,
+"startFrame": 11291,
+"endFrame": 11293
+},
+{
+"i": 1241,
+"word": "away",
+"start": 470.54,
+"end": 470.88,
+"startFrame": 11293,
+"endFrame": 11301
+},
+{
+"i": 1242,
+"word": "he",
+"start": 471.38,
+"end": 471.56,
+"startFrame": 11313,
+"endFrame": 11317
+},
+{
+"i": 1243,
+"word": "points",
+"start": 471.6,
+"end": 471.76,
+"startFrame": 11318,
+"endFrame": 11322
+},
+{
+"i": 1244,
+"word": "out",
+"start": 471.76,
+"end": 471.9,
+"startFrame": 11322,
+"endFrame": 11326
+},
+{
+"i": 1245,
+"word": "the",
+"start": 471.9,
+"end": 472.08,
+"startFrame": 11326,
+"endFrame": 11330
+},
+{
+"i": 1246,
+"word": "wire",
+"start": 472.08,
+"end": 472.36,
+"startFrame": 11330,
+"endFrame": 11337
+},
+{
+"i": 1247,
+"word": "and",
+"start": 472.36,
+"end": 472.7,
+"startFrame": 11337,
+"endFrame": 11345
+},
+{
+"i": 1248,
+"word": "asks",
+"start": 472.7,
+"end": 472.98,
+"startFrame": 11345,
+"endFrame": 11352
+},
+{
+"i": 1249,
+"word": "her",
+"start": 472.98,
+"end": 473.14,
+"startFrame": 11352,
+"endFrame": 11355
+},
+{
+"i": 1250,
+"word": "to",
+"start": 473.14,
+"end": 473.28,
+"startFrame": 11355,
+"endFrame": 11359
+},
+{
+"i": 1251,
+"word": "relay",
+"start": 473.28,
+"end": 473.52,
+"startFrame": 11359,
+"endFrame": 11364
+},
+{
+"i": 1252,
+"word": "everything",
+"start": 473.52,
+"end": 473.96,
+"startFrame": 11364,
+"endFrame": 11375
+},
+{
+"i": 1253,
+"word": "he's",
+"start": 473.96,
+"end": 474.26,
+"startFrame": 11375,
+"endFrame": 11382
+},
+{
+"i": 1254,
+"word": "seen",
+"start": 474.26,
+"end": 474.36,
+"startFrame": 11382,
+"endFrame": 11385
+},
+{
+"i": 1255,
+"word": "then",
+"start": 475.4,
+"end": 475.4,
+"startFrame": 11410,
+"endFrame": 11410
+},
+{
+"i": 1256,
+"word": "he",
+"start": 475.4,
+"end": 475.48,
+"startFrame": 11410,
+"endFrame": 11412
+},
+{
+"i": 1257,
+"word": "turns",
+"start": 475.48,
+"end": 475.68,
+"startFrame": 11412,
+"endFrame": 11416
+},
+{
+"i": 1258,
+"word": "to",
+"start": 475.68,
+"end": 475.9,
+"startFrame": 11416,
+"endFrame": 11422
+},
+{
+"i": 1259,
+"word": "you",
+"start": 475.9,
+"end": 476.04,
+"startFrame": 11422,
+"endFrame": 11425
+},
+{
+"i": 1260,
+"word": "stay",
+"start": 477.24,
+"end": 477.46,
+"startFrame": 11454,
+"endFrame": 11459
+},
+{
+"i": 1261,
+"word": "with",
+"start": 477.46,
+"end": 477.66,
+"startFrame": 11459,
+"endFrame": 11464
+},
+{
+"i": 1262,
+"word": "her",
+"start": 477.66,
+"end": 478.21,
+"startFrame": 11464,
+"endFrame": 11477
+},
+{
+"i": 1263,
+"word": "that's",
+"start": 478.7,
+"end": 478.9,
+"startFrame": 11489,
+"endFrame": 11494
+},
+{
+"i": 1264,
+"word": "it",
+"start": 478.9,
+"end": 479.0,
+"startFrame": 11494,
+"endFrame": 11496
+},
+{
+"i": 1265,
+"word": "no",
+"start": 479.88,
+"end": 479.96,
+"startFrame": 11517,
+"endFrame": 11519
+},
+{
+"i": 1266,
+"word": "speech",
+"start": 479.96,
+"end": 480.2,
+"startFrame": 11519,
+"endFrame": 11525
+},
+{
+"i": 1267,
+"word": "no",
+"start": 480.96,
+"end": 481.08,
+"startFrame": 11543,
+"endFrame": 11546
+},
+{
+"i": 1268,
+"word": "promise",
+"start": 481.08,
+"end": 481.18,
+"startFrame": 11546,
+"endFrame": 11548
+},
+{
+"i": 1269,
+"word": "he",
+"start": 482.26,
+"end": 482.4,
+"startFrame": 11574,
+"endFrame": 11578
+},
+{
+"i": 1270,
+"word": "fires",
+"start": 482.44,
+"end": 482.62,
+"startFrame": 11579,
+"endFrame": 11583
+},
+{
+"i": 1271,
+"word": "a",
+"start": 482.62,
+"end": 482.82,
+"startFrame": 11583,
+"endFrame": 11588
+},
+{
+"i": 1272,
+"word": "line",
+"start": 482.82,
+"end": 482.94,
+"startFrame": 11588,
+"endFrame": 11591
+},
+{
+"i": 1273,
+"word": "into",
+"start": 482.94,
+"end": 483.12,
+"startFrame": 11591,
+"endFrame": 11595
+},
+{
+"i": 1274,
+"word": "the",
+"start": 483.12,
+"end": 483.3,
+"startFrame": 11595,
+"endFrame": 11599
+},
+{
+"i": 1275,
+"word": "darkness",
+"start": 483.3,
+"end": 483.56,
+"startFrame": 11599,
+"endFrame": 11605
+},
+{
+"i": 1276,
+"word": "and",
+"start": 483.56,
+"end": 484.1,
+"startFrame": 11605,
+"endFrame": 11618
+},
+{
+"i": 1277,
+"word": "disappears",
+"start": 484.14,
+"end": 484.58,
+"startFrame": 11619,
+"endFrame": 11630
+},
+{
+"i": 1278,
+"word": "over",
+"start": 484.58,
+"end": 484.82,
+"startFrame": 11630,
+"endFrame": 11636
+},
+{
+"i": 1279,
+"word": "the",
+"start": 484.82,
+"end": 484.98,
+"startFrame": 11636,
+"endFrame": 11640
+},
+{
+"i": 1280,
+"word": "rooftops",
+"start": 484.98,
+"end": 485.08,
+"startFrame": 11640,
+"endFrame": 11642
+},
+{
+"i": 1281,
+"word": "you",
+"start": 486.48,
+"end": 486.6,
+"startFrame": 11676,
+"endFrame": 11678
+},
+{
+"i": 1282,
+"word": "stare",
+"start": 486.7,
+"end": 486.84,
+"startFrame": 11681,
+"endFrame": 11684
+},
+{
+"i": 1283,
+"word": "after",
+"start": 486.84,
+"end": 487.16,
+"startFrame": 11684,
+"endFrame": 11692
+},
+{
+"i": 1284,
+"word": "him",
+"start": 487.16,
+"end": 487.74,
+"startFrame": 11692,
+"endFrame": 11706
+},
+{
+"i": 1285,
+"word": "the",
+"start": 488.08,
+"end": 488.2,
+"startFrame": 11714,
+"endFrame": 11717
+},
+{
+"i": 1286,
+"word": "girl",
+"start": 488.2,
+"end": 488.38,
+"startFrame": 11717,
+"endFrame": 11721
+},
+{
+"i": 1287,
+"word": "is",
+"start": 488.38,
+"end": 488.54,
+"startFrame": 11721,
+"endFrame": 11725
+},
+{
+"i": 1288,
+"word": "still",
+"start": 488.54,
+"end": 488.68,
+"startFrame": 11725,
+"endFrame": 11728
+},
+{
+"i": 1289,
+"word": "at",
+"start": 488.68,
+"end": 488.82,
+"startFrame": 11728,
+"endFrame": 11732
+},
+{
+"i": 1290,
+"word": "the",
+"start": 488.82,
+"end": 488.9,
+"startFrame": 11732,
+"endFrame": 11734
+},
+{
+"i": 1291,
+"word": "window",
+"start": 488.9,
+"end": 489.2,
+"startFrame": 11734,
+"endFrame": 11741
+},
+{
+"i": 1292,
+"word": "the",
+"start": 490.18,
+"end": 490.3,
+"startFrame": 11764,
+"endFrame": 11767
+},
+{
+"i": 1293,
+"word": "joker",
+"start": 490.3,
+"end": 490.5,
+"startFrame": 11767,
+"endFrame": 11772
+},
+{
+"i": 1294,
+"word": "wanted",
+"start": 490.5,
+"end": 490.86,
+"startFrame": 11772,
+"endFrame": 11781
+},
+{
+"i": 1295,
+"word": "you",
+"start": 490.86,
+"end": 491.04,
+"startFrame": 11781,
+"endFrame": 11785
+},
+{
+"i": 1296,
+"word": "to",
+"start": 491.04,
+"end": 491.16,
+"startFrame": 11785,
+"endFrame": 11788
+},
+{
+"i": 1297,
+"word": "see",
+"start": 491.16,
+"end": 491.32,
+"startFrame": 11788,
+"endFrame": 11792
+},
+{
+"i": 1298,
+"word": "this",
+"start": 491.32,
+"end": 491.5,
+"startFrame": 11792,
+"endFrame": 11796
+},
+{
+"i": 1299,
+"word": "as",
+"start": 491.5,
+"end": 491.6,
+"startFrame": 11796,
+"endFrame": 11798
+},
+{
+"i": 1300,
+"word": "a",
+"start": 491.6,
+"end": 491.78,
+"startFrame": 11798,
+"endFrame": 11803
+},
+{
+"i": 1301,
+"word": "choice",
+"start": 491.78,
+"end": 491.94,
+"startFrame": 11803,
+"endFrame": 11807
+},
+{
+"i": 1302,
+"word": "between",
+"start": 491.94,
+"end": 492.24,
+"startFrame": 11807,
+"endFrame": 11814
+},
+{
+"i": 1303,
+"word": "two",
+"start": 492.24,
+"end": 492.48,
+"startFrame": 11814,
+"endFrame": 11820
+},
+{
+"i": 1304,
+"word": "lives",
+"start": 492.48,
+"end": 492.72,
+"startFrame": 11820,
+"endFrame": 11825
+},
+{
+"i": 1305,
+"word": "batman",
+"start": 493.64,
+"end": 493.88,
+"startFrame": 11847,
+"endFrame": 11853
+},
+{
+"i": 1306,
+"word": "left",
+"start": 493.88,
+"end": 494.06,
+"startFrame": 11853,
+"endFrame": 11857
+},
+{
+"i": 1307,
+"word": "a",
+"start": 494.06,
+"end": 494.24,
+"startFrame": 11857,
+"endFrame": 11862
+},
+{
+"i": 1308,
+"word": "team",
+"start": 494.24,
+"end": 494.4,
+"startFrame": 11862,
+"endFrame": 11866
+},
+{
+"i": 1309,
+"word": "at",
+"start": 494.4,
+"end": 494.54,
+"startFrame": 11866,
+"endFrame": 11869
+},
+{
+"i": 1310,
+"word": "the",
+"start": 494.58,
+"end": 494.68,
+"startFrame": 11870,
+"endFrame": 11872
+},
+{
+"i": 1311,
+"word": "bus",
+"start": 494.68,
+"end": 494.9,
+"startFrame": 11872,
+"endFrame": 11878
+},
+{
+"i": 1312,
+"word": "and",
+"start": 494.9,
+"end": 495.38,
+"startFrame": 11878,
+"endFrame": 11889
+},
+{
+"i": 1313,
+"word": "went",
+"start": 495.38,
+"end": 495.56,
+"startFrame": 11889,
+"endFrame": 11893
+},
+{
+"i": 1314,
+"word": "where",
+"start": 495.56,
+"end": 495.74,
+"startFrame": 11893,
+"endFrame": 11898
+},
+{
+"i": 1315,
+"word": "he",
+"start": 495.74,
+"end": 495.86,
+"startFrame": 11898,
+"endFrame": 11901
+},
+{
+"i": 1316,
+"word": "might",
+"start": 495.86,
+"end": 495.98,
+"startFrame": 11901,
+"endFrame": 11904
+},
+{
+"i": 1317,
+"word": "be",
+"start": 495.98,
+"end": 496.16,
+"startFrame": 11904,
+"endFrame": 11908
+},
+{
+"i": 1318,
+"word": "needed",
+"start": 496.16,
+"end": 496.34,
+"startFrame": 11908,
+"endFrame": 11912
+},
+{
+"i": 1319,
+"word": "next",
+"start": 496.34,
+"end": 496.78,
+"startFrame": 11912,
+"endFrame": 11923
+},
+{
+"i": 1320,
+"word": "you",
+"start": 497.88,
+"end": 497.9,
+"startFrame": 11949,
+"endFrame": 11950
+},
+{
+"i": 1321,
+"word": "don't",
+"start": 497.9,
+"end": 498.0,
+"startFrame": 11950,
+"endFrame": 11952
+},
+{
+"i": 1322,
+"word": "know",
+"start": 498.0,
+"end": 498.16,
+"startFrame": 11952,
+"endFrame": 11956
+},
+{
+"i": 1323,
+"word": "whether",
+"start": 498.16,
+"end": 498.28,
+"startFrame": 11956,
+"endFrame": 11959
+},
+{
+"i": 1324,
+"word": "it",
+"start": 498.28,
+"end": 498.4,
+"startFrame": 11959,
+"endFrame": 11962
+},
+{
+"i": 1325,
+"word": "will",
+"start": 498.4,
+"end": 498.5,
+"startFrame": 11962,
+"endFrame": 11964
+},
+{
+"i": 1326,
+"word": "be",
+"start": 498.5,
+"end": 498.6,
+"startFrame": 11964,
+"endFrame": 11966
+},
+{
+"i": 1327,
+"word": "enough",
+"start": 498.6,
+"end": 498.9,
+"startFrame": 11966,
+"endFrame": 11974
+},
+{
+"i": 1328,
+"word": "the",
+"start": 500.06,
+"end": 500.16,
+"startFrame": 12001,
+"endFrame": 12004
+},
+{
+"i": 1329,
+"word": "girl",
+"start": 500.16,
+"end": 500.3,
+"startFrame": 12004,
+"endFrame": 12007
+},
+{
+"i": 1330,
+"word": "starts",
+"start": 500.3,
+"end": 500.58,
+"startFrame": 12007,
+"endFrame": 12014
+},
+{
+"i": 1331,
+"word": "crying",
+"start": 500.58,
+"end": 500.68,
+"startFrame": 12014,
+"endFrame": 12016
+},
+{
+"i": 1332,
+"word": "you",
+"start": 501.84,
+"end": 501.92,
+"startFrame": 12044,
+"endFrame": 12046
+},
+{
+"i": 1333,
+"word": "can't",
+"start": 502.08,
+"end": 502.18,
+"startFrame": 12050,
+"endFrame": 12052
+},
+{
+"i": 1334,
+"word": "hear",
+"start": 502.18,
+"end": 502.34,
+"startFrame": 12052,
+"endFrame": 12056
+},
+{
+"i": 1335,
+"word": "her",
+"start": 502.34,
+"end": 502.5,
+"startFrame": 12056,
+"endFrame": 12060
+},
+{
+"i": 1336,
+"word": "through",
+"start": 502.54,
+"end": 502.64,
+"startFrame": 12061,
+"endFrame": 12063
+},
+{
+"i": 1337,
+"word": "the",
+"start": 502.64,
+"end": 502.8,
+"startFrame": 12063,
+"endFrame": 12067
+},
+{
+"i": 1338,
+"word": "glass",
+"start": 502.8,
+"end": 503.2,
+"startFrame": 12067,
+"endFrame": 12077
+},
+{
+"i": 1339,
+"word": "but",
+"start": 503.56,
+"end": 503.58,
+"startFrame": 12085,
+"endFrame": 12086
+},
+{
+"i": 1340,
+"word": "you",
+"start": 503.58,
+"end": 503.66,
+"startFrame": 12086,
+"endFrame": 12088
+},
+{
+"i": 1341,
+"word": "can",
+"start": 503.66,
+"end": 503.78,
+"startFrame": 12088,
+"endFrame": 12091
+},
+{
+"i": 1342,
+"word": "see",
+"start": 503.8,
+"end": 503.94,
+"startFrame": 12091,
+"endFrame": 12095
+},
+{
+"i": 1343,
+"word": "her",
+"start": 503.94,
+"end": 504.16,
+"startFrame": 12095,
+"endFrame": 12100
+},
+{
+"i": 1344,
+"word": "shoulders",
+"start": 504.16,
+"end": 504.44,
+"startFrame": 12100,
+"endFrame": 12107
+},
+{
+"i": 1345,
+"word": "shaking",
+"start": 504.44,
+"end": 504.79,
+"startFrame": 12107,
+"endFrame": 12115
+},
+{
+"i": 1346,
+"word": "you",
+"start": 505.98,
+"end": 506.08,
+"startFrame": 12144,
+"endFrame": 12146
+},
+{
+"i": 1347,
+"word": "remember",
+"start": 506.08,
+"end": 506.34,
+"startFrame": 12146,
+"endFrame": 12152
+},
+{
+"i": 1348,
+"word": "your",
+"start": 506.46,
+"end": 506.56,
+"startFrame": 12155,
+"endFrame": 12157
+},
+{
+"i": 1349,
+"word": "father's",
+"start": 506.56,
+"end": 507.06,
+"startFrame": 12157,
+"endFrame": 12169
+},
+{
+"i": 1350,
+"word": "shop",
+"start": 507.06,
+"end": 507.22,
+"startFrame": 12169,
+"endFrame": 12173
+},
+{
+"i": 1351,
+"word": "the",
+"start": 507.8,
+"end": 507.9,
+"startFrame": 12187,
+"endFrame": 12190
+},
+{
+"i": 1352,
+"word": "little",
+"start": 507.9,
+"end": 508.08,
+"startFrame": 12190,
+"endFrame": 12194
+},
+{
+"i": 1353,
+"word": "lamp",
+"start": 508.08,
+"end": 508.38,
+"startFrame": 12194,
+"endFrame": 12201
+},
+{
+"i": 1354,
+"word": "in",
+"start": 508.38,
+"end": 508.54,
+"startFrame": 12201,
+"endFrame": 12205
+},
+{
+"i": 1355,
+"word": "the",
+"start": 508.56,
+"end": 508.66,
+"startFrame": 12205,
+"endFrame": 12208
+},
+{
+"i": 1356,
+"word": "window",
+"start": 508.66,
+"end": 508.94,
+"startFrame": 12208,
+"endFrame": 12215
+},
+{
+"i": 1357,
+"word": "you",
+"start": 509.96,
+"end": 510.06,
+"startFrame": 12239,
+"endFrame": 12241
+},
+{
+"i": 1358,
+"word": "pull",
+"start": 510.06,
+"end": 510.2,
+"startFrame": 12241,
+"endFrame": 12245
+},
+{
+"i": 1359,
+"word": "out",
+"start": 510.2,
+"end": 510.32,
+"startFrame": 12245,
+"endFrame": 12248
+},
+{
+"i": 1360,
+"word": "the",
+"start": 510.32,
+"end": 510.44,
+"startFrame": 12248,
+"endFrame": 12251
+},
+{
+"i": 1361,
+"word": "old",
+"start": 510.44,
+"end": 510.62,
+"startFrame": 12251,
+"endFrame": 12255
+},
+{
+"i": 1362,
+"word": "flashlight",
+"start": 510.62,
+"end": 510.72,
+"startFrame": 12255,
+"endFrame": 12257
+},
+{
+"i": 1363,
+"word": "the",
+"start": 511.82,
+"end": 511.92,
+"startFrame": 12284,
+"endFrame": 12286
+},
+{
+"i": 1364,
+"word": "beam",
+"start": 511.92,
+"end": 512.16,
+"startFrame": 12286,
+"endFrame": 12292
+},
+{
+"i": 1365,
+"word": "flickers",
+"start": 512.16,
+"end": 512.46,
+"startFrame": 12292,
+"endFrame": 12299
+},
+{
+"i": 1366,
+"word": "you",
+"start": 513.3,
+"end": 513.4,
+"startFrame": 12319,
+"endFrame": 12322
+},
+{
+"i": 1367,
+"word": "tap",
+"start": 513.4,
+"end": 513.7,
+"startFrame": 12322,
+"endFrame": 12329
+},
+{
+"i": 1368,
+"word": "the",
+"start": 513.78,
+"end": 513.92,
+"startFrame": 12331,
+"endFrame": 12334
+},
+{
+"i": 1369,
+"word": "switch",
+"start": 513.92,
+"end": 514.28,
+"startFrame": 12334,
+"endFrame": 12343
+},
+{
+"i": 1370,
+"word": "point",
+"start": 514.74,
+"end": 514.82,
+"startFrame": 12354,
+"endFrame": 12356
+},
+{
+"i": 1371,
+"word": "it",
+"start": 514.82,
+"end": 514.98,
+"startFrame": 12356,
+"endFrame": 12360
+},
+{
+"i": 1372,
+"word": "toward",
+"start": 514.98,
+"end": 515.1,
+"startFrame": 12360,
+"endFrame": 12362
+},
+{
+"i": 1373,
+"word": "the",
+"start": 515.1,
+"end": 515.26,
+"startFrame": 12362,
+"endFrame": 12366
+},
+{
+"i": 1374,
+"word": "bus",
+"start": 515.26,
+"end": 515.52,
+"startFrame": 12366,
+"endFrame": 12372
+},
+{
+"i": 1375,
+"word": "and",
+"start": 515.78,
+"end": 515.9,
+"startFrame": 12379,
+"endFrame": 12382
+},
+{
+"i": 1376,
+"word": "raise",
+"start": 515.9,
+"end": 516.12,
+"startFrame": 12382,
+"endFrame": 12387
+},
+{
+"i": 1377,
+"word": "your",
+"start": 516.12,
+"end": 516.28,
+"startFrame": 12387,
+"endFrame": 12391
+},
+{
+"i": 1378,
+"word": "free",
+"start": 516.34,
+"end": 516.46,
+"startFrame": 12392,
+"endFrame": 12395
+},
+{
+"i": 1379,
+"word": "hand",
+"start": 516.46,
+"end": 516.62,
+"startFrame": 12395,
+"endFrame": 12399
+},
+{
+"i": 1380,
+"word": "the",
+"start": 517.88,
+"end": 517.98,
+"startFrame": 12429,
+"endFrame": 12432
+},
+{
+"i": 1381,
+"word": "girl",
+"start": 517.98,
+"end": 518.12,
+"startFrame": 12432,
+"endFrame": 12435
+},
+{
+"i": 1382,
+"word": "sees",
+"start": 518.12,
+"end": 518.36,
+"startFrame": 12435,
+"endFrame": 12441
+},
+{
+"i": 1383,
+"word": "you",
+"start": 518.36,
+"end": 518.46,
+"startFrame": 12441,
+"endFrame": 12443
+},
+{
+"i": 1384,
+"word": "she",
+"start": 519.26,
+"end": 519.28,
+"startFrame": 12462,
+"endFrame": 12463
+},
+{
+"i": 1385,
+"word": "wipes",
+"start": 519.28,
+"end": 519.46,
+"startFrame": 12463,
+"endFrame": 12467
+},
+{
+"i": 1386,
+"word": "her",
+"start": 519.46,
+"end": 519.64,
+"startFrame": 12467,
+"endFrame": 12471
+},
+{
+"i": 1387,
+"word": "face",
+"start": 519.66,
+"end": 519.86,
+"startFrame": 12472,
+"endFrame": 12477
+},
+{
+"i": 1388,
+"word": "and",
+"start": 519.86,
+"end": 520.1,
+"startFrame": 12477,
+"endFrame": 12482
+},
+{
+"i": 1389,
+"word": "raises",
+"start": 520.1,
+"end": 520.34,
+"startFrame": 12482,
+"endFrame": 12488
+},
+{
+"i": 1390,
+"word": "her",
+"start": 520.34,
+"end": 520.54,
+"startFrame": 12488,
+"endFrame": 12493
+},
+{
+"i": 1391,
+"word": "hand",
+"start": 520.54,
+"end": 520.7,
+"startFrame": 12493,
+"endFrame": 12497
+},
+{
+"i": 1392,
+"word": "too",
+"start": 520.7,
+"end": 521.2,
+"startFrame": 12497,
+"endFrame": 12509
+},
+{
+"i": 1393,
+"word": "you",
+"start": 521.88,
+"end": 521.98,
+"startFrame": 12525,
+"endFrame": 12528
+},
+{
+"i": 1394,
+"word": "keep",
+"start": 521.98,
+"end": 522.22,
+"startFrame": 12528,
+"endFrame": 12533
+},
+{
+"i": 1395,
+"word": "the",
+"start": 522.22,
+"end": 522.4,
+"startFrame": 12533,
+"endFrame": 12538
+},
+{
+"i": 1396,
+"word": "light",
+"start": 522.4,
+"end": 522.54,
+"startFrame": 12538,
+"endFrame": 12541
+},
+{
+"i": 1397,
+"word": "on",
+"start": 522.54,
+"end": 522.68,
+"startFrame": 12541,
+"endFrame": 12544
+},
+{
+"i": 1398,
+"word": "her",
+"start": 522.68,
+"end": 522.82,
+"startFrame": 12544,
+"endFrame": 12548
+},
+{
+"i": 1399,
+"word": "window",
+"start": 522.82,
+"end": 523.02,
+"startFrame": 12548,
+"endFrame": 12552
+},
+{
+"i": 1400,
+"word": "when",
+"start": 523.64,
+"end": 523.74,
+"startFrame": 12567,
+"endFrame": 12570
+},
+{
+"i": 1401,
+"word": "it",
+"start": 523.84,
+"end": 523.94,
+"startFrame": 12572,
+"endFrame": 12575
+},
+{
+"i": 1402,
+"word": "flickers",
+"start": 523.94,
+"end": 524.22,
+"startFrame": 12575,
+"endFrame": 12581
+},
+{
+"i": 1403,
+"word": "you",
+"start": 524.54,
+"end": 524.54,
+"startFrame": 12589,
+"endFrame": 12589
+},
+{
+"i": 1404,
+"word": "tap",
+"start": 524.58,
+"end": 524.74,
+"startFrame": 12590,
+"endFrame": 12594
+},
+{
+"i": 1405,
+"word": "it",
+"start": 524.74,
+"end": 524.9,
+"startFrame": 12594,
+"endFrame": 12598
+},
+{
+"i": 1406,
+"word": "again",
+"start": 524.9,
+"end": 525.0,
+"startFrame": 12598,
+"endFrame": 12600
+},
+{
+"i": 1407,
+"word": "mara",
+"start": 526.3,
+"end": 526.34,
+"startFrame": 12631,
+"endFrame": 12632
+},
+{
+"i": 1408,
+"word": "stands",
+"start": 526.34,
+"end": 526.6,
+"startFrame": 12632,
+"endFrame": 12638
+},
+{
+"i": 1409,
+"word": "beside",
+"start": 526.6,
+"end": 526.92,
+"startFrame": 12638,
+"endFrame": 12646
+},
+{
+"i": 1410,
+"word": "you",
+"start": 526.92,
+"end": 527.1,
+"startFrame": 12646,
+"endFrame": 12650
+},
+{
+"i": 1411,
+"word": "speaking",
+"start": 527.42,
+"end": 527.56,
+"startFrame": 12658,
+"endFrame": 12661
+},
+{
+"i": 1412,
+"word": "to",
+"start": 527.56,
+"end": 527.72,
+"startFrame": 12661,
+"endFrame": 12665
+},
+{
+"i": 1413,
+"word": "the",
+"start": 527.72,
+"end": 527.82,
+"startFrame": 12665,
+"endFrame": 12668
+},
+{
+"i": 1414,
+"word": "arriving",
+"start": 527.82,
+"end": 528.12,
+"startFrame": 12668,
+"endFrame": 12675
+},
+{
+"i": 1415,
+"word": "specialists",
+"start": 528.12,
+"end": 528.48,
+"startFrame": 12675,
+"endFrame": 12684
+},
+{
+"i": 1416,
+"word": "the",
+"start": 529.16,
+"end": 529.3,
+"startFrame": 12700,
+"endFrame": 12703
+},
+{
+"i": 1417,
+"word": "bomb",
+"start": 529.3,
+"end": 529.48,
+"startFrame": 12703,
+"endFrame": 12708
+},
+{
+"i": 1418,
+"word": "squad",
+"start": 529.48,
+"end": 529.76,
+"startFrame": 12708,
+"endFrame": 12714
+},
+{
+"i": 1419,
+"word": "examines",
+"start": 529.76,
+"end": 530.1,
+"startFrame": 12714,
+"endFrame": 12722
+},
+{
+"i": 1420,
+"word": "the",
+"start": 530.1,
+"end": 530.32,
+"startFrame": 12722,
+"endFrame": 12728
+},
+{
+"i": 1421,
+"word": "wire",
+"start": 530.32,
+"end": 530.6,
+"startFrame": 12728,
+"endFrame": 12734
+},
+{
+"i": 1422,
+"word": "while",
+"start": 530.6,
+"end": 530.9,
+"startFrame": 12734,
+"endFrame": 12742
+},
+{
+"i": 1423,
+"word": "firefighters",
+"start": 531.04,
+"end": 531.46,
+"startFrame": 12745,
+"endFrame": 12755
+},
+{
+"i": 1424,
+"word": "keep",
+"start": 531.46,
+"end": 531.74,
+"startFrame": 12755,
+"endFrame": 12762
+},
+{
+"i": 1425,
+"word": "the",
+"start": 531.74,
+"end": 531.92,
+"startFrame": 12762,
+"endFrame": 12766
+},
+{
+"i": 1426,
+"word": "street",
+"start": 531.92,
+"end": 532.08,
+"startFrame": 12766,
+"endFrame": 12770
+},
+{
+"i": 1427,
+"word": "clear",
+"start": 532.08,
+"end": 532.78,
+"startFrame": 12770,
+"endFrame": 12787
+},
+{
+"i": 1428,
+"word": "nobody",
+"start": 533.3,
+"end": 533.52,
+"startFrame": 12799,
+"endFrame": 12804
+},
+{
+"i": 1429,
+"word": "asks",
+"start": 533.52,
+"end": 533.8,
+"startFrame": 12804,
+"endFrame": 12811
+},
+{
+"i": 1430,
+"word": "you",
+"start": 533.8,
+"end": 533.98,
+"startFrame": 12811,
+"endFrame": 12816
+},
+{
+"i": 1431,
+"word": "to",
+"start": 533.98,
+"end": 534.06,
+"startFrame": 12816,
+"endFrame": 12817
+},
+{
+"i": 1432,
+"word": "be",
+"start": 534.06,
+"end": 534.18,
+"startFrame": 12817,
+"endFrame": 12820
+},
+{
+"i": 1433,
+"word": "a",
+"start": 534.18,
+"end": 534.34,
+"startFrame": 12820,
+"endFrame": 12824
+},
+{
+"i": 1434,
+"word": "hero",
+"start": 534.34,
+"end": 534.79,
+"startFrame": 12824,
+"endFrame": 12835
+},
+{
+"i": 1435,
+"word": "they",
+"start": 535.5,
+"end": 535.62,
+"startFrame": 12852,
+"endFrame": 12855
+},
+{
+"i": 1436,
+"word": "ask",
+"start": 535.62,
+"end": 535.82,
+"startFrame": 12855,
+"endFrame": 12860
+},
+{
+"i": 1437,
+"word": "you",
+"start": 535.82,
+"end": 535.9,
+"startFrame": 12860,
+"endFrame": 12862
+},
+{
+"i": 1438,
+"word": "to",
+"start": 535.9,
+"end": 536.08,
+"startFrame": 12862,
+"endFrame": 12866
+},
+{
+"i": 1439,
+"word": "stay",
+"start": 536.08,
+"end": 536.28,
+"startFrame": 12866,
+"endFrame": 12871
+},
+{
+"i": 1440,
+"word": "where",
+"start": 536.28,
+"end": 536.44,
+"startFrame": 12871,
+"endFrame": 12875
+},
+{
+"i": 1441,
+"word": "the",
+"start": 536.44,
+"end": 536.6,
+"startFrame": 12875,
+"endFrame": 12878
+},
+{
+"i": 1442,
+"word": "girl",
+"start": 536.6,
+"end": 536.74,
+"startFrame": 12878,
+"endFrame": 12882
+},
+{
+"i": 1443,
+"word": "can",
+"start": 536.74,
+"end": 536.94,
+"startFrame": 12882,
+"endFrame": 12887
+},
+{
+"i": 1444,
+"word": "see",
+"start": 536.94,
+"end": 537.14,
+"startFrame": 12887,
+"endFrame": 12891
+},
+{
+"i": 1445,
+"word": "you",
+"start": 537.14,
+"end": 537.24,
+"startFrame": 12891,
+"endFrame": 12894
+},
+{
+"i": 1446,
+"word": "so",
+"start": 538.26,
+"end": 538.36,
+"startFrame": 12918,
+"endFrame": 12921
+},
+{
+"i": 1447,
+"word": "you",
+"start": 538.36,
+"end": 538.48,
+"startFrame": 12921,
+"endFrame": 12924
+},
+{
+"i": 1448,
+"word": "do",
+"start": 538.48,
+"end": 538.64,
+"startFrame": 12924,
+"endFrame": 12927
+},
+{
+"i": 1449,
+"word": "the",
+"start": 539.66,
+"end": 539.78,
+"startFrame": 12952,
+"endFrame": 12955
+},
+{
+"i": 1450,
+"word": "specialist",
+"start": 539.78,
+"end": 540.08,
+"startFrame": 12955,
+"endFrame": 12962
+},
+{
+"i": 1451,
+"word": "gives",
+"start": 540.24,
+"end": 540.34,
+"startFrame": 12966,
+"endFrame": 12968
+},
+{
+"i": 1452,
+"word": "mara",
+"start": 540.34,
+"end": 540.6,
+"startFrame": 12968,
+"endFrame": 12974
+},
+{
+"i": 1453,
+"word": "a",
+"start": 540.82,
+"end": 540.82,
+"startFrame": 12980,
+"endFrame": 12980
+},
+{
+"i": 1454,
+"word": "signal",
+"start": 540.82,
+"end": 540.94,
+"startFrame": 12980,
+"endFrame": 12983
+},
+{
+"i": 1455,
+"word": "the",
+"start": 542.02,
+"end": 542.02,
+"startFrame": 13008,
+"endFrame": 13008
+},
+{
+"i": 1456,
+"word": "device",
+"start": 542.02,
+"end": 542.3,
+"startFrame": 13008,
+"endFrame": 13015
+},
+{
+"i": 1457,
+"word": "has",
+"start": 542.3,
+"end": 542.46,
+"startFrame": 13015,
+"endFrame": 13019
+},
+{
+"i": 1458,
+"word": "been",
+"start": 542.48,
+"end": 542.58,
+"startFrame": 13020,
+"endFrame": 13022
+},
+{
+"i": 1459,
+"word": "made",
+"start": 542.58,
+"end": 542.76,
+"startFrame": 13022,
+"endFrame": 13026
+},
+{
+"i": 1460,
+"word": "safe",
+"start": 542.76,
+"end": 542.86,
+"startFrame": 13026,
+"endFrame": 13029
+},
+{
+"i": 1461,
+"word": "a",
+"start": 543.68,
+"end": 543.76,
+"startFrame": 13048,
+"endFrame": 13050
+},
+{
+"i": 1462,
+"word": "firefighter",
+"start": 543.76,
+"end": 544.3,
+"startFrame": 13050,
+"endFrame": 13063
+},
+{
+"i": 1463,
+"word": "opens",
+"start": 544.3,
+"end": 544.66,
+"startFrame": 13063,
+"endFrame": 13072
+},
+{
+"i": 1464,
+"word": "the",
+"start": 544.66,
+"end": 544.9,
+"startFrame": 13072,
+"endFrame": 13078
+},
+{
+"i": 1465,
+"word": "door",
+"start": 544.9,
+"end": 545.06,
+"startFrame": 13078,
+"endFrame": 13081
+},
+{
+"i": 1466,
+"word": "and",
+"start": 545.84,
+"end": 545.84,
+"startFrame": 13100,
+"endFrame": 13100
+},
+{
+"i": 1467,
+"word": "the",
+"start": 545.84,
+"end": 545.96,
+"startFrame": 13100,
+"endFrame": 13103
+},
+{
+"i": 1468,
+"word": "girl",
+"start": 545.96,
+"end": 546.12,
+"startFrame": 13103,
+"endFrame": 13107
+},
+{
+"i": 1469,
+"word": "climbs",
+"start": 546.12,
+"end": 546.52,
+"startFrame": 13107,
+"endFrame": 13116
+},
+{
+"i": 1470,
+"word": "down",
+"start": 546.52,
+"end": 546.9,
+"startFrame": 13116,
+"endFrame": 13126
+},
+{
+"i": 1471,
+"word": "into",
+"start": 546.9,
+"end": 547.12,
+"startFrame": 13126,
+"endFrame": 13131
+},
+{
+"i": 1472,
+"word": "her",
+"start": 547.16,
+"end": 547.28,
+"startFrame": 13132,
+"endFrame": 13135
+},
+{
+"i": 1473,
+"word": "mother's",
+"start": 547.28,
+"end": 547.64,
+"startFrame": 13135,
+"endFrame": 13143
+},
+{
+"i": 1474,
+"word": "arms",
+"start": 547.64,
+"end": 547.78,
+"startFrame": 13143,
+"endFrame": 13147
+},
+{
+"i": 1475,
+"word": "you",
+"start": 549.08,
+"end": 549.22,
+"startFrame": 13178,
+"endFrame": 13181
+},
+{
+"i": 1476,
+"word": "hear",
+"start": 549.24,
+"end": 549.38,
+"startFrame": 13182,
+"endFrame": 13185
+},
+{
+"i": 1477,
+"word": "her",
+"start": 549.38,
+"end": 549.54,
+"startFrame": 13185,
+"endFrame": 13189
+},
+{
+"i": 1478,
+"word": "crying",
+"start": 549.58,
+"end": 549.88,
+"startFrame": 13190,
+"endFrame": 13197
+},
+{
+"i": 1479,
+"word": "now",
+"start": 549.88,
+"end": 550.04,
+"startFrame": 13197,
+"endFrame": 13201
+},
+{
+"i": 1480,
+"word": "so",
+"start": 551.28,
+"end": 551.36,
+"startFrame": 13231,
+"endFrame": 13233
+},
+{
+"i": 1481,
+"word": "is",
+"start": 551.36,
+"end": 551.52,
+"startFrame": 13233,
+"endFrame": 13236
+},
+{
+"i": 1482,
+"word": "her",
+"start": 551.52,
+"end": 551.68,
+"startFrame": 13236,
+"endFrame": 13240
+},
+{
+"i": 1483,
+"word": "mother",
+"start": 551.68,
+"end": 551.84,
+"startFrame": 13240,
+"endFrame": 13244
+},
+{
+"i": 1484,
+"word": "the",
+"start": 553.42,
+"end": 553.58,
+"startFrame": 13282,
+"endFrame": 13286
+},
+{
+"i": 1485,
+"word": "flashlight",
+"start": 553.6,
+"end": 554.06,
+"startFrame": 13286,
+"endFrame": 13297
+},
+{
+"i": 1486,
+"word": "goes",
+"start": 554.26,
+"end": 554.4,
+"startFrame": 13302,
+"endFrame": 13306
+},
+{
+"i": 1487,
+"word": "out",
+"start": 554.4,
+"end": 554.62,
+"startFrame": 13306,
+"endFrame": 13311
+},
+{
+"i": 1488,
+"word": "in",
+"start": 554.64,
+"end": 554.74,
+"startFrame": 13311,
+"endFrame": 13314
+},
+{
+"i": 1489,
+"word": "your",
+"start": 554.74,
+"end": 554.92,
+"startFrame": 13314,
+"endFrame": 13318
+},
+{
+"i": 1490,
+"word": "hand",
+"start": 554.92,
+"end": 555.06,
+"startFrame": 13318,
+"endFrame": 13321
+},
+{
+"i": 1491,
+"word": "at",
+"start": 556.66,
+"end": 556.78,
+"startFrame": 13360,
+"endFrame": 13363
+},
+{
+"i": 1492,
+"word": "the",
+"start": 556.78,
+"end": 556.92,
+"startFrame": 13363,
+"endFrame": 13366
+},
+{
+"i": 1493,
+"word": "hospital",
+"start": 556.92,
+"end": 557.27,
+"startFrame": 13366,
+"endFrame": 13374
+},
+{
+"i": 1494,
+"word": "the",
+"start": 557.74,
+"end": 557.74,
+"startFrame": 13386,
+"endFrame": 13386
+},
+{
+"i": 1495,
+"word": "emergency",
+"start": 557.74,
+"end": 558.2,
+"startFrame": 13386,
+"endFrame": 13397
+},
+{
+"i": 1496,
+"word": "crew",
+"start": 558.2,
+"end": 558.52,
+"startFrame": 13397,
+"endFrame": 13404
+},
+{
+"i": 1497,
+"word": "restores",
+"start": 558.52,
+"end": 558.92,
+"startFrame": 13404,
+"endFrame": 13414
+},
+{
+"i": 1498,
+"word": "power",
+"start": 558.92,
+"end": 559.36,
+"startFrame": 13414,
+"endFrame": 13425
+},
+{
+"i": 1499,
+"word": "later",
+"start": 560.3,
+"end": 560.74,
+"startFrame": 13447,
+"endFrame": 13458
+},
+{
+"i": 1500,
+"word": "the",
+"start": 560.84,
+"end": 560.92,
+"startFrame": 13460,
+"endFrame": 13462
+},
+{
+"i": 1501,
+"word": "radio",
+"start": 560.92,
+"end": 561.2,
+"startFrame": 13462,
+"endFrame": 13469
+},
+{
+"i": 1502,
+"word": "reports",
+"start": 561.2,
+"end": 561.62,
+"startFrame": 13469,
+"endFrame": 13479
+},
+{
+"i": 1503,
+"word": "that",
+"start": 561.76,
+"end": 561.86,
+"startFrame": 13482,
+"endFrame": 13485
+},
+{
+"i": 1504,
+"word": "batman",
+"start": 561.86,
+"end": 562.22,
+"startFrame": 13485,
+"endFrame": 13493
+},
+{
+"i": 1505,
+"word": "found",
+"start": 562.22,
+"end": 562.6,
+"startFrame": 13493,
+"endFrame": 13502
+},
+{
+"i": 1506,
+"word": "the",
+"start": 562.6,
+"end": 562.8,
+"startFrame": 13502,
+"endFrame": 13507
+},
+{
+"i": 1507,
+"word": "joker",
+"start": 562.8,
+"end": 563.02,
+"startFrame": 13507,
+"endFrame": 13512
+},
+{
+"i": 1508,
+"word": "nearby",
+"start": 563.02,
+"end": 563.5,
+"startFrame": 13512,
+"endFrame": 13524
+},
+{
+"i": 1509,
+"word": "there",
+"start": 564.58,
+"end": 564.68,
+"startFrame": 13550,
+"endFrame": 13552
+},
+{
+"i": 1510,
+"word": "is",
+"start": 564.68,
+"end": 564.78,
+"startFrame": 13552,
+"endFrame": 13555
+},
+{
+"i": 1511,
+"word": "no",
+"start": 564.78,
+"end": 564.94,
+"startFrame": 13555,
+"endFrame": 13559
+},
+{
+"i": 1512,
+"word": "dramatic",
+"start": 564.94,
+"end": 565.44,
+"startFrame": 13559,
+"endFrame": 13571
+},
+{
+"i": 1513,
+"word": "announcement",
+"start": 565.44,
+"end": 565.8,
+"startFrame": 13571,
+"endFrame": 13579
+},
+{
+"i": 1514,
+"word": "just",
+"start": 566.56,
+"end": 566.72,
+"startFrame": 13597,
+"endFrame": 13601
+},
+{
+"i": 1515,
+"word": "officers",
+"start": 566.72,
+"end": 567.18,
+"startFrame": 13601,
+"endFrame": 13612
+},
+{
+"i": 1516,
+"word": "requesting",
+"start": 567.18,
+"end": 567.64,
+"startFrame": 13612,
+"endFrame": 13623
+},
+{
+"i": 1517,
+"word": "transport",
+"start": 567.64,
+"end": 568.26,
+"startFrame": 13623,
+"endFrame": 13638
+},
+{
+"i": 1518,
+"word": "and",
+"start": 568.26,
+"end": 568.78,
+"startFrame": 13638,
+"endFrame": 13651
+},
+{
+"i": 1519,
+"word": "a",
+"start": 568.78,
+"end": 568.92,
+"startFrame": 13651,
+"endFrame": 13654
+},
+{
+"i": 1520,
+"word": "medic",
+"start": 568.92,
+"end": 569.02,
+"startFrame": 13654,
+"endFrame": 13656
+},
+{
+"i": 1521,
+"word": "the",
+"start": 570.1,
+"end": 570.2,
+"startFrame": 13682,
+"endFrame": 13685
+},
+{
+"i": 1522,
+"word": "joker",
+"start": 570.22,
+"end": 570.44,
+"startFrame": 13685,
+"endFrame": 13691
+},
+{
+"i": 1523,
+"word": "is",
+"start": 570.44,
+"end": 570.64,
+"startFrame": 13691,
+"endFrame": 13695
+},
+{
+"i": 1524,
+"word": "in",
+"start": 570.64,
+"end": 570.84,
+"startFrame": 13695,
+"endFrame": 13700
+},
+{
+"i": 1525,
+"word": "custody",
+"start": 570.84,
+"end": 570.96,
+"startFrame": 13700,
+"endFrame": 13703
+},
+{
+"i": 1526,
+"word": "tonight",
+"start": 572.5,
+"end": 572.6,
+"startFrame": 13740,
+"endFrame": 13742
+},
+{
+"i": 1527,
+"word": "at",
+"start": 573.18,
+"end": 573.26,
+"startFrame": 13756,
+"endFrame": 13758
+},
+{
+"i": 1528,
+"word": "least",
+"start": 573.26,
+"end": 574.62,
+"startFrame": 13758,
+"endFrame": 13791
+},
+{
+"i": 1529,
+"word": "by",
+"start": 574.78,
+"end": 574.9,
+"startFrame": 13795,
+"endFrame": 13798
+},
+{
+"i": 1530,
+"word": "morning",
+"start": 574.9,
+"end": 575.46,
+"startFrame": 13798,
+"endFrame": 13811
+},
+{
+"i": 1531,
+"word": "the",
+"start": 575.52,
+"end": 575.52,
+"startFrame": 13812,
+"endFrame": 13812
+},
+{
+"i": 1532,
+"word": "city",
+"start": 575.52,
+"end": 575.66,
+"startFrame": 13812,
+"endFrame": 13816
+},
+{
+"i": 1533,
+"word": "is",
+"start": 575.66,
+"end": 575.84,
+"startFrame": 13816,
+"endFrame": 13820
+},
+{
+"i": 1534,
+"word": "arguing",
+"start": 575.84,
+"end": 576.26,
+"startFrame": 13820,
+"endFrame": 13830
+},
+{
+"i": 1535,
+"word": "about",
+"start": 576.26,
+"end": 576.54,
+"startFrame": 13830,
+"endFrame": 13837
+},
+{
+"i": 1536,
+"word": "batman",
+"start": 576.62,
+"end": 576.92,
+"startFrame": 13839,
+"endFrame": 13846
+},
+{
+"i": 1537,
+"word": "again",
+"start": 576.92,
+"end": 577.02,
+"startFrame": 13846,
+"endFrame": 13848
+},
+{
+"i": 1538,
+"word": "some",
+"start": 578.04,
+"end": 578.16,
+"startFrame": 13873,
+"endFrame": 13876
+},
+{
+"i": 1539,
+"word": "people",
+"start": 578.16,
+"end": 578.4,
+"startFrame": 13876,
+"endFrame": 13882
+},
+{
+"i": 1540,
+"word": "say",
+"start": 578.4,
+"end": 578.64,
+"startFrame": 13882,
+"endFrame": 13887
+},
+{
+"i": 1541,
+"word": "he",
+"start": 578.64,
+"end": 578.78,
+"startFrame": 13887,
+"endFrame": 13891
+},
+{
+"i": 1542,
+"word": "should",
+"start": 578.78,
+"end": 578.94,
+"startFrame": 13891,
+"endFrame": 13895
+},
+{
+"i": 1543,
+"word": "never",
+"start": 578.94,
+"end": 579.14,
+"startFrame": 13895,
+"endFrame": 13899
+},
+{
+"i": 1544,
+"word": "have",
+"start": 579.14,
+"end": 579.28,
+"startFrame": 13899,
+"endFrame": 13903
+},
+{
+"i": 1545,
+"word": "left",
+"start": 579.28,
+"end": 579.42,
+"startFrame": 13903,
+"endFrame": 13906
+},
+{
+"i": 1546,
+"word": "the",
+"start": 579.48,
+"end": 579.58,
+"startFrame": 13908,
+"endFrame": 13910
+},
+{
+"i": 1547,
+"word": "bus",
+"start": 579.58,
+"end": 579.92,
+"startFrame": 13910,
+"endFrame": 13918
+},
+{
+"i": 1548,
+"word": "others",
+"start": 580.46,
+"end": 580.66,
+"startFrame": 13931,
+"endFrame": 13936
+},
+{
+"i": 1549,
+"word": "say",
+"start": 580.66,
+"end": 580.94,
+"startFrame": 13936,
+"endFrame": 13943
+},
+{
+"i": 1550,
+"word": "the",
+"start": 580.94,
+"end": 581.1,
+"startFrame": 13943,
+"endFrame": 13946
+},
+{
+"i": 1551,
+"word": "hospital",
+"start": 581.1,
+"end": 581.48,
+"startFrame": 13946,
+"endFrame": 13956
+},
+{
+"i": 1552,
+"word": "needed",
+"start": 581.48,
+"end": 581.82,
+"startFrame": 13956,
+"endFrame": 13964
+},
+{
+"i": 1553,
+"word": "him",
+"start": 581.82,
+"end": 582.02,
+"startFrame": 13964,
+"endFrame": 13968
+},
+{
+"i": 1554,
+"word": "more",
+"start": 582.02,
+"end": 582.18,
+"startFrame": 13968,
+"endFrame": 13972
+},
+{
+"i": 1555,
+"word": "on",
+"start": 583.52,
+"end": 583.72,
+"startFrame": 14004,
+"endFrame": 14009
+},
+{
+"i": 1556,
+"word": "television",
+"start": 583.72,
+"end": 584.18,
+"startFrame": 14009,
+"endFrame": 14020
+},
+{
+"i": 1557,
+"word": "the",
+"start": 584.56,
+"end": 584.64,
+"startFrame": 14029,
+"endFrame": 14031
+},
+{
+"i": 1558,
+"word": "reporters",
+"start": 584.64,
+"end": 585.0,
+"startFrame": 14031,
+"endFrame": 14040
+},
+{
+"i": 1559,
+"word": "show",
+"start": 585.0,
+"end": 585.28,
+"startFrame": 14040,
+"endFrame": 14047
+},
+{
+"i": 1560,
+"word": "the",
+"start": 585.28,
+"end": 585.48,
+"startFrame": 14047,
+"endFrame": 14052
+},
+{
+"i": 1561,
+"word": "joker's",
+"start": 585.48,
+"end": 585.9,
+"startFrame": 14052,
+"endFrame": 14062
+},
+{
+"i": 1562,
+"word": "grin",
+"start": 585.9,
+"end": 586.18,
+"startFrame": 14062,
+"endFrame": 14068
+},
+{
+"i": 1563,
+"word": "and",
+"start": 586.18,
+"end": 586.9,
+"startFrame": 14068,
+"endFrame": 14086
+},
+{
+"i": 1564,
+"word": "the",
+"start": 586.9,
+"end": 587.04,
+"startFrame": 14086,
+"endFrame": 14089
+},
+{
+"i": 1565,
+"word": "black",
+"start": 587.04,
+"end": 587.28,
+"startFrame": 14089,
+"endFrame": 14095
+},
+{
+"i": 1566,
+"word": "sky",
+"start": 587.28,
+"end": 587.66,
+"startFrame": 14095,
+"endFrame": 14104
+},
+{
+"i": 1567,
+"word": "where",
+"start": 587.66,
+"end": 587.96,
+"startFrame": 14104,
+"endFrame": 14111
+},
+{
+"i": 1568,
+"word": "the",
+"start": 588.04,
+"end": 588.14,
+"startFrame": 14113,
+"endFrame": 14115
+},
+{
+"i": 1569,
+"word": "bat",
+"start": 588.14,
+"end": 588.6,
+"startFrame": 14115,
+"endFrame": 14126
+},
+{
+"i": 1570,
+"word": "signal",
+"start": 588.14,
+"end": 588.6,
+"startFrame": 14115,
+"endFrame": 14126
+},
+{
+"i": 1571,
+"word": "went",
+"start": 588.6,
+"end": 588.8,
+"startFrame": 14126,
+"endFrame": 14131
+},
+{
+"i": 1572,
+"word": "dark",
+"start": 588.8,
+"end": 589.12,
+"startFrame": 14131,
+"endFrame": 14139
+},
+{
+"i": 1573,
+"word": "nobody",
+"start": 590.64,
+"end": 590.8,
+"startFrame": 14175,
+"endFrame": 14179
+},
+{
+"i": 1574,
+"word": "shows",
+"start": 590.8,
+"end": 591.2,
+"startFrame": 14179,
+"endFrame": 14189
+},
+{
+"i": 1575,
+"word": "the",
+"start": 591.2,
+"end": 591.4,
+"startFrame": 14189,
+"endFrame": 14194
+},
+{
+"i": 1576,
+"word": "little",
+"start": 591.4,
+"end": 591.58,
+"startFrame": 14194,
+"endFrame": 14198
+},
+{
+"i": 1577,
+"word": "girl",
+"start": 591.58,
+"end": 591.84,
+"startFrame": 14198,
+"endFrame": 14204
+},
+{
+"i": 1578,
+"word": "waving",
+"start": 591.84,
+"end": 592.28,
+"startFrame": 14204,
+"endFrame": 14215
+},
+{
+"i": 1579,
+"word": "through",
+"start": 592.28,
+"end": 592.52,
+"startFrame": 14215,
+"endFrame": 14220
+},
+{
+"i": 1580,
+"word": "the",
+"start": 592.52,
+"end": 592.66,
+"startFrame": 14220,
+"endFrame": 14224
+},
+{
+"i": 1581,
+"word": "window",
+"start": 592.66,
+"end": 592.86,
+"startFrame": 14224,
+"endFrame": 14229
+},
+{
+"i": 1582,
+"word": "nobody",
+"start": 594.24,
+"end": 594.42,
+"startFrame": 14262,
+"endFrame": 14266
+},
+{
+"i": 1583,
+"word": "mentions",
+"start": 594.42,
+"end": 594.88,
+"startFrame": 14266,
+"endFrame": 14277
+},
+{
+"i": 1584,
+"word": "mara",
+"start": 594.88,
+"end": 595.34,
+"startFrame": 14277,
+"endFrame": 14288
+},
+{
+"i": 1585,
+"word": "or",
+"start": 595.34,
+"end": 595.6,
+"startFrame": 14288,
+"endFrame": 14294
+},
+{
+"i": 1586,
+"word": "the",
+"start": 595.6,
+"end": 595.82,
+"startFrame": 14294,
+"endFrame": 14300
+},
+{
+"i": 1587,
+"word": "specialists",
+"start": 595.82,
+"end": 596.24,
+"startFrame": 14300,
+"endFrame": 14310
+},
+{
+"i": 1588,
+"word": "who",
+"start": 596.36,
+"end": 596.58,
+"startFrame": 14313,
+"endFrame": 14318
+},
+{
+"i": 1589,
+"word": "opened",
+"start": 596.58,
+"end": 596.74,
+"startFrame": 14318,
+"endFrame": 14322
+},
+{
+"i": 1590,
+"word": "the",
+"start": 596.74,
+"end": 596.92,
+"startFrame": 14322,
+"endFrame": 14326
+},
+{
+"i": 1591,
+"word": "door",
+"start": 596.92,
+"end": 597.16,
+"startFrame": 14326,
+"endFrame": 14332
+},
+{
+"i": 1592,
+"word": "that's",
+"start": 598.18,
+"end": 598.26,
+"startFrame": 14356,
+"endFrame": 14358
+},
+{
+"i": 1593,
+"word": "all",
+"start": 598.28,
+"end": 598.38,
+"startFrame": 14359,
+"endFrame": 14361
+},
+{
+"i": 1594,
+"word": "right",
+"start": 598.38,
+"end": 598.48,
+"startFrame": 14361,
+"endFrame": 14364
+},
+{
+"i": 1595,
+"word": "her",
+"start": 599.54,
+"end": 599.66,
+"startFrame": 14389,
+"endFrame": 14392
+},
+{
+"i": 1596,
+"word": "mother",
+"start": 599.66,
+"end": 599.84,
+"startFrame": 14392,
+"endFrame": 14396
+},
+{
+"i": 1597,
+"word": "knows",
+"start": 599.84,
+"end": 600.08,
+"startFrame": 14396,
+"endFrame": 14402
+},
+{
+"i": 1598,
+"word": "their",
+"start": 600.08,
+"end": 600.26,
+"startFrame": 14402,
+"endFrame": 14406
+},
+{
+"i": 1599,
+"word": "names",
+"start": 600.26,
+"end": 600.62,
+"startFrame": 14406,
+"endFrame": 14415
+},
+{
+"i": 1600,
+"word": "at",
+"start": 601.96,
+"end": 602.02,
+"startFrame": 14447,
+"endFrame": 14448
+},
+{
+"i": 1601,
+"word": "the",
+"start": 602.02,
+"end": 602.16,
+"startFrame": 14448,
+"endFrame": 14452
+},
+{
+"i": 1602,
+"word": "end",
+"start": 602.16,
+"end": 602.28,
+"startFrame": 14452,
+"endFrame": 14455
+},
+{
+"i": 1603,
+"word": "of",
+"start": 602.28,
+"end": 602.4,
+"startFrame": 14455,
+"endFrame": 14458
+},
+{
+"i": 1604,
+"word": "your",
+"start": 602.4,
+"end": 602.52,
+"startFrame": 14458,
+"endFrame": 14460
+},
+{
+"i": 1605,
+"word": "shift",
+"start": 602.52,
+"end": 602.8,
+"startFrame": 14460,
+"endFrame": 14467
+},
+{
+"i": 1606,
+"word": "you",
+"start": 603.34,
+"end": 603.34,
+"startFrame": 14480,
+"endFrame": 14480
+},
+{
+"i": 1607,
+"word": "go",
+"start": 603.34,
+"end": 603.46,
+"startFrame": 14480,
+"endFrame": 14483
+},
+{
+"i": 1608,
+"word": "to",
+"start": 603.46,
+"end": 603.56,
+"startFrame": 14483,
+"endFrame": 14485
+},
+{
+"i": 1609,
+"word": "your",
+"start": 603.66,
+"end": 603.76,
+"startFrame": 14488,
+"endFrame": 14490
+},
+{
+"i": 1610,
+"word": "father's",
+"start": 603.76,
+"end": 604.18,
+"startFrame": 14490,
+"endFrame": 14500
+},
+{
+"i": 1611,
+"word": "shop",
+"start": 604.18,
+"end": 604.32,
+"startFrame": 14500,
+"endFrame": 14504
+},
+{
+"i": 1612,
+"word": "the",
+"start": 605.16,
+"end": 605.28,
+"startFrame": 14524,
+"endFrame": 14527
+},
+{
+"i": 1613,
+"word": "lights",
+"start": 605.28,
+"end": 605.48,
+"startFrame": 14527,
+"endFrame": 14532
+},
+{
+"i": 1614,
+"word": "are",
+"start": 605.48,
+"end": 605.64,
+"startFrame": 14532,
+"endFrame": 14535
+},
+{
+"i": 1615,
+"word": "back",
+"start": 605.64,
+"end": 605.84,
+"startFrame": 14535,
+"endFrame": 14540
+},
+{
+"i": 1616,
+"word": "on",
+"start": 605.84,
+"end": 606.18,
+"startFrame": 14540,
+"endFrame": 14548
+},
+{
+"i": 1617,
+"word": "but",
+"start": 606.76,
+"end": 606.86,
+"startFrame": 14562,
+"endFrame": 14565
+},
+{
+"i": 1618,
+"word": "the",
+"start": 606.86,
+"end": 607.0,
+"startFrame": 14565,
+"endFrame": 14568
+},
+{
+"i": 1619,
+"word": "lamp",
+"start": 607.0,
+"end": 607.24,
+"startFrame": 14568,
+"endFrame": 14574
+},
+{
+"i": 1620,
+"word": "in",
+"start": 607.28,
+"end": 607.4,
+"startFrame": 14575,
+"endFrame": 14578
+},
+{
+"i": 1621,
+"word": "the",
+"start": 607.4,
+"end": 607.48,
+"startFrame": 14578,
+"endFrame": 14580
+},
+{
+"i": 1622,
+"word": "window",
+"start": 607.48,
+"end": 607.76,
+"startFrame": 14580,
+"endFrame": 14586
+},
+{
+"i": 1623,
+"word": "is",
+"start": 607.76,
+"end": 608.26,
+"startFrame": 14586,
+"endFrame": 14598
+},
+{
+"i": 1624,
+"word": "dark",
+"start": 608.26,
+"end": 608.54,
+"startFrame": 14598,
+"endFrame": 14605
+},
+{
+"i": 1625,
+"word": "your",
+"start": 609.94,
+"end": 610.08,
+"startFrame": 14639,
+"endFrame": 14642
+},
+{
+"i": 1626,
+"word": "father",
+"start": 610.08,
+"end": 610.4,
+"startFrame": 14642,
+"endFrame": 14650
+},
+{
+"i": 1627,
+"word": "is",
+"start": 610.4,
+"end": 610.6,
+"startFrame": 14650,
+"endFrame": 14654
+},
+{
+"i": 1628,
+"word": "asleep",
+"start": 610.6,
+"end": 610.9,
+"startFrame": 14654,
+"endFrame": 14662
+},
+{
+"i": 1629,
+"word": "in",
+"start": 611.0,
+"end": 611.1,
+"startFrame": 14664,
+"endFrame": 14666
+},
+{
+"i": 1630,
+"word": "his",
+"start": 611.1,
+"end": 611.22,
+"startFrame": 14666,
+"endFrame": 14669
+},
+{
+"i": 1631,
+"word": "chair",
+"start": 611.22,
+"end": 611.6,
+"startFrame": 14669,
+"endFrame": 14678
+},
+{
+"i": 1632,
+"word": "you",
+"start": 612.16,
+"end": 612.26,
+"startFrame": 14692,
+"endFrame": 14694
+},
+{
+"i": 1633,
+"word": "don't",
+"start": 612.26,
+"end": 612.4,
+"startFrame": 14694,
+"endFrame": 14698
+},
+{
+"i": 1634,
+"word": "wake",
+"start": 612.4,
+"end": 612.56,
+"startFrame": 14698,
+"endFrame": 14701
+},
+{
+"i": 1635,
+"word": "him",
+"start": 612.56,
+"end": 612.66,
+"startFrame": 14701,
+"endFrame": 14704
+},
+{
+"i": 1636,
+"word": "you",
+"start": 613.34,
+"end": 613.46,
+"startFrame": 14720,
+"endFrame": 14723
+},
+{
+"i": 1637,
+"word": "set",
+"start": 613.46,
+"end": 613.6,
+"startFrame": 14723,
+"endFrame": 14726
+},
+{
+"i": 1638,
+"word": "the",
+"start": 613.6,
+"end": 613.74,
+"startFrame": 14726,
+"endFrame": 14730
+},
+{
+"i": 1639,
+"word": "old",
+"start": 613.74,
+"end": 613.92,
+"startFrame": 14730,
+"endFrame": 14734
+},
+{
+"i": 1640,
+"word": "flashlight",
+"start": 613.98,
+"end": 614.32,
+"startFrame": 14736,
+"endFrame": 14744
+},
+{
+"i": 1641,
+"word": "on",
+"start": 614.32,
+"end": 614.58,
+"startFrame": 14744,
+"endFrame": 14750
+},
+{
+"i": 1642,
+"word": "the",
+"start": 614.64,
+"end": 614.74,
+"startFrame": 14751,
+"endFrame": 14754
+},
+{
+"i": 1643,
+"word": "counter",
+"start": 614.74,
+"end": 615.0,
+"startFrame": 14754,
+"endFrame": 14760
+},
+{
+"i": 1644,
+"word": "open",
+"start": 615.6,
+"end": 615.78,
+"startFrame": 14774,
+"endFrame": 14779
+},
+{
+"i": 1645,
+"word": "your",
+"start": 615.78,
+"end": 615.98,
+"startFrame": 14779,
+"endFrame": 14784
+},
+{
+"i": 1646,
+"word": "toolbox",
+"start": 615.98,
+"end": 616.42,
+"startFrame": 14784,
+"endFrame": 14794
+},
+{
+"i": 1647,
+"word": "and",
+"start": 617.1,
+"end": 617.22,
+"startFrame": 14810,
+"endFrame": 14813
+},
+{
+"i": 1648,
+"word": "fix",
+"start": 617.26,
+"end": 617.4,
+"startFrame": 14814,
+"endFrame": 14818
+},
+{
+"i": 1649,
+"word": "the",
+"start": 617.4,
+"end": 617.6,
+"startFrame": 14818,
+"endFrame": 14822
+},
+{
+"i": 1650,
+"word": "loose",
+"start": 617.6,
+"end": 617.74,
+"startFrame": 14822,
+"endFrame": 14826
+},
+{
+"i": 1651,
+"word": "switch",
+"start": 617.74,
+"end": 618.12,
+"startFrame": 14826,
+"endFrame": 14835
+},
+{
+"i": 1652,
+"word": "on",
+"start": 618.22,
+"end": 618.32,
+"startFrame": 14837,
+"endFrame": 14840
+},
+{
+"i": 1653,
+"word": "the",
+"start": 618.32,
+"end": 618.48,
+"startFrame": 14840,
+"endFrame": 14844
+},
+{
+"i": 1654,
+"word": "lamp",
+"start": 618.48,
+"end": 618.6,
+"startFrame": 14844,
+"endFrame": 14846
+},
+{
+"i": 1655,
+"word": "when",
+"start": 619.86,
+"end": 619.96,
+"startFrame": 14877,
+"endFrame": 14879
+},
+{
+"i": 1656,
+"word": "it",
+"start": 620.04,
+"end": 620.06,
+"startFrame": 14881,
+"endFrame": 14881
+},
+{
+"i": 1657,
+"word": "glows",
+"start": 620.06,
+"end": 620.31,
+"startFrame": 14881,
+"endFrame": 14887
+},
+{
+"i": 1658,
+"word": "your",
+"start": 621.44,
+"end": 621.44,
+"startFrame": 14915,
+"endFrame": 14915
+},
+{
+"i": 1659,
+"word": "father",
+"start": 621.46,
+"end": 621.72,
+"startFrame": 14915,
+"endFrame": 14921
+},
+{
+"i": 1660,
+"word": "opens",
+"start": 621.72,
+"end": 622.02,
+"startFrame": 14921,
+"endFrame": 14928
+},
+{
+"i": 1661,
+"word": "one",
+"start": 622.02,
+"end": 622.24,
+"startFrame": 14928,
+"endFrame": 14934
+},
+{
+"i": 1662,
+"word": "eye",
+"start": 622.24,
+"end": 622.52,
+"startFrame": 14934,
+"endFrame": 14940
+},
+{
+"i": 1663,
+"word": "long",
+"start": 624.16,
+"end": 624.26,
+"startFrame": 14980,
+"endFrame": 14982
+},
+{
+"i": 1664,
+"word": "night",
+"start": 624.26,
+"end": 624.54,
+"startFrame": 14982,
+"endFrame": 14989
+},
+{
+"i": 1665,
+"word": "he",
+"start": 625.34,
+"end": 625.44,
+"startFrame": 15008,
+"endFrame": 15011
+},
+{
+"i": 1666,
+"word": "asks",
+"start": 625.44,
+"end": 625.6,
+"startFrame": 15011,
+"endFrame": 15014
+},
+{
+"i": 1667,
+"word": "you",
+"start": 627.08,
+"end": 627.12,
+"startFrame": 15050,
+"endFrame": 15051
+},
+{
+"i": 1668,
+"word": "look",
+"start": 627.12,
+"end": 627.26,
+"startFrame": 15051,
+"endFrame": 15054
+},
+{
+"i": 1669,
+"word": "outside",
+"start": 627.26,
+"end": 627.61,
+"startFrame": 15054,
+"endFrame": 15063
+},
+{
+"i": 1670,
+"word": "across",
+"start": 628.86,
+"end": 629.02,
+"startFrame": 15093,
+"endFrame": 15096
+},
+{
+"i": 1671,
+"word": "the",
+"start": 629.02,
+"end": 629.26,
+"startFrame": 15096,
+"endFrame": 15102
+},
+{
+"i": 1672,
+"word": "street",
+"start": 629.26,
+"end": 629.56,
+"startFrame": 15102,
+"endFrame": 15109
+},
+{
+"i": 1673,
+"word": "a",
+"start": 629.9,
+"end": 629.9,
+"startFrame": 15118,
+"endFrame": 15118
+},
+{
+"i": 1674,
+"word": "delivery",
+"start": 629.9,
+"end": 630.26,
+"startFrame": 15118,
+"endFrame": 15126
+},
+{
+"i": 1675,
+"word": "driver",
+"start": 630.26,
+"end": 630.66,
+"startFrame": 15126,
+"endFrame": 15136
+},
+{
+"i": 1676,
+"word": "is",
+"start": 630.7,
+"end": 630.88,
+"startFrame": 15137,
+"endFrame": 15141
+},
+{
+"i": 1677,
+"word": "unlocking",
+"start": 630.88,
+"end": 631.28,
+"startFrame": 15141,
+"endFrame": 15151
+},
+{
+"i": 1678,
+"word": "a",
+"start": 631.28,
+"end": 631.5,
+"startFrame": 15151,
+"endFrame": 15156
+},
+{
+"i": 1679,
+"word": "shop",
+"start": 631.5,
+"end": 631.66,
+"startFrame": 15156,
+"endFrame": 15160
+},
+{
+"i": 1680,
+"word": "a",
+"start": 632.42,
+"end": 632.48,
+"startFrame": 15178,
+"endFrame": 15180
+},
+{
+"i": 1681,
+"word": "bus",
+"start": 632.48,
+"end": 632.72,
+"startFrame": 15180,
+"endFrame": 15185
+},
+{
+"i": 1682,
+"word": "passes",
+"start": 632.72,
+"end": 632.82,
+"startFrame": 15185,
+"endFrame": 15188
+},
+{
+"i": 1683,
+"word": "somewhere",
+"start": 634.04,
+"end": 634.32,
+"startFrame": 15217,
+"endFrame": 15224
+},
+{
+"i": 1684,
+"word": "above",
+"start": 634.32,
+"end": 634.66,
+"startFrame": 15224,
+"endFrame": 15232
+},
+{
+"i": 1685,
+"word": "the",
+"start": 634.66,
+"end": 634.86,
+"startFrame": 15232,
+"endFrame": 15237
+},
+{
+"i": 1686,
+"word": "buildings",
+"start": 634.86,
+"end": 634.96,
+"startFrame": 15237,
+"endFrame": 15239
+},
+{
+"i": 1687,
+"word": "the",
+"start": 635.6,
+"end": 635.7,
+"startFrame": 15254,
+"endFrame": 15257
+},
+{
+"i": 1688,
+"word": "clouds",
+"start": 635.72,
+"end": 636.0,
+"startFrame": 15257,
+"endFrame": 15264
+},
+{
+"i": 1689,
+"word": "begin",
+"start": 636.1,
+"end": 636.26,
+"startFrame": 15266,
+"endFrame": 15270
+},
+{
+"i": 1690,
+"word": "to",
+"start": 636.34,
+"end": 636.44,
+"startFrame": 15272,
+"endFrame": 15275
+},
+{
+"i": 1691,
+"word": "turn",
+"start": 636.44,
+"end": 636.64,
+"startFrame": 15275,
+"endFrame": 15279
+},
+{
+"i": 1692,
+"word": "gray",
+"start": 636.64,
+"end": 636.92,
+"startFrame": 15279,
+"endFrame": 15286
+},
+{
+"i": 1693,
+"word": "the",
+"start": 638.26,
+"end": 638.4,
+"startFrame": 15318,
+"endFrame": 15322
+},
+{
+"i": 1694,
+"word": "joker",
+"start": 638.54,
+"end": 638.64,
+"startFrame": 15325,
+"endFrame": 15327
+},
+{
+"i": 1695,
+"word": "will",
+"start": 638.64,
+"end": 638.96,
+"startFrame": 15327,
+"endFrame": 15335
+},
+{
+"i": 1696,
+"word": "escape",
+"start": 638.96,
+"end": 639.28,
+"startFrame": 15335,
+"endFrame": 15343
+},
+{
+"i": 1697,
+"word": "again",
+"start": 639.54,
+"end": 639.64,
+"startFrame": 15349,
+"endFrame": 15351
+},
+{
+"i": 1698,
+"word": "someday",
+"start": 639.64,
+"end": 639.9,
+"startFrame": 15351,
+"endFrame": 15358
+},
+{
+"i": 1699,
+"word": "in",
+"start": 640.78,
+"end": 640.9,
+"startFrame": 15379,
+"endFrame": 15382
+},
+{
+"i": 1700,
+"word": "gotham",
+"start": 640.9,
+"end": 641.36,
+"startFrame": 15382,
+"endFrame": 15393
+},
+{
+"i": 1701,
+"word": "everyone",
+"start": 641.94,
+"end": 642.16,
+"startFrame": 15407,
+"endFrame": 15412
+},
+{
+"i": 1702,
+"word": "knows",
+"start": 642.16,
+"end": 642.38,
+"startFrame": 15412,
+"endFrame": 15417
+},
+{
+"i": 1703,
+"word": "that",
+"start": 642.38,
+"end": 642.62,
+"startFrame": 15417,
+"endFrame": 15423
+},
+{
+"i": 1704,
+"word": "batman",
+"start": 643.8,
+"end": 644.16,
+"startFrame": 15451,
+"endFrame": 15460
+},
+{
+"i": 1705,
+"word": "will",
+"start": 644.16,
+"end": 644.42,
+"startFrame": 15460,
+"endFrame": 15466
+},
+{
+"i": 1706,
+"word": "be",
+"start": 644.42,
+"end": 644.58,
+"startFrame": 15466,
+"endFrame": 15470
+},
+{
+"i": 1707,
+"word": "there",
+"start": 644.58,
+"end": 644.76,
+"startFrame": 15470,
+"endFrame": 15474
+},
+{
+"i": 1708,
+"word": "when",
+"start": 644.76,
+"end": 644.9,
+"startFrame": 15474,
+"endFrame": 15478
+},
+{
+"i": 1709,
+"word": "he",
+"start": 644.9,
+"end": 645.04,
+"startFrame": 15478,
+"endFrame": 15481
+},
+{
+"i": 1710,
+"word": "does",
+"start": 645.04,
+"end": 645.22,
+"startFrame": 15481,
+"endFrame": 15485
+},
+{
+"i": 1711,
+"word": "and",
+"start": 646.52,
+"end": 646.68,
+"startFrame": 15516,
+"endFrame": 15520
+},
+{
+"i": 1712,
+"word": "someone",
+"start": 646.68,
+"end": 647.0,
+"startFrame": 15520,
+"endFrame": 15528
+},
+{
+"i": 1713,
+"word": "will",
+"start": 647.0,
+"end": 647.22,
+"startFrame": 15528,
+"endFrame": 15533
+},
+{
+"i": 1714,
+"word": "still",
+"start": 647.22,
+"end": 647.48,
+"startFrame": 15533,
+"endFrame": 15540
+},
+{
+"i": 1715,
+"word": "have",
+"start": 647.48,
+"end": 647.68,
+"startFrame": 15540,
+"endFrame": 15544
+},
+{
+"i": 1716,
+"word": "to",
+"start": 647.68,
+"end": 647.86,
+"startFrame": 15544,
+"endFrame": 15549
+},
+{
+"i": 1717,
+"word": "answer",
+"start": 647.86,
+"end": 648.08,
+"startFrame": 15549,
+"endFrame": 15554
+},
+{
+"i": 1718,
+"word": "the",
+"start": 648.08,
+"end": 648.26,
+"startFrame": 15554,
+"endFrame": 15558
+},
+{
+"i": 1719,
+"word": "phones",
+"start": 648.26,
+"end": 648.48,
+"startFrame": 15558,
+"endFrame": 15564
+},
+{
+"i": 1720,
+"word": "someone",
+"start": 649.34,
+"end": 649.58,
+"startFrame": 15584,
+"endFrame": 15590
+},
+{
+"i": 1721,
+"word": "will",
+"start": 649.58,
+"end": 649.96,
+"startFrame": 15590,
+"endFrame": 15599
+},
+{
+"i": 1722,
+"word": "have",
+"start": 649.96,
+"end": 650.06,
+"startFrame": 15599,
+"endFrame": 15601
+},
+{
+"i": 1723,
+"word": "to",
+"start": 650.1,
+"end": 650.26,
+"startFrame": 15602,
+"endFrame": 15606
+},
+{
+"i": 1724,
+"word": "stand",
+"start": 650.26,
+"end": 650.44,
+"startFrame": 15606,
+"endFrame": 15611
+},
+{
+"i": 1725,
+"word": "beside",
+"start": 650.44,
+"end": 650.82,
+"startFrame": 15611,
+"endFrame": 15620
+},
+{
+"i": 1726,
+"word": "the",
+"start": 650.82,
+"end": 651.02,
+"startFrame": 15620,
+"endFrame": 15624
+},
+{
+"i": 1727,
+"word": "people",
+"start": 651.02,
+"end": 651.24,
+"startFrame": 15624,
+"endFrame": 15630
+},
+{
+"i": 1728,
+"word": "waiting",
+"start": 651.24,
+"end": 651.5,
+"startFrame": 15630,
+"endFrame": 15636
+},
+{
+"i": 1729,
+"word": "for",
+"start": 651.5,
+"end": 651.72,
+"startFrame": 15636,
+"endFrame": 15641
+},
+{
+"i": 1730,
+"word": "news",
+"start": 651.72,
+"end": 652.14,
+"startFrame": 15641,
+"endFrame": 15651
+},
+{
+"i": 1731,
+"word": "your",
+"start": 653.38,
+"end": 653.46,
+"startFrame": 15681,
+"endFrame": 15683
+},
+{
+"i": 1732,
+"word": "father",
+"start": 653.48,
+"end": 653.72,
+"startFrame": 15684,
+"endFrame": 15689
+},
+{
+"i": 1733,
+"word": "looks",
+"start": 653.72,
+"end": 653.94,
+"startFrame": 15689,
+"endFrame": 15695
+},
+{
+"i": 1734,
+"word": "at",
+"start": 653.94,
+"end": 654.08,
+"startFrame": 15695,
+"endFrame": 15698
+},
+{
+"i": 1735,
+"word": "the",
+"start": 654.12,
+"end": 654.22,
+"startFrame": 15699,
+"endFrame": 15701
+},
+{
+"i": 1736,
+"word": "flashlight",
+"start": 654.22,
+"end": 654.58,
+"startFrame": 15701,
+"endFrame": 15710
+},
+{
+"i": 1737,
+"word": "on",
+"start": 654.62,
+"end": 654.78,
+"startFrame": 15711,
+"endFrame": 15715
+},
+{
+"i": 1738,
+"word": "the",
+"start": 654.84,
+"end": 654.94,
+"startFrame": 15716,
+"endFrame": 15719
+},
+{
+"i": 1739,
+"word": "counter",
+"start": 654.94,
+"end": 655.14,
+"startFrame": 15719,
+"endFrame": 15723
+},
+{
+"i": 1740,
+"word": "the",
+"start": 655.8,
+"end": 655.9,
+"startFrame": 15739,
+"endFrame": 15742
+},
+{
+"i": 1741,
+"word": "beam",
+"start": 655.9,
+"end": 656.1,
+"startFrame": 15742,
+"endFrame": 15746
+},
+{
+"i": 1742,
+"word": "is",
+"start": 656.1,
+"end": 656.28,
+"startFrame": 15746,
+"endFrame": 15751
+},
+{
+"i": 1743,
+"word": "dead",
+"start": 656.28,
+"end": 656.46,
+"startFrame": 15751,
+"endFrame": 15755
+},
+{
+"i": 1744,
+"word": "i",
+"start": 657.9,
+"end": 658.04,
+"startFrame": 15790,
+"endFrame": 15793
+},
+{
+"i": 1745,
+"word": "can",
+"start": 658.04,
+"end": 658.16,
+"startFrame": 15793,
+"endFrame": 15796
+},
+{
+"i": 1746,
+"word": "fix",
+"start": 658.16,
+"end": 658.34,
+"startFrame": 15796,
+"endFrame": 15800
+},
+{
+"i": 1747,
+"word": "it",
+"start": 658.34,
+"end": 658.5,
+"startFrame": 15800,
+"endFrame": 15804
+},
+{
+"i": 1748,
+"word": "he",
+"start": 659.1,
+"end": 659.2,
+"startFrame": 15818,
+"endFrame": 15821
+},
+{
+"i": 1749,
+"word": "says",
+"start": 659.2,
+"end": 660.32,
+"startFrame": 15821,
+"endFrame": 15848
+},
+{
+"i": 1750,
+"word": "you",
+"start": 660.56,
+"end": 660.66,
+"startFrame": 15853,
+"endFrame": 15856
+},
+{
+"i": 1751,
+"word": "smile",
+"start": 660.66,
+"end": 660.86,
+"startFrame": 15856,
+"endFrame": 15861
+},
+{
+"i": 1752,
+"word": "i",
+"start": 662.12,
+"end": 662.22,
+"startFrame": 15891,
+"endFrame": 15893
+},
+{
+"i": 1753,
+"word": "know",
+"start": 662.22,
+"end": 662.4,
+"startFrame": 15893,
+"endFrame": 15898
+},
+{
+"i": 1754,
+"word": "if",
+"start": 663.68,
+"end": 663.8,
+"startFrame": 15928,
+"endFrame": 15931
+},
+{
+"i": 1755,
+"word": "you",
+"start": 663.8,
+"end": 664.02,
+"startFrame": 15931,
+"endFrame": 15936
+},
+{
+"i": 1756,
+"word": "were",
+"start": 664.02,
+"end": 664.2,
+"startFrame": 15936,
+"endFrame": 15941
+},
+{
+"i": 1757,
+"word": "an",
+"start": 664.2,
+"end": 664.36,
+"startFrame": 15941,
+"endFrame": 15945
+},
+{
+"i": 1758,
+"word": "ordinary",
+"start": 664.36,
+"end": 664.76,
+"startFrame": 15945,
+"endFrame": 15954
+},
+{
+"i": 1759,
+"word": "cop",
+"start": 664.76,
+"end": 665.04,
+"startFrame": 15954,
+"endFrame": 15961
+},
+{
+"i": 1760,
+"word": "in",
+"start": 665.04,
+"end": 665.24,
+"startFrame": 15961,
+"endFrame": 15966
+},
+{
+"i": 1761,
+"word": "gotham",
+"start": 665.24,
+"end": 665.64,
+"startFrame": 15966,
+"endFrame": 15975
+},
+{
+"i": 1762,
+"word": "would",
+"start": 666.28,
+"end": 666.3,
+"startFrame": 15991,
+"endFrame": 15991
+},
+{
+"i": 1763,
+"word": "you",
+"start": 666.3,
+"end": 666.42,
+"startFrame": 15991,
+"endFrame": 15994
+},
+{
+"i": 1764,
+"word": "stay",
+"start": 666.42,
+"end": 666.72,
+"startFrame": 15994,
+"endFrame": 16001
+},
+{
+"i": 1765,
+"word": "and",
+"start": 667.74,
+"end": 667.84,
+"startFrame": 16026,
+"endFrame": 16028
+},
+{
+"i": 1766,
+"word": "which",
+"start": 667.84,
+"end": 668.02,
+"startFrame": 16028,
+"endFrame": 16032
+},
+{
+"i": 1767,
+"word": "world",
+"start": 668.02,
+"end": 668.34,
+"startFrame": 16032,
+"endFrame": 16040
+},
+{
+"i": 1768,
+"word": "should",
+"start": 668.34,
+"end": 668.54,
+"startFrame": 16040,
+"endFrame": 16045
+},
+{
+"i": 1769,
+"word": "we",
+"start": 668.54,
+"end": 668.7,
+"startFrame": 16045,
+"endFrame": 16049
+},
+{
+"i": 1770,
+"word": "enter",
+"start": 668.7,
+"end": 668.9,
+"startFrame": 16049,
+"endFrame": 16054
+},
+{
+"i": 1771,
+"word": "next",
+"start": 668.9,
+"end": 669.16,
+"startFrame": 16054,
+"endFrame": 16060
+}
+]
