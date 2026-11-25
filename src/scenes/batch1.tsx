@@ -466,8 +466,8 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
       <path d={poly([P(-11, 0, 12), P(11, 0, 12), P(11, 0, 600), P(-11, 0, 600)])} fill="url(#s4asph)" />
       {[-11, 11].map((X) => <path key={X} d={`M${P(X, 0, 24)[0]} ${P(X, 0, 24)[1]} L${P(X, 0, 600)[0]} ${P(X, 0, 600)[1]}`} stroke="#4a5068" strokeWidth={3} />)}
       {Array.from({ length: 22 }).map((_, i) => { const z0 = 26 + i * 9, z1 = z0 + 4.5; return <path key={i} d={poly([P(-0.15, 0, z0), P(0.15, 0, z0), P(0.15, 0, z1), P(-0.15, 0, z1)])} fill="#d9b030" opacity={0.75} />; })}
-      {/* wet reflections: lamp + window light smeared down the asphalt */}
-      {lampZ.map((z, i) => [-1, 1].map((sd) => { const [lx, ly] = P(sd * 10, 0, z); const w = (FOC * 1.0) / z; return <rect key={`${i}${sd}`} x={lx - w / 2} y={ly} width={w} height={Math.min(260, w * 30)} fill="url(#s4refl)" style={{ mixBlendMode: "screen" }} />; }))}
+      {/* wet reflections: soft elongated pools under each lamp (no hard columns) */}
+      {lampZ.map((z, i) => [-1, 1].map((sd) => { const [lx, ly] = P(sd * 9.6, 0, z + 1.5); const w = (FOC * 0.9) / z; return <ellipse key={`${i}${sd}`} cx={lx} cy={ly + w * 1.6} rx={w * 0.9} ry={w * 3.2} fill="url(#s4lamp)" opacity={0.35} />; }))}
       {/* building walls, far -> near */}
       {sides.map((list, si) => list.map((b, k) => <Wall key={`${si}-${k}`} sd={si === 0 ? -1 : 1} b={b} />))}
       {/* street lamps: pole, arm, globe, rain cone + pool */}
@@ -492,7 +492,15 @@ const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
           <g key={i}>
             <ellipse cx={g0[0]} cy={g0[1]} rx={gr * 1.6} ry={gr * 0.5} fill={red ? "url(#s4red)" : "url(#s4blue)"} opacity={0.55} />
             <rect x={g0[0] - gr * 0.25} y={g0[1]} width={gr * 0.5} height={gr * 1.6} fill={red ? "url(#s4red)" : "url(#s4blue)"} opacity={0.35} />
-            <Box x0={c.x0} x1={c.x0 + 1.9} z0={c.z0} z1={c.z0 + 4.6} h={1.45} rotDeg={c.rot} top="#d8dce4" side="#14161e" back="#0e1018">
+            <Box x0={c.x0} x1={c.x0 + 1.9} z0={c.z0} z1={c.z0 + 4.6} h={0.85} rotDeg={c.rot} top="#14161e" side="#14161e" back="#0e1018">
+              {(pp) => <g>
+                <path d={poly([pp(c.x0, 0.55, c.z0), pp(c.x0, 0.85, c.z0), pp(c.x0, 0.85, c.z0 + 4.6), pp(c.x0, 0.55, c.z0 + 4.6)])} fill="#e8ecf2" opacity={0.9} />
+                <path d={poly([pp(c.x0 + 1.9, 0.55, c.z0), pp(c.x0 + 1.9, 0.85, c.z0), pp(c.x0 + 1.9, 0.85, c.z0 + 4.6), pp(c.x0 + 1.9, 0.55, c.z0 + 4.6)])} fill="#e8ecf2" opacity={0.9} />
+                {[c.z0 + 0.9, c.z0 + 3.7].map((wz, wi) => { const a1 = pp(c.x0 + (c.x0 > 0 ? 0 : 1.9), 0, wz); const wr = (FOC * 0.36) / wz; return <circle key={wi} cx={a1[0]} cy={a1[1] - wr * 0.4} r={wr} fill="#050508" stroke="#3a3e4a" strokeWidth={1.5} />; })}
+                {(() => { const h1 = pp(c.x0 + 0.4, 0.6, c.z0), h2 = pp(c.x0 + 1.5, 0.6, c.z0); return <g><circle cx={h1[0]} cy={h1[1]} r={3} fill="#ff2a2a" /><circle cx={h2[0]} cy={h2[1]} r={3} fill="#ff2a2a" /></g>; })()}
+              </g>}
+            </Box>
+            <Box x0={c.x0 + 0.15} x1={c.x0 + 1.75} z0={c.z0 + 1.4} z1={c.z0 + 3.2} h={1.45} rotDeg={c.rot} top="#d8dce4" side="#2a3448" back="#3a4a66">
               {(pp) => (
                 <g>
                   <path d={poly([pp(c.x0 + 0.15, 1.46, c.z0 + 1.6), pp(c.x0 + 1.75, 1.46, c.z0 + 1.6), pp(c.x0 + 1.75, 1.46, c.z0 + 3.0), pp(c.x0 + 0.15, 1.46, c.z0 + 3.0)])} fill="#1a2030" />

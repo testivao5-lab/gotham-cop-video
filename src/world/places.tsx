@@ -4,6 +4,26 @@ import { useCurrentFrame } from "remotion";
 import { rand, shade, tint, mix, flicker, noise } from "../lib/anim";
 
 /* ================= Reyes repair shop — exterior ================= */
+/** brass dome desk lamp (S6, 7, 46, 54-56): round weighted base, curved gooseneck arm, brass dome shade, push switch on the base */
+export const BrassDomeLamp: React.FC<{ on: number; s?: number; y?: number }> = ({ on, s = 1, y = 0 }) => (
+  <g transform={`translate(0 ${y}) scale(${s})`}>
+    <ellipse cx={0} cy={-6} rx={30} ry={8} fill="#6a4a14" stroke="#1a0f08" strokeWidth={3} />
+    <path d="M-30 -6 Q-30 -18 -18 -20 H18 Q30 -18 30 -6 Z" fill="#b8862a" stroke="#1a0f08" strokeWidth={3} />
+    <path d="M-22 -16 Q0 -22 20 -17" stroke="#f2d27a" strokeWidth={2.5} fill="none" opacity={0.8} />
+    <rect x={14} y={-24} width={9} height={6} rx={2} fill="#2a1a08" stroke="#1a0f08" strokeWidth={1.5} />
+    <path d="M-6 -20 C-10 -60 -2 -92 22 -104" stroke="#1a0f08" strokeWidth={9} fill="none" strokeLinecap="round" />
+    <path d="M-6 -20 C-10 -60 -2 -92 22 -104" stroke="#a8781e" strokeWidth={5} fill="none" strokeLinecap="round" />
+    <g transform="translate(26 -104) rotate(28)">
+      {on > 0.1 && <ellipse cx={0} cy={6} rx={28} ry={7} fill="#fff4c8" opacity={0.9 * on} />}
+      <path d="M-34 6 C-34 -24 -18 -40 0 -40 C18 -40 34 -24 34 6 Z" fill="#b8862a" stroke="#1a0f08" strokeWidth={3} />
+      <path d="M-24 -6 C-22 -24 -10 -32 2 -33" stroke="#f6dc8a" strokeWidth={4} fill="none" opacity={0.85} />
+      <path d="M14 -30 C26 -22 32 -10 32 4" stroke="#6a4a10" strokeWidth={5} fill="none" opacity={0.7} />
+      <rect x={-36} y={2} width={72} height={6} rx={3} fill="#8a6418" stroke="#1a0f08" strokeWidth={2} />
+      <circle cx={0} cy={-42} r={4} fill="#8a6418" stroke="#1a0f08" strokeWidth={1.5} />
+    </g>
+  </g>
+);
+
 export const ShopFront: React.FC<{ x?: number; baseY: number; lamp: number; doorLight?: number; upstairs?: number; sign?: number; scale?: number }> = ({ x = 960, baseY, lamp, doorLight = 0.6, upstairs = 1, sign = 1, scale = 1 }) => {
   const f = useCurrentFrame();
   const W = 820, H = 760;
@@ -56,9 +76,7 @@ export const ShopFront: React.FC<{ x?: number; baseY: number; lamp: number; door
         {/* the lamp */}
         <g transform="translate(640 600)">
           <circle r={130} fill="url(#sfLamp)" opacity={lamp * 0.9 * fl} />
-          <path d="M-26 0 L26 0 L16 -34 L-16 -34 Z" fill={lamp > 0.1 ? "#f2c27a" : "#4a3a2a"} stroke="#1a120c" strokeWidth={3} />
-          <rect x={-3} y={0} width={6} height={58} fill="#2a1d14" />
-          <rect x={-18} y={56} width={36} height={8} rx={2} fill="#2a1d14" />
+          <BrassDomeLamp on={lamp} s={0.75} y={64} />
         </g>
         {/* window mullions + glass glare */}
         <rect x={536} y={540} width={8} height={190} fill="#1a120e" />
@@ -110,9 +128,7 @@ export const ShopInterior: React.FC<{ lamp: number; warm?: number }> = ({ lamp, 
       {/* lamp on sill */}
       <g transform="translate(1300 580)">
         <circle cy={-40} r={360} fill="url(#siLamp)" opacity={lamp * fl} />
-        <path d="M-34 -50 L34 -50 L22 -96 L-22 -96 Z" fill={lamp > 0.1 ? "#f6cf8a" : "#5a4630"} stroke="#1a0f08" strokeWidth={3} />
-        <rect x={-4} y={-50} width={8} height={44} fill="#2a1a10" />
-        <rect x={-20} y={-8} width={40} height={8} rx={2} fill="#2a1a10" />
+        <BrassDomeLamp on={lamp} s={1} y={0} />
       </g>
       {/* deco wall sconces throwing light cones up the wall (BTAS interior language) */}
       {[340, 980].map((sx, i) => (
@@ -458,7 +474,7 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
           {/* middle finger (behind the card) */}
           <path d="M-12 -18 C-14 -50 -14 -80 -12 -100 Q-4 -112 6 -100 C8 -80 8 -50 8 -18 Z" fill={glove} stroke={o} strokeWidth={2.6} />
           {/* card */}
-          <g transform="translate(30 -150) rotate(14)">
+          <g transform="translate(16 -128) rotate(12)">
             {card < 0.5 && (
               <g transform={`scale(${Math.max(0.12, Math.cos(card * Math.PI))} 1)`}>
                 <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#7a1a24" stroke={o} strokeWidth={3} />

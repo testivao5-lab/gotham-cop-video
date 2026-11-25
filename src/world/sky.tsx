@@ -137,7 +137,7 @@ export const DecoSkyline: React.FC<{
       </defs>
       {city.map((bd, i) => {
         const tiers: React.ReactNode[] = [];
-        let tw = bd.w, tx = bd.x, yb = baseY;
+        let tw = bd.w, tx = bd.x, yb = Math.max(baseY, 1300); // buildings always run to the bottom edge (never end mid-screen)
         for (let t = 0; t < bd.tiers; t++) {
           const cum = t === bd.tiers - 1 ? 1 : (t + 1) / bd.tiers * (0.75 + rand(bd.seed + t) * 0.2);
           const top = baseY - bd.h * cum;
@@ -153,7 +153,7 @@ export const DecoSkyline: React.FC<{
           </g>
         );
       })}
-      <rect x="-400" y={baseY} width="2720" height={1080 - baseY + 400} fill={b} />
+      <rect x="-400" y={Math.max(baseY, 1300)} width="2720" height={400} fill={b} />
     </svg>
   );
 };
