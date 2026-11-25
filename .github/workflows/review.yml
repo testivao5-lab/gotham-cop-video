@@ -1,0 +1,35 @@
+name: Review sheets (frame-by-frame inspection)
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Video URL"
+        required: true
+      fps:
+        description: "Frames per second to sample"
+        default: "2"
+jobs:
+  sheets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Sheets with frame numbers + scene ids
+        run: |
+          curl -sL "${{ inputs.url }}" -o v.mp4
+          python3 - <<'PY'
+          import json
+          S=json.load(open('src/data/scenes.json'))
+          # drawtext per scene range
+          parts=[]
+          for s in S:
+            if s['start']>2000: break
+            parts.append(f"drawtext=text='{s['id']}':x=w-tw-10:y=10:fontsize=40:fontcolor=cyan:box=1:boxcolor=black@0.6:enable='between(n,{s['start']},{s['end']})'")
+          open('lbl.txt','w').write(','.join(parts))
+          PY
+          L=$(cat lbl.txt)
+          mkdir -p out
+          ffmpeg -v error -i v.mp4 -vf "$L,drawtext=text='f%{n}  %{pts\:hms}':x=10:y=10:fontsize=40:fontcolor=yellow:box=1:boxcolor=black@0.6,fps=${{ inputs.fps }},scale=640:360,tile=4x3:padding=6:color=black" out/sheet_%02d.jpg
+          ls out | wc -l
+      - uses: actions/upload-artifact@v4
+        with: { name: sheets, path: out }
