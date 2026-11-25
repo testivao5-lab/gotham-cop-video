@@ -120,15 +120,17 @@ export const FadeIn: React.FC<{ frames?: number; color?: string }> = ({ frames =
 };
 
 /** one-shot sound effect at a local frame (files are generated in CI by scripts/sfx.py) */
+/** SafeSFX: every effect clamped to 8%..15% so it never fights the narration (master = 1.0) */
+export const sfxGain = (g: number) => Math.max(0.08, Math.min(0.15, g * 0.27));
 export const Sfx: React.FC<{ name: string; at: number; gain?: number }> = ({ name, at, gain = 0.5 }) => (
   <Sequence from={Math.max(0, Math.round(at))} durationInFrames={24 * 8} layout="none" name={`sfx:${name}`}>
-    <Audio src={staticFile(`sfx/${name}.wav`)} volume={gain} />
+    <Audio src={staticFile(`sfx/${name}.wav`)} volume={sfxGain(gain)} />
   </Sequence>
 );
 
 /** looping ambience bed for the length of a scene/shot; fadeIn/fadeOut 0 = seamless with neighbour */
 export const Bed: React.FC<{ name: string; from?: number; to: number; gain?: number; fadeIn?: number; fadeOut?: number }> = ({ name, from = 0, to, gain = 0.15, fadeIn = 6, fadeOut = 6 }) => (
   <Sequence from={from} durationInFrames={Math.max(1, to - from)} layout="none" name={`bed:${name}`}>
-    <Audio src={staticFile(`sfx/${name}.wav`)} loop volume={(fr) => gain * Math.min(1, fadeIn ? fr / fadeIn : 1, fadeOut ? (to - from - fr) / fadeOut : 1)} />
+    <Audio src={staticFile(`sfx/${name}.wav`)} loop volume={(fr) => sfxGain(gain) * Math.min(1, fadeIn ? fr / fadeIn : 1, fadeOut ? (to - from - fr) / fadeOut : 1)} />
   </Sequence>
 );

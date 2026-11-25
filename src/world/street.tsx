@@ -156,13 +156,12 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
       <rect x="0" y={horizonY} width="1920" height={cy - horizonY} fill={`url(#${id}s)`} />
       <rect x="0" y={cy} width="1920" height="10" fill="#3c465c" />
       <rect x="0" y={cy + 10} width="1920" height={1080 - cy} fill={`url(#${id}a)`} />
-      <defs><filter id={`${id}rb`} x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="6 2" /></filter></defs>
       {/* paving seams */}
       {Array.from({ length: 24 }).map((_, i) => <line key={i} x1={i * 90} y1={horizonY} x2={i * 90 - 30} y2={cy} stroke="#000" strokeOpacity="0.25" />)}
       {laneY !== undefined && Array.from({ length: 14 }).map((_, i) => <rect key={i} x={i * 160 - 40} y={laneY} width={90} height={6} fill="#c9b67a" opacity={0.35} />)}
       {/* wet sheen: soft blurred columns (no stripes) */}
       {reflections.map((r, i) => (
-        <rect key={`sh${i}`} x={r.x - (r.w ?? 40) / 2 + noise(f * 0.1, seed + i) * 4} y={cy + 8} width={r.w ?? 40} height={1080 - cy} fill={`url(#${id}r${i})`} opacity={0.32} filter={`url(#${id}rb)`} style={{ mixBlendMode: "screen" }} />
+        <rect key={`sh${i}`} x={r.x - (r.w ?? 40) / 2 + noise(f * 0.1, seed + i) * 4} y={cy + 8} width={r.w ?? 40} height={1080 - cy} fill={`url(#${id}r${i})`} opacity={0.32} style={{ mixBlendMode: "screen" }} />
       ))}
       {/* puddles: irregular blobs that carry the strong mirror reflections + rain ripples */}
       {(() => {
@@ -183,15 +182,14 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
           <g>
             <defs>
               <mask id={`${id}pm`}><g fill="white">{P.map(blob)}</g></mask>
-              <filter id={`${id}pb`} x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2.5" /></filter>
             </defs>
-            <g fill="#0e1626" opacity={0.6} filter={`url(#${id}pb)`}>{P.map(blob)}</g>
+            <g fill="#0e1626" opacity={0.6}>{P.map(blob)}</g>
             <g mask={`url(#${id}pm)`} style={{ mixBlendMode: "screen" }}>
               {reflections.map((r, i) => {
                 const w = r.w ?? 40;
                 return [0, 1, 2].map((k) => (
                   <rect key={`${i}-${k}`} x={r.x - (w * (1 - k * 0.28)) / 2 + noise(f * 0.12 + k, seed + i) * (5 + k * 3)} y={cy + 6} width={w * (1 - k * 0.28)} height={1080 - cy}
-                    fill={`url(#${id}r${i})`} opacity={(0.9 - k * 0.2) * (r.strength ?? 1) * 1.4} filter={`url(#${id}rb)`} />
+                    fill={`url(#${id}r${i})`} opacity={(0.9 - k * 0.2) * (r.strength ?? 1) * 1.4} />
                 ));
               })}
               {/* sky glint across puddle surfaces */}

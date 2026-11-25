@@ -29,6 +29,8 @@ jobs:
       stills: ${{ steps.m.outputs.stills }}
     steps:
       - uses: actions/checkout@v4
+      - name: Anti-bug law gate (12 laws)
+        run: node scripts/laws_lint.mjs
       - id: m
         run: node scripts/matrix.mjs "${{ inputs.scenes }}" "${{ inputs.chunks }}"
 

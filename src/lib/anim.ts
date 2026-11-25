@@ -1,21 +1,24 @@
-import { Easing, interpolate, spring } from "remotion";
+import { Easing, interpolate, random, spring } from "remotion";
 
 export const E = Easing.bezier(0.25, 0.1, 0.25, 1);
 export const EIO = Easing.inOut(Easing.cubic);
 export const EOUT = Easing.out(Easing.cubic);
 
 /** clamped interpolate (storyboard safeInterpolate) */
+export const safeRange = (inp: number[]) => {
+  const r = inp.slice();
+  for (let i = 1; i < r.length; i++) if (!(r[i] > r[i - 1])) r[i] = r[i - 1] + 0.001; // force a < b < c
+  return r;
+};
 export const ci = (f: number, inp: number[], out: number[], easing: (t: number) => number = E) =>
-  interpolate(f, inp, out, { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing });
+  interpolate(f, safeRange(inp), out, { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing });
+export const safeInterpolate = ci;
 
 export const sp = (frame: number, start: number, cfg: { mass?: number; damping?: number; stiffness?: number } = {}) =>
   Math.min(1.08, spring({ frame: Math.max(0, frame - start), fps: 24, config: { mass: 1, damping: 18, stiffness: 100, ...cfg } }));
 
 /** deterministic pseudo random 0..1 */
-export const rand = (seed: number) => {
-  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
-  return x - Math.floor(x);
-};
+export const rand = (seed: number) => random(`gc-${seed}`); // remotion deterministic random('seed')
 
 /** smooth 1D value noise, -1..1 */
 export const noise = (t: number, seed = 0) => {

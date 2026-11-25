@@ -36,3 +36,17 @@ Manual items are checked by the agent on the 0.5 s contact sheets + targeted sti
 ## C. Delivery
 - Preview: scale 1, CRF 18, 20 parallel GitHub jobs, `--concurrency=4`.
 - Final: 1080p CRF 17–18, −14 LUFS stereo 48 kHz, separate SRT (not burned in).
+
+## 12 Remotion anti-bug laws (zero tolerance; enforced by scripts/laws_lint.mjs in CI)
+1. Local frames only inside Sequences (scene code uses `useCurrentFrame()` + local `cue()`).
+2. `ci()`/`safeInterpolate()` only: strictly increasing input (auto-repaired), both extrapolations clamped.
+3. No CSS transitions/keyframes/timers/Math.random — `rand()` wraps remotion `random('seed')`.
+4. Joint hard clamps: elbow 0..140, knee 0..135, neck/head -35..35; limbs pivot at sockets.
+5. One shared groundY per shot; feet locked; walk dx = stride (walkDist).
+6. Life wave always on (breathing, head drift, blinks every 76-120 f) unless noLife.
+7. World scale 100px = 1m relative proportions; close-ups via camera zoom; heads inside X 180..1740, Y 120..900.
+8. Back -> character -> front occluder layering for vehicles/furniture.
+9. Held props live in the hand grip socket (palm -> prop -> fingers), never free x/y.
+10. Pupils clipped inside sclera (useId ids); narrator-only => mouths closed.
+11. 5-stop material shading; contact shadow offset opposite the key light.
+12. Narration volume 1.0; SafeSFX clamped 0.08-0.15; no feGaussianBlur; exact pinned versions.

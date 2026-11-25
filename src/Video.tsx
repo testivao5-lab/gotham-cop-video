@@ -10,7 +10,7 @@ const REGISTRY: Record<string, React.FC> = {
 
 const PlaceholderScene: React.FC<{ scene: SceneInfo }> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 8], [0, 1], { extrapolateRight: "clamp" });
+  const opacity = interpolate(frame, [0, 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
     <AbsoluteFill style={{ background: "radial-gradient(ellipse at 30% 20%, #2a3550 0%, #0b0e17 70%)", color: "#E9C7A5", fontFamily: "Georgia, serif", justifyContent: "center", alignItems: "center", opacity }}>
       <div style={{ fontSize: 36, letterSpacing: 6, color: "#7FA4CC" }}>{scene.id.replace("_", " ")}</div>
@@ -31,11 +31,11 @@ const envAt = (fr: number, ranges: [number, number][]) => {
 
 export const GothamCop: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "#05070c" }}>
-    <Audio src={staticFile("narration.wav")} />
+    <Audio src={staticFile("narration.wav")} volume={1} />
     {/* continuous beds (procedural, scripts/sfx.py): never a dead-silent gap between narration lines */}
-    <Audio src={staticFile("sfx/rain_bed.wav")} loop volume={(fr) => 0.16 * envAt(fr, RAIN)} />
+    <Audio src={staticFile("sfx/rain_bed.wav")} loop volume={(fr) => 0.14 * envAt(fr, RAIN)} />
     <Audio src={staticFile("sfx/room.wav")} loop volume={(fr) => 0.14 * envAt(fr, ROOM)} />
-    <Audio src={staticFile("sfx/pad.wav")} loop volume={(fr) => 0.07 * Math.min(1, fr / 24, (TOTAL_FRAMES - fr) / 48)} />
+    <Audio src={staticFile("sfx/pad.wav")} loop volume={(fr) => 0.08 * Math.min(1, fr / 24, (TOTAL_FRAMES - fr) / 48)} />
     {SCENES.map((s) => {
       const C = REGISTRY[s.id];
       return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { useCurrentFrame } from "remotion";
 import { mix, shade, tint } from "../lib/anim";
 
@@ -73,6 +73,7 @@ export const Character: React.FC<CharProps> = (props) => {
   const { kind, x, y, scale = 1, facing = 1, id, lightSide = 1, silhouette = 0, rim = "#9fc0ff", nightTint = 0.28,
     prop = "none", propOn = 0, flashBeam = 0, shoulderRadio = false, capeWind = 1, glowEyes = 0, noHat = false } = props;
   const p: Pose = { ...NEUTRAL, ...props.pose };
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   // ---- automatic "life": blinks every 3-5 s, breathing, micro head drift; narrator-only => mouths closed
   const hsh = hashStr(id);
   if (!props.noLife) {
@@ -321,7 +322,7 @@ export const Character: React.FC<CharProps> = (props) => {
       <g transform={`translate(2 ${-torsoLen + 2}) rotate(${p.neck})`}>
         <path d={`M-9 6 L-8 -10 H10 L11 6 Z`} fill={kind === "batman" ? g("shoes") : g("skin")} stroke={outline} strokeWidth={sw} />
         <g transform={`translate(0 -6) rotate(${p.head}) scale(${b.headS * (b.child ? 1.3 : 1.14)})`}>
-          <Head kind={kind} p={p} pal={pal} g={g} outline={outline} sw={sw / b.headS} f={f} glowEyes={glowEyes} noHat={noHat} id={id} />
+          <Head uid={uid} kind={kind} p={p} pal={pal} g={g} outline={outline} sw={sw / b.headS} f={f} glowEyes={glowEyes} noHat={noHat} id={id} />
         </g>
       </g>
     </g>
@@ -346,6 +347,14 @@ export const Character: React.FC<CharProps> = (props) => {
   };
   p.armNear = ik(props.reachNear, nsx, nsy, p.armNear);
   p.armFar = ik(props.reachFar, fsx, fsy, p.armFar);
+  // anatomical hard clamps: elbow bend 0..140, knee 0..135, neck/head -35..35 (never bends backwards)
+  const cl = (v: number, a: number, b2: number) => Math.max(a, Math.min(b2, v));
+  p.armNear = [p.armNear[0], cl(p.armNear[1], 0, 140)];
+  p.armFar = [p.armFar[0], cl(p.armFar[1], 0, 140)];
+  p.legNear = [p.legNear[0], cl(p.legNear[1], 0, 135)];
+  p.legFar = [p.legFar[0], cl(p.legFar[1], 0, 135)];
+  p.head = cl(p.head, -35, 35);
+  p.neck = cl(p.neck, -35, 35);
   const gy = ((props.groundY ?? y) - y) / scale;
   const air = Math.max(0, Math.min(1, (gy - 0) / 400));
   const shOp = (props.shadow ?? 1) * (1 - silhouette * 0.4) * (1 - air * 0.7);
@@ -374,8 +383,8 @@ export const Character: React.FC<CharProps> = (props) => {
       {defs}
       <g transform={`translate(${x} ${y}) scale(${facing * scale} ${scale})`}>
         <radialGradient id={`${id}-ao`}><stop offset="0" stopColor="#000" stopOpacity="0.85" /><stop offset="0.55" stopColor="#000" stopOpacity="0.45" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
-        <ellipse cx={0} cy={gy + 3} rx={(95 + air * 60) * b.sh} ry={16 + air * 6} fill={`url(#${id}-ao)`} opacity={0.75 * shOp} />
-        <ellipse cx={0} cy={gy + 2} rx={48 * b.sh} ry={6} fill="#000" opacity={0.55 * shOp * (1 - air)} />
+        <ellipse cx={-lightSide * facing * 22} cy={gy + 3} rx={(95 + air * 60) * b.sh} ry={16 + air * 6} fill={`url(#${id}-ao)`} opacity={0.75 * shOp} />
+        <ellipse cx={-lightSide * facing * 8} cy={gy + 2} rx={48 * b.sh} ry={6} fill="#000" opacity={0.55 * shOp * (1 - air)} />
         {cape}
         <g transform={`translate(0 ${hipY})`}>
           <g transform={`translate(${fsx} ${fsy})`}><Arm ang={p.armFar} near={false} /></g>
@@ -396,7 +405,7 @@ export const Character: React.FC<CharProps> = (props) => {
 };
 
 /* ---------------- head ---------------- */
-const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; outline: string; sw: number; f: number; glowEyes: number; noHat: boolean; id: string }> = ({ kind, p, pal, g, outline, sw, glowEyes, noHat, id }) => {
+const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; outline: string; sw: number; f: number; glowEyes: number; noHat: boolean; id: string; uid?: string }> = ({ kind, p, pal, g, outline, sw, glowEyes, noHat, id, uid = "" }) => {
   const fem = kind === "mara" || kind === "mother" || kind === "nia" || kind === "employee";
   const child = kind === "nia";
   const face = child
@@ -447,9 +456,12 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       ) : (
         <g>
           <g transform={`translate(15 ${eyeY}) scale(1 ${1 - blink})`}>
+            <clipPath id={`${id}${uid}-scl`}><path d="M-7 0 Q0 -5 7 -1 Q0 4 -7 0 Z" /></clipPath>
             <path d="M-7 0 Q0 -5 7 -1 Q0 4 -7 0 Z" fill="#f2ece2" />
-            <circle cx={1.5 + p.eyeX * 2.5} cy={p.eyeY * 1.5} r={child ? 2.8 : 2.3} fill="#120c0a" />
-            <circle cx={2.4 + p.eyeX * 2.5} cy={-0.8 + p.eyeY * 1.5} r={0.8} fill="#fff" opacity={0.8} />
+            <g clipPath={`url(#${id}${uid}-scl)`}>
+              <circle cx={1.5 + p.eyeX * 2.5} cy={p.eyeY * 1.5} r={child ? 2.8 : 2.3} fill="#120c0a" />
+              <circle cx={2.4 + p.eyeX * 2.5} cy={-0.8 + p.eyeY * 1.5} r={0.8} fill="#fff" opacity={0.8} />
+            </g>
           </g>
           {blink > 0.5 && <path d={`M8 ${eyeY} Q15 ${eyeY + 2} 22 ${eyeY - 1}`} stroke={outline} strokeWidth={1.5} fill="none" />}
           <path d={`M7 ${eyeY - 6 - brow * 2} L23 ${eyeY - 7 + brow * 1.2}`} stroke={kind === "father" ? "#8a8a8a" : outline} strokeWidth={fem ? 2 : 3.2} strokeLinecap="round" />
