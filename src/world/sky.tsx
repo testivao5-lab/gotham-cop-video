@@ -123,9 +123,10 @@ export const DecoSkyline: React.FC<{
 }> = ({ seed = 1, baseY, hMin, hMax, haze = 0.3, hazeColor = "#2c4a7c", body = "#141c30", light = "#3a5684", litP = 0.22, count = 40, x0 = -300, x1 = 2300, windowColor = "#f2cf7a", blackout = 0, rimSide = "left", toBottom = false }) => {
   const f = useCurrentFrame();
   const city = makeCity(seed, count, x0, x1, hMin, hMax);
-  const b = mix(body, hazeColor, haze);
-  const l = mix(light, hazeColor, haze * 0.8);
-  const gid = `dk${seed}`;
+  // blackout: the grid dies — facades lose their moonlit blue and sink toward black, a few candle-lit windows survive
+  const b = mix(mix(body, hazeColor, haze), "#04060b", blackout * 0.7);
+  const l = mix(mix(light, hazeColor, haze * 0.8), "#0a0f1a", blackout * 0.75);
+  const gid = `dk${seed}${blackout > 0 ? "b" + Math.round(blackout * 20) : ""}`;
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
       <defs>
@@ -145,7 +146,7 @@ export const DecoSkyline: React.FC<{
         for (let t = 0; t < bd.tiers; t++) {
           const cum = t === bd.tiers - 1 ? 1 : (t + 1) / bd.tiers * (0.75 + rand(bd.seed + t) * 0.2);
           const top = baseY - bd.h * cum;
-          tiers.push(<Tier key={t} x={tx} y={top} w={tw} h={yb - top} {...{ gid, bd, t, litP: litP * (1 - blackout), windowColor, f, rimSide, l }} />);
+          tiers.push(<Tier key={t} x={tx} y={top} w={tw} h={yb - top} {...{ gid, bd, t, litP: litP * (1 - blackout * 0.93), windowColor: blackout > 0.6 ? "#e8a050" : windowColor, f, rimSide, l }} />);
           yb = top;
           const inset = tw * (0.1 + rand(bd.seed * 2 + t) * 0.1);
           tx += inset; tw -= inset * 2;

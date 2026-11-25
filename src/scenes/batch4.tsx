@@ -26,7 +26,7 @@ export const Scene45: React.FC = () => {
   const cG = cq(45, "girl", 0.2);
   const rack = ci(f, [cG, cG + 40], [0, 1], EZ);
   return (
-    <Stage cam={{ x: ci(f, [0, D], [0, 220], EZ), y: ci(f, [0, cG + 40], [-160, 0], EZ), zoom: ci(f, [0, D], [1.0, 1.3], EZ) }}>
+    <Stage cam={{ x: ci(f, [0, D], [0, 160], EZ), y: ci(f, [0, cG + 40], [-200, -170], EZ), zoom: ci(f, [0, D], [1.0, 1.22], EZ) }}>
       <BusStreetSet fog={0.75} nia sky="storm" lamp={0} blackout={1} busX={1060} />
       <Plane p={1}><Glow x={160} y={880} r={520} color={cop(f)} opacity={0.2} /></Plane>
       <Plane p={1.3}>
