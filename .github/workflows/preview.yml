@@ -133,7 +133,7 @@ jobs:
           MTP=$(echo "$J" | python3 -c "import json,sys;d=json.load(sys.stdin);print(d['input_tp'])")
           MLRA=$(echo "$J" | python3 -c "import json,sys;d=json.load(sys.stdin);print(d['input_lra'])")
           MTH=$(echo "$J" | python3 -c "import json,sys;d=json.load(sys.stdin);print(d['input_thresh'])")
-          ffmpeg -y -loglevel error -i aud/mix.wav -af "loudnorm=I=-14:TP=-1:LRA=11:measured_I=$MI:measured_TP=$MTP:measured_LRA=$MLRA:measured_thresh=$MTH:linear=true,aresample=48000" -ac 2 -ar 48000 mix_norm.wav
+          ffmpeg -y -loglevel error -i aud/mix.wav -af "loudnorm=I=-14:TP=-1:LRA=11:measured_I=$MI:measured_TP=$MTP:measured_LRA=$MLRA:measured_thresh=$MTH,aresample=48000" -ac 2 -ar 48000 mix_norm.wav
           ffmpeg -y -loglevel error -i video.mp4 -i mix_norm.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -ac 2 -shortest -movflags +faststart preview.mp4
           ls -la preview.mp4
       - uses: actions/upload-artifact@v4

@@ -59,7 +59,7 @@ export const ForegroundRain: React.FC<{ amt?: number }> = ({ amt = 1 }) => (
 /** All on-screen text goes through here: one face (Bebas Neue), locked tracking, glyph-by-glyph fade-in
  *  (whole word fully visible within 0.3 s), 12-frame eased exit. align="center" = title card, otherwise a
  *  bottom-third name card on a dark backing so nothing behind can bleed through. */
-export const Caption: React.FC<{ text: string; from: number; to: number; x?: number; y?: number; size?: number; align?: "left" | "center" }> = ({ text, from, to, size, align = "left" }) => {
+export const Caption: React.FC<{ text: string; from: number; to: number; x?: number; y?: number; size?: number; align?: "left" | "center" | "right" }> = ({ text, from, to, size, align = "left" }) => {
   const f = useCurrentFrame();
   if (f < from - 1 || f > to) return null;
   const title = align === "center";
@@ -79,12 +79,13 @@ export const Caption: React.FC<{ text: string; from: number; to: number; x?: num
         <div style={{ height: 3, width: 420 * rule, marginTop: 6, background: "linear-gradient(90deg, rgba(217,178,74,0), #d9b24a, rgba(217,178,74,0))" }} />
       </AbsoluteFill>
     );
+  const R = align === "right";
   return (
     <AbsoluteFill style={{ opacity: out }}>
-      <div style={{ position: "absolute", left: 0, top: 790, width: 900, height: 170, background: "linear-gradient(90deg, rgba(3,5,10,0.78) 0%, rgba(3,5,10,0.55) 60%, rgba(3,5,10,0) 100%)", opacity: rule }} />
-      <div style={{ position: "absolute", left: 120, top: 812, fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.16, color: "#f3dfb2", textShadow: "0 2px 0 rgba(0,0,0,0.9)" }}>
+      <div style={{ position: "absolute", [R ? "right" : "left"]: 0, top: 790, width: 900, height: 170, background: `linear-gradient(${R ? 270 : 90}deg, rgba(3,5,10,0.78) 0%, rgba(3,5,10,0.55) 60%, rgba(3,5,10,0) 100%)`, opacity: rule }} />
+      <div style={{ position: "absolute", [R ? "right" : "left"]: 120, top: 812, textAlign: R ? "right" : "left", fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.16, color: "#f3dfb2", textShadow: "0 2px 0 rgba(0,0,0,0.9)" }}>
         {glyphs}
-        <div style={{ height: 3, width: 300 * rule, marginTop: 2, background: "linear-gradient(90deg, #d9b24a, rgba(217,178,74,0))" }} />
+        <div style={{ height: 3, width: 300 * rule, marginTop: 2, marginLeft: R ? "auto" : 0, background: `linear-gradient(${R ? 270 : 90}deg, #d9b24a, rgba(217,178,74,0))` }} />
       </div>
     </AbsoluteFill>
   );
