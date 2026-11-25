@@ -215,8 +215,8 @@ export const Scene51: React.FC = () => {
   return (
     <Stage cam={{ x: handheld(f, 0.3, 51).x, y: handheld(f, 0.3, 51).y, zoom: ci(f, [0, D], [1.0, 1.08]) }}>
       <CruiserCabin dark={0.3} signal={0.8} wipe={false} speed={0.4}>
-        <Character id="s51mara" kind="mara" x={620} y={1480} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: 6, eyeX: 0.6, handNear: "grip", handFar: "grip", smile: f > cC ? 0.1 : 0 }} />
-        <Character id="s51alex" kind="alex" x={1320} y={1480} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 12, eyeY: 0.5, brow: 0.3, lean: 6 }} />
+        <Character id="s51mara" kind="mara" x={620} y={1545} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: 6, eyeX: 0.6, handNear: "grip", handFar: "grip", smile: f > cC ? 0.1 : 0 }} />
+        <Character id="s51alex" kind="alex" x={1320} y={1545} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio pose={{ head: 12, eyeY: 0.5, brow: 0.3, lean: 6 }} />
       </CruiserCabin>
       <Post tintOpacity={0.14} />
       <EdgeFade dur={D} inF={8} outF={8} />

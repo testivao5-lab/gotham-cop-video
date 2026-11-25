@@ -346,7 +346,7 @@ export const Scene37: React.FC = () => {
             <Character id="s37batRoof" kind="batman" x={960} y={560 - (1 - land) * 600} scale={0.9} facing={1} lightSide={1} nightTint={0.4} silhouette={0.7} rim="#9fb6dc" capeWind={1.4 - land * 1.2} crop="transit"
               pose={{ legNear: land >= 1 ? [40, 80] : [10, 10], legFar: land >= 1 ? [-20, 60] : [-10, 10], lean: land >= 1 ? 14 : 0, head: 12, armNear: [30, 40], armFar: [-30, 40] }} />
           </Plane>
-          <Plane p={1}><Character id="s37alexA" kind="alex" x={360} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} shoulderRadio pose={{ head: -24, neck: -14, eyeY: -1, brow: 0.9 }} /></Plane>
+          <Plane p={1}><Character id="s37alexA" kind="alex" x={360} y={1600} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} shoulderRadio pose={{ head: -24, neck: -14, eyeY: -1, brow: 0.9 }} /></Plane>
           <ForegroundRain />
           <Post />
         </Stage>

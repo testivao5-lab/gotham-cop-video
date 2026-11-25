@@ -256,9 +256,9 @@ export const Scene17: React.FC = () => {
     <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [0, D], [1.0, 1.06]) }}>
       <CruiserCabin signal={0.6}>
         {/* front seats seen through the windshield: Mara driving (left), Alex leaning to look up (right) */}
-        <Character id="s17mara" kind="mara" x={620} y={1480} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio
+        <Character id="s17mara" kind="mara" x={620} y={1545} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.3} shoulderRadio
           reachNear={[640, 1010]} reachFar={[560, 1010]} pose={{ head: f > cM ? 10 + Math.sin(f * 0.05) * 2 : 2, eyeX: f > cM ? 0.8 : 0, brow: 0.2, smile: f > cP ? 0.15 : 0, handNear: "grip", handFar: "grip" }} />
-        <Character id="s17alex" kind="alex" x={1320} y={1480} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio
+        <Character id="s17alex" kind="alex" x={1320} y={1545} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.3} shoulderRadio
           pose={{ head: f < cM ? -20 : -6, neck: f < cM ? -12 : -4, eyeY: f < cM ? -1 : 0, eyeX: f < cM ? 0 : 0.7, lean: -4 }} />
       </CruiserCabin>
       <Glow x={1300} y={130} r={300} color="255,240,200" opacity={0.12} />
@@ -360,7 +360,7 @@ export const Scene19: React.FC = () => {
         </svg>
       </Plane>
       <Plane p={1}>
-        <Character id="s19alex" kind="alex" x={380} y={1530} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio
+        <Character id="s19alex" kind="alex" x={380} y={1610} crop="waist" scale={3.2} facing={1} lightSide={1} nightTint={0.35} rim="#cfd8ff" shoulderRadio
           pose={{ head: -24, neck: -14, eyeY: -1, brow: f > cC + 10 ? 0.7 : 0.2, mouth: 0 }} />
       </Plane>
       <Plane p={1.1}><Rain count={70} opacity={0.14} /></Plane>
@@ -681,10 +681,10 @@ export const Scene28: React.FC = () => {
   return (
     <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [0, D], [1.0, 1.08]) }}>
       <CruiserCabin dark={0.85} signal={0.5 + 0.5 * Math.abs(Math.sin(f * 0.4))} speed={f > cC ? 2.2 : 1}>
-        <Character id="s28mara" kind="mara" x={620} y={1480} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.35} shoulderRadio
+        <Character id="s28mara" kind="mara" x={620} y={1545} crop="waist" scale={3.0} facing={1} lightSide={1} nightTint={0.35} shoulderRadio
           reachNear={[640, 1010]} reachFar={f > cB ? [940, 950] : [560, 1010]} pose={{ head: f > cB ? 14 : 0, eyeX: f > cB ? 0.8 : 0, brow: 0.5, handNear: "grip", handFar: "grip" }} />
-        <Character id="s28alex" kind="alex" x={1320} y={1480} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.35} shoulderRadio
-          reachNear={anchor("alex", 1320, 1480, 3.0, -1, "radio")} pose={{ head: 10, eyeY: 0.4, brow: 0.6, handNear: "grip" }} />
+        <Character id="s28alex" kind="alex" x={1320} y={1545} crop="waist" scale={3.0} facing={-1} lightSide={-1} nightTint={0.35} shoulderRadio
+          reachNear={anchor("alex", 1320, 1545, 3.0, -1, "radio")} pose={{ head: 10, eyeY: 0.4, brow: 0.6, handNear: "grip" }} />
       </CruiserCabin>
       <AbsoluteFill style={{ background: Math.floor(f / 10) % 2 ? "rgba(255,30,30,0.06)" : "rgba(30,60,255,0.06)", mixBlendMode: "screen" }} />
       <Post tintOpacity={0.14} />

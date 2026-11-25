@@ -99,7 +99,10 @@ export const Character: React.FC<CharProps> = (props) => {
     // seated figures: y sits below the floor by thigh*scale while the feet rest on groundY
     const fy = Math.min(y, props.groundY ?? y);
     const feet = proj.y(fy), knee = proj.y(fy - b.shin * scale * 1.08);
-    const cutBetweenFootAndKnee = feet > 1066 && knee < 1080 + 24 * proj.z * scale;
+    // declared thigh/waist crops: the knee only has to be below the frame edge (a fixed margin scaled by a 3x
+    // close-shot scale wrongly flagged legit thigh cuts in S17/S19/S28/S37); undeclared figures keep the safety margin
+    const kneeMargin = props.crop === "waist" || props.crop === "thigh" ? 0 : 24 * proj.z * scale;
+    const cutBetweenFootAndKnee = feet > 1066 && knee < 1080 + kneeMargin;
     if (props.crop !== "transit" && props.crop !== "closeup" && cutBetweenFootAndKnee) auditReport(`${id}:shin-crop(feet ${feet | 0})`);
     if (!props.crop && feet > 1066 && !cutBetweenFootAndKnee) auditReport(`${id}:undeclared-crop(feet ${feet | 0})`);
   }
