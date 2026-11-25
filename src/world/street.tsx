@@ -6,7 +6,7 @@ import { rand, mix, shade, tint, noise } from "../lib/anim";
 export const StreetFacades: React.FC<{
   seed?: number; baseY: number; x0?: number; x1?: number; brick?: string; trim?: string; litP?: number;
   heightMin?: number; heightMax?: number; key_?: string; fireEscapes?: boolean; shopFronts?: boolean; dark?: number;
-}> = ({ seed = 4, baseY, x0 = -200, x1 = 2200, brick = "#3a2a2e", trim = "#5b4a52", litP = 0.3, heightMin = 420, heightMax = 640, fireEscapes = true, shopFronts = true, dark = 0 }) => {
+}> = ({ seed = 4, baseY, x0 = -200, x1 = 2200, brick = "#3a2a2e", trim = "#5b4a52", litP = 0.3, heightMin = 420, heightMax = 640, fireEscapes = true, shopFronts = true, dark = 0.18 }) => {
   const f = useCurrentFrame();
   const blds: { x: number; w: number; h: number; s: number }[] = [];
   let x = x0, i = 0;
@@ -137,7 +137,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
             {Array.from({ length: segs }).map((_, k) => {
               const y = cy + 12 + k * ((1080 - cy) / segs);
               const wob = noise(f * 0.15 + k * 0.7, seed + i) * 10;
-              return <rect key={k} x={r.x - w / 2 + wob} y={y} width={w * (1 - k * 0.04)} height={(1080 - cy) / segs - 3} fill={`url(#${id}r${i})`} opacity={1 - k / segs} />;
+              return <rect key={k} x={r.x - w / 2 + wob} y={y} width={w * (1 - k * 0.04)} height={(1080 - cy) / segs + 1} fill={`url(#${id}r${i})`} opacity={1 - k / segs} />;
             })}
           </g>
         );

@@ -79,14 +79,16 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
         {[0, 1, 2].map((i) => <rect key={i} x={200 + i * 600} y={640} width={420} height={300} rx={30} fill="#4a1a14" opacity={0.75} />)}
         <rect x={0} y={120} width={1920} height={30} fill="#d9c090" opacity={0.15} />
       </svg>
-      <Character id="s3nia" kind="nia" x={960} y={1260 + pound * 10} scale={3.2} facing={1} lightSide={1} silhouette={0.1}
-        pose={{ armNear: [150 + pound * 14, 30 - pound * 30], armFar: [140 + pound * 10, 34 - pound * 24], handNear: "fist", handFar: "fist", brow: 1, head: -6, eyeX: -0.6, blink: blinkAt(f, 50, 5), mouth: 0.25 + pound * 0.2, smile: -0.8, lean: pound * 4 }} />
+      <Character id="s3nia" kind="nia" x={930} y={1290 + pound * 8} scale={2.75} facing={1} lightSide={1} silhouette={0.1}
+        pose={{ armNear: [128 + pound * 8, 46 - pound * 20], armFar: [118 + pound * 8, 50 - pound * 20], handNear: "open", handFar: "open", brow: 1, head: -4, eyeX: 0.4, blink: blinkAt(f, 50, 5), mouth: 0.25 + pound * 0.2, smile: -0.8, lean: pound * 4 }} />
       {/* glass: fog + droplets */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <mask id="bwMask">
             <rect width="1920" height="1080" fill="white" />
-            <ellipse cx={980} cy={520} rx={240 * wipe} ry={160 * wipe} fill="black" />
+            <ellipse cx={950} cy={560} rx={260 * wipe} ry={190 * wipe} fill="black" />
+            <ellipse cx={820} cy={460} rx={60} ry={70} fill="black" />
+            <ellipse cx={1080} cy={440} rx={60} ry={70} fill="black" />
           </mask>
           <radialGradient id="bwFog"><stop offset="0" stopColor="#d7e2ee" stopOpacity="0.9" /><stop offset="1" stopColor="#b9c9dc" stopOpacity="1" /></radialGradient>
         </defs>
@@ -97,10 +99,19 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
           const r = 3 + rand(i * 7) * 7;
           return <g key={i}><circle cx={rand(i * 11) * 1920} cy={y} r={r} fill="#e9f2ff" opacity={0.35} /><circle cx={rand(i * 11) * 1920 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.6} />{run && <rect x={rand(i * 11) * 1920 - 1} y={y - 60} width={2} height={60} fill="#e9f2ff" opacity={0.2} />}</g>;
         })}
+        {/* small palms pressed on the glass */}
+        {[[820, 470], [1080, 450]].map(([hx, hy], i) => (
+          <g key={i} transform={`translate(${hx} ${hy - pound * 6}) scale(${1 + pound * 0.06})`} opacity={0.92}>
+            <ellipse cx={0} cy={10} rx={34} ry={38} fill="#b07a56" />
+            {[-26, -10, 6, 22].map((fx, k) => <rect key={k} x={fx - 6} y={-58 + Math.abs(fx) * 0.3} width={13} height={50} rx={6.5} fill="#b07a56" />)}
+            <rect x={28} y={-4} width={12} height={36} rx={6} fill="#b07a56" transform="rotate(-35 34 14)" />
+            <ellipse cx={0} cy={10} rx={46} ry={52} fill="#ffffff" opacity={0.08 + pound * 0.1} />
+          </g>
+        ))}
         {/* window frame */}
         <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#141210" fillRule="evenodd" />
         <path d="M0 0 H1920 V60 H0 Z" fill="#b8901c" opacity={0.6} />
-        <rect x={100} y={530} width={1720} height={20} fill="#141210" />
+        <rect x={100} y={250} width={1720} height={18} fill="#141210" />
         <path d="M150 100 l260 0 l-300 880 l-110 0 Z" fill="#fff" opacity={0.04} />
       </svg>
     </>
@@ -194,7 +205,8 @@ export const Scene04: React.FC = () => {
               <rect x={880} y={800} width={110} height={34} rx={4} fill="#c99a20" />
               {Array.from({ length: 5 }).map((_, i) => <rect key={i} x={886 + i * 20} y={804} width={14} height={12} fill="#2a2010" />)}
               <circle cx={985} cy={812} r={led ? 6 : 3} fill="#ff2a2a" />
-              <circle cx={940} cy={780} r={60} fill="#ffd9a0" opacity={0.12} />
+              {[[860, 760], [1010, 900], [900, 980]].map(([lx, ly], i) => <g key={i}><circle cx={lx} cy={ly} r={4} fill="#ffe2a6" /><circle cx={lx} cy={ly} r={22} fill="#ffe2a6" opacity={0.18} /></g>)}
+              <circle cx={960} cy={860} r={5} fill={led ? "#ff3030" : "#3060ff"} /><circle cx={975} cy={860} r={5} fill={led ? "#3060ff" : "#ff3030"} />
             </svg>
           </Plane>
           <Plane p={0.8}><Rain count={160} opacity={0.25} speed={30} len={30} /></Plane>
@@ -225,7 +237,7 @@ export const Scene05: React.FC = () => {
       <Plane p={0.55}><DecoSkyline seed={33} baseY={820} hMin={200} hMax={420} haze={0.15} hazeColor="#5a3a50" light="#8a5a5a" body="#1a1018" litP={0.35} rimSide="right" /></Plane>
       <Plane p={1}>
         <Character id="s5alex" kind="alex" x={X} y={Y} scale={S} facing={1} lightSide={1} rim="#ffb080" nightTint={0.12} silhouette={0.05}
-          pose={{ armNear: [96 + polish * 6, 112 + polish * 6], handNear: "fist", armFar: [-8, 14], head: -4 + ci(f, [cB - 10, cB], [0, 6]), smile: 0.45, brow: 0.3, eyeY: ci(f, [cB - 10, cB], [-0.3, 0.8]), blink: blinkAt(f, 70, 30), bob: breathe(f, 0.45, 1.5) }} />
+          pose={{ armNear: [22 + polish * 5, 122 + polish * 6], handNear: "fist", armFar: [-8, 14], head: -4 + ci(f, [cB - 10, cB], [0, 6]), smile: 0.45, brow: 0.3, eyeY: ci(f, [cB - 10, cB], [-0.3, 0.8]), blink: blinkAt(f, 70, 30), bob: breathe(f, 0.45, 1.5) }} />
         {glint > 0 && (
           <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, mixBlendMode: "screen" }}>
             <g transform={`translate(${bx} ${by}) rotate(${f * 4}) scale(${glint})`}>
@@ -234,6 +246,15 @@ export const Scene05: React.FC = () => {
             </g>
           </svg>
         )}
+      </Plane>
+      <Plane p={1.1}>
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+          <defs><linearGradient id="s5par" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#6a4450" /><stop offset="1" stopColor="#1a0e14" /></linearGradient></defs>
+          <rect x={-200} y={930} width={2400} height={200} fill="url(#s5par)" />
+          <rect x={-200} y={922} width={2400} height={14} fill="#a87a7a" opacity={0.7} />
+          {Array.from({ length: 16 }).map((_, i) => <path key={i} d={`M${i * 140 - 60} 960 l20 -20 l20 20 v100 h-40 Z`} fill="#2a1820" opacity={0.7} />)}
+          <path d="M1480 930 V640 M1440 700 H1520 M1460 760 H1500" stroke="#1a0e14" strokeWidth={8} />
+        </svg>
       </Plane>
       <Post tintColor="#a05030" tintOpacity={0.14} vignette={0.5} />
       <Caption text="SIX DAYS EARLIER" from={2} to={cR + 18} align="center" y={120} size={54} />
@@ -363,7 +384,7 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
         <radialGradient id="flBg" cx="0.3" cy="0.4"><stop offset="0" stopColor="#3a3a52" /><stop offset="1" stopColor="#07080e" /></radialGradient>
       </defs>
       <rect width="1920" height="1080" fill="url(#flBg)" />
-      {Array.from({ length: 14 }).map((_, i) => <circle key={i} cx={rand(i) * 1920} cy={rand(i * 3) * 600} r={20 + rand(i * 5) * 40} fill="#ffd890" opacity={0.08} />)}
+      <g style={{ mixBlendMode: "screen" }}>{Array.from({ length: 22 }).map((_, i) => <circle key={i} cx={rand(i) * 1920} cy={120 + rand(i * 3) * 420} r={18 + rand(i * 5) * 46} fill="#ffcf70" opacity={0.1 + rand(i * 9) * 0.18} />)}</g>
       <g transform={`translate(860 560) rotate(${-8 + shake * Math.sin(f * 2.2) * 4})`}>
         {beam > 0 && <path d="M330 -40 L1500 -420 L1500 420 L330 40 Z" fill="url(#flBeam)" opacity={beam} style={{ mixBlendMode: "screen" }} />}
         <rect x={-460} y={-58} width={680} height={116} rx={18} fill="url(#flM)" stroke="#0a0a0e" strokeWidth={5} />
@@ -374,12 +395,21 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
         {/* loose switch */}
         <rect x={-40} y={-74} width={90} height={20} rx={6} fill="#1a1a1e" />
         <rect x={-30 + sw * 40} y={-82} width={30} height={22} rx={5} fill="#3a3a40" stroke="#0a0a0e" strokeWidth={3} />
-        {/* hand */}
-        <path d="M-300 -70 C-260 -110 -120 -110 -60 -66 L-40 70 C-120 120 -260 110 -310 70 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
-        {[0, 1, 2].map((i) => <path key={i} d={`M${-250 + i * 60} -84 C${-240 + i * 60} -20 ${-240 + i * 60} 40 ${-246 + i * 60} 92`} stroke="#5a3420" strokeWidth={3} opacity={0.6} fill="none" />)}
-        <path d={`M-70 -70 C-40 -110 ${-10 + sw * 30} -110 ${0 + sw * 30} -84`} stroke="#0a0a0e" strokeWidth={4} fill="url(#flSkin)" />
-        <rect x={-430} y={-50} width={160} height={6} fill="#1d2b52" opacity={0.9} />
-      </g>
+        {/* hand: palm behind, four fingers wrapping the barrel, thumb on the switch */}
+        <path d="M-330 60 C-360 120 -300 200 -160 210 L-30 200 C10 160 0 90 -20 58 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
+        <rect x={-560} y={60} width={260} height={150} fill="#1d2b52" stroke="#0a0a0e" strokeWidth={4} />
+        <rect x={-330} y={64} width={30} height={142} fill="#d9b24a" opacity={0.85} />
+        {[0, 1, 2, 3].map((i) => (
+          <g key={i}>
+            <path d={`M${-270 + i * 62} 70 C${-284 + i * 62} 20 ${-280 + i * 62} -40 ${-262 + i * 62} -62 C${-250 + i * 62} -76 ${-222 + i * 62} -74 ${-216 + i * 62} -58 C${-226 + i * 62} -30 ${-220 + i * 62} 30 ${-214 + i * 62} 72 Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
+            <path d={`M${-262 + i * 62} -40 q12 -6 26 0`} stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.7} />
+            <path d={`M${-264 + i * 62} 10 q14 -4 28 0`} stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
+            <path d={`M${-258 + i * 62} -64 q10 -4 18 0 l-2 10 q-8 -3 -14 0 Z`} fill="#e8c0a0" opacity={0.6} />
+          </g>
+        ))}
+        <path d={`M-30 70 C-20 0 ${-30 + sw * 30} -70 ${-6 + sw * 30} -96 C${12 + sw * 30} -112 ${40 + sw * 30} -100 ${36 + sw * 30} -80 C${20 + sw * 30} -60 10 0 18 60 Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
+        <path d={`M${0 + sw * 30} -98 q14 -6 26 2 l-4 10 q-10 -6 -20 -2 Z`} fill="#e8c0a0" opacity={0.6} />
+              </g>
     </svg>
   );
 };
@@ -461,7 +491,7 @@ export const Scene10: React.FC = () => {
       <Plane p={0.85}><Precinct /></Plane>
       <Plane p={1}>
         <Character id="s10mara" kind="mara" x={1100} y={1000} scale={1.15} facing={-1} lightSide={-1} nightTint={0.2} shoulderRadio
-          pose={{ armNear: [40, 104], armFar: [34, 100], handNear: "fist", handFar: "fist", head: f > 60 ? 4 : 0, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, blink: blinkAt(f, 80, 20), bob: breathe(f, 0.3) }} />
+          pose={{ armNear: [10, 38], armFar: [-14, 44], handNear: "grip", handFar: "grip", head: f > 60 ? 4 : 0, brow: -0.2, smile: f > 85 ? 0.15 : 0, eyeY: 0.2, blink: blinkAt(f, 80, 20), bob: breathe(f, 0.3) }} />
         <Character id="s10alex" kind="alex" x={ax} y={1010} scale={1.15} facing={1} lightSide={-1} nightTint={0.2} shoulderRadio
           pose={walking ? { ...walk((f / 16) % 1), head: -2, smile: 0.3 } : { head: -4, smile: 0.35, brow: 0.3, blink: blinkAt(f, 70, 10), bob: breathe(f) }} />
       </Plane>

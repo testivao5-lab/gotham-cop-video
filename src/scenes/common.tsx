@@ -19,7 +19,11 @@ export const BusStreetSet: React.FC<{
       <Plane p={0.3}><DecoSkyline seed={7} baseY={640} hMin={260} hMax={520} haze={0.55} litP={0.18 * (1 - blackout)} count={30} /></Plane>
       <Plane p={0.45}><DecoSkyline seed={12} baseY={680} hMin={180} hMax={420} haze={0.3} litP={0.22 * (1 - blackout)} count={30} body="#0e1424" light="#2e4670" /></Plane>
       <Plane p={0.6}><StreetFacades seed={5} baseY={742} litP={0.3 * (1 - blackout)} heightMin={380} heightMax={560} dark={0.1} /></Plane>
-      <Plane p={0.6}><Fog y={700} height={200} opacity={0.18} /></Plane>
+      <Plane p={0.6}>
+        <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(4,6,14,0.55) 0%, rgba(4,6,14,0.15) 45%, rgba(4,6,14,0) 70%)" }} />
+        {lamp > 0 && <Glow x={702} y={430} r={420} color="255,200,130" opacity={0.2 * lamp} />}
+        <Fog y={700} height={200} opacity={0.18} />
+      </Plane>
       <Plane p={1}>
         <WetStreet horizonY={742} curbY={790} laneY={930} reflections={[{ x: 700, color: "#ffd9a0", w: 60 }, { x: 1300, color: "#e8b040", w: 120, strength: 0.6 }, { x: 1650, color: "#ff3030", w: 30, strength: led ? 0.6 : 0.1 }]} />
         <StreetLamp x={640} baseY={790} on={lamp} />

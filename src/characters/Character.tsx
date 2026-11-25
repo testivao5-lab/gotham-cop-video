@@ -114,39 +114,83 @@ export const Character: React.FC<CharProps> = (props) => {
   const gloveCol = kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin");
   const sleeveCol = kind === "nia" ? g("top") : kind === "batman" ? g("top") : kind === "father" ? g("top") : g("top");
 
+  const D = Math.PI / 180;
+  const dir = (a: number) => [Math.sin(a * D), Math.cos(a * D)];
+  /** smooth two-segment limb: outlines first, then fills (no seam at the joint), plus cylindrical shading */
+  const Limb = ({ L1, L2, a1, a2, r1, r2, col, light, end }: { L1: number; L2: number; a1: number; a2: number; r1: number; r2: number; col: string; light: string; end?: React.ReactNode }) => {
+    const [d1x, d1y] = dir(a1); const [d2x, d2y] = dir(a2);
+    const ex = d1x * L1, ey = d1y * L1, wx = ex + d2x * L2, wy = ey + d2y * L2;
+    const full = `M0 0 L${ex} ${ey} L${wx} ${wy}`;
+    const up = `M0 0 L${ex} ${ey}`;
+    const o = ls * 1;
+    return (
+      <g>
+        <path d={full} stroke={outline} strokeWidth={r2 * 2 + sw * 2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <path d={up} stroke={outline} strokeWidth={r1 * 2 + sw * 2} strokeLinecap="round" fill="none" />
+        <path d={full} stroke={col} strokeWidth={r2 * 2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <path d={up} stroke={col} strokeWidth={r1 * 2} strokeLinecap="round" fill="none" />
+        <path d={full} transform={`translate(${-o * r2 * 0.42} 0)`} stroke="#000" strokeOpacity={0.28} strokeWidth={r2 * 0.9} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <path d={full} transform={`translate(${o * r2 * 0.55} 0)`} stroke={light} strokeOpacity={0.55} strokeWidth={r2 * 0.28} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <g transform={`translate(${wx} ${wy}) rotate(${-a2})`}>{end}</g>
+        {/* elbow / knee crease */}
+        <path d={`M${ex - d2y * r2 * 0.5} ${ey + d2x * r2 * 0.5} l${d2y * r2 * 0.6} ${-d2x * r2 * 0.6}`} stroke={outline} strokeOpacity={0.35} strokeWidth={1.4} />
+      </g>
+    );
+  };
+
+  const solid = (m: string) => mats[m];
+  const lightOf = (m: string) => mix(mats[m], rim, 0.5);
+
   const Arm = ({ ang, near }: { ang: [number, number]; near: boolean }) => {
     const [s, e] = ang;
     const handType = near ? p.handNear : p.handFar;
+    const sleeve = solid("top");
+    const glove = kind === "batman" ? pal.shoes : kind === "specialist" ? pal.top2 : pal.skin;
+    const a2 = s + e;
+    const [d1x, d1y] = dir(s); const [d2x, d2y] = dir(a2);
+    const ex = d1x * b.ua * S, ey = d1y * b.ua * S;
+    const handEnd = (
+      <g>
+        {hand(handType, kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin"), R * 0.86)}
+        {near && prop !== "none" && <Prop type={prop} on={propOn} beam={flashBeam} r={R} id={id} />}
+      </g>
+    );
     return (
-      <g transform={`rotate(${-s})`}>
-        <path d={cap(b.ua * S, R * 1.05, R * 0.9)} fill={sleeveCol} stroke={outline} strokeWidth={sw} />
-        {kind === "alex" || kind === "mara" ? <path d={`M${-R * 0.7} ${R * 1.6} h${R * 1.4} v${R * 1.2} h${-R * 1.4} Z`} fill={pal.accent} opacity={near ? 0.85 : 0.4} /> : null}
-        <g transform={`translate(0 ${b.ua * S}) rotate(${-e})`}>
-          <path d={cap(b.fa * S, R * 0.9, R * 0.72)} fill={sleeveCol} stroke={outline} strokeWidth={sw} />
-          {kind === "batman" && <path d={`M${R * 0.7} ${b.fa * S * 0.35} l${R * 0.9} ${R * 0.3} l${-R * 0.8} ${R * 0.6} l${R * 0.9} ${R * 0.3} l${-R * 0.9} ${R * 0.6} Z`} fill={pal.shoes} />}
-          {kind === "batman" && <path d={cap(b.fa * S * 0.55, R * 0.86, R * 0.74)} transform={`translate(0 ${b.fa * S * 0.45})`} fill={g("shoes")} />}
-          <g transform={`translate(0 ${b.fa * S})`}>
-            {hand(handType, gloveCol, R * 0.82)}
-            {near && prop !== "none" && <Prop type={prop} on={propOn} beam={flashBeam} r={R} id={id} />}
+      <g>
+        <Limb L1={b.ua * S} L2={b.fa * S} a1={s} a2={a2} r1={R * 1.08} r2={R * 0.82} col={sleeve} light={lightOf("top")} end={handEnd} />
+        {kind === "batman" && (
+          <g>
+            <path d={`M${ex + d2x * b.fa * S * 0.42} ${ey + d2y * b.fa * S * 0.42} L${ex + d2x * b.fa * S} ${ey + d2y * b.fa * S}`} stroke={glove} strokeWidth={R * 1.75} strokeLinecap="round" />
+            {[0.5, 0.62, 0.74].map((t, i) => (
+              <path key={i} d={`M${ex + d2x * b.fa * S * t - d2y * R * 0.8} ${ey + d2y * b.fa * S * t + d2x * R * 0.8} l${-d2y * R * 0.9 + d2x * 8} ${d2x * R * 0.9 + d2y * 8} l${d2x * 6} ${d2y * 6} Z`} fill={glove} stroke={outline} strokeWidth={1} />
+            ))}
           </g>
-        </g>
+        )}
+        {(kind === "alex" || kind === "mara") && (
+          <path d={`M${d1x * 18 - d1y * R * 0.7} ${d1y * 18 + d1x * R * 0.7} l${d1y * R * 1.4} ${-d1x * R * 1.4} l${d1x * 12} ${d1y * 12} l${-d1y * R * 1.4} ${d1x * R * 1.4} Z`} fill={pal.accent} opacity={near ? 0.8 : 0.35} />
+        )}
       </g>
     );
   };
 
   const Leg = ({ ang }: { ang: [number, number] }) => {
     const [h, k] = ang;
-    const legCol = kind === "nia" ? g("pants") : g("pants");
+    const a2 = h - k;
+    const [d1x, d1y] = dir(h); const [d2x, d2y] = dir(a2);
+    const kx = d1x * b.thigh, ky = d1y * b.thigh;
+    const ax = kx + d2x * b.shin, ay = ky + d2y * b.shin;
+    const foot = (
+      <g transform={`rotate(${a2})`}>
+        <path d={`M${-R * 1.0} ${-R * 0.5} Q${-R * 1.15} ${R * 0.9} ${-R * 0.6} ${R * 1.0} H${R * 2.7} Q${R * 3.0} ${R * 0.2} ${R * 1.2} ${-R * 0.6} Z`} fill={g("shoes")} stroke={outline} strokeWidth={sw} />
+        <path d={`M${-R * 0.4} ${R * 0.85} H${R * 2.5}`} stroke={tint(pal.shoes, 0.3)} strokeWidth={1.2} opacity={0.5} />
+      </g>
+    );
     return (
-      <g transform={`rotate(${-h})`}>
-        <path d={cap(b.thigh, R * 1.35, R * 1.05)} fill={legCol} stroke={outline} strokeWidth={sw} />
-        <g transform={`translate(0 ${b.thigh}) rotate(${k})`}>
-          <path d={cap(b.shin, R * 1.05, R * 0.85)} fill={legCol} stroke={outline} strokeWidth={sw} />
-          {(kind === "batman" || kind === "nia") && <path d={cap(b.shin * 0.42, R * 1.0, R * 0.9)} transform={`translate(0 ${b.shin * 0.58})`} fill={g("shoes")} stroke={outline} strokeWidth={sw} />}
-          <g transform={`translate(0 ${b.shin}) rotate(${h - k})`}>
-            <path d={`M${-R * 1.0} ${-R * 0.4} Q${-R * 1.1} ${R * 0.9} ${-R * 0.6} ${R * 1.0} H${R * 2.6} Q${R * 2.9} ${R * 0.2} ${R * 1.2} ${-R * 0.5} Z`} fill={g("shoes")} stroke={outline} strokeWidth={sw} />
-          </g>
-        </g>
+      <g>
+        <Limb L1={b.thigh} L2={b.shin} a1={h} a2={a2} r1={R * 1.38} r2={R * 1.02} col={solid("pants")} light={lightOf("pants")} end={foot} />
+        {(kind === "batman" || kind === "nia") && (
+          <path d={`M${kx + d2x * b.shin * 0.55} ${ky + d2y * b.shin * 0.55} L${ax} ${ay - 2}`} stroke={pal.shoes} strokeWidth={R * 2.05} strokeLinecap="round" />
+        )}
       </g>
     );
   };
@@ -229,7 +273,7 @@ export const Character: React.FC<CharProps> = (props) => {
       {/* neck + head */}
       <g transform={`translate(2 ${-torsoLen + 2}) rotate(${p.neck})`}>
         <path d={`M-9 6 L-8 -10 H10 L11 6 Z`} fill={kind === "batman" ? g("shoes") : g("skin")} stroke={outline} strokeWidth={sw} />
-        <g transform={`translate(0 -6) rotate(${p.head}) scale(${b.headS * (b.child ? 1.3 : 1)})`}>
+        <g transform={`translate(0 -6) rotate(${p.head}) scale(${b.headS * (b.child ? 1.3 : 1.14)})`}>
           <Head kind={kind} p={p} pal={pal} g={g} outline={outline} sw={sw / b.headS} f={f} glowEyes={glowEyes} noHat={noHat} id={id} />
         </g>
       </g>
@@ -273,6 +317,12 @@ export const Character: React.FC<CharProps> = (props) => {
           <g transform={`translate(${hipW * 0.45} 8)`}><Leg ang={p.legNear} /></g>
           {Torso}
           <g transform={`translate(${nsx} ${nsy})`}><Arm ang={p.armNear} near /></g>
+          {kind === "batman" && (
+            <g transform={`rotate(${p.lean})`}>
+              <path d={`M${-shW - 10} ${-torsoLen + 46} Q${-shW - 8} ${-torsoLen - 8} -8 ${-torsoLen - 6} H16 Q${shW + 12} ${-torsoLen - 6} ${shW + 14} ${-torsoLen + 48} Q${shW * 0.4} ${-torsoLen + 26} 4 ${-torsoLen + 22} Q${-shW * 0.5} ${-torsoLen + 26} ${-shW - 10} ${-torsoLen + 46} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
+              <path d={`M${shW * 0.2} ${-torsoLen - 2} Q${shW + 6} ${-torsoLen} ${shW + 10} ${-torsoLen + 40}`} stroke={rim} strokeOpacity={0.35} strokeWidth={2} fill="none" />
+            </g>
+          )}
         </g>
       </g>
     </svg>

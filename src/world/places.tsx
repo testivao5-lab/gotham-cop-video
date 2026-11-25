@@ -251,12 +251,20 @@ export const JokerBack: React.FC<{ x: number; y: number; scale?: number; laugh?:
       <g transform={`translate(${x} ${y + shake}) scale(${scale})`}>
         {/* coat shoulders from behind */}
         <path d="M-260 400 C-250 200 -200 120 -110 100 L-40 90 L40 90 L110 100 C200 120 250 200 260 400 Z" fill="url(#jkC)" stroke="#06040a" strokeWidth={3} />
-        <path d="M-40 90 L0 170 L40 90" fill="#2a0f38" stroke="#06040a" strokeWidth={2} />
-        {/* head back, green hair */}
-        <ellipse cx={0} cy={20} rx={70} ry={88} fill="#d8d0cc" stroke="#06040a" strokeWidth={3} />
-        <path d="M-72 10 C-80 -60 -40 -96 0 -96 C40 -96 82 -62 72 10 C60 -20 40 -40 0 -40 C-40 -40 -60 -20 -72 10 Z" fill="url(#jkH)" stroke="#06040a" strokeWidth={3} />
-        {Array.from({ length: 7 }).map((_, i) => <path key={i} d={`M${-60 + i * 20} -40 q6 ${30 + (i % 2) * 14} 0 ${60 + (i % 3) * 10}`} stroke="#1a6a2a" strokeWidth={6} fill="none" opacity={0.8} />)}
-        <ellipse cx={72} cy={30} rx={10} ry={18} fill="#d8d0cc" stroke="#06040a" strokeWidth={2} />
+                {/* neck, ears, nape hair, fedora */}
+        <rect x={-34} y={40} width={68} height={60} fill="#cfc8c4" stroke="#06040a" strokeWidth={3} />
+        <ellipse cx={0} cy={22} rx={66} ry={70} fill="#d8d0cc" stroke="#06040a" strokeWidth={3} />
+        <ellipse cx={-66} cy={20} rx={11} ry={20} fill="#d8d0cc" stroke="#06040a" strokeWidth={2.5} />
+        <ellipse cx={66} cy={20} rx={11} ry={20} fill="#d8d0cc" stroke="#06040a" strokeWidth={2.5} />
+        <path d="M-64 -10 L-58 40 L-46 18 L-36 58 L-24 26 L-12 66 L0 30 L12 66 L24 26 L36 58 L46 18 L58 40 L64 -10 Z" fill="url(#jkH)" stroke="#06040a" strokeWidth={3} strokeLinejoin="round" />
+        <ellipse cx={0} cy={-18} rx={150} ry={30} fill="#3a1450" stroke="#06040a" strokeWidth={3} />
+        <ellipse cx={0} cy={-22} rx={150} ry={26} fill="url(#jkC)" />
+        <path d="M-84 -20 C-88 -100 -46 -132 0 -130 C46 -132 88 -100 84 -20 Z" fill="url(#jkC)" stroke="#06040a" strokeWidth={3} />
+        <path d="M-84 -44 C-40 -36 40 -36 84 -44 L84 -20 C40 -12 -40 -12 -84 -20 Z" fill="#1c0828" />
+        <path d="M-20 -126 C-6 -110 6 -110 20 -126" stroke="#1c0828" strokeWidth={4} fill="none" />
+        <path d="M60 -110 C76 -90 82 -60 82 -46" stroke="#b07ad0" strokeWidth={3} opacity={0.5} fill="none" />
+        {/* upturned collar */}
+        <path d="M-110 100 L-60 40 L-30 96 Z M110 100 L60 40 L30 96 Z" fill="#4a1e62" stroke="#06040a" strokeWidth={3} />
         {/* gloved hand holding a playing card */}
         <g transform={`translate(230 ${190 - laugh * 10}) rotate(${-14 + Math.sin(f * 0.05) * 3})`}>
           <rect x={-30} y={-90} width={64} height={92} rx={6} fill="#f2ede0" stroke="#06040a" strokeWidth={2} />
