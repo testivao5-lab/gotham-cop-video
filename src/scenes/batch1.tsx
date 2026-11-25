@@ -643,7 +643,7 @@ export const Scene10: React.FC = () => {
   const walking = f < 84;
   const tilt = ci(f, [cR, cR + 44], [0, 1], Easing.inOut(Easing.cubic));
   // camera never stops: slow drift + push continues after the tilt
-  const cam = { x: ci(f, [0, D], [0, 60]) + tilt * -200, y: -tilt * 330, zoom: ci(f, [0, D], [1.0, 1.08]) + tilt * 0.45 };
+  const cam = { x: ci(f, [0, D], [0, 60]) + tilt * -120, y: -tilt * 150, zoom: ci(f, [0, D], [1.0, 1.06]) + tilt * 0.16 };
   return (
     <Stage cam={cam}>
       <Plane p={0.15}><Sky variant="night" seed={14} moon={[380, 140, 40]} horizonY={700} /></Plane>

@@ -415,7 +415,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       {kind === "mara" && <g><ellipse cx={-27} cy={-26} rx={15} ry={13} fill={g("hair")} stroke={outline} strokeWidth={sw} /><path d="M-36 -30 q8 -6 18 0 M-38 -22 q10 -5 20 0" stroke="#5a3424" strokeWidth={2} fill="none" /><path d="M-24 -40 C-30 -34 -30 -28 -26 -22" stroke={g("hair")} strokeWidth={6} fill="none" /></g>}
       {kind === "mother" && <path d="M-26 -50 C-36 -30 -34 -6 -24 6 L-6 -10 L-10 -50 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {kind === "employee" && <path d="M-26 -50 C-34 -34 -30 -14 -20 -6 L-4 -14 L-8 -50 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
-      {child && <path d="M-34 -40 C-38 -70 -10 -82 8 -80 C30 -78 40 -62 38 -40 C38 -20 34 -4 26 4 L-30 4 C-36 -10 -36 -24 -34 -40 Z" fill={g("top")} stroke={outline} strokeWidth={sw} />}
+      {child && <path d="M-34 -40 C-38 -70 -10 -82 8 -80 C30 -78 40 -62 38 -40 C38 -20 34 -4 26 4 L-30 4 C-36 -10 -36 -24 -34 -40 Z" fill={shade(pal.top, 0.12)} stroke={outline} strokeWidth={sw} />}
       <path d={face} fill={g("skin")} stroke={outline} strokeWidth={sw} />
       {/* cel shadow on back half of face */}
       <path d={`M-24 -38 C-24 -30 -22 -22 -18 -16 C-10 -6 -2 -2 6 -1 C-2 -10 -4 -26 2 -44 C-6 -52 -16 -54 -24 -38 Z`} fill="#000" opacity={0.18} />
