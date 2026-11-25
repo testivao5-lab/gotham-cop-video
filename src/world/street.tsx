@@ -169,7 +169,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
         const P = Array.from({ length: 9 }).map((_, i) => {
           const t = rand(i * 3 + seed * 1.3); // depth 0 far .. 1 near
           const pcy = cy + 26 + t * t * (1060 - cy - 26);
-          const rx = 70 + t * 320 + rand(i * 5 + seed) * 120;
+          const rx = 40 + t * 190 + rand(i * 5 + seed) * 70;
           return { cx: rand(i * 7 + seed * 2.1) * 2000 - 40, cy: pcy, rx, ry: rx * (0.08 + t * 0.07), i };
         });
         const blob = (p: { cx: number; cy: number; rx: number; ry: number; i: number }) => (
@@ -185,7 +185,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
               <mask id={`${id}pm`}><g fill="white">{P.map(blob)}</g></mask>
               <filter id={`${id}pb`} x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2.5" /></filter>
             </defs>
-            <g fill="#26364f" opacity={0.55} filter={`url(#${id}pb)`}>{P.map(blob)}</g>
+            <g fill="#0e1626" opacity={0.6} filter={`url(#${id}pb)`}>{P.map(blob)}</g>
             <g mask={`url(#${id}pm)`} style={{ mixBlendMode: "screen" }}>
               {reflections.map((r, i) => {
                 const w = r.w ?? 40;
@@ -195,7 +195,7 @@ export const WetStreet: React.FC<{ horizonY: number; curbY?: number; reflections
                 ));
               })}
               {/* sky glint across puddle surfaces */}
-              <rect x={0} y={cy} width={1920} height={1080 - cy} fill="#7fa4cc" opacity={0.08} />
+              <rect x={0} y={cy} width={1920} height={1080 - cy} fill="#7fa4cc" opacity={0.04} />
               {/* ripples */}
               {P.flatMap((p) => Array.from({ length: Math.round(2 + p.rx / 60) }).map((_, k) => {
                 const per = 16 + Math.floor(rand(p.i * 11 + k) * 14);

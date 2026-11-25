@@ -405,7 +405,14 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
         </g>
         {/* bare chalk-white hand holding the card between two fingers */}
         <g transform={`translate(200 250) rotate(${-14 + laugh * 4 * Math.sin(f * 0.55)})`}>
-          <g transform={`translate(26 -92) scale(${Math.max(0.02, card)} 1)`}>
+          {card < 0.5 && (
+            <g transform={`translate(26 -92) scale(${Math.max(0.12, Math.cos(card * Math.PI))} 1)`}>
+              <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#7a1a24" stroke={o} strokeWidth={3} />
+              <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#e8c060" strokeWidth={2} />
+              {Array.from({ length: 5 }).map((_, k) => <path key={k} d={`M-30 ${-44 + k * 20} l10 10 l10 -10 l10 10 l10 -10 l10 10 l10 -10`} stroke="#e8c060" strokeWidth={1.6} fill="none" opacity={0.7} />)}
+            </g>
+          )}
+          <g transform={`translate(26 -92) scale(${card >= 0.5 ? Math.max(0.12, -Math.cos(card * Math.PI)) : 0} 1)`}>
             <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#f5efe2" stroke={o} strokeWidth={3} />
             <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#c8202c" strokeWidth={2} />
             <text x={0} y={-24} textAnchor="middle" fontFamily={DISPLAY} fontSize={26} letterSpacing={3} fill="#c8202c">JOKER</text>

@@ -20,7 +20,7 @@ export const Scene01: React.FC = () => {
   const fall = ci(f, [12, 27], [0, 1], Easing.in(Easing.quad));
   const land = sp(f, 27, { damping: 12 });
   const rise = sp(f, 40, { damping: 16, stiffness: 70 });
-  const crouch = f < 27 ? 0.3 : Math.max(0, land - rise);
+  const crouch = f < 27 ? 0.3 : ci(f, [27, 29], [0.3, 1], EZ) * (1 - ci(f, [36, 58], [0, 1], Easing.inOut(Easing.cubic)));
   const shake = f > 27 && f < 36 ? (36 - f) * 1.4 * Math.sin(f * 3) : 0;
   const hh = handheld(f, 0.6, 1);
   const cam = { x: ci(f, [0, sceneDur(1)], [-10, 20]) + hh.x, y: hh.y + shake, zoom: ci(f, [0, sceneDur(1)], [1.0, 1.08]), rot: hh.rot };
@@ -211,10 +211,10 @@ export const Scene03: React.FC = () => {
   return (
     <>
       <Shot from={0} to={cW}>
-        <Stage cam={{ x: hh.x + ci(f, [0, cW], [0, 40]), y: hh.y, zoom: ci(f, [0, cW], [1.12, 1.22]), rot: hh.rot }}>
+        <Stage cam={{ x: hh.x + ci(f, [0, cW], [300, 360], EZ), y: hh.y + ci(f, [0, cW], [-20, -40]), zoom: ci(f, [0, cW], [1.55, 1.85], EZ), rot: hh.rot }}>
           <BusStreetSet fog={fog} nia niaPound={1} />
           <Plane p={1.3}>
-            <Character id="s3alexfg" kind="alex" x={180} y={1560} scale={2.6} facing={1} lightSide={1} silhouette={0.85} shoulderRadio={false} pose={{ head: -4 }} />
+            <Character id="s3alexfg" kind="alex" x={330} y={1640} scale={2.4} facing={1} lightSide={-1} silhouette={0.6} rim="#ffcf8a" shoulderRadio={false} pose={{ head: -6, eyeY: -0.4 }} />
           </Plane>
           <ForegroundRain />
           <Post />
@@ -227,11 +227,11 @@ export const Scene03: React.FC = () => {
         </Stage>
       </Shot>
       <Shot from={cD} to={sceneDur(3) + 1}>
-        <Stage cam={{ x: hh.x, y: hh.y, zoom: ci(f, [cD, sceneDur(3)], [1.0, 1.06]) }}>
+        <Stage cam={{ x: hh.x, y: hh.y - 120, zoom: ci(f, [cD, sceneDur(3)], [1.45, 1.6], EZ) }}>
           <Plane p={1}>
             <AbsoluteFill style={{ background: "#0a0d16" }} />
             <SchoolBus x={-890} y={-60} scale={2.7} fog={fog} wire={false} interior={0.35} />
-            <ChainLock x={962} y={318} scale={0.82} />
+            <ChainLock x={962} y={318} scale={0.86} />
           </Plane>
           <Rain count={180} opacity={0.3} />
           <Post />
@@ -261,7 +261,7 @@ export const Scene04: React.FC = () => {
           </AbsoluteFill>
           <Plane p={1}>
             <Character id="s4bat" kind="batman" x={1180} y={1640} scale={2.9} facing={-1} lightSide={-1} silhouette={0.3} capeWind={0.8} glowEyes={0.9} prop="radio"
-              pose={{ armNear: [62, 104], handNear: "grip", head: 4, brow: -1, blink: blinkAt(f, 100, 30), bob: breathe(f, 0.25, 2), lean: 4 }} />
+              pose={{ armNear: [62 - 30 * ci(f, [14, 34], [0, 1], EZ), 104 - 40 * ci(f, [14, 34], [0, 1], EZ)], handNear: "grip", head: 4 - 8 * ci(f, [16, 30], [0, 1], EZ), eyeX: ci(f, [16, 30], [0.2, -0.6]), brow: -1, blink: blinkAt(f, 100, 30), bob: breathe(f, 0.25, 2), lean: 4 - 3 * ci(f, [30, 60], [0, 1], EZ) }} />
             <Glow x={560} y={430} r={120} color="255,40,40" opacity={led ? 0.35 : 0.08} />
           </Plane>
           <ForegroundRain />
@@ -299,10 +299,10 @@ export const Scene04: React.FC = () => {
               <path d="M980 900 L1960 860 L1960 1100 L980 1100 Z" fill="url(#s4par)" />
               <path d="M980 900 L1960 860" stroke="#b47ad6" strokeWidth={3} opacity={0.45} />
             </svg>
-            <JokerProfile x={1360} y={470} scale={1.05}
+            <JokerProfile x={1360 - 30 * ci(f, [cS, sceneDur(4)], [0, 1])} y={470 + 10 * Math.sin(f * 0.06)} scale={1.05 + 0.08 * ci(f, [cS, sceneDur(4)], [0, 1], EZ)}
               turn={ci(f, [cWt, cWt + 14], [0, 1], EZ)}
               card={ci(f, [cJk + 6, cJk + 14], [0, 1], EZ)}
-              laugh={ci(f, [cJ, cJ + 8], [0, 1])} />
+              laugh={Math.max(ci(f, [cJk + 16, cJk + 22, cJk + 40, cJk + 46], [0, 0.5, 0.5, 0]), ci(f, [cJ - 4, cJ + 4], [0, 1]))} />
             <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
               <path d="M940 930 L1960 884 L1960 1100 L940 1100 Z" fill="#07050a" />
               <path d="M940 930 L1960 884" stroke="#7affa0" strokeWidth={2} opacity={0.25} />
@@ -390,6 +390,10 @@ export const Scene06: React.FC = () => {
           <Plane p={0.7}><StreetFacades seed={9} baseY={820} litP={0.25} heightMin={600} heightMax={760} fireEscapes /></Plane>
           <Plane p={0.85}><ShopFront baseY={830} lamp={0} upstairs={1} sign={1} /></Plane>
           <Plane p={1}><WetStreet horizonY={830} curbY={870} reflections={[{ x: 960, color: "#f5c66a", w: 420, strength: 0.5 }, { x: 650, color: "#ffcf8a", w: 100, strength: 0.5 }]} seed={4} /></Plane>
+          <Plane p={1}>
+            <Character id="s6alex" kind="alex" x={ci(f, [0, cA], [520, 640], EZ)} y={1040} scale={0.95} facing={1} lightSide={1} nightTint={0.2} rim="#ffcf8a" shoulderRadio
+              pose={f < cA - 20 ? { ...walkDist(ci(f, [0, cA], [520, 640], EZ) - 520, "alex", 0.95, 0.7), head: -6 } : { head: -16, eyeY: -1, smile: 0.25 }} />
+          </Plane>
           <Plane p={1.2}><Rain count={120} opacity={0.2} /></Plane>
           <Post />
           <Caption text="ALEX REYES" from={4} to={cA + 10} x={120} y={880} />
@@ -418,6 +422,8 @@ export const Scene06: React.FC = () => {
               <rect x={160} y={260} width={600} height={420} fill="url(#s6night)" />
               <rect x={160} y={260} width={600} height={420} fill="none" stroke="#1a0f08" strokeWidth={18} />
               <rect x={454} y={260} width={12} height={420} fill="#1a0f08" />
+              <rect x={160} y={464} width={600} height={12} fill="#1a0f08" />
+              {Array.from({ length: 40 }).map((_, i) => <rect key={`ws${i}`} x={i * 48} y={0} width={2} height={950} fill="#000" opacity={0.12} />)}
               <rect x={140} y={680} width={640} height={24} fill="#3a2414" />
               <g transform="translate(330 680)">
                 <circle cy={-50} r={420} fill="url(#s6lamp)" opacity={lampOn} />
@@ -456,8 +462,8 @@ export const Scene07: React.FC = () => {
   const cBut = cue(7, "but");
   const shakeHead = f > cNo && f < cNo + 20 ? Math.sin((f - cNo) * 0.6) * 5 : 0;
   const pat = ci(f, [cNo + 8, cNo + 22], [0, 1], EZ);
-  const kidSh = anchor("alexYoung", 720, 1060, 1.55, 1, "shoulderNear");
-  const dadRest = anchor("father", 1180, 1070, 1.6, -1, "waist");
+  const kidSh = anchor("alexYoung", 780, 1060, 1.05, 1, "shoulderNear");
+  const dadRest = anchor("father", 990, 1070, 1.6, -1, "waist");
   const dadHand = mixP([dadRest[0] - 40, dadRest[1] + 30], [kidSh[0] + 4, kidSh[1] - 6], pat);
   return (
     <>
@@ -465,11 +471,12 @@ export const Scene07: React.FC = () => {
         <Stage cam={{ x: ci(f, [0, cBut], [-20, 20]), y: 0, zoom: ci(f, [0, cBut], [1.0, 1.06]) }}>
           <Plane p={0.8}><ShopInterior lamp={1} /></Plane>
           <Plane p={1}>
-            <Character id="s7kid" kind="alexYoung" x={720} y={1060} scale={1.55} facing={1} lightSide={1} nightTint={0.08} rim="#ffb46a"
-              pose={{ head: -10, brow: 0.6, eyeY: -0.8, armNear: [30, 60], handNear: "point", blink: blinkAt(f, 70, 10), bob: breathe(f), smile: -0.1 }} />
-            <Character id="s7dad" kind="father" x={1180} y={1070} scale={1.6} facing={-1} lightSide={1} nightTint={0.08} rim="#ffb46a"
+            <Character id="s7kid" kind="alexYoung" x={780} y={1060} scale={1.05} facing={1} lightSide={1} nightTint={0.08} rim="#ffb46a"
+              reachNear={f < cNo + 4 ? [1290, 560] : undefined}
+              pose={{ head: -14, brow: -0.4, eyeY: -1, armNear: [10, 14], handNear: "point", blink: blinkAt(f, 70, 10), bob: breathe(f), smile: -0.1 + 0.4 * pat }} />
+            <Character id="s7dad" kind="father" x={990} y={1070} scale={1.6} facing={-1} lightSide={1} nightTint={0.08} rim="#ffb46a"
               reachNear={pat > 0 ? dadHand : undefined}
-              pose={{ head: 4 + shakeHead, brow: f > cNo ? 0.2 : -0.2, smile: f > cNo + 20 ? 0.35 : 0, eyeY: 0.5, lean: -4 * pat, armNear: [10, 16], handNear: "open", armFar: [-6, 20], blink: blinkAt(f, 80, 40), bob: breathe(f, 0.35) }} />
+              pose={{ head: 4 + shakeHead, brow: f > cNo ? 0.2 : -0.2, smile: f > cNo + 20 ? 0.35 : 0, eyeY: 0.5, lean: -9 * pat, armNear: [10, 16], handNear: "open", armFar: [-6, 20], blink: blinkAt(f, 80, 40), bob: breathe(f, 0.35) }} />
           </Plane>
           <Post tintColor="#5a2a10" tintOpacity={0.1} vignette={0.55} />
         </Stage>
@@ -547,7 +554,7 @@ export const Scene08: React.FC = () => {
   const HALF = 58; // dad holds the lens end, Alex takes the handle end
   const aRest = anchor("alexDress", 800, 1040, 1.4, 1, "waist");
   const dRest = anchor("father", 1120, 1040, 1.38, -1, "waist");
-  const aChest: [number, number] = [aRest[0] + 80, aRest[1] - 110];
+  const aChest: [number, number] = [aRest[0] + 34, aRest[1] - 120];
   const dHold: [number, number] = [dRest[0] - 40, dRest[1] - 10];
   const dadHand: [number, number] = handed ? mixP([meet[0] + HALF, meet[1]], [dRest[0] - 30, dRest[1] + 40], back) : mixP(dHold, [meet[0] + HALF, meet[1]], offer);
   const alexHand: [number, number] = handed ? mixP([meet[0] - HALF, meet[1]], aChest, back) : mixP([aRest[0] + 30, aRest[1] + 40], [meet[0] - HALF, meet[1]], take);
@@ -605,7 +612,7 @@ export const Scene09: React.FC = () => {
   const reach = ci(f, [cK - 4, cK + 14], [0, 1], EZ);
   const aSh = anchor("alexDress", 760, 1280, 1.85, 1, "shoulderNear");
   const dRest = anchor("father", 1090, 1270, 1.8, -1, "waist");
-  const dadHand = mixP([dRest[0] - 30, dRest[1] + 50], [aSh[0] + 6, aSh[1] - 8], reach);
+  const dadHand = mixP([dRest[0] - 30, dRest[1] + 50], [aSh[0] + 26, aSh[1] - 30], reach);
   const dim = ci(f, [cL, cL + 4, cL + 30, cL + 50], [0, 1, 1, 0.3]);
   return (
     <Stage cam={{ x: ci(f, [cK - 10, cK + 30], [0, 200], Easing.inOut(Easing.cubic)), y: ci(f, [cK - 10, cK + 30], [0, -60]), zoom: ci(f, [cK - 10, cK + 30], [1.0, 1.25], Easing.inOut(Easing.cubic)) }}>
@@ -614,7 +621,7 @@ export const Scene09: React.FC = () => {
       <Plane p={1}>
         <Character id="s9alex" kind="alexDress" x={760} y={1280} scale={1.85} facing={1} allowMouth={false} lightSide={1} nightTint={0.15} rim="#ffd890" prop="flashlight"
           reachNear={[anchor("alexDress", 760, 1280, 1.85, 1, "chest")[0] + 60, anchor("alexDress", 760, 1280, 1.85, 1, "chest")[1] + 30 + Math.abs(Math.sin(f * 0.45)) * 5 * laugh]}
-          pose={{ handNear: "grip", smile: 0.9 * laugh + 0.1, mouth: laugh * 0.35 * (0.5 + 0.5 * Math.sin(f * 0.9)), head: -6 * laugh + Math.sin(f * 0.9) * 2 * laugh, bob: Math.abs(Math.sin(f * 0.45)) * 5 * laugh, brow: 0.4 * laugh - 0.2 * reach, blink: laugh > 0.5 ? 0.7 : blinkAt(f, 70, 30), eyeX: 0.5 }} />
+          pose={{ handNear: "grip", smile: 0.9 * laugh + 0.1, mouth: laugh * 0.35 * (0.5 + 0.5 * Math.sin(f * 0.9)), head: -14 * laugh + Math.sin(f * 0.9) * 3 * laugh, lean: -5 * laugh, bob: Math.abs(Math.sin(f * 0.45)) * 9 * laugh, brow: -0.6 * laugh - 0.2 * reach, blink: laugh > 0.3 ? 0.85 : blinkAt(f, 70, 30), eyeX: 0.5 }} />
         <Character id="s9dad" kind="father" x={1090} y={1270} scale={1.8} facing={-1} lightSide={1} nightTint={0.15} rim="#ffd890"
           reachNear={dadHand}
           pose={{ handNear: "open", lean: -5 * reach, head: 2 + 3 * reach, brow: -0.7, smile: -0.25, eyeY: 0.1, blink: blinkAt(f, 90, 50), bob: breathe(f, 0.35) }} />
@@ -650,7 +657,7 @@ export const Scene10: React.FC = () => {
       <Plane p={1.1}><Rain count={110} opacity={0.2} /></Plane>
       <Plane p={1.2}><Fog y={980} height={160} opacity={0.15} /></Plane>
       <Post />
-      <Caption text="OFFICER MARA BENNETT" from={cO} to={cR + 6} align="right" />
+      <Caption text="OFFICER MARA BENNETT" from={cO} to={cR + 6} align="right" y={150} />
       <EdgeFade outF={10} dur={D} />
       {[10, 38, 66].map((t, k) => <Sfx key={k} name="step" at={t} gain={0.28} />)}
     </Stage>
