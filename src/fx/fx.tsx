@@ -9,7 +9,8 @@ export const Rain: React.FC<{
 }> = ({ count = 260, speed = 48, len = 46, angle = -11, opacity = 0.35, width = 1.4, seed = 1, color = "#b9cbe6", region = [-200, -100, 2320, 1240] }) => {
   const f = useCurrentFrame();
   const [rx, ry, rw, rh] = region;
-  const rad = (angle * Math.PI) / 180;
+  const gust = noise(f * 0.025, seed * 3 + 1) * 6 + noise(f * 0.08, seed + 7) * 1.5;
+  const rad = ((angle + gust) * Math.PI) / 180;
   const dx = Math.sin(rad);
   const dy = Math.cos(rad);
   let d = "";

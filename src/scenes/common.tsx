@@ -4,7 +4,10 @@ import { Sky, DecoSkyline, SkyVariant } from "../world/sky";
 import { StreetFacades, WetStreet, StreetLamp, SchoolBus } from "../world/street";
 import { Rain, Splashes, Fog, LightCone, Glow } from "../fx/fx";
 import { Plane } from "../lib/Camera";
-import { ci } from "../lib/anim";
+import { ci, noise } from "../lib/anim";
+import { DISPLAY, ensureFonts } from "../lib/fonts";
+
+ensureFonts();
 
 /** Night bus street used by scenes 1–4 and the climax. */
 export const BusStreetSet: React.FC<{
@@ -41,6 +44,7 @@ export const BusStreetSet: React.FC<{
           ) : undefined} />
         <Splashes y0={800} y1={1080} count={40 * rain} />
       </Plane>
+      <Plane p={0.6}><Rain count={Math.round(220 * rain)} opacity={0.16} len={22} speed={30} width={1} seed={4} /></Plane>
       <Plane p={1.2}><Rain count={Math.round(240 * rain)} opacity={0.32} seed={1} /></Plane>
     </>
   );
@@ -52,22 +56,54 @@ export const ForegroundRain: React.FC<{ amt?: number }> = ({ amt = 1 }) => (
   </Plane>
 );
 
-/** deco caption that types on */
-export const Caption: React.FC<{ text: string; from: number; to: number; x?: number; y?: number; size?: number; align?: "left" | "center" }> = ({ text, from, to, x = 120, y = 900, size = 44, align = "left" }) => {
+/** All on-screen text goes through here: one face (Bebas Neue), locked tracking, glyph-by-glyph fade-in
+ *  (whole word fully visible within 0.3 s), 12-frame eased exit. align="center" = title card, otherwise a
+ *  bottom-third name card on a dark backing so nothing behind can bleed through. */
+export const Caption: React.FC<{ text: string; from: number; to: number; x?: number; y?: number; size?: number; align?: "left" | "center" }> = ({ text, from, to, size, align = "left" }) => {
   const f = useCurrentFrame();
-  const n = Math.floor(ci(f, [from, from + text.length * 1.2], [0, text.length]));
-  const o = ci(f, [to - 10, to], [1, 0]);
-  if (f < from || f > to) return null;
+  if (f < from - 1 || f > to) return null;
+  const title = align === "center";
+  const fs = size ?? (title ? 92 : 64);
+  const out = ci(f, [to - 12, to], [1, 0]);
+  const n = text.length;
+  const per = Math.min(0.6, 7 / Math.max(1, n));
+  const glyphs = text.split("").map((ch, i) => {
+    const t = ci(f, [from + i * per, from + i * per + 5], [0, 1]);
+    return <span key={i} style={{ opacity: t, display: "inline-block", transform: `translateY(${(1 - t) * 10}px)`, filter: `blur(${(1 - t) * 4}px)` }}>{ch === " " ? "\u00a0" : ch}</span>;
+  });
+  const rule = ci(f, [from + 4, from + 16], [0, 1]);
+  if (title)
+    return (
+      <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: 110, opacity: out }}>
+        <div style={{ fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.22, color: "#f3dfb2", textShadow: "0 0 24px rgba(255,190,90,0.35), 0 3px 0 rgba(0,0,0,0.85)", paddingLeft: fs * 0.22 }}>{glyphs}</div>
+        <div style={{ height: 3, width: 420 * rule, marginTop: 6, background: "linear-gradient(90deg, rgba(217,178,74,0), #d9b24a, rgba(217,178,74,0))" }} />
+      </AbsoluteFill>
+    );
   return (
-    <AbsoluteFill>
-      <div style={{ position: "absolute", left: align === "center" ? 0 : x, right: align === "center" ? 0 : undefined, top: y, textAlign: align, opacity: o,
-        fontFamily: "Georgia, 'Times New Roman', serif", fontSize: size, letterSpacing: size * 0.28, color: "#f0d9a8", fontWeight: 700,
-        textShadow: "0 0 18px rgba(255,190,90,0.35), 0 2px 0 #000" }}>
-        {text.slice(0, n)}
-        <div style={{ height: 3, width: align === "center" ? 360 : 220, margin: align === "center" ? "14px auto 0" : "14px 0 0", background: "linear-gradient(90deg,#d9b24a,rgba(217,178,74,0))", opacity: ci(f, [from + 6, from + 20], [0, 1]) }} />
+    <AbsoluteFill style={{ opacity: out }}>
+      <div style={{ position: "absolute", left: 0, top: 790, width: 900, height: 170, background: "linear-gradient(90deg, rgba(3,5,10,0.78) 0%, rgba(3,5,10,0.55) 60%, rgba(3,5,10,0) 100%)", opacity: rule }} />
+      <div style={{ position: "absolute", left: 120, top: 812, fontFamily: DISPLAY, fontSize: fs, letterSpacing: fs * 0.16, color: "#f3dfb2", textShadow: "0 2px 0 rgba(0,0,0,0.9)" }}>
+        {glyphs}
+        <div style={{ height: 3, width: 300 * rule, marginTop: 2, background: "linear-gradient(90deg, #d9b24a, rgba(217,178,74,0))" }} />
       </div>
     </AbsoluteFill>
   );
+};
+
+/** soft "time jump" bloom: peaks for <=2 frames at 45% then eases out (no full-white frames) */
+export const TimeJump: React.FC<{ at?: number; dur?: number }> = ({ at = 0, dur = 12 }) => {
+  const f = useCurrentFrame();
+  const o = ci(f, [at, at + 2, at + 4, at + dur], [0.45, 0.45, 0.25, 0]);
+  return o > 0 ? <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 45%, rgba(255,236,200,1) 0%, rgba(255,214,160,0.6) 45%, rgba(40,30,30,0) 100%)", opacity: o, mixBlendMode: "screen" }} /> : null;
+};
+
+/** eased fade from/to black at scene edges */
+export const EdgeFade: React.FC<{ inF?: number; outF?: number; dur: number }> = ({ inF = 0, outF = 0, dur }) => {
+  const f = useCurrentFrame();
+  const a = inF > 0 ? ci(f, [0, inF], [1, 0]) : 0;
+  const b = outF > 0 ? ci(f, [dur - outF, dur], [0, 1]) : 0;
+  const o = Math.max(a, b);
+  return o > 0.001 ? <AbsoluteFill style={{ background: "#000", opacity: o }} /> : null;
 };
 
 /** hard cut helper: render children only in [from, to) local frames */

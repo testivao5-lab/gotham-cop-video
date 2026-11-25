@@ -1,4 +1,5 @@
 import React from "react";
+import { DISPLAY } from "../lib/fonts";
 import { useCurrentFrame } from "remotion";
 import { rand, shade, tint, mix, flicker, noise } from "../lib/anim";
 
@@ -105,19 +106,61 @@ export const ShopInterior: React.FC<{ lamp: number; warm?: number }> = ({ lamp, 
         <rect x={-4} y={-50} width={8} height={44} fill="#2a1a10" />
         <rect x={-20} y={-8} width={40} height={8} rx={2} fill="#2a1a10" />
       </g>
-      {/* shelves with radios & clocks */}
+      {/* deco wall sconces throwing light cones up the wall (BTAS interior language) */}
+      {[340, 980].map((sx, i) => (
+        <g key={i}>
+          <path d={`M${sx - 22} 150 L${sx - 110} -20 L${sx + 110} -20 L${sx + 22} 150 Z`} fill="#ffdca0" opacity={0.1 * (0.7 + 0.3 * lamp)} />
+          <ellipse cx={sx} cy={92} rx={64} ry={84} fill="#ffe6b8" opacity={0.12} />
+          <path d={`M${sx - 18} 150 L${sx - 26} 118 H${sx + 26} L${sx + 18} 150 Z M${sx - 8} 150 V170 H${sx + 8} V150`} fill="#b89a60" stroke="#1a0f08" strokeWidth={2} />
+          <ellipse cx={sx} cy={116} rx={26} ry={6} fill="#fff1cc" opacity={0.85} />
+        </g>
+      ))}
+      {/* shelves: every object different (size, type, time shown) */}
       {[0, 1, 2].map((row) => (
         <g key={row}>
-          <rect x={60} y={220 + row * 170} width={900} height={14} fill="#1a0f08" />
-          {Array.from({ length: 7 }).map((_, i) => {
-            const bx = 80 + i * 125 + rand(row * 9 + i) * 20, by = 220 + row * 170;
-            const kind = Math.floor(rand(row * 3 + i * 5) * 3);
-            if (kind === 0) return <g key={i}><rect x={bx} y={by - 90} width={100} height={90} rx={12} fill={mix("#5a3a22", "#2a1a10", rand(i))} stroke="#0d0805" strokeWidth={3} /><circle cx={bx + 32} cy={by - 46} r={22} fill="#1a110a" /><circle cx={bx + 32} cy={by - 46} r={16} fill="none" stroke="#8a6a3a" strokeWidth={2} /><rect x={bx + 62} y={by - 70} width={26} height={40} fill="#c9a060" opacity={0.6} /></g>;
-            if (kind === 1) return <g key={i}><circle cx={bx + 44} cy={by - 46} r={40} fill="#e8dcc0" opacity={0.85} stroke="#2a1a10" strokeWidth={5} /><path d={`M${bx + 44} ${by - 46} l0 -26 M${bx + 44} ${by - 46} l18 8`} stroke="#1a110a" strokeWidth={3} /></g>;
-            return <g key={i}><rect x={bx} y={by - 60} width={90} height={60} fill="#2c2c30" stroke="#0d0805" strokeWidth={3} /><rect x={bx + 8} y={by - 52} width={50} height={40} rx={8} fill="#40505a" opacity={0.7} /></g>;
+          <rect x={60} y={260 + row * 160} width={900} height={14} fill="#1a0f08" />
+          <rect x={60} y={274 + row * 160} width={900} height={6} fill="#000" opacity={0.35} />
+          {Array.from({ length: 6 }).map((_, i) => {
+            const seed = row * 11 + i * 7;
+            const bx = 80 + i * 145 + rand(seed) * 26, by = 260 + row * 160;
+            const kind = (row * 2 + i * 3 + Math.floor(rand(seed + 3) * 2)) % 5;
+            const hrs = rand(seed + 1) * Math.PI * 2, mins = rand(seed + 2) * Math.PI * 2 + f * 0.0015;
+            const wood = mix("#6a4428", "#2e1c10", rand(seed + 4));
+            if (kind === 0) { const r = 28 + rand(seed + 5) * 16; return (
+              <g key={i}><circle cx={bx + 50} cy={by - r - 6} r={r} fill="#e9dcbc" stroke={wood} strokeWidth={6} /><circle cx={bx + 50} cy={by - r - 6} r={2.5} fill="#1a110a" />
+                <path d={`M${bx + 50} ${by - r - 6} l${Math.sin(hrs) * r * 0.5} ${-Math.cos(hrs) * r * 0.5} M${bx + 50} ${by - r - 6} l${Math.sin(mins) * r * 0.8} ${-Math.cos(mins) * r * 0.8}`} stroke="#1a110a" strokeWidth={2.4} strokeLinecap="round" /></g>); }
+            if (kind === 1) return (
+              <g key={i}><path d={`M${bx} ${by} V${by - 70} Q${bx + 55} ${by - 120} ${bx + 110} ${by - 70} V${by} Z`} fill={wood} stroke="#0d0805" strokeWidth={3} />
+                <path d={`M${bx + 18} ${by - 8} V${by - 62} Q${bx + 55} ${by - 96} ${bx + 92} ${by - 62} V${by - 8} Z`} fill="#3a2614" />
+                {Array.from({ length: 6 }).map((_, k) => <rect key={k} x={bx + 26 + k * 11} y={by - 70} width={4} height={60} fill="#1a110a" />)}
+                <circle cx={bx + 30} cy={by - 16} r={5} fill="#c9a060" /><circle cx={bx + 80} cy={by - 16} r={5} fill="#c9a060" /></g>);
+            if (kind === 2) return (
+              <g key={i}><rect x={bx} y={by - 64} width={120} height={64} rx={10} fill={mix("#7a6a50", "#3a3a40", rand(seed + 6))} stroke="#0d0805" strokeWidth={3} />
+                <rect x={bx + 10} y={by - 54} width={66} height={22} rx={3} fill="#e8c880" opacity={0.75} /><path d={`M${bx + 16 + rand(seed) * 50} ${by - 54} v22`} stroke="#a02010" strokeWidth={2} />
+                <circle cx={bx + 96} cy={by - 42} r={11} fill="#1a110a" stroke="#c9a060" strokeWidth={2} /><circle cx={bx + 28} cy={by - 14} r={6} fill="#1a110a" /><circle cx={bx + 56} cy={by - 14} r={6} fill="#1a110a" /></g>);
+            if (kind === 3) return (
+              <g key={i}><rect x={bx + 20} y={by - 96} width={58} height={96} rx={6} fill={wood} stroke="#0d0805" strokeWidth={3} />
+                <circle cx={bx + 49} cy={by - 66} r={20} fill="#efe2c4" /><path d={`M${bx + 49} ${by - 66} l${Math.sin(hrs) * 10} ${-Math.cos(hrs) * 10} M${bx + 49} ${by - 66} l${Math.sin(mins) * 16} ${-Math.cos(mins) * 16}`} stroke="#1a110a" strokeWidth={2} />
+                <path d={`M${bx + 30} ${by - 104} Q${bx + 49} ${by - 124} ${bx + 68} ${by - 104} Z`} fill={wood} stroke="#0d0805" strokeWidth={2} /></g>);
+            return (
+              <g key={i}><rect x={bx} y={by - 70} width={96} height={70} fill="#25262b" stroke="#0d0805" strokeWidth={3} />
+                <rect x={bx + 8} y={by - 62} width={56} height={46} rx={10} fill="#3c4c58" opacity={0.85} /><rect x={bx + 12} y={by - 58} width={20} height={10} rx={4} fill="#9ab" opacity={0.25} />
+                <circle cx={bx + 80} cy={by - 50} r={6} fill="#777" /><circle cx={bx + 80} cy={by - 28} r={6} fill="#777" /></g>);
           })}
         </g>
       ))}
+      {/* tall regulator clock with a swinging pendulum */}
+      <g transform="translate(1010 300)">
+        <rect x={-50} y={0} width={100} height={420} rx={8} fill="#4a2c16" stroke="#0d0805" strokeWidth={4} />
+        <circle cx={0} cy={60} r={38} fill="#efe2c4" stroke="#2a180c" strokeWidth={4} />
+        <path d={`M0 60 l${Math.sin(1.1) * 18} ${-Math.cos(1.1) * 18} M0 60 l${Math.sin(4.0 + f * 0.002) * 28} ${-Math.cos(4.0 + f * 0.002) * 28}`} stroke="#1a110a" strokeWidth={3} strokeLinecap="round" />
+        <rect x={-34} y={120} width={68} height={270} fill="#1c120a" />
+        <g transform={`translate(0 126) rotate(${Math.sin((f / 24) * Math.PI) * 9})`}>
+          <rect x={-2} y={0} width={4} height={200} fill="#b8963a" />
+          <circle cx={0} cy={210} r={20} fill="#d9b24a" stroke="#6a4a10" strokeWidth={3} />
+          <circle cx={-6} cy={204} r={6} fill="#fff4c0" opacity={0.6} />
+        </g>
+      </g>
       {/* workbench */}
       <rect x={0} y={800} width={1920} height={280} fill="url(#siFloor)" />
       <rect x={100} y={760} width={980} height={30} fill="#4a2e18" />
@@ -145,7 +188,7 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
       {/* facade */}
       <rect x={160} y={160} width={1600} height={640} fill="url(#acF)" />
       <path d="M140 160 L960 40 L1780 160 Z" fill="#2a3244" stroke="#8a94aa" strokeWidth={3} />
-      <text x={960} y={230} textAnchor="middle" fontFamily="Georgia, serif" fontWeight={700} fontSize={46} letterSpacing={12} fill="#d9c79a">GOTHAM POLICE ACADEMY</text>
+      <text x={960} y={236} textAnchor="middle" fontFamily={DISPLAY} fontSize={64} letterSpacing={18} fill="#d9c79a">GOTHAM POLICE ACADEMY</text>
       {Array.from({ length: 8 }).map((_, i) => (
         <g key={i}>
           <rect x={240 + i * 200} y={270} width={70} height={530} fill="url(#acCol)" />
@@ -155,23 +198,39 @@ export const Academy: React.FC<{ lightsDim?: number }> = ({ lightsDim = 0 }) => 
       {/* tall lit doorway */}
       <rect x={880} y={480} width={160} height={320} fill="#ffd894" opacity={0.85} />
       <rect x={880} y={480} width={160} height={320} fill="none" stroke="#1a1e28" strokeWidth={10} />
-      {/* banners */}
-      {[560, 1360].map((bx) => (
-        <g key={bx}><rect x={bx - 40} y={300} width={80} height={240} fill="#1d2b62" /><path d={`M${bx - 40} 540 L${bx} 510 L${bx + 40} 540 Z`} fill="#0b0f1a" /><circle cx={bx} cy={380} r={24} fill="#d9b24a" /></g>
+      {/* banners: academy crest + GCPD star */}
+      {[560, 1360].map((bx, k) => (
+        <g key={bx}>
+          <rect x={bx - 42} y={300} width={84} height={250} fill={k ? "#5a1420" : "#1d2b62"} />
+          <path d={`M${bx - 42} 550 L${bx} 518 L${bx + 42} 550 Z`} fill="#0b0f1a" />
+          {k === 0 ? <g><path d={`M${bx} 350 l26 10 v26 q0 24 -26 36 q-26 -12 -26 -36 v-26 Z`} fill="#d9b24a" /><path d={`M${bx} 366 v40`} stroke="#1d2b62" strokeWidth={4} /></g>
+            : <path d={`M${bx} 344 l9 22 h23 l-18 14 l7 23 l-21 -13 l-21 13 l7 -23 l-18 -14 h23 Z`} fill="#d9b24a" />}
+          <rect x={bx - 42} y={300} width={84} height={250} fill="#000" opacity={0.12 + 0.05 * Math.sin(f * 0.07 + k)} />
+        </g>
       ))}
-      {/* string lights */}
-      {[0, 1].map((k) => {
-        const pts = Array.from({ length: 26 }).map((_, i) => {
-          const t = i / 25; const xx = 120 + t * 1680; const yy = 330 + k * 70 + Math.sin(t * Math.PI) * 90;
-          return [xx, yy];
-        });
+      {/* festoon string lights: catenary swags between column caps */}
+      {Array.from({ length: 7 }).map((_, k) => {
+        const x0 = 275 + k * 200, x1 = x0 + 200, y0 = 290, sag = 70 + (k % 2) * 14;
+        const pts = Array.from({ length: 9 }).map((_, i) => { const t = i / 8; return [x0 + t * 200, y0 + sag * (1 - Math.pow(2 * t - 1, 2)) + Math.sin(f * 0.05 + k) * 2]; });
         return (
           <g key={k}>
-            <path d={"M" + pts.map((p) => p.join(" ")).join(" L")} stroke="#0a0a0a" strokeWidth={2} fill="none" />
-            {pts.map(([xx, yy], i) => {
-              const on = (1 - lightsDim * (rand(i + k * 30 + Math.floor(f / 3)) > 0.3 ? 1 : 0.2));
-              return <g key={i}><circle cx={xx} cy={yy + 6} r={5} fill="#ffe2a0" opacity={0.3 + 0.7 * on} /><circle cx={xx} cy={yy + 6} r={18} fill="#ffcf70" opacity={0.18 * on} /></g>;
+            <path d={`M${x0} ${y0} Q${(x0 + x1) / 2} ${y0 + sag * 2} ${x1} ${y0}`} stroke="#0a0a0a" strokeWidth={2} fill="none" />
+            {pts.slice(1, 8).map(([xx, yy], i) => {
+              const on = 1 - lightsDim * (rand(i + k * 30 + Math.floor(f / 3)) > 0.3 ? 1 : 0.2);
+              return <g key={i}><circle cx={xx} cy={yy + 7} r={4.5} fill="#ffe2a0" opacity={0.3 + 0.7 * on} /><circle cx={xx} cy={yy + 7} r={16} fill="#ffcf70" opacity={0.2 * on} /></g>;
             })}
+          </g>
+        );
+      })}
+      {/* graduates & families on the steps (soft silhouettes, a cap toss) */}
+      {Array.from({ length: 9 }).map((_, i) => {
+        const gx = 200 + i * 190 + rand(i * 5) * 60, gy = 830 + (i % 2) * 18, h = 120 + rand(i * 3) * 30;
+        const capUp = i === 3 || i === 6 ? Math.max(0, Math.sin(((f + i * 37) % 96) / 96 * Math.PI)) * 160 : 0;
+        return (
+          <g key={i} opacity={0.75}>
+            <path d={`M${gx - 22} ${gy} Q${gx - 26} ${gy - h * 0.6} ${gx - 14} ${gy - h * 0.8} H${gx + 14} Q${gx + 26} ${gy - h * 0.6} ${gx + 22} ${gy} Z`} fill="#141a2a" />
+            <circle cx={gx} cy={gy - h * 0.88} r={13} fill="#141a2a" />
+            <path d={`M${gx - 16} ${gy - h * 0.95 - capUp} l16 -6 l16 6 l-16 6 Z`} fill="#0a0e18" transform={capUp ? `rotate(${f * 9} ${gx} ${gy - h * 0.95 - capUp})` : undefined} />
           </g>
         );
       })}
@@ -222,8 +281,8 @@ export const Precinct: React.FC<{ mesh?: number }> = ({ mesh = 1 }) => {
         </g>
       )))}
       {/* POLICE sign + door */}
-      <rect x={640} y={640} width={380} height={56} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
-      <text x={830} y={682} textAnchor="middle" fontFamily="Georgia, serif" fontWeight={700} fontSize={36} letterSpacing={14} fill="#f0d8a8">POLICE</text>
+      <rect x={660} y={634} width={340} height={62} fill="#1a1216" stroke="#8a6a60" strokeWidth={3} />
+      <text x={836} y={684} textAnchor="middle" fontFamily={DISPLAY} fontSize={54} letterSpacing={16} fill="#f0d8a8">POLICE</text>
       <rect x={700} y={704} width={260} height={136} fill="url(#prDoor)" opacity={0.9} />
       <rect x={826} y={704} width={8} height={136} fill="#3a2a20" />
       {/* lamps */}
@@ -272,6 +331,79 @@ export const JokerBack: React.FC<{ x: number; y: number; scale?: number; laugh?:
           <text x={2} y={-50} textAnchor="middle" fontFamily="Georgia" fontWeight={700} fontSize={22} fill="#b0161c">JOKER</text>
           <path d="M-16 -30 Q2 -14 20 -30" stroke="#b0161c" strokeWidth={3} fill="none" />
           <path d="M-46 -10 C-40 -40 0 -40 10 -10 L14 30 L-40 30 Z" fill="#6a2a8a" stroke="#06040a" strokeWidth={2} />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+/* ================= Joker, BTAS model: 3/4 rear profile at a high window =================
+ * Refs: BTAS Joker — purple wide-brim fedora, slicked green hair, chalk-lavender skin with hard
+ * two-tone shadow, long pointed chin, sharp nose, huge red-lipped grin with yellowed teeth,
+ * purple suit, orange shirt, teal bow tie. Local origin = centre of the head. Faces +x. */
+export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn?: number; card?: number; laugh?: number }> = ({ x, y, scale = 1, turn = 0, card = 1, laugh = 0 }) => {
+  const f = useCurrentFrame();
+  const bounce = laugh * Math.abs(Math.sin(f * 0.55)) * 6;
+  const o = "#07050a";
+  const skin = "#ebe6f4", skinSh = "#9d92bd", suit = "#8a4bb0", suitSh = "#4a2068", hat = "#7a3a9e", hatSh = "#3c1652", hair = "#3a9a44", hairSh = "#1d5a26";
+  const g = 26 * turn; // grin pull toward camera
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+      <defs>
+        <linearGradient id="jkSuit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor={suitSh} /><stop offset="0.55" stopColor={suit} /><stop offset="1" stopColor="#b47ad6" /></linearGradient>
+        <linearGradient id="jkRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0.7" stopColor="#5aff8a" stopOpacity="0" /><stop offset="1" stopColor="#7affa0" stopOpacity="0.55" /></linearGradient>
+      </defs>
+      <g transform={`translate(${x} ${y + bounce}) scale(${scale})`}>
+        {/* shoulders / suit */}
+        <path d="M-300 520 C-290 300 -230 190 -120 160 L-40 130 L70 140 C170 160 250 230 290 520 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
+        <path d="M-120 160 C-90 230 -60 300 -40 520 L-90 520 C-110 330 -140 250 -170 200 Z" fill={suitSh} opacity={0.7} />
+        <path d="M30 150 L80 300 L110 160 Z" fill="#b47ad6" stroke={o} strokeWidth={2.5} />
+        <path d="M-20 132 L40 132 L60 176 L10 190 Z" fill="#f08c1e" stroke={o} strokeWidth={2.5} />
+        <path d="M44 168 l30 -14 l-6 26 Z M44 168 l-26 -10 l4 24 Z" fill="#26b3a0" stroke={o} strokeWidth={2} />
+        {/* neck */}
+        <path d="M-50 70 L-48 150 L40 150 L46 96 Z" fill={skinSh} stroke={o} strokeWidth={3} />
+        <g transform={`rotate(${-3 * turn - laugh * 2 * Math.sin(f * 0.55)})`}>
+          {/* head: back of skull + profile with long chin */}
+          <path d="M-74 -44 C-92 0 -84 46 -58 84 C-30 112 10 120 40 134 C58 146 78 158 92 156 C100 150 96 132 90 116 C104 108 108 96 104 86 C112 78 112 66 106 60 C118 52 126 40 124 30 C110 22 96 10 88 -6 C84 -24 80 -40 74 -52 Z" fill={skin} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
+          {/* hard two-tone shadow on the averted side */}
+          <path d="M-74 -44 C-92 0 -84 46 -58 84 C-30 112 10 120 40 134 C30 112 18 88 10 60 C0 30 -10 0 -16 -40 Z" fill={skinSh} />
+          <path d="M104 86 C112 78 112 66 106 60 L118 46" stroke="url(#jkRim)" strokeWidth={6} fill="none" />
+          {/* ear */}
+          <path d="M-24 4 C-40 -6 -48 18 -40 34 C-34 46 -20 44 -18 34 Z" fill={skinSh} stroke={o} strokeWidth={2.5} />
+          {/* the grin: lips + teeth stretching back along the cheek */}
+          <path d={`M106 62 C90 70 66 66 ${40 - g} ${44 - g * 0.6} C${46 - g} ${62} 70 ${92 + laugh * 6} 104 86 Z`} fill="#c8202c" stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          <path d={`M102 66 C88 72 68 70 ${46 - g} ${52 - g * 0.5} C${52 - g} ${62} 72 ${84 + laugh * 6} 100 80 Z`} fill="#e9dc9a" />
+          {[56, 66, 76, 86, 95].map((tx, i) => <path key={i} d={`M${tx - g * (1 - i / 5) * 0.4} ${56 + i * 2} l2 ${18 + laugh * 4}`} stroke="#8a7a40" strokeWidth={1.6} />)}
+          <path d={`M${40 - g} ${44 - g * 0.6} q-8 -4 -10 -14`} stroke={o} strokeWidth={2.6} fill="none" />
+          {/* eye under a heavy lid */}
+          <path d="M60 -16 C72 -24 86 -20 92 -12 C82 -6 70 -6 60 -16 Z" fill="#f4e06a" stroke={o} strokeWidth={2.4} />
+          <circle cx={84} cy={-13} r={3} fill={o} />
+          <path d="M54 -22 C70 -34 90 -30 98 -18" stroke={o} strokeWidth={4} fill="none" />
+          {/* slicked green hair: nape + sideburn under the brim */}
+          <path d="M-80 -54 C-96 -10 -92 40 -66 70 C-58 40 -50 20 -40 6 C-30 -10 -10 -24 30 -36 L60 -56 Z" fill={hair} stroke={o} strokeWidth={3} strokeLinejoin="round" />
+          <path d="M-80 -54 C-96 -10 -92 40 -66 70 C-72 30 -70 -10 -56 -44 Z" fill={hairSh} />
+          {[-60, -44, -28].map((hx) => <path key={hx} d={`M${hx} -40 Q${hx - 12} 0 ${hx - 6} 40`} stroke={hairSh} strokeWidth={3} fill="none" />)}
+          {/* fedora */}
+          <ellipse cx={14} cy={-62} rx={178} ry={36} fill={hatSh} stroke={o} strokeWidth={3.2} transform="rotate(-7 14 -62)" />
+          <path d="M-150 -50 C-80 -36 90 -60 180 -86 L184 -76 C100 -46 -60 -24 -150 -44 Z" fill={hat} opacity={0.9} />
+          <path d="M-86 -66 C-92 -140 -50 -186 6 -188 C66 -190 100 -150 94 -84 C40 -70 -40 -64 -86 -66 Z" fill={hat} stroke={o} strokeWidth={3.2} />
+          <path d="M-86 -66 C-92 -140 -50 -186 6 -188 C-30 -170 -50 -120 -44 -66 Z" fill={hatSh} />
+          <path d="M-84 -90 C-40 -84 50 -92 94 -104 L94 -84 C40 -70 -40 -64 -86 -66 Z" fill="#2a0e3a" />
+          <path d="M-20 -184 C-6 -170 12 -170 26 -186" stroke={hatSh} strokeWidth={4} fill="none" />
+        </g>
+        {/* bare chalk-white hand holding the card between two fingers */}
+        <g transform={`translate(200 250) rotate(${-14 + laugh * 4 * Math.sin(f * 0.55)})`}>
+          <g transform={`translate(26 -92) scale(${Math.max(0.02, card)} 1)`}>
+            <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#f5efe2" stroke={o} strokeWidth={3} />
+            <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#c8202c" strokeWidth={2} />
+            <text x={0} y={-24} textAnchor="middle" fontFamily={DISPLAY} fontSize={26} letterSpacing={3} fill="#c8202c">JOKER</text>
+            <path d="M-18 6 q18 -26 36 0 q-6 22 -18 26 q-12 -4 -18 -26 Z" fill="#2a8a3a" />
+            <path d="M-10 28 q10 10 20 0" stroke="#c8202c" strokeWidth={3} fill="none" />
+            <path d="M-26 -4 l10 -18 l8 14 l8 -16 l8 16 l8 -14 l10 18 Z" fill="#8a4bb0" />
+          </g>
+          <path d="M-40 40 C-46 0 -30 -30 -6 -40 L30 -54 C40 -56 46 -46 38 -40 L12 -26 L40 -40 C52 -44 56 -32 46 -26 L16 -8 C10 20 -4 44 -40 40 Z" fill={skin} stroke={o} strokeWidth={3} />
+          <path d="M-40 40 C-60 70 -80 100 -96 140 L-30 150 C-20 110 -10 80 -2 44 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
+          <path d="M-44 36 L0 42" stroke="#f5efe2" strokeWidth={8} />
         </g>
       </g>
     </svg>

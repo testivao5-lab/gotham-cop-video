@@ -59,13 +59,28 @@ export type CharProps = {
   id: string; lightSide?: 1 | -1; silhouette?: number; rim?: string; nightTint?: number;
   prop?: "radio" | "flashlight" | "key" | "phone" | "bottle" | "toolbox" | "none"; propOn?: number; flashBeam?: number;
   shoulderRadio?: boolean; capeWind?: number; hood?: boolean; glowEyes?: number; noHat?: boolean; style?: React.CSSProperties;
+  /** world-space IK targets for the palm centre (overrides armNear / armFar) */
+  reachNear?: [number, number]; reachFar?: [number, number];
+  /** world y of the floor for the contact shadow (defaults to y) */
+  groundY?: number; allowMouth?: boolean; noLife?: boolean; shadow?: number;
 };
+
+export const BAT_EMBLEM = "M100 30 L92 12 L88 28 C78 26 70 20 66 8 C56 22 30 26 4 22 C22 34 26 50 20 64 C34 56 46 58 54 70 C62 60 72 62 80 72 C86 66 94 68 100 88 C106 68 114 66 120 72 C128 62 138 60 146 70 C154 58 166 56 180 64 C174 50 178 34 196 22 C170 26 144 22 134 8 C130 20 122 26 112 28 L108 12 Z";
+const hashStr = (t: string) => { let h = 7; for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) % 100003; return h; };
 
 export const Character: React.FC<CharProps> = (props) => {
   const f = useCurrentFrame();
   const { kind, x, y, scale = 1, facing = 1, id, lightSide = 1, silhouette = 0, rim = "#9fc0ff", nightTint = 0.28,
     prop = "none", propOn = 0, flashBeam = 0, shoulderRadio = false, capeWind = 1, glowEyes = 0, noHat = false } = props;
   const p: Pose = { ...NEUTRAL, ...props.pose };
+  // ---- automatic "life": blinks every 3-5 s, breathing, micro head drift; narrator-only => mouths closed
+  const hsh = hashStr(id);
+  if (!props.noLife) {
+    if (props.pose?.blink === undefined) p.blink = blinkAt(f, 76 + (hsh % 44), hsh % 53);
+    p.bob += breathe(f + hsh, 0.27, 1.3);
+    p.head += Math.sin((f + hsh) * 0.045) * 0.9 + Math.sin((f + hsh) * 0.017) * 0.7;
+  }
+  if (!props.allowMouth) p.mouth = 0;
   const b = BUILD[kind];
   const pal0 = PAL[kind];
   const sil = (c: string) => mix(mix(c, "#1b2a4a", nightTint), "#06080f", silhouette);
@@ -105,11 +120,42 @@ export const Character: React.FC<CharProps> = (props) => {
   const R = 11 * b.limb; // limb radius
 
   /* ---------- parts ---------- */
+  /** hand drawn along +y from the wrist; local +x = palm-forward side */
   const hand = (type: string, col: string, r: number) => {
-    if (type === "fist" || type === "grip") return <ellipse cx={0} cy={r * 0.9} rx={r * 1.05} ry={r * 1.15} fill={col} stroke={outline} strokeWidth={sw} />;
-    if (type === "point") return <g><ellipse cx={0} cy={r * 0.8} rx={r} ry={r * 1.1} fill={col} stroke={outline} strokeWidth={sw} /><rect x={-r * 0.25} y={r * 1.4} width={r * 0.5} height={r * 1.6} rx={r * 0.25} fill={col} stroke={outline} strokeWidth={sw} /></g>;
-    return <path d={`M${-r} 0 Q${-r * 1.2} ${r * 1.6} ${-r * 0.2} ${r * 2.3} Q${r * 0.9} ${r * 2.2} ${r * 1.05} ${r * 0.9} Q${r * 1.3} ${r * 0.4} ${r} 0 Z`} fill={col} stroke={outline} strokeWidth={sw} />;
+    const st = { stroke: outline, strokeWidth: sw } as const;
+    if (type === "fist" || type === "grip") {
+      return (
+        <g>
+          <path d={`M${-r * 0.95} ${r * 0.1} Q${-r * 1.15} ${r * 1.2} ${-r * 0.55} ${r * 1.9} Q${r * 0.2} ${r * 2.25} ${r * 0.95} ${r * 1.75} Q${r * 1.25} ${r * 0.9} ${r * 0.9} ${r * 0.05} Z`} fill={col} {...st} />
+          {[0.75, 1.15, 1.55].map((t, i) => <path key={i} d={`M${r * 0.15} ${r * t} Q${r * 0.7} ${r * (t - 0.08)} ${r * 1.05} ${r * (t + 0.05)}`} stroke={outline} strokeWidth={sw * 0.7} fill="none" opacity={0.75} />)}
+          <path d={`M${r * 0.75} ${r * 0.35} Q${r * 1.5} ${r * 0.55} ${r * 1.25} ${r * 1.05} Q${r * 0.9} ${r * 1.1} ${r * 0.55} ${r * 0.85}`} fill={col} {...st} />
+          <path d={`M${-r * 0.5} ${r * 0.5} Q${-r * 0.6} ${r * 1.2} ${-r * 0.3} ${r * 1.6}`} stroke="#000" strokeOpacity={0.2} strokeWidth={r * 0.35} fill="none" />
+        </g>
+      );
+    }
+    if (type === "point")
+      return (
+        <g>
+          <path d={`M${-r * 0.9} ${r * 0.1} Q${-r * 1.1} ${r * 1.1} ${-r * 0.5} ${r * 1.7} Q${r * 0.3} ${r * 2.0} ${r * 0.9} ${r * 1.5} Q${r * 1.1} ${r * 0.8} ${r * 0.85} 0 Z`} fill={col} {...st} />
+          <rect x={r * 0.35} y={r * 1.3} width={r * 0.55} height={r * 1.7} rx={r * 0.27} fill={col} {...st} />
+          <path d={`M${r * 0.7} ${r * 0.4} Q${r * 1.4} ${r * 0.7} ${r * 1.1} ${r * 1.1}`} stroke={outline} strokeWidth={sw * 0.8} fill="none" />
+        </g>
+      );
+    // open hand: palm + four fingers + thumb
+    return (
+      <g>
+        {[-0.62, -0.2, 0.22, 0.62].map((fx, i) => <rect key={i} x={r * fx - r * 0.24} y={r * 1.3} width={r * 0.48} height={r * (1.25 - Math.abs(fx) * 0.35)} rx={r * 0.24} fill={col} {...st} />)}
+        <path d={`M${-r * 0.95} 0 Q${-r * 1.1} ${r * 1.0} ${-r * 0.85} ${r * 1.6} H${r * 0.9} Q${r * 1.1} ${r * 0.9} ${r * 0.9} 0 Z`} fill={col} {...st} />
+        <path d={`M${r * 0.8} ${r * 0.3} Q${r * 1.6} ${r * 0.6} ${r * 1.55} ${r * 1.3} Q${r * 1.2} ${r * 1.4} ${r * 0.85} ${r * 1.0}`} fill={col} {...st} />
+      </g>
+    );
   };
+  /** fingers wrapped over a held prop (drawn above it) */
+  const gripFingers = (col: string, r: number) => (
+    <g>
+      {[0.55, 0.95, 1.35, 1.72].map((t, i) => <rect key={i} x={-r * 0.1} y={r * (t - 0.2)} width={r * 1.15} height={r * 0.42} rx={r * 0.21} fill={col} stroke={outline} strokeWidth={sw * 0.8} />)}
+    </g>
+  );
 
   const gloveCol = kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin");
   const sleeveCol = kind === "nia" ? g("top") : kind === "batman" ? g("top") : kind === "father" ? g("top") : g("top");
@@ -153,6 +199,7 @@ export const Character: React.FC<CharProps> = (props) => {
       <g>
         {hand(handType, kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin"), R * 0.86)}
         {near && prop !== "none" && <Prop type={prop} on={propOn} beam={flashBeam} r={R} id={id} />}
+        {near && prop !== "none" && prop !== "toolbox" && gripFingers(kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin"), R * 0.86)}
       </g>
     );
     return (
@@ -231,7 +278,7 @@ export const Character: React.FC<CharProps> = (props) => {
       {kind === "batman" && (
         <g>
           <ellipse cx={8} cy={-torsoLen + 52} rx={22} ry={13} fill={pal.accent} stroke={outline} strokeWidth={sw} />
-          <g transform={`translate(${8 - 18} ${-torsoLen + 44}) scale(0.18)`}><path d="M0,50 C20,40 30,20 25,5 C45,20 55,30 70,28 L80,10 L88,25 L100,22 L112,25 L120,10 L130,28 C145,30 155,20 175,5 C170,20 180,40 200,50 C180,52 165,62 160,78 C150,66 135,64 125,72 C115,78 105,85 100,95 C95,85 85,78 75,72 C65,64 50,66 40,78 C35,62 20,52 0,50 Z" fill="#0a0a0f" /></g>
+          <g transform={`translate(${8 - 19} ${-torsoLen + 43}) scale(0.19)`}><path d={BAT_EMBLEM} fill="#0a0a0f" /></g>
           <path d={`M${-shW + 8} ${-torsoLen + 70} Q0 ${-torsoLen + 84} ${shW - 6} ${-torsoLen + 70}`} stroke={shade(pal.top, 0.35)} strokeWidth={2} fill="none" />
         </g>
       )}
@@ -285,6 +332,23 @@ export const Character: React.FC<CharProps> = (props) => {
   const rot = (px: number, py: number) => [px * Math.cos(rad) - py * Math.sin(rad), px * Math.sin(rad) + py * Math.cos(rad)];
   const [fsx, fsy] = rot(-shW * 0.55, -torsoLen + 22);
   const [nsx, nsy] = rot(shW * 0.6, -torsoLen + 22);
+  // two-bone IK toward a world-space palm target (no rubber arms: reach is clamped)
+  const ik = (target: [number, number] | undefined, sx: number, sy: number, fallback: [number, number]): [number, number] => {
+    if (!target) return fallback;
+    const lx = (target[0] - x) / (scale * facing), ly = (target[1] - y) / scale - hipY;
+    const dx = lx - sx, dy = ly - sy;
+    const L1 = b.ua * S, L2 = b.fa * S + R * 0.75;
+    const d = Math.max(Math.abs(L1 - L2) + 1, Math.min(L1 + L2 - 0.01, Math.hypot(dx, dy)));
+    const th = Math.atan2(dx, dy) / D;
+    const al = Math.acos(Math.min(1, Math.max(-1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)))) / D;
+    const be = Math.acos(Math.min(1, Math.max(-1, (L1 * L1 + L2 * L2 - d * d) / (2 * L1 * L2)))) / D;
+    return [th - al, 180 - be];
+  };
+  p.armNear = ik(props.reachNear, nsx, nsy, p.armNear);
+  p.armFar = ik(props.reachFar, fsx, fsy, p.armFar);
+  const gy = ((props.groundY ?? y) - y) / scale;
+  const air = Math.max(0, Math.min(1, (gy - 0) / 400));
+  const shOp = (props.shadow ?? 1) * (1 - silhouette * 0.4) * (1 - air * 0.7);
 
   // cape (batman) behind everything
   const cape = kind === "batman" ? (() => {
@@ -309,7 +373,9 @@ export const Character: React.FC<CharProps> = (props) => {
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible", ...props.style }}>
       {defs}
       <g transform={`translate(${x} ${y}) scale(${facing * scale} ${scale})`}>
-        <ellipse cx={0} cy={2} rx={70 * b.sh} ry={10} fill="#000" opacity={0.45 * (1 - silhouette * 0.5)} />
+        <radialGradient id={`${id}-ao`}><stop offset="0" stopColor="#000" stopOpacity="0.85" /><stop offset="0.55" stopColor="#000" stopOpacity="0.45" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
+        <ellipse cx={0} cy={gy + 3} rx={(95 + air * 60) * b.sh} ry={16 + air * 6} fill={`url(#${id}-ao)`} opacity={0.75 * shOp} />
+        <ellipse cx={0} cy={gy + 2} rx={48 * b.sh} ry={6} fill="#000" opacity={0.55 * shOp * (1 - air)} />
         {cape}
         <g transform={`translate(0 ${hipY})`}>
           <g transform={`translate(${fsx} ${fsy})`}><Arm ang={p.armFar} near={false} /></g>
@@ -376,7 +442,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       {isBat ? (
         <g>
           <path d={`M9 ${eyeY - 1} L24 ${eyeY - 4 - brow} L22 ${eyeY + 2} L11 ${eyeY + 2} Z`} fill="#f4f7ff" transform={`scale(1 ${1 - blink * 0.9})`} style={{ transformOrigin: `16px ${eyeY}px` }} />
-          {glowEyes > 0 && <circle cx={16} cy={eyeY} r={14} fill={`url(#${id}-eyeglow)`} opacity={glowEyes} />}
+          {glowEyes > 0 && <ellipse cx={16} cy={eyeY} rx={9} ry={5} fill={`url(#${id}-eyeglow)`} opacity={glowEyes * 0.75} />}
         </g>
       ) : (
         <g>
@@ -488,3 +554,8 @@ export const walk = (phase: number, amt = 1): Partial<Pose> => {
     bob: -Math.abs(c) * 6 * amt,
   };
 };
+
+/** walk pose from distance travelled (world px) so feet plant instead of sliding.
+ *  One full cycle = two steps = 4 * legLength * sin(swing) * scale. */
+export const strideOf = (kind: Kind, scale: number, amt = 1) => 4 * (BUILD[kind].thigh + BUILD[kind].shin) * Math.sin((24 * amt * Math.PI) / 180) * scale;
+export const walkDist = (dist: number, kind: Kind, scale: number, amt = 1): Partial<Pose> => walk(((Math.abs(dist) / strideOf(kind, scale, amt)) % 1 + 1) % 1, amt);
