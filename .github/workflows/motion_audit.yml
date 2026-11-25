@@ -1,0 +1,33 @@
+name: Motion + acting + audio audit
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Video URL"
+        required: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && pip install -q opencv-python-headless numpy scipy
+      - run: curl -sL "${{ inputs.url }}" -o v.mp4 && ls -la v.mp4
+      - name: Motion / acting / mix audit
+        run: python3 scripts/motion_audit.py v.mp4 out
+      - name: SFX asset analysis (how synthetic each sound is)
+        run: |
+          python3 scripts/sfx.py
+          python3 - <<'PY' | tee out/sfx_assets.md
+          import glob, wave, numpy as np
+          print("| sfx | sec | centroid Hz | spectral flatness (0 tone..1 noise) | crest dB | peak tone Hz |\n|---|---|---|---|---|---|")
+          for f in sorted(glob.glob("public/sfx/*.wav")):
+              w = wave.open(f); n = w.getnframes(); sr = w.getframerate(); ch = w.getnchannels()
+              x = np.frombuffer(w.readframes(n), np.int16).astype(np.float32).reshape(-1, ch).mean(1) / 32768
+              X = np.abs(np.fft.rfft(x[: sr * 2] * np.hanning(min(len(x), sr * 2)))) + 1e-9
+              fq = np.fft.rfftfreq(min(len(x), sr * 2), 1 / sr)
+              cen = float((fq * X).sum() / X.sum()); flat = float(np.exp(np.mean(np.log(X))) / np.mean(X))
+              crest = 20 * np.log10(np.max(np.abs(x)) / (np.sqrt(np.mean(x ** 2)) + 1e-9))
+              print(f"| {f.split('/')[-1]} | {n/sr:.2f} | {cen:.0f} | {flat:.3f} | {crest:.1f} | {fq[np.argmax(X)]:.0f} |")
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: motion-audit, path: out }
