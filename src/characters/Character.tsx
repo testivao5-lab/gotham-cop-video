@@ -18,7 +18,7 @@ export const NEUTRAL: Pose = {
 
 type Pal = { skin: string; hair: string; top: string; top2: string; pants: string; shoes: string; hat?: string; accent: string; };
 const PAL: Record<Kind, Pal> = {
-  alex: { skin: "#c48a62", hair: "#17110e", top: "#8f98aa", top2: "#1c2433", pants: "#25407c", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
+  alex: { skin: "#c48a62", hair: "#17110e", top: "#1f2c3f", top2: "#0b0f18", pants: "#18212f", shoes: "#0a0a0e", hat: "#1a2436", accent: "#d9b24a" },
   alexYoung: { skin: "#c48a62", hair: "#17110e", top: "#7a2e2a", top2: "#e0d6c0", pants: "#2e3a56", shoes: "#3a2a20", accent: "#e0d6c0" },
   alexDress: { skin: "#c48a62", hair: "#17110e", top: "#1d2b52", top2: "#c9cfd9", pants: "#1d2b52", shoes: "#060608", hat: "#1d2b52", accent: "#d9b24a" },
   mara: { skin: "#7a4a30", hair: "#2a1410", top: "#2b3654", top2: "#a9bfd8", pants: "#1b2236", shoes: "#0a0a0e", hat: "#22397a", accent: "#d9b24a" },
@@ -63,6 +63,9 @@ export type CharProps = {
   reachNear?: [number, number]; reachFar?: [number, number];
   /** world y of the floor for the contact shadow (defaults to y) */
   groundY?: number; allowMouth?: boolean; noLife?: boolean; shadow?: number;
+  /** view-angle matrix: "threeQuarter" (default: chest details on the front surface, near arm at the back shoulder),
+   *  "side" (same rig, chest details on the profile edge) or "back" (no face features, no chest details, cape covers the back) */
+  viewAngle?: "threeQuarter" | "side" | "back";
 };
 
 export const BAT_EMBLEM = "M100 30 L92 12 L88 28 C78 26 70 20 66 8 C56 22 30 26 4 22 C22 34 26 50 20 64 C34 56 46 58 54 70 C62 60 72 62 80 72 C86 66 94 68 100 88 C106 68 114 66 120 72 C128 62 138 60 146 70 C154 58 166 56 180 64 C174 50 178 34 196 22 C170 26 144 22 134 8 C130 20 122 26 112 28 L108 12 Z";
@@ -125,12 +128,19 @@ export const Character: React.FC<CharProps> = (props) => {
   const hand = (type: string, col: string, r: number) => {
     const st = { stroke: outline, strokeWidth: sw } as const;
     if (type === "fist" || type === "grip") {
+      // side-view fist: back of hand, four curled fingers stacked on the palm side (middle longest, pinky shortest), thumb wrapped over index/middle
+      const fing = [[0.42, 1.0], [0.82, 1.1], [1.22, 1.0], [1.6, 0.82]];
       return (
         <g>
-          <path d={`M${-r * 0.95} ${r * 0.1} Q${-r * 1.15} ${r * 1.2} ${-r * 0.55} ${r * 1.9} Q${r * 0.2} ${r * 2.25} ${r * 0.95} ${r * 1.75} Q${r * 1.25} ${r * 0.9} ${r * 0.9} ${r * 0.05} Z`} fill={col} {...st} />
-          {[0.75, 1.15, 1.55].map((t, i) => <path key={i} d={`M${r * 0.15} ${r * t} Q${r * 0.7} ${r * (t - 0.08)} ${r * 1.05} ${r * (t + 0.05)}`} stroke={outline} strokeWidth={sw * 0.7} fill="none" opacity={0.75} />)}
-          <path d={`M${r * 0.75} ${r * 0.35} Q${r * 1.5} ${r * 0.55} ${r * 1.25} ${r * 1.05} Q${r * 0.9} ${r * 1.1} ${r * 0.55} ${r * 0.85}`} fill={col} {...st} />
-          <path d={`M${-r * 0.5} ${r * 0.5} Q${-r * 0.6} ${r * 1.2} ${-r * 0.3} ${r * 1.6}`} stroke="#000" strokeOpacity={0.2} strokeWidth={r * 0.35} fill="none" />
+          <path d={`M${-r * 0.95} ${r * 0.05} Q${-r * 1.15} ${r * 1.0} ${-r * 0.82} ${r * 1.78} Q${-r * 0.3} ${r * 2.12} ${r * 0.4} ${r * 2.02} L${r * 0.5} ${r * 0.05} Z`} fill={col} {...st} />
+          {fing.map(([t, w], i) => (
+            <g key={i}>
+              <rect x={r * 0.1} y={r * t} width={r * (0.55 + w * 0.6)} height={r * 0.42} rx={r * 0.21} fill={col} {...st} />
+              <path d={`M${r * (0.3 + w * 0.45)} ${r * (t + 0.08)} q${r * 0.12} ${r * 0.13} 0 ${r * 0.26}`} stroke={outline} strokeWidth={sw * 0.6} fill="none" opacity={0.6} />
+            </g>
+          ))}
+          <path d={`M${r * 0.35} ${r * 0.12} C${r * 1.0} ${r * 0.0} ${r * 1.45} ${r * 0.45} ${r * 1.28} ${r * 0.86} C${r * 1.15} ${r * 1.1} ${r * 0.75} ${r * 1.06} ${r * 0.55} ${r * 0.86} Z`} fill={col} {...st} />
+          <path d={`M${r * 1.0} ${r * 0.62} q${r * 0.18} ${r * 0.04} ${r * 0.2} ${r * 0.2}`} stroke={outline} strokeWidth={sw * 0.5} fill="none" opacity={0.5} />
         </g>
       );
     }
@@ -154,7 +164,7 @@ export const Character: React.FC<CharProps> = (props) => {
   /** fingers wrapped over a held prop (drawn above it) */
   const gripFingers = (col: string, r: number) => (
     <g>
-      {[0.55, 0.95, 1.35, 1.72].map((t, i) => <rect key={i} x={-r * 0.1} y={r * (t - 0.2)} width={r * 1.15} height={r * 0.42} rx={r * 0.21} fill={col} stroke={outline} strokeWidth={sw * 0.8} />)}
+      {[[0.55, 1.05], [0.95, 1.15], [1.35, 1.05], [1.72, 0.88]].map(([t, w], i) => <rect key={i} x={-r * 0.1} y={r * (t - 0.2)} width={r * w} height={r * 0.42} rx={r * 0.21} fill={col} stroke={outline} strokeWidth={sw * 0.8} />)}
     </g>
   );
 
@@ -163,24 +173,49 @@ export const Character: React.FC<CharProps> = (props) => {
 
   const D = Math.PI / 180;
   const dir = (a: number) => [Math.sin(a * D), Math.cos(a * D)];
-  /** smooth two-segment limb: outlines first, then fills (no seam at the joint), plus cylindrical shading */
-  const Limb = ({ L1, L2, a1, a2, r1, r2, col, light, end }: { L1: number; L2: number; a1: number; a2: number; r1: number; r2: number; col: string; light: string; end?: React.ReactNode }) => {
+  /** seamless two-segment limb: upper and lower segments taper into one shared joint radius, outlines drawn first and
+   *  covered by the fills (no internal seams, no visible joint circles), shading = thin rim + one soft shadow band
+   *  clipped inside the limb (no "pipe" stripes). The shoulder/hip cap has no outline so it blends into the torso. */
+  const Limb = ({ L1, L2, a1, a2, r1, r2, col, light, shadowCol, end, cid, lower }: { L1: number; L2: number; a1: number; a2: number; r1: number; r2: number; col: string; light: string; shadowCol: string; end?: React.ReactNode; cid: string; lower?: { t0: number; col: string; light: string; shadow: string; cuff?: string } }) => {
     const [d1x, d1y] = dir(a1); const [d2x, d2y] = dir(a2);
     const ex = d1x * L1, ey = d1y * L1, wx = ex + d2x * L2, wy = ey + d2y * L2;
-    const full = `M0 0 L${ex} ${ey} L${wx} ${wy}`;
-    const up = `M0 0 L${ex} ${ey}`;
-    const o = ls * 1;
+    const rE = (r1 + r2) / 2;
+    const n1: [number, number] = [-d1y, d1x], n2: [number, number] = [-d2y, d2x];
+    const lv = [ls, -0.55];
+    const s1 = n1[0] * lv[0] + n1[1] * lv[1] >= 0 ? 1 : -1, s2 = n2[0] * lv[0] + n2[1] * lv[1] >= 0 ? 1 : -1;
+    const o1 = [-n1[0] * s1, -n1[1] * s1], o2 = [-n2[0] * s2, -n2[1] * s2], oE = [(o1[0] + o2[0]) / 2, (o1[1] + o2[1]) / 2];
+    const seg = (ax: number, ay: number, bx: number, by: number, ra: number, rb: number, o: number[], k: number) => {
+      const dx = bx - ax, dy = by - ay, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+      const Ax = ax + o[0] * ra * k, Ay = ay + o[1] * ra * k, Bx = bx + o[0] * rb * k, By = by + o[1] * rb * k;
+      return `M${Ax + nx * ra} ${Ay + ny * ra} L${Bx + nx * rb} ${By + ny * rb} L${Bx - nx * rb} ${By - ny * rb} L${Ax - nx * ra} ${Ay - ny * ra} Z`;
+    };
+    const circ = (cx: number, cy: number, r: number, o: number[], k: number) => { const X = cx + o[0] * r * k, Y = cy + o[1] * r * k; return `M${X - r} ${Y} A${r} ${r} 0 1 0 ${X + r} ${Y} A${r} ${r} 0 1 0 ${X - r} ${Y} Z`; };
+    const shapes = (k: number) => [seg(0, 0, ex, ey, r1, rE, o1, k), seg(ex, ey, wx, wy, rE, r2, o2, k), circ(ex, ey, rE, oE, k), circ(wx, wy, r2, o2, k), circ(0, 0, r1, o1, k)];
+    const base = shapes(0);
+    const fill = (k: number, c: string, op = 1) => <g opacity={op}>{shapes(k).map((d, i) => <path key={i} d={d} fill={c} />)}</g>;
+    const cc = `${id}${uid}${cid}`;
+    let lowerEl: React.ReactNode = null;
+    if (lower) {
+      const gx = ex + d2x * L2 * lower.t0, gy2 = ey + d2y * L2 * lower.t0, rg = rE + (r2 - rE) * lower.t0;
+      const ls2 = (k: number, c: string) => <g>{[seg(gx, gy2, wx, wy, rg, r2, o2, k), circ(wx, wy, r2, o2, k)].map((d, i) => <path key={i} d={d} fill={c} />)}</g>;
+      lowerEl = (
+        <g>
+          {ls2(0, lower.light)}{ls2(0.25, lower.col)}{ls2(1.45, lower.shadow)}
+          <path d={`M${gx + n2[0] * rg * 1.1} ${gy2 + n2[1] * rg * 1.1} L${gx - n2[0] * rg * 1.1} ${gy2 - n2[1] * rg * 1.1}`} stroke={lower.cuff ?? outline} strokeWidth={lower.cuff ? rg * 0.55 : sw} strokeLinecap="round" />
+        </g>
+      );
+    }
     return (
       <g>
-        <path d={full} stroke={outline} strokeWidth={r2 * 2 + sw * 2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <path d={up} stroke={outline} strokeWidth={r1 * 2 + sw * 2} strokeLinecap="round" fill="none" />
-        <path d={full} stroke={col} strokeWidth={r2 * 2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <path d={up} stroke={col} strokeWidth={r1 * 2} strokeLinecap="round" fill="none" />
-        <path d={full} transform={`translate(${-o * r2 * 0.42} 0)`} stroke="#000" strokeOpacity={0.28} strokeWidth={r2 * 0.9} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <path d={full} transform={`translate(${o * r2 * 0.55} 0)`} stroke={light} strokeOpacity={0.55} strokeWidth={r2 * 0.28} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <defs><clipPath id={cc}>{base.map((d, i) => <path key={i} d={d} />)}</clipPath></defs>
+        {base.slice(0, 4).map((d, i) => <path key={i} d={d} fill={outline} stroke={outline} strokeWidth={sw * 2} strokeLinejoin="round" />)}
+        <g clipPath={`url(#${cc})`}>
+          {fill(0, light)}
+          {fill(0.25, col)}
+          {fill(1.45, shadowCol, 0.9)}
+          {lowerEl}
+        </g>
         <g transform={`translate(${wx} ${wy}) rotate(${-a2})`}>{end}</g>
-        {/* elbow / knee crease */}
-        <path d={`M${ex - d2y * r2 * 0.5} ${ey + d2x * r2 * 0.5} l${d2y * r2 * 0.6} ${-d2x * r2 * 0.6}`} stroke={outline} strokeOpacity={0.35} strokeWidth={1.4} />
       </g>
     );
   };
@@ -189,34 +224,56 @@ export const Character: React.FC<CharProps> = (props) => {
   const lightOf = (m: string) => mix(mats[m], rim, 0.5);
 
   const Arm = ({ ang, near }: { ang: [number, number]; near: boolean }) => {
-    const [s, e] = ang;
+    const [s0, e] = ang;
     const handType = near ? p.handNear : p.handFar;
-    const sleeve = solid("top");
-    const glove = kind === "batman" ? pal.shoes : kind === "specialist" ? pal.top2 : pal.skin;
-    const a2 = s + e;
-    const [d1x, d1y] = dir(s); const [d2x, d2y] = dir(a2);
-    const ex = d1x * b.ua * S, ey = d1y * b.ua * S;
+    const isBat = kind === "batman";
+    const sleeve = isBat ? "#2b303c" : solid("top");
+    const sleeveL = isBat ? "#454d5e" : mix(solid("top"), rim, 0.35);
+    const sleeveS = isBat ? "#1b1f28" : shade(solid("top"), 0.38);
+    const glove = isBat ? "#14161d" : kind === "specialist" ? pal.top2 : pal.skin;
+    const a2 = s0 + e;
+    const [d1x, d1y] = dir(s0); const [d2x, d2y] = dir(a2);
+    const L1 = b.ua * S, L2 = b.fa * S;
+    const ex = d1x * L1, ey = d1y * L1;
+    const r1 = R * 1.08, r2 = R * 0.82;
+    const handCol = isBat ? glove : kind === "specialist" ? g("top2") : g("skin");
     const handEnd = (
       <g>
-        {hand(handType, kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin"), R * 0.86)}
+        {hand(handType, handCol, R * 0.86)}
         {near && prop !== "none" && <Prop type={prop} on={propOn} beam={flashBeam} r={R} id={id} />}
-        {near && prop !== "none" && prop !== "toolbox" && gripFingers(kind === "batman" ? g("shoes") : kind === "specialist" ? g("top2") : g("skin"), R * 0.86)}
+        {near && prop !== "none" && prop !== "toolbox" && gripFingers(handCol, R * 0.86)}
       </g>
     );
+    const lower = isBat
+      ? { t0: 0.42, col: glove, light: "#2a2e3a", shadow: "#08090c" }
+      : kind === "father"
+      ? { t0: 0.38, col: pal.skin, light: mix(pal.skin, rim, 0.3), shadow: shade(pal.skin, 0.35), cuff: shade(pal.top, 0.15) }
+      : undefined;
+    // outer (ulnar / back) edge of the forearm = away from the elbow crease
+    const vx = -d1x + (d1x * d2x + d1y * d2y) * d2x, vy = -d1y + (d1x * d2x + d1y * d2y) * d2y;
+    const n2x = -d2y, n2y = d2x;
+    const dotv = vx * n2x + vy * n2y;
+    const inner = Math.abs(dotv) > 0.08 ? Math.sign(dotv) : Math.sign(n2x || 1);
+    const ox = -inner * n2x, oy = -inner * n2y;
     return (
       <g>
-        <Limb L1={b.ua * S} L2={b.fa * S} a1={s} a2={a2} r1={R * 1.08} r2={R * 0.82} col={sleeve} light={lightOf("top")} end={handEnd} />
-        {kind === "batman" && (
-          <g>
-            <path d={`M${ex + d2x * b.fa * S * 0.42} ${ey + d2y * b.fa * S * 0.42} L${ex + d2x * b.fa * S} ${ey + d2y * b.fa * S}`} stroke={glove} strokeWidth={R * 1.75} strokeLinecap="round" />
-            {[0.5, 0.62, 0.74].map((t, i) => (
-              <path key={i} d={`M${ex + d2x * b.fa * S * t - d2y * R * 0.8} ${ey + d2y * b.fa * S * t + d2x * R * 0.8} l${-d2y * R * 0.9 + d2x * 8} ${d2x * R * 0.9 + d2y * 8} l${d2x * 6} ${d2y * 6} Z`} fill={glove} stroke={outline} strokeWidth={1} />
-            ))}
-          </g>
-        )}
-        {(kind === "alex" || kind === "mara") && (
-          <path d={`M${d1x * 18 - d1y * R * 0.7} ${d1y * 18 + d1x * R * 0.7} l${d1y * R * 1.4} ${-d1x * R * 1.4} l${d1x * 12} ${d1y * 12} l${-d1y * R * 1.4} ${d1x * R * 1.4} Z`} fill={pal.accent} opacity={near ? 0.8 : 0.35} />
-        )}
+        <Limb cid={near ? "an" : "af"} L1={L1} L2={L2} a1={s0} a2={a2} r1={r1} r2={r2} col={sleeve} light={sleeveL} shadowCol={sleeveS} end={handEnd} lower={lower} />
+        {isBat && [0.52, 0.66, 0.8].map((t, i) => {
+          const rr = (r1 + r2) / 2 + (r2 - (r1 + r2) / 2) * t;
+          const px = ex + d2x * L2 * t + ox * rr * 0.9, py = ey + d2y * L2 * t + oy * rr * 0.9;
+          return <path key={i} d={`M${px} ${py} L${px + d2x * 12} ${py + d2y * 12} L${px - d2x * 3 + ox * 15} ${py - d2y * 3 + oy * 15} Z`} fill={glove} stroke={outline} strokeWidth={sw * 0.7} strokeLinejoin="round" />;
+        })}
+        {near && (kind === "alex" || kind === "mara" || kind === "alexDress") && (() => {
+          const cx = d1x * L1 * 0.4, cy = d1y * L1 * 0.4, n1x = -d1y, n1y = d1x, w = r1 * 0.62;
+          return (
+            <g>
+              <path d={`M${cx + n1x * w - d1x * 5} ${cy + n1y * w - d1y * 5} L${cx + d1x * 4} ${cy + d1y * 4} L${cx - n1x * w - d1x * 5} ${cy - n1y * w - d1y * 5}`} stroke={pal.accent} strokeWidth={3.2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={`M${cx + n1x * w + d1x * 2} ${cy + n1y * w + d1y * 2} L${cx + d1x * 11} ${cy + d1y * 11} L${cx - n1x * w + d1x * 2} ${cy - n1y * w + d1y * 2}`} stroke={pal.accent} strokeWidth={3.2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={`M${-n1x * r1 * 0.9} ${-n1y * r1 * 0.9} L${n1x * r1 * 0.9} ${n1y * r1 * 0.9}`} stroke={shade(solid("top"), 0.45)} strokeWidth={6} strokeLinecap="round" opacity={0.9} />
+              <circle cx={n1x * r1 * 0.5} cy={n1y * r1 * 0.5} r={1.8} fill={pal.accent} />
+            </g>
+          );
+        })()}
       </g>
     );
   };
@@ -235,7 +292,7 @@ export const Character: React.FC<CharProps> = (props) => {
     );
     return (
       <g>
-        <Limb L1={b.thigh} L2={b.shin} a1={h} a2={a2} r1={R * 1.38} r2={R * 1.02} col={solid("pants")} light={lightOf("pants")} end={foot} />
+        <Limb cid={`lg${Math.round(h * 10)}`} L1={b.thigh} L2={b.shin} a1={h} a2={a2} r1={R * 1.38} r2={R * 1.02} col={solid("pants")} light={mix(solid("pants"), rim, 0.3)} shadowCol={shade(solid("pants"), 0.38)} end={foot} />
         {(kind === "batman" || kind === "nia") && (
           <path d={`M${kx + d2x * b.shin * 0.55} ${ky + d2y * b.shin * 0.55} L${ax} ${ay - 2}`} stroke={pal.shoes} strokeWidth={R * 2.05} strokeLinecap="round" />
         )}
@@ -250,37 +307,44 @@ export const Character: React.FC<CharProps> = (props) => {
     ? `M${-hipW * 1.35} 34 L${-shW * 0.95} ${-torsoLen + 18} Q${-shW * 0.8} ${-torsoLen - 4} ${-10} ${-torsoLen} H${12} Q${shW * 0.9} ${-torsoLen - 2} ${shW} ${-torsoLen + 20} L${hipW * 1.45} 34 Z`
     : `M${-wW} 6 C${-wW - 4} ${-40} ${-shW - 4} ${-torsoLen + 50} ${-shW} ${-torsoLen + 16} Q${-shW + 2} ${-torsoLen - 2} ${-12} ${-torsoLen} H${14} Q${shW + 2} ${-torsoLen - 2} ${shW + 2} ${-torsoLen + 18} C${shW + 4 + fem * 6} ${-torsoLen + 60} ${wW + 8 + belly * 2} ${-60 + belly} ${wW + 2} 6 Z`;
 
+  const backView = props.viewAngle === "back";
+  const cxF = props.viewAngle === "side" ? shW * 0.62 : shW * 0.4; // front centreline (3/4: +0.20 * torsoW)
+  const badgeX = props.viewAngle === "side" ? shW * 0.3 : -shW * 0.1; // left pectoral (-0.05 * torsoW)
+  const batX = props.viewAngle === "side" ? shW * 0.45 : shW * 0.3; // emblem on the FRONT sternum
   const Torso = (
     <g transform={`rotate(${p.lean})`}>
       {/* pelvis */}
       <path d={`M${-hipW} -18 Q${-hipW - 2} 18 ${-hipW + 6} 22 H${hipW - 6} Q${hipW + 2} 18 ${hipW} -18 Z`} fill={g("pants")} stroke={outline} strokeWidth={sw} />
       <path d={torsoPath} fill={g("top")} stroke={outline} strokeWidth={sw} />
-      {/* uniform details */}
-      {(kind === "alex" || kind === "mara") && (
+      {/* uniform details (front chest surface only; hidden in back view). 3/4 view: front centreline at +0.20 torsoW */}
+      {!backView && (kind === "alex" || kind === "mara") && (
         <g>
-          <path d={`M-6 ${-torsoLen + 2} L4 ${-torsoLen + 26} L14 ${-torsoLen + 2}`} fill={pal.top2} stroke={outline} strokeWidth={sw * 0.8} />
-          <path d={`M2 ${-torsoLen + 22} L6 ${-torsoLen + 22} L8 ${-56} L4 ${-48} L0 ${-56} Z`} fill={pal.top2} />
-          <path d={`M${shW * 0.35} ${-torsoLen + 40} l8 -4 l8 4 l-1 11 l-7 5 l-7 -5 Z`} fill={pal.accent} stroke={outline} strokeWidth={sw * 0.6} />
-          <circle cx={shW * 0.35 + 8} cy={-torsoLen + 47} r={2} fill={shade(pal.accent, 0.4)} />
-          <rect x={-shW * 0.55} y={-torsoLen + 46} width={18} height={12} fill="none" stroke={shade(pal.top, 0.4)} strokeWidth={1.5} />
-          {kind === "mara" && <path d={`M${-wW - 6} 4 L${-shW - 2} ${-torsoLen + 20} Q-12 ${-torsoLen - 2} -6 ${-torsoLen} L-2 0 Z`} fill={pal.top2} opacity={0.85} />}
-          {kind === "mara" && <path d={`M${wW + 4} 4 L${shW + 2} ${-torsoLen + 20} Q14 ${-torsoLen - 2} 14 ${-torsoLen} L10 0 Z`} fill={pal.top2} opacity={0.85} />}
+          {kind === "mara" && <path d={`M${-wW - 6} 4 L${-shW - 2} ${-torsoLen + 20} Q${cxF - 22} ${-torsoLen - 2} ${cxF - 8} ${-torsoLen} L${cxF - 3} 0 Z`} fill={pal.top} stroke={outline} strokeWidth={sw * 0.6} />}
+          {kind === "mara" && <path d={`M${wW + 4} 4 L${shW + 2} ${-torsoLen + 20} Q${cxF + 16} ${-torsoLen - 2} ${cxF + 10} ${-torsoLen} L${cxF + 6} 0 Z`} fill={pal.top} stroke={outline} strokeWidth={sw * 0.6} />}
+          {kind === "mara" && <path d={`M${cxF - 8} ${-torsoLen + 2} L${cxF + 1} ${-torsoLen + 30} L${cxF + 10} ${-torsoLen + 2} Z`} fill={pal.top2} stroke={outline} strokeWidth={sw * 0.6} />}
+          <path d={`M${cxF - 9} ${-torsoLen + 2} L${cxF + 1} ${-torsoLen + 24} L${cxF + 11} ${-torsoLen + 2}`} fill={pal.top2} stroke={outline} strokeWidth={sw * 0.8} />
+          <path d={`M${cxF - 1} ${-torsoLen + 20} L${cxF + 3} ${-torsoLen + 20} L${cxF + 5} ${-56} L${cxF + 1} ${-48} L${cxF - 3} ${-56} Z`} fill={kind === "mara" ? "#1a2238" : pal.top2} />
+          <path d={`M${cxF - 2} ${-torsoLen + 34} V${-26}`} stroke={shade(pal.top, 0.35)} strokeWidth={1.2} opacity={0.6} />
+          <path d={`M${badgeX - 8} ${-torsoLen + 40} l8 -4 l8 4 l-1 11 l-7 5 l-7 -5 Z`} fill={pal.accent} stroke={outline} strokeWidth={sw * 0.6} />
+          <circle cx={badgeX} cy={-torsoLen + 47} r={2} fill={shade(pal.accent, 0.4)} />
+          <rect x={shW * 0.5} y={-torsoLen + 50} width={14} height={4} rx={1} fill={pal.accent} opacity={0.85} />
+          {kind === "mara" && <g><path d={`M${-shW * 0.95} ${-torsoLen + 8} L${-shW * 0.3} ${-torsoLen + 2} L${-shW * 0.28} ${-torsoLen + 10} L${-shW * 0.95} ${-torsoLen + 16} Z`} fill="#141a2a" stroke={outline} strokeWidth={sw * 0.5} /><circle cx={-shW * 0.36} cy={-torsoLen + 7} r={2.4} fill={pal.accent} /><path d={`M${shW * 0.7} ${-torsoLen + 2} L${shW * 1.0} ${-torsoLen + 8} L${shW * 0.98} ${-torsoLen + 15} L${shW * 0.68} ${-torsoLen + 10} Z`} fill="#141a2a" stroke={outline} strokeWidth={sw * 0.5} /></g>}
         </g>
       )}
-      {kind === "alexDress" && (
+      {!backView && kind === "alexDress" && (
         <g>
-          <path d={`M-6 ${-torsoLen + 2} L4 ${-torsoLen + 30} L14 ${-torsoLen + 2}`} fill={pal.top2} />
-          <path d={`M2 ${-torsoLen + 22} L6 ${-torsoLen + 22} L7 ${-80} L4 ${-74} L1 ${-80} Z`} fill="#0b0b10" />
-          {[0, 1, 2, 3].map((i) => <circle key={i} cx={10} cy={-torsoLen + 40 + i * 26} r={3} fill={pal.accent} />)}
-          <path d={`M${shW * 0.4} ${-torsoLen + 40} l8 -4 l8 4 l-1 11 l-7 5 l-7 -5 Z`} fill={pal.accent} />
-          <path d={`M${-shW + 6} ${-torsoLen + 14} h${shW * 0.7} v6 h${-shW * 0.7} Z`} fill={pal.accent} opacity={0.8} />
+          <path d={`M${cxF - 9} ${-torsoLen + 2} L${cxF + 1} ${-torsoLen + 30} L${cxF + 11} ${-torsoLen + 2}`} fill={pal.top2} />
+          <path d={`M${cxF - 1} ${-torsoLen + 22} L${cxF + 3} ${-torsoLen + 22} L${cxF + 4} ${-80} L${cxF + 1} ${-74} L${cxF - 2} ${-80} Z`} fill="#0b0b10" />
+          {[0, 1, 2, 3].map((i) => <circle key={i} cx={cxF + 6} cy={-torsoLen + 40 + i * 26} r={3} fill={pal.accent} />)}
+          <path d={`M${badgeX - 8} ${-torsoLen + 40} l8 -4 l8 4 l-1 11 l-7 5 l-7 -5 Z`} fill={pal.accent} />
+          <path d={`M${shW * 0.2} ${-torsoLen + 12} q${shW * 0.4} 10 ${shW * 0.7} 2`} stroke={pal.accent} strokeWidth={3} fill="none" opacity={0.85} />
         </g>
       )}
-      {kind === "batman" && (
+      {!backView && kind === "batman" && (
         <g>
-          <ellipse cx={8} cy={-torsoLen + 52} rx={22} ry={13} fill={pal.accent} stroke={outline} strokeWidth={sw} />
-          <g transform={`translate(${8 - 19} ${-torsoLen + 43}) scale(0.19)`}><path d={BAT_EMBLEM} fill="#0a0a0f" /></g>
-          <path d={`M${-shW + 8} ${-torsoLen + 70} Q0 ${-torsoLen + 84} ${shW - 6} ${-torsoLen + 70}`} stroke={shade(pal.top, 0.35)} strokeWidth={2} fill="none" />
+          <ellipse cx={batX} cy={-torsoLen + 52} rx={19} ry={13} fill={pal.accent} stroke={outline} strokeWidth={sw} />
+          <g transform={`translate(${batX - 17} ${-torsoLen + 43.5}) scale(0.17)`}><path d={BAT_EMBLEM} fill="#0a0a0f" /></g>
+          <path d={`M${-shW + 10} ${-torsoLen + 72} Q${batX} ${-torsoLen + 84} ${shW - 6} ${-torsoLen + 70}`} stroke={shade(pal.top, 0.35)} strokeWidth={2} fill="none" />
         </g>
       )}
       {kind === "father" && (
@@ -312,17 +376,26 @@ export const Character: React.FC<CharProps> = (props) => {
           {(kind === "alex" || kind === "mara") && <rect x={-wW - 10} y={-18} width={14} height={30} rx={3} fill="#121216" />}
         </g>
       )}
-      {shoulderRadio && (
-        <g transform={`translate(${shW * 0.55} ${-torsoLen + 24})`}>
+      {shoulderRadio && !backView && (
+        <g transform={`translate(${shW * 0.66} ${-torsoLen + 16})`}>
           <rect x={-6} y={0} width={12} height={20} rx={3} fill="#15161a" stroke={outline} strokeWidth={sw * 0.6} />
           <path d={`M0 20 C-10 60 -30 80 -26 ${torsoLen - 40}`} stroke="#15161a" strokeWidth={2.5} fill="none" />
         </g>
       )}
       {/* neck + head */}
-      <g transform={`translate(2 ${-torsoLen + 2}) rotate(${p.neck})`}>
-        <path d={`M-9 6 L-8 -10 H10 L11 6 Z`} fill={kind === "batman" ? g("shoes") : g("skin")} stroke={outline} strokeWidth={sw} />
+      <g transform={`translate(${kind === "nia" ? 2 : shW * 0.22} ${-torsoLen + 2}) rotate(${p.neck})`}>
+        {kind === "batman"
+          ? <path d={`M-17 10 L-13 -12 H14 L19 10 Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
+          : <path d={`M-11 6 L-10 -10 H11 L12 6 Z`} fill={g("skin")} stroke={outline} strokeWidth={sw} />}
+        {kind !== "batman" && <path d={`M-10 -2 Q1 4 11 -2 L12 6 H-11 Z`} fill="#000" opacity={0.18} />}
+        {(kind === "alex" || kind === "mara" || kind === "alexDress") && !backView && (
+          <g>
+            <path d={`M-13 8 L-12 -6 L2 6 Z`} fill={kind === "alexDress" ? pal.top2 : (kind === "mara" ? pal.top2 : pal.top)} stroke={outline} strokeWidth={sw * 0.7} strokeLinejoin="round" />
+            <path d={`M14 8 L13 -6 L2 6 Z`} fill={kind === "alexDress" ? pal.top2 : (kind === "mara" ? pal.top2 : pal.top)} stroke={outline} strokeWidth={sw * 0.7} strokeLinejoin="round" />
+          </g>
+        )}
         <g transform={`translate(0 -6) rotate(${p.head}) scale(${b.headS * (b.child ? 1.3 : 1.14)})`}>
-          <Head uid={uid} kind={kind} p={p} pal={pal} g={g} outline={outline} sw={sw / b.headS} f={f} glowEyes={glowEyes} noHat={noHat} id={id} />
+          <Head uid={uid} kind={kind} p={p} pal={pal} g={g} outline={outline} sw={sw / b.headS} f={f} glowEyes={glowEyes} noHat={noHat} id={id} back={backView} />
         </g>
       </g>
     </g>
@@ -331,8 +404,8 @@ export const Character: React.FC<CharProps> = (props) => {
   // shoulder positions in torso space -> world (approx through lean rotation)
   const rad = (p.lean * Math.PI) / 180;
   const rot = (px: number, py: number) => [px * Math.cos(rad) - py * Math.sin(rad), px * Math.sin(rad) + py * Math.cos(rad)];
-  const [fsx, fsy] = rot(-shW * 0.55, -torsoLen + 22);
-  const [nsx, nsy] = rot(shW * 0.6, -torsoLen + 22);
+  const [fsx, fsy] = rot(shW * 0.64, -torsoLen + 22);
+  const [nsx, nsy] = rot(-shW * 0.56, -torsoLen + 22);
   // two-bone IK toward a world-space palm target (no rubber arms: reach is clamped)
   const ik = (target: [number, number] | undefined, sx: number, sy: number, fallback: [number, number]): [number, number] => {
     if (!target) return fallback;
@@ -391,13 +464,17 @@ export const Character: React.FC<CharProps> = (props) => {
           <g transform={`translate(${-hipW * 0.45} 8)`}><Leg ang={p.legFar} /></g>
           <g transform={`translate(${hipW * 0.45} 8)`}><Leg ang={p.legNear} /></g>
           {Torso}
-          <g transform={`translate(${nsx} ${nsy})`}><Arm ang={p.armNear} near /></g>
-          {kind === "batman" && (
+          {kind === "batman" && !backView && (
             <g transform={`rotate(${p.lean})`}>
-              <path d={`M${-shW - 10} ${-torsoLen + 46} Q${-shW - 8} ${-torsoLen - 8} -8 ${-torsoLen - 6} H16 Q${shW + 12} ${-torsoLen - 6} ${shW + 14} ${-torsoLen + 48} Q${shW * 0.4} ${-torsoLen + 26} 4 ${-torsoLen + 22} Q${-shW * 0.5} ${-torsoLen + 26} ${-shW - 10} ${-torsoLen + 46} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
-              <path d={`M${shW * 0.2} ${-torsoLen - 2} Q${shW + 6} ${-torsoLen} ${shW + 10} ${-torsoLen + 40}`} stroke={rim} strokeOpacity={0.35} strokeWidth={2} fill="none" />
+              <path d={`M${shW * 0.05} ${-torsoLen - 4} Q${-shW * 0.7} ${-torsoLen - 8} ${-shW - 8} ${-torsoLen + 14} L${-shW - 4} ${-torsoLen + 40} Q${-shW * 0.8} ${-torsoLen + 22} ${-shW * 0.35} ${-torsoLen + 12} Q${-shW * 0.1} ${-torsoLen + 6} ${shW * 0.05} ${-torsoLen - 4} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} strokeLinejoin="round" />
             </g>
           )}
+          {kind === "batman" && backView && (
+            <g transform={`rotate(${p.lean})`}>
+              <path d={`M${-shW - 10} ${-torsoLen + 4} Q0 ${-torsoLen - 14} ${shW + 10} ${-torsoLen + 4} L${shW + 30} ${b.thigh + b.shin - 30} L${-shW - 30} ${b.thigh + b.shin - 30} Z`} fill={g("hat")} stroke={outline} strokeWidth={sw} />
+            </g>
+          )}
+          <g transform={`translate(${nsx} ${nsy})`}><Arm ang={p.armNear} near /></g>
         </g>
       </g>
     </svg>
@@ -405,7 +482,7 @@ export const Character: React.FC<CharProps> = (props) => {
 };
 
 /* ---------------- head ---------------- */
-const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; outline: string; sw: number; f: number; glowEyes: number; noHat: boolean; id: string; uid?: string }> = ({ kind, p, pal, g, outline, sw, glowEyes, noHat, id, uid = "" }) => {
+const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; outline: string; sw: number; f: number; glowEyes: number; noHat: boolean; id: string; uid?: string; back?: boolean }> = ({ kind, p, pal, g, outline, sw, glowEyes, noHat, id, uid = "", back = false }) => {
   const fem = kind === "mara" || kind === "mother" || kind === "nia" || kind === "employee";
   const child = kind === "nia";
   const face = child
@@ -426,6 +503,15 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       {kind === "employee" && <path d="M-26 -50 C-34 -34 -30 -14 -20 -6 L-4 -14 L-8 -50 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {child && <path d="M-34 -40 C-38 -70 -10 -82 8 -80 C30 -78 40 -62 38 -40 C38 -20 34 -4 26 4 L-30 4 C-36 -10 -36 -24 -34 -40 Z" fill={shade(pal.top, 0.12)} stroke={outline} strokeWidth={sw} />}
       <path d={face} fill={g("skin")} stroke={outline} strokeWidth={sw} />
+      {child && !back && (
+        <g>
+          <path d="M-22 -40 C-22 -62 0 -70 14 -66 C26 -62 30 -52 28 -44 C22 -50 14 -50 8 -46 C5 -52 -2 -52 -6 -46 C-10 -42 -14 -38 -22 -30 Z" fill={g("hair")} stroke={outline} strokeWidth={sw * 0.8} />
+          <path d="M-24 -30 C-28 -20 -28 -8 -24 0" stroke={g("hair")} strokeWidth={7} fill="none" strokeLinecap="round" />
+          <path d="M26 -72 C8 -82 -24 -78 -33 -52 C-39 -30 -35 -6 -27 6" stroke={outline} strokeWidth={12} fill="none" strokeLinecap="round" />
+          <path d="M26 -72 C8 -82 -24 -78 -33 -52 C-39 -30 -35 -6 -27 6" stroke={pal.top} strokeWidth={8} fill="none" strokeLinecap="round" />
+        </g>
+      )}
+      {kind === "father" && !back && <path d="M2 -56 q10 -3 20 0 M4 -51 q9 -2 17 0 M10 -28 q5 3 10 1 M6 -18 q-2 6 2 10" stroke={pal.skin === "" ? outline : "#6a4228"} strokeWidth={1.3} fill="none" opacity={0.7} />}
       {/* cel shadow on back half of face */}
       <path d={`M-24 -38 C-24 -30 -22 -22 -18 -16 C-10 -6 -2 -2 6 -1 C-2 -10 -4 -26 2 -44 C-6 -52 -16 -54 -24 -38 Z`} fill="#000" opacity={0.18} />
       {/* ear */}
@@ -443,12 +529,14 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
       )}
       {(fem && !child) && kind !== "mara" && <path d="M-24 -40 C-28 -62 -6 -72 10 -68 C24 -66 30 -56 26 -46 C16 -52 6 -52 -2 -48 C-10 -44 -14 -40 -16 -32 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
       {kind === "mara" && <path d="M-24 -40 C-28 -60 -8 -70 8 -68 C22 -66 28 -58 26 -48 C16 -52 4 -52 -4 -48 C-10 -44 -14 -40 -16 -32 Z" fill={g("hair")} stroke={outline} strokeWidth={sw} />}
+      {kind === "mara" && !back && <path d="M-2 -50 C-6 -40 -4 -30 -1 -22 C1 -30 2 -40 3 -48 Z" fill={g("hair")} stroke={outline} strokeWidth={sw * 0.6} />}
       {/* batman cowl */}
       {isBat && (
-        <path d="M-25 -8 L-25 -40 C-26 -56 -18 -64 -15 -66 L-12 -88 L-4 -68 L8 -68 L13 -88 L18 -64 C26 -58 28 -48 27 -38 L33 -26 L26 -24 L20 -27 L10 -29 L0 -22 L-6 -8 Z" fill={g("hat")} stroke={outline} strokeWidth={sw} />
+        <path d="M-25 2 L-25 -40 C-26 -56 -18 -64 -15 -66 L-12 -88 L-4 -68 L8 -68 L13 -88 L18 -64 C26 -58 28 -48 27 -38 L33 -26 L26 -24 L20 -27 L10 -28 L6 -18 L5 -6 L2 3 Z" fill={g("hat")} stroke={outline} strokeWidth={sw} />
       )}
+      {back && <path d={face} fill={isBat ? g("hat") : g("hair")} stroke={outline} strokeWidth={sw} />}
       {/* eyes */}
-      {isBat ? (
+      {back ? null : isBat ? (
         <g>
           <path d={`M9 ${eyeY - 1} L24 ${eyeY - 4 - brow} L22 ${eyeY + 2} L11 ${eyeY + 2} Z`} fill="#f4f7ff" transform={`scale(1 ${1 - blink * 0.9})`} style={{ transformOrigin: `16px ${eyeY}px` }} />
           {glowEyes > 0 && <ellipse cx={16} cy={eyeY} rx={9} ry={5} fill={`url(#${id}-eyeglow)`} opacity={glowEyes * 0.75} />}
@@ -466,6 +554,7 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
           {blink > 0.5 && <path d={`M8 ${eyeY} Q15 ${eyeY + 2} 22 ${eyeY - 1}`} stroke={outline} strokeWidth={1.5} fill="none" />}
           <path d={`M7 ${eyeY - 6 - brow * 2} L23 ${eyeY - 7 + brow * 1.2}`} stroke={kind === "father" ? "#8a8a8a" : outline} strokeWidth={fem ? 2 : 3.2} strokeLinecap="round" />
           <path d={`M${7} ${eyeY - 1} Q15 ${eyeY - 6} 23 ${eyeY - 2}`} stroke={outline} strokeWidth={1.4} fill="none" />
+          {fem && blink < 0.5 && <path d={`M21 ${eyeY - 2} l4 -2.5 M22.5 ${eyeY - 0.5} l4 -1.2`} stroke={outline} strokeWidth={1.2} strokeLinecap="round" />}
         </g>
       )}
       {kind === "father" && (
@@ -475,9 +564,9 @@ const Head: React.FC<{ kind: Kind; p: Pose; pal: Pal; g: (m: string) => string; 
         </g>
       )}
       {/* nose line + mouth */}
-      {!child && <path d="M27 -34 L31 -27 L27 -25" stroke={outline} strokeWidth={1.2} fill="none" opacity={0.6} />}
-      <path d={child ? `M15 ${-15 - smileD} Q19 ${-13 + smileD} 23 ${-15 - smileD}` : `M17 ${-16 - smileD} Q21 ${-15 + smileD} 25 ${-16 - smileD * 0.6}`} stroke={fem ? "#5a2020" : outline} strokeWidth={fem ? 2.2 : 1.8} fill={p.mouth > 0.05 ? "#2a0d0d" : "none"} strokeLinecap="round" />
-      {p.mouth > 0.05 && <ellipse cx={21} cy={-14} rx={4} ry={p.mouth * 4} fill="#2a0d0d" />}
+      {!back && !child && <path d="M27 -34 L31 -27 L27 -25" stroke={outline} strokeWidth={1.2} fill="none" opacity={0.6} />}
+      {!back && <path d={child ? `M15 ${-15 - smileD} Q19 ${-13 + smileD} 23 ${-15 - smileD}` : `M17 ${-16 - smileD} Q21 ${-15 + smileD} 25 ${-16 - smileD * 0.6}`} stroke={fem ? "#5a2020" : outline} strokeWidth={fem ? 2.2 : 1.8} fill={p.mouth > 0.05 ? "#2a0d0d" : "none"} strokeLinecap="round" />}
+      {!back && p.mouth > 0.05 && <ellipse cx={21} cy={-14} rx={4} ry={p.mouth * 4} fill="#2a0d0d" />}
       {/* hats */}
       {!noHat && (kind === "alex" || kind === "mara" || kind === "alexDress") && (
         <g>
@@ -573,18 +662,19 @@ export const strideOf = (kind: Kind, scale: number, amt = 1) => 4 * (BUILD[kind]
 export const walkDist = (dist: number, kind: Kind, scale: number, amt = 1): Partial<Pose> => walk(((Math.abs(dist) / strideOf(kind, scale, amt)) % 1 + 1) % 1, amt);
 
 /** world-space anchor points (lean 0) — for hand contacts: shoulder radio, near/far shoulder, chest, hand-off height */
-export const anchor = (kind: Kind, x: number, y: number, scale = 1, facing: 1 | -1 = 1, part: "radio" | "shoulderNear" | "shoulderFar" | "chest" | "waist" = "radio"): [number, number] => {
+export const anchor = (kind: Kind, x: number, y: number, scale = 1, facing: 1 | -1 = 1, part: "radio" | "shoulderNear" | "shoulderFar" | "chest" | "waist" | "badge" = "radio"): [number, number] => {
   const b = BUILD[kind];
   const S = b.H / 400;
   const hipY = -(b.thigh + b.shin);
   const torsoLen = 150 * S;
   const shW = 46 * b.sh;
   const lp: Record<string, [number, number]> = {
-    radio: [shW * 0.55, hipY - torsoLen + 34],
-    shoulderNear: [shW * 0.6, hipY - torsoLen + 22],
-    shoulderFar: [-shW * 0.55, hipY - torsoLen + 22],
+    radio: [shW * 0.66, hipY - torsoLen + 26],
+    shoulderNear: [-shW * 0.56, hipY - torsoLen + 22],
+    shoulderFar: [shW * 0.64, hipY - torsoLen + 22],
     chest: [shW * 0.2, hipY - torsoLen * 0.6],
     waist: [0, hipY - torsoLen * 0.1],
+    badge: [-shW * 0.1, hipY - torsoLen + 47],
   };
   const [lx, ly] = lp[part];
   return [x + lx * scale * facing, y + ly * scale];

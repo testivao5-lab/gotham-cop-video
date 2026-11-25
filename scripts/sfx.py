@@ -59,9 +59,20 @@ def loopify(x, xf=2.0):
     return body
 
 
+WARM_LP = {"static": 3200, "rain_bed": 4200, "chain": 5200, "lock": 5200, "click": 5200, "switch": 5200}
+
+
 def write(name, x, peak=0.9):
+    """every file: warm low-pass (no white-noise hiss / harsh highs), DC/rumble high-pass, 15 ms edge fades"""
     if x.ndim == 1:
         x = stereo(x)
+    cut = WARM_LP.get(name, 4600)
+    x = np.stack([hp(lp(x[:, c], cut, 4), 35) for c in range(x.shape[1])], 1)
+    k = min(len(x) // 4, int(SR * 0.015))
+    if k > 1:
+        ramp = np.linspace(0, 1, k)[:, None]
+        x[:k] *= ramp
+        x[-k:] *= ramp[::-1]
     x = norm(x, peak)
     pcm = (np.clip(x, -1, 1) * 32767).astype("<i2")
     with wave.open(os.path.join(OUT, name + ".wav"), "wb") as w:
@@ -96,7 +107,7 @@ def rain_bed():
     n = int(SR * d)
     chans = []
     for c in range(2):
-        hiss = bp(pink(n), 400, 9000) * 0.5
+        hiss = bp(pink(n), 300, 4000) * 0.4
         body = lp(pink(n), 700) * 0.6
         gust = 0.75 + 0.25 * np.sin(2 * np.pi * t_(d) * (1 / 11) + c) * np.sin(2 * np.pi * t_(d) / 22)
         chans.append((hiss + body) * gust + drops(n, 60, 2500, 7000) * 0.35 + drops(n, 18, 300, 1200, 0.01) * 0.5)
@@ -170,11 +181,11 @@ def grab():
 def static():
     d = 1.0
     n = int(SR * d)
-    hiss = bp(rng.standard_normal(n), 1500, 4500) * env(n, 0.01, 0.9, 3)
+    hiss = bp(pink(n), 900, 2800) * env(n, 0.02, 0.9, 3)
     crk = np.zeros(n)
     for p in rng.integers(0, n - 300, 40):
         crk[p : p + 120] += rng.standard_normal(120) * rng.uniform(0.5, 1.5)
-    write("static", hiss + bp(crk, 1000, 6000) * 0.6, 0.6)
+    write("static", hiss + bp(crk, 800, 3000) * 0.4, 0.6)
 
 
 def thud():

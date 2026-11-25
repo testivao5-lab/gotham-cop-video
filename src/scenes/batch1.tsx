@@ -87,25 +87,76 @@ export const Scene02: React.FC = () => {
 /* camera is OUTSIDE the bus looking in: droplets bead on the outer glass; the interior is warm, bright, dry */
 const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> = ({ fog, wipe, pound }) => {
   const f = useCurrentFrame();
-  const S = 2.75, NX = 940, NY = 1330 + pound * 6;
-  const shN = anchor("nia", NX, NY, S, 1, "shoulderNear");
-  const shF = anchor("nia", NX, NY, S, 1, "shoulderFar");
-  // palms flat on the glass, arms attached through IK; a pound pulls back then slams
-  const back = pound * 18;
-  const palmN: [number, number] = [shN[0] + 120, shN[1] - 170 + back * 0.3];
-  const palmF: [number, number] = [shF[0] - 120, shF[1] - 170 + back * 0.3];
-  const Palm = ({ at, flip }: { at: [number, number]; flip: number }) => (
-    <g transform={`translate(${at[0]} ${at[1] - 10}) scale(${flip * (1 + pound * 0.05)} 1)`}>
-      <path d="M-30 30 C-36 6 -34 -14 -30 -30 L-28 -62 Q-22 -72 -16 -62 L-14 -34 L-10 -74 Q-3 -84 4 -74 L4 -36 L10 -70 Q17 -79 23 -69 L20 -32 L28 -54 Q35 -60 39 -50 L32 -10 C30 10 22 26 10 34 Z" fill="#b07a56" stroke="#3a2214" strokeWidth={3} strokeLinejoin="round" />
-      <path d="M-30 30 C-40 20 -52 4 -56 -12 Q-58 -22 -48 -20 C-40 -10 -34 -2 -28 4" fill="#b07a56" stroke="#3a2214" strokeWidth={3} />
-      <ellipse cx={0} cy={0} rx={30} ry={26} fill="#fff" opacity={0.1 + pound * 0.1} />
-      <path d="M-24 34 L12 38 L10 60 L-26 56 Z" fill="#f0c21a" stroke="#3a2214" strokeWidth={3} />
-    </g>
-  );
+  const uid = React.useId().replace(/[^a-zA-Z0-9]/g, "");
+  // window opening (glass) and sill; everything of the girl below the sill is hidden by the bus body (z30)
+  const WX0 = 230, WX1 = 1690, WY0 = 110, SILL = 720;
+  const br = breathe(f, 0.3, 3);
+  const CX = 960 + Math.sin(f * 0.05) * 4, HY = 410 + br * 0.4 - pound * 6;
+  const blink = blinkAt(f, 84, 11);
+  // ONE pair of hands only (no rig arms): palms pressed flat on the glass; a pound pulls back then slams
+  const pull = 1 - pound;
+  const hs = 0.93 + pound * 0.07;
+  const palmL: [number, number] = [CX - 270 - pull * 6, 400 + pull * 10];
+  const palmR: [number, number] = [CX + 270 + pull * 6, 396 + pull * 10];
+  const skin = "#a8714d", skinL = "#c48a62", skinS = "#7a4c30", ol = "#2a170d";
+  const coat = "#f0c21a", coatS = "#c4960c", coatD = "#8a6408", coatL = "#ffe27a";
+  /** palm facing the camera: thumb toward her midline (side = +1 for screen-left hand) */
+  const Palm = ({ at, side }: { at: [number, number]; side: 1 | -1 }) => {
+    const fingers = [
+      { x: 30, len: 74, w: 21 },  // index (next to thumb)
+      { x: 8, len: 84, w: 22 },   // middle
+      { x: -14, len: 77, w: 21 }, // ring
+      { x: -34, len: 60, w: 18 }, // pinky
+    ];
+    return (
+      <g transform={`translate(${at[0]} ${at[1]}) scale(${side * hs} ${hs})`}>
+        {/* forearm/sleeve comes up from below the sill */}
+        <path d={`M-30 40 C-34 120 -44 260 -52 ${SILL - at[1] + 60} L44 ${SILL - at[1] + 60} C40 260 34 120 30 40 Z`} fill={skin} stroke={ol} strokeWidth={3.5} />
+        <path d={`M-48 ${170} C-50 260 -56 ${SILL - at[1]} -58 ${SILL - at[1] + 60} L50 ${SILL - at[1] + 60} C46 ${SILL - at[1]} 44 260 42 ${170} Q0 ${154} -48 ${170} Z`} fill={coat} stroke={ol} strokeWidth={3.5} />
+        <path d={`M-48 ${170} Q0 ${154} 42 ${170} L42 ${188} Q0 ${172} -48 ${188} Z`} fill={coatS} />
+        <path d={`M24 ${190} C28 260 30 ${SILL - at[1] - 40} 32 ${SILL - at[1] + 60}`} stroke={coatL} strokeWidth={6} opacity={0.55} fill="none" />
+        {/* fingers (drawn under the palm outline so the knuckle line is clean) */}
+        {fingers.map((q, i) => (
+          <g key={i}>
+            <path d={`M${q.x - q.w / 2} -30 L${q.x - q.w * 0.42} ${-30 - q.len + q.w * 0.45} Q${q.x} ${-30 - q.len - q.w * 0.35} ${q.x + q.w * 0.42} ${-30 - q.len + q.w * 0.45} L${q.x + q.w / 2} -30 Z`} fill={skin} stroke={ol} strokeWidth={3.2} strokeLinejoin="round" />
+            <ellipse cx={q.x} cy={-30 - q.len + q.w * 0.5} rx={q.w * 0.34} ry={q.w * 0.42} fill="#f1d2bc" opacity={0.35 + pound * 0.3} />
+            <path d={`M${q.x - q.w * 0.3} ${-30 - q.len * 0.45} q${q.w * 0.3} 3 ${q.w * 0.6} 0`} stroke={skinS} strokeWidth={1.6} fill="none" />
+          </g>
+        ))}
+        {/* palm */}
+        <path d="M-46 -34 Q-48 10 -38 34 Q-20 50 8 48 Q34 46 42 22 L44 -34 Q0 -42 -46 -34 Z" fill={skin} stroke={ol} strokeWidth={3.5} strokeLinejoin="round" />
+        {/* thumb toward the midline */}
+        <path d="M38 18 C54 6 66 -18 76 -36 Q86 -48 92 -38 C90 -18 74 10 56 34 Q46 44 34 38 Z" fill={skin} stroke={ol} strokeWidth={3.5} strokeLinejoin="round" />
+        <ellipse cx={84} cy={-36} rx={7} ry={9} fill="#f1d2bc" opacity={0.35 + pound * 0.3} />
+        {/* palm creases + pressure pads (flattened on the glass) */}
+        <path d="M-34 -10 Q0 -2 30 -16 M-30 14 Q0 4 34 -2 M24 30 Q8 12 16 -26" stroke={skinS} strokeWidth={1.8} fill="none" opacity={0.75} />
+        <ellipse cx={-6} cy={8} rx={30} ry={24} fill="#f4dccb" opacity={0.18 + pound * 0.22} />
+        <path d="M-44 -30 Q-46 6 -36 30" stroke={skinL} strokeWidth={3} fill="none" opacity={0.6} />
+      </g>
+    );
+  };
   const beads = Array.from({ length: 46 });
+  const eye = (ex: number) => {
+    const cid = `nia${uid}${ex > 0 ? "r" : "l"}`;
+    const lid = Math.max(0, Math.min(1, blink));
+    return (
+      <g transform={`translate(${ex} 0) scale(1 ${1 - lid * 0.92})`}>
+        <clipPath id={cid}><path d="M-25 0 Q-22 -20 0 -21 Q22 -20 25 0 Q20 15 0 16 Q-20 15 -25 0 Z" /></clipPath>
+        <path d="M-25 0 Q-22 -20 0 -21 Q22 -20 25 0 Q20 15 0 16 Q-20 15 -25 0 Z" fill="#f6efe6" stroke={ol} strokeWidth={2.4} />
+        <g clipPath={`url(#${cid})`}>
+          <circle cx={-ex * 0.04} cy={-1} r={14} fill="#4a2a16" />
+          <circle cx={-ex * 0.04} cy={-1} r={7.5} fill="#120a06" />
+          <circle cx={-ex * 0.04 + 5} cy={-6} r={4} fill="#fff" />
+          <circle cx={-ex * 0.04 - 5} cy={4} r={1.6} fill="#fff" opacity={0.7} />
+        </g>
+        <path d="M-27 -2 Q-22 -23 0 -24 Q22 -23 27 -2" stroke={ol} strokeWidth={4.5} fill="none" strokeLinecap="round" />
+        {[-18, -10, -2].map((lx, i) => <path key={i} d={`M${ex > 0 ? -lx : lx} -21 l${ex > 0 ? 3 : -3} -6`} stroke={ol} strokeWidth={2} strokeLinecap="round" />)}
+      </g>
+    );
+  };
   return (
     <>
-      {/* bright warm dry interior */}
+      {/* z10 — bright warm dry interior */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <linearGradient id="bwIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f1d9a6" /><stop offset="0.55" stopColor="#c99a62" /><stop offset="1" stopColor="#6a4a2c" /></linearGradient>
@@ -114,46 +165,106 @@ const BusWindowCloseup: React.FC<{ fog: number; wipe: number; pound: number }> =
         </defs>
         <rect width="1920" height="1080" fill="url(#bwIn)" />
         <rect width="1920" height="1080" fill="url(#bwLamp)" opacity={0.85} />
-        {/* ceiling light strip + ribs */}
         <rect x={0} y={128} width={1920} height={22} fill="#fffbe8" opacity={0.75} />
         {[260, 700, 1140, 1580].map((x) => <rect key={x} x={x} y={150} width={14} height={520} fill="#a87c4a" opacity={0.35} />)}
-        {/* far-side windows: dark night beyond, rain outside only */}
-        {[0, 1, 2, 3].map((i) => <rect key={i} x={120 + i * 440} y={330} width={360} height={190} rx={18} fill="#1c2840" opacity={0.85} />)}
-        <rect x={0} y={300} width={1920} height={10} fill="#8a7050" opacity={0.6} />
-        {/* green bus seats */}
-        {[0, 1, 2].map((i) => <g key={i}><rect x={200 + i * 600} y={660} width={420} height={320} rx={36} fill="url(#bwSeat)" stroke="#12261c" strokeWidth={4} /><rect x={200 + i * 600} y={660} width={420} height={26} rx={13} fill="#5e9c78" /><rect x={214 + i * 600} y={700} width={8} height={260} fill="#ffffff" opacity={0.12} /></g>)}
+        {/* far-side windows: dark wet night beyond */}
+        {[0, 1, 2, 3].map((i) => <g key={i}><rect x={120 + i * 440} y={250} width={360} height={190} rx={18} fill="#1c2840" opacity={0.9} /><rect x={140 + i * 440} y={268} width={60} height={150} fill="#7a9ad0" opacity={0.08} /></g>)}
+        <rect x={0} y={232} width={1920} height={10} fill="#8a7050" opacity={0.6} />
+        {/* green seat backs (behind her) */}
+        {[0, 1, 2].map((i) => <g key={i}><rect x={160 + i * 620} y={470} width={440} height={400} rx={40} fill="url(#bwSeat)" stroke="#12261c" strokeWidth={4} /><rect x={160 + i * 620} y={470} width={440} height={26} rx={13} fill="#5e9c78" /><rect x={176 + i * 620} y={510} width={8} height={300} fill="#ffffff" opacity={0.12} /></g>)}
+        <rect width="1920" height="1080" fill="#ffd9a0" opacity={0.08} />
       </svg>
-      <Character id="s3nia" kind="nia" x={NX} y={NY} scale={S} facing={1} lightSide={1} silhouette={0} nightTint={0.02} rim="#fff2cc"
-        reachNear={palmN} reachFar={palmF}
-        pose={{ handNear: "open", handFar: "open", brow: -1.4, head: -8 + pound * 2, eyeX: 0.7, eyeY: -0.5, blink: 0, smile: -1, lean: pound * 4 }} />
-      <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}><Palm at={palmF} flip={-1} /><Palm at={palmN} flip={1} /></svg>
-      {/* outer glass: fog, palm clearings exactly under her palms, beading droplets */}
+      {/* z20 — Nia, front view: yellow raincoat hood, dark hair with bangs, child face aligned to the camera */}
+      <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+        <g transform={`translate(${CX} ${HY})`}>
+          {/* coat shoulders + chest */}
+          <path d={`M-250 ${420} C-240 ${300 - br} -200 ${220 - br} -96 ${190 - br} L96 ${190 - br} C200 ${220 - br} 240 ${300 - br} 250 ${420} Z`} fill={coat} stroke={ol} strokeWidth={4} />
+          <path d={`M-250 ${420} C-240 ${300 - br} -200 ${220 - br} -96 ${190 - br} L-60 ${196 - br} C-150 ${236} -190 ${320} -196 ${420} Z`} fill={coatS} />
+          <path d={`M0 ${200 - br} V${420}`} stroke={coatD} strokeWidth={4} />
+          {[250, 300].map((y) => <g key={y}><rect x={-26} y={y - 6} width={16} height={12} rx={3} fill="#3a2a10" /><rect x={10} y={y - 6} width={16} height={12} rx={3} fill="#3a2a10" /></g>)}
+          {/* hood back (behind the head) */}
+          <path d="M-150 60 C-176 -60 -120 -176 0 -180 C120 -176 176 -60 150 60 C150 130 120 196 70 214 L-70 214 C-120 196 -150 130 -150 60 Z" fill={coatS} stroke={ol} strokeWidth={4} />
+          <path d="M-128 50 C-146 -48 -96 -150 0 -152 C96 -150 146 -48 128 50 C124 120 96 170 56 186 L-56 186 C-96 170 -124 120 -128 50 Z" fill="#3a2a0c" />
+          {/* neck */}
+          <path d="M-34 110 L-36 190 Q0 204 36 190 L34 110 Z" fill={skinS} stroke={ol} strokeWidth={3} />
+          {/* hair behind the face (side strands falling inside the hood) */}
+          <path d="M-112 -20 C-124 40 -116 110 -92 150 L-70 150 C-86 100 -90 40 -84 -10 Z" fill="#1a120e" stroke={ol} strokeWidth={3} />
+          <path d="M112 -20 C124 40 116 110 92 150 L70 150 C86 100 90 40 84 -10 Z" fill="#1a120e" stroke={ol} strokeWidth={3} />
+          {/* face (front) */}
+          <path d="M-96 -30 C-100 -100 -54 -132 0 -132 C54 -132 100 -100 96 -30 C94 30 70 92 30 116 Q0 128 -30 116 C-70 92 -94 30 -96 -30 Z" fill={skin} stroke={ol} strokeWidth={4} />
+          <path d="M60 -110 C96 -80 100 -20 90 30 C80 76 56 104 30 116 C58 70 74 10 60 -110 Z" fill={skinS} opacity={0.45} />
+          <path d="M-80 -60 C-84 -20 -80 20 -70 46" stroke={skinL} strokeWidth={6} fill="none" opacity={0.5} />
+          {/* ears peeking under the hood */}
+          <path d="M-96 -14 C-112 -18 -116 14 -98 22" fill={skin} stroke={ol} strokeWidth={3} />
+          <path d="M96 -14 C112 -18 116 14 98 22" fill={skinS} stroke={ol} strokeWidth={3} />
+          {/* bangs */}
+          <path d="M-100 -40 C-104 -112 -48 -146 4 -142 C60 -140 104 -106 100 -40 C92 -64 80 -76 66 -80 C62 -64 52 -56 40 -54 C42 -68 38 -80 30 -86 C20 -66 2 -58 -14 -56 C-8 -70 -10 -80 -14 -88 C-30 -66 -50 -60 -66 -58 C-62 -70 -62 -78 -60 -84 C-80 -74 -94 -60 -100 -40 Z" fill="#1a120e" stroke={ol} strokeWidth={3} strokeLinejoin="round" />
+          <path d="M-40 -126 Q0 -136 40 -124" stroke="#4a3426" strokeWidth={5} fill="none" opacity={0.8} />
+          {/* hood rim (front edge framing the face) with drawstring */}
+          <path d="M-150 60 C-176 -60 -120 -176 0 -180 C120 -176 176 -60 150 60 C150 130 120 196 70 214 L-70 214 C-120 196 -150 130 -150 60 Z M-118 50 C-134 -40 -90 -138 0 -140 C90 -138 134 -40 118 50 C114 110 92 160 56 176 L-56 176 C-92 160 -114 110 -118 50 Z" fill={coat} fillRule="evenodd" stroke={ol} strokeWidth={4} />
+          <path d="M-142 40 C-160 -70 -100 -164 0 -168" stroke={coatL} strokeWidth={6} fill="none" opacity={0.6} />
+          <path d="M90 176 C120 150 140 100 146 40" stroke={coatD} strokeWidth={8} fill="none" opacity={0.5} />
+          <path d="M-46 178 L-50 236 M46 178 L52 236" stroke="#f4efe0" strokeWidth={4} strokeLinecap="round" />
+          <rect x={-56} y={232} width={12} height={18} rx={4} fill="#2a2a30" /><rect x={46} y={232} width={12} height={18} rx={4} fill="#2a2a30" />
+          {/* eyes (front, worried), brows tilted up at the middle */}
+          <g transform="translate(0 -18)">{eye(-44)}{eye(44)}</g>
+          <path d="M-72 -64 Q-50 -72 -22 -60" stroke="#1a120e" strokeWidth={6} fill="none" strokeLinecap="round" transform="rotate(-8 -46 -64)" />
+          <path d="M72 -64 Q50 -72 22 -60" stroke="#1a120e" strokeWidth={6} fill="none" strokeLinecap="round" transform="rotate(8 46 -64)" />
+          {/* small front nose + closed worried mouth (narrator-only) */}
+          <path d="M-4 0 Q-12 26 -6 32 Q0 36 8 32" stroke={skinS} strokeWidth={3} fill="none" strokeLinecap="round" />
+          <path d="M-20 64 Q0 56 20 64" stroke="#5a2020" strokeWidth={4} fill="none" strokeLinecap="round" />
+          <ellipse cx={-62} cy={30} rx={18} ry={10} fill="#d0604a" opacity={0.28} />
+          <ellipse cx={62} cy={30} rx={18} ry={10} fill="#d0604a" opacity={0.28} />
+        </g>
+        <Palm at={palmL} side={1} />
+        <Palm at={palmR} side={-1} />
+      </svg>
+      {/* z25 — outer glass: fog with the wipe + palm clearings, beading droplets (glass area only) */}
       <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <radialGradient id="bwSoft"><stop offset="0.55" stopColor="#000" stopOpacity="1" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
           <mask id="bwMask">
             <rect width="1920" height="1080" fill="white" />
-            <ellipse cx={950} cy={560} rx={300 * wipe} ry={220 * wipe} fill="url(#bwSoft)" />
-            <ellipse cx={palmN[0]} cy={palmN[1]} rx={70} ry={84} fill="url(#bwSoft)" />
-            <ellipse cx={palmF[0]} cy={palmF[1]} rx={70} ry={84} fill="url(#bwSoft)" />
+            <ellipse cx={CX} cy={HY - 10} rx={300 * wipe} ry={230 * wipe} fill="url(#bwSoft)" />
+            <ellipse cx={palmL[0]} cy={palmL[1] - 30} rx={92} ry={110} fill="url(#bwSoft)" />
+            <ellipse cx={palmR[0]} cy={palmR[1] - 30} rx={92} ry={110} fill="url(#bwSoft)" />
           </mask>
           <radialGradient id="bwFog"><stop offset="0" stopColor="#e4ecf4" stopOpacity="0.85" /><stop offset="1" stopColor="#c4d2e2" stopOpacity="1" /></radialGradient>
+          <clipPath id="bwGlass"><rect x={WX0} y={WY0} width={WX1 - WX0} height={SILL - WY0} rx={34} /></clipPath>
         </defs>
-        <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.62} mask="url(#bwMask)" />
-        {beads.map((_, i) => {
-          const slide = rand(i * 3) > 0.86; // a few slow trickles, no falling rain
-          const x0 = 120 + rand(i * 11) * 1680;
-          const y = 110 + ((rand(i * 5) * 860 + (slide ? f * (0.6 + rand(i) * 1.2) : 0)) % 860);
-          const r = 2.5 + rand(i * 7) * 5;
-          return <g key={i}><circle cx={x0} cy={y} r={r} fill="#eef5ff" opacity={0.22} /><circle cx={x0 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.5} />{slide && <path d={`M${x0} ${y - 40} Q${x0 + 2} ${y - 20} ${x0} ${y - r}`} stroke="#eef5ff" strokeWidth={1.4} opacity={0.18} fill="none" />}</g>;
+        <g clipPath="url(#bwGlass)">
+          <rect width="1920" height="1080" fill="url(#bwFog)" opacity={fog * 0.62} mask="url(#bwMask)" />
+          {beads.map((_, i) => {
+            const slide = rand(i * 3) > 0.86;
+            const x0 = WX0 + 20 + rand(i * 11) * (WX1 - WX0 - 40);
+            const y = WY0 + ((rand(i * 5) * (SILL - WY0) + (slide ? f * (0.6 + rand(i) * 1.2) : 0)) % (SILL - WY0));
+            const r = 2.5 + rand(i * 7) * 5;
+            return <g key={i}><circle cx={x0} cy={y} r={r} fill="#eef5ff" opacity={0.22} /><circle cx={x0 - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="#fff" opacity={0.5} />{slide && <path d={`M${x0} ${y - 40} Q${x0 + 2} ${y - 20} ${x0} ${y - r}`} stroke="#eef5ff" strokeWidth={1.4} opacity={0.18} fill="none" />}</g>;
+          })}
+          {pound > 0.2 && [palmL, palmR].map(([hx, hy], i) => <ellipse key={i} cx={hx} cy={hy - 30} rx={100 + (1 - pound) * 30} ry={118 + (1 - pound) * 30} fill="none" stroke="#ffffff" strokeWidth={3} opacity={pound * 0.25} />)}
+          <path d={`M${WX0 + 40} ${WY0} l240 0 l-260 ${SILL - WY0} l-90 0 Z`} fill="#fff" opacity={0.06} />
+        </g>
+      </svg>
+      {/* z30 — bus body: window frame, rubber gasket, sill, yellow panel with black rub rails, rain on the outside */}
+      <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+        <defs>
+          <linearGradient id="bwBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#d9a520" /><stop offset="0.5" stopColor="#b8860e" /><stop offset="1" stopColor="#5e430a" /></linearGradient>
+        </defs>
+        <path d={`M0 0 H1920 V1080 H0 Z M${WX0 + 34} ${WY0} H${WX1 - 34} Q${WX1} ${WY0} ${WX1} ${WY0 + 34} V${SILL - 34} Q${WX1} ${SILL} ${WX1 - 34} ${SILL} H${WX0 + 34} Q${WX0} ${SILL} ${WX0} ${SILL - 34} V${WY0 + 34} Q${WX0} ${WY0} ${WX0 + 34} ${WY0} Z`} fill="url(#bwBody)" fillRule="evenodd" />
+        <path d={`M0 0 H1920 V1080 H0 Z M${WX0 + 34} ${WY0} H${WX1 - 34} Q${WX1} ${WY0} ${WX1} ${WY0 + 34} V${SILL - 34} Q${WX1} ${SILL} ${WX1 - 34} ${SILL} H${WX0 + 34} Q${WX0} ${SILL} ${WX0} ${SILL - 34} V${WY0 + 34} Q${WX0} ${WY0} ${WX0 + 34} ${WY0} Z`} fill="#0e1424" fillRule="evenodd" opacity={0.42} />
+        <rect x={WX0} y={WY0} width={WX1 - WX0} height={SILL - WY0} rx={34} fill="none" stroke="#141414" strokeWidth={16} />
+        <rect x={WX0 - 14} y={WY0 - 14} width={WX1 - WX0 + 28} height={SILL - WY0 + 28} rx={44} fill="none" stroke="#e8c050" strokeWidth={3} opacity={0.35} />
+        <rect x={0} y={SILL + 30} width={1920} height={26} fill="#2a2008" />
+        <rect x={0} y={SILL + 30} width={1920} height={6} fill="#ffe08a" opacity={0.3} />
+        {[860, 960].map((y) => <g key={y}><rect x={0} y={y} width={1920} height={30} fill="#111" /><rect x={0} y={y} width={1920} height={5} fill="#5a5a5a" opacity={0.6} /></g>)}
+        {Array.from({ length: 24 }).map((_, i) => <circle key={i} cx={40 + i * 80} cy={SILL + 70} r={4} fill="#3a2a08" />)}
+        <path d={`M${WX0 - 60} 0 V1080 M${WX1 + 60} 0 V1080`} stroke="#3a2a08" strokeWidth={4} opacity={0.6} />
+        {/* rain sheeting down the outer body */}
+        {Array.from({ length: 30 }).map((_, i) => {
+          const x0 = rand(i * 17 + 3) * 1920, y0 = ((rand(i * 13) * 1100 + f * (9 + rand(i) * 6)) % 1100) - 40;
+          return <path key={i} d={`M${x0} ${y0} l-2 ${30 + rand(i * 2) * 30}`} stroke="#dfe8ff" strokeWidth={2} opacity={0.22} />;
         })}
-        {/* pound impact: brief condensation ring around each palm */}
-        {pound > 0.2 && [palmN, palmF].map(([hx, hy], i) => <ellipse key={i} cx={hx} cy={hy} rx={80 + (1 - pound) * 30} ry={92 + (1 - pound) * 30} fill="none" stroke="#ffffff" strokeWidth={3} opacity={pound * 0.25} />)}
-        {/* window frame */}
-        <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#c9981e" fillRule="evenodd" />
-        <path d="M0 0 H1920 V1080 H0 Z M140 90 H1780 Q1820 90 1820 130 V950 Q1820 990 1780 990 H140 Q100 990 100 950 V130 Q100 90 140 90 Z" fill="#141210" fillRule="evenodd" opacity={0.55} />
-        <path d="M100 130 Q100 90 140 90 H1780 Q1820 90 1820 130" stroke="#ffe08a" strokeWidth={3} fill="none" opacity={0.35} />
-        <path d="M150 100 l260 0 l-300 880 l-110 0 Z" fill="#fff" opacity={0.05} />
+        <path d={`M${WX0 - 14} ${SILL + 14} H${WX1 + 14}`} stroke="#ffeaa0" strokeWidth={2} opacity={0.4} />
       </svg>
     </>
   );
@@ -245,6 +356,186 @@ export const Scene03: React.FC = () => {
   );
 };
 
+
+/* ============ S4 — 2.5D street canyon seen from the Joker's rooftop ============ */
+/* real projection: camera 12 m above the street, focal 1600 px, vanishing point (760, 470).
+   Building walls run from the top of frame to the bottom edge (Y 1080); street, angled bus, two cruisers with lightbars, lamps with rain cones, wet reflections. */
+const S4Canyon: React.FC<{ led: boolean }> = ({ led }) => {
+  const f = useCurrentFrame();
+  const VX = 760, VY = 470, FOC = 1600, HC = 12;
+  const P = (X: number, Y: number, Z: number): [number, number] => [VX + (FOC * X) / Z, VY + (FOC * (HC - Y)) / Z];
+  const poly = (pts: [number, number][]) => "M" + pts.map((q) => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join(" L") + " Z";
+  const quadX = (X: number, z1: number, z2: number, y1: number, y2: number) => poly([P(X, y1, z1), P(X, y2, z1), P(X, y2, z2), P(X, y1, z2)]);
+  // buildings per side, far -> near
+  const sides = [-1, 1].map((sd) => {
+    const out: { z1: number; z2: number; h: number; body: string; seed: number; fe: boolean; crown: number }[] = [];
+    let z = 12;
+    let k = 0;
+    while (z < 520) {
+      const len = 22 + rand(sd * 100 + k * 7) * 40;
+      const h = 22 + rand(sd * 50 + k * 13) * 60;
+      const bodies = ["#2a2234", "#33263a", "#22283a", "#3a2a2e", "#2a2e3e"];
+      out.push({ z1: z, z2: z + len, h, body: bodies[Math.floor(rand(sd * 9 + k) * bodies.length)], seed: sd * 1000 + k * 37, fe: rand(sd * 3 + k * 5) > 0.45, crown: Math.floor(rand(sd * 11 + k * 3) * 3) });
+      z += len; k++;
+    }
+    return out.reverse();
+  });
+  const Wall = ({ sd, b }: { sd: number; b: (typeof sides)[0][0] }) => {
+    const X = sd * 14;
+    const floors = Math.floor(b.h / 3.6);
+    const cols = Math.max(2, Math.floor((b.z2 - b.z1) / 3.4));
+    const zMid = (b.z1 + b.z2) / 2;
+    const px = (FOC * 1) / zMid; // px per metre at this depth
+    const win: React.ReactNode[] = [];
+    if (px > 1.6) {
+      for (let fl = 0; fl < floors; fl++) {
+        for (let c = 0; c < cols; c++) {
+          const za = b.z1 + ((c + 0.25) * (b.z2 - b.z1)) / cols, zb = b.z1 + ((c + 0.75) * (b.z2 - b.z1)) / cols;
+          const ya = 1.2 + fl * 3.6, yb = ya + 2.0;
+          const [, ty] = P(X, yb, za);
+          if (ty > 1100) continue;
+          const [, by2] = P(X, ya, zb);
+          if (by2 < -20) continue;
+          const lit = rand(b.seed + fl * 31 + c * 7) < 0.26;
+          win.push(<path key={`${fl}-${c}`} d={quadX(X, za, zb, ya, yb)} fill={lit ? (rand(b.seed + fl + c) > 0.5 ? "#f2c66a" : "#e8a24a") : "#141826"} opacity={lit ? 0.95 : 0.85} />);
+        }
+      }
+    }
+    const fe: React.ReactNode[] = [];
+    if (b.fe && px > 3) {
+      const zc = b.z1 + (b.z2 - b.z1) * 0.5, w = Math.min(6, (b.z2 - b.z1) * 0.3);
+      const Xo = sd * (14 - 1.3);
+      for (let fl = 1; fl < Math.min(floors, 12); fl++) {
+        const y = fl * 3.6;
+        const a1 = P(Xo, y, zc - w), a2 = P(Xo, y, zc + w), w1 = P(X, y, zc - w), w2 = P(X, y, zc + w);
+        fe.push(<g key={fl}>
+          <path d={poly([w1, a1, a2, w2])} fill="#0b0c12" opacity={0.85} />
+          <path d={`M${a1[0]} ${a1[1]} L${a2[0]} ${a2[1]}`} stroke="#5a5e70" strokeWidth={Math.max(1, px * 0.08)} />
+          <path d={(() => { const s1 = P(Xo, y, fl % 2 ? zc - w : zc + w), s2 = P(Xo, y + 3.6, fl % 2 ? zc + w : zc - w); return `M${s1[0]} ${s1[1]} L${s2[0]} ${s2[1]}`; })()} stroke="#3a3e4e" strokeWidth={Math.max(1, px * 0.06)} />
+        </g>);
+      }
+    }
+    const top = P(X, b.h, b.z1), top2 = P(X, b.h, b.z2);
+    const crownH = 4 + b.crown * 3;
+    return (
+      <g>
+        <path d={quadX(X, b.z1, b.z2, 0, b.h)} fill={b.body} stroke="#07080c" strokeWidth={1.5} />
+        {/* vertical deco pilasters */}
+        {[0.33, 0.66].map((t) => { const zz = b.z1 + (b.z2 - b.z1) * t; const p1 = P(X, 0, zz), p2 = P(X, b.h, zz); return <path key={t} d={`M${p1[0]} ${p1[1]} L${p2[0]} ${p2[1]}`} stroke="#000" strokeOpacity={0.35} strokeWidth={Math.max(1, px * 0.5)} />; })}
+        {win}
+        {fe}
+        {/* stepped deco crown / spire silhouette on top */}
+        <path d={poly([top, P(X, b.h + crownH, b.z1 + (b.z2 - b.z1) * 0.2), P(X, b.h + crownH, b.z1 + (b.z2 - b.z1) * 0.8), top2])} fill={shadeHex(b.body)} stroke="#07080c" strokeWidth={1.2} />
+        {b.crown === 2 && (() => { const zz = (b.z1 + b.z2) / 2; const s1 = P(X, b.h + crownH, zz - 2), s2 = P(X, b.h + crownH + 14, zz), s3 = P(X, b.h + crownH, zz + 2); return <path d={poly([s1, s2, s3])} fill="#1a1622" />; })()}
+        {b.crown === 1 && (() => { const zz = b.z1 + (b.z2 - b.z1) * 0.7; const c = P(X - sd * 2, b.h + crownH + 3, zz); const r = (FOC * 2.4) / zz; return <g><rect x={c[0] - r} y={c[1] - r * 0.9} width={r * 2} height={r * 1.6} fill="#2a1e1a" stroke="#07080c" strokeWidth={1} /><path d={`M${c[0] - r * 1.1} ${c[1] - r * 0.9} L${c[0]} ${c[1] - r * 1.7} L${c[0] + r * 1.1} ${c[1] - r * 0.9} Z`} fill="#1a1210" /><path d={`M${c[0] - r * 0.8} ${c[1] + r * 0.7} V${c[1] + r * 2} M${c[0] + r * 0.8} ${c[1] + r * 0.7} V${c[1] + r * 2}`} stroke="#1a1210" strokeWidth={Math.max(1, r * 0.15)} /></g>; })()}
+        {/* rim light from the street glow */}
+        <path d={`M${P(X, 0, b.z2)[0]} ${P(X, 0, b.z2)[1]} L${P(X, b.h, b.z2)[0]} ${P(X, b.h, b.z2)[1]}`} stroke="#c88aff" strokeOpacity={0.18} strokeWidth={2} />
+      </g>
+    );
+  };
+  // street furniture
+  const lampZ = [30, 46, 62, 80, 104, 136, 180, 240];
+  const Box = ({ x0, x1, z0, z1, h, rotDeg, top, side, back, children }: { x0: number; x1: number; z0: number; z1: number; h: number; rotDeg: number; top: string; side: string; back: string; children?: (pp: (X: number, Y: number, Z: number) => [number, number]) => React.ReactNode }) => {
+    const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, a = (rotDeg * Math.PI) / 180;
+    const R = (X: number, Z: number): [number, number] => [cx + (X - cx) * Math.cos(a) - (Z - cz) * Math.sin(a), cz + (X - cx) * Math.sin(a) + (Z - cz) * Math.cos(a)];
+    const pp = (X: number, Y: number, Z: number) => { const [rx, rz] = R(X, Z); return P(rx, Y, rz); };
+    const sideX = (cx > 0 ? x0 : x1);
+    return (
+      <g>
+        <path d={poly([pp(x0, 0, z0), pp(x1, 0, z0), pp(x1, 0, z1), pp(x0, 0, z1)])} fill="#000" opacity={0.55} transform="translate(0 4)" />
+        <path d={poly([pp(sideX, 0, z0), pp(sideX, h, z0), pp(sideX, h, z1), pp(sideX, 0, z1)])} fill={side} stroke="#07080c" strokeWidth={2} />
+        <path d={poly([pp(x0, 0, z0), pp(x0, h, z0), pp(x1, h, z0), pp(x1, 0, z0)])} fill={back} stroke="#07080c" strokeWidth={2} />
+        <path d={poly([pp(x0, h, z0), pp(x1, h, z0), pp(x1, h, z1), pp(x0, h, z1)])} fill={top} stroke="#07080c" strokeWidth={2} />
+        {children?.(pp)}
+      </g>
+    );
+  };
+  const flash = led ? 1 : 0;
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+      <defs>
+        <linearGradient id="s4asph" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1a2032" /><stop offset="1" stopColor="#0a0d16" /></linearGradient>
+        <radialGradient id="s4lamp"><stop offset="0" stopColor="#ffe2a6" stopOpacity="0.75" /><stop offset="1" stopColor="#ffe2a6" stopOpacity="0" /></radialGradient>
+        <radialGradient id="s4red"><stop offset="0" stopColor="#ff3030" stopOpacity="0.8" /><stop offset="1" stopColor="#ff3030" stopOpacity="0" /></radialGradient>
+        <radialGradient id="s4blue"><stop offset="0" stopColor="#3a6cff" stopOpacity="0.8" /><stop offset="1" stopColor="#3a6cff" stopOpacity="0" /></radialGradient>
+        <linearGradient id="s4cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffe2a6" stopOpacity="0.35" /><stop offset="1" stopColor="#ffe2a6" stopOpacity="0" /></linearGradient>
+        <linearGradient id="s4refl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f2c66a" stopOpacity="0.45" /><stop offset="1" stopColor="#f2c66a" stopOpacity="0" /></linearGradient>
+      </defs>
+      {/* street + sidewalks */}
+      <path d={poly([P(-14, 0, 12), P(14, 0, 12), P(14, 0, 600), P(-14, 0, 600)])} fill="#202634" />
+      <path d={poly([P(-11, 0, 12), P(11, 0, 12), P(11, 0, 600), P(-11, 0, 600)])} fill="url(#s4asph)" />
+      {[-11, 11].map((X) => <path key={X} d={`M${P(X, 0, 24)[0]} ${P(X, 0, 24)[1]} L${P(X, 0, 600)[0]} ${P(X, 0, 600)[1]}`} stroke="#4a5068" strokeWidth={3} />)}
+      {Array.from({ length: 22 }).map((_, i) => { const z0 = 26 + i * 9, z1 = z0 + 4.5; return <path key={i} d={poly([P(-0.15, 0, z0), P(0.15, 0, z0), P(0.15, 0, z1), P(-0.15, 0, z1)])} fill="#d9b030" opacity={0.75} />; })}
+      {/* wet reflections: lamp + window light smeared down the asphalt */}
+      {lampZ.map((z, i) => [-1, 1].map((sd) => { const [lx, ly] = P(sd * 10, 0, z); const w = (FOC * 1.0) / z; return <rect key={`${i}${sd}`} x={lx - w / 2} y={ly} width={w} height={Math.min(260, w * 30)} fill="url(#s4refl)" style={{ mixBlendMode: "screen" }} />; }))}
+      {/* building walls, far -> near */}
+      {sides.map((list, si) => list.map((b, k) => <Wall key={`${si}-${k}`} sd={si === 0 ? -1 : 1} b={b} />))}
+      {/* street lamps: pole, arm, globe, rain cone + pool */}
+      {lampZ.map((z) => [-1, 1].map((sd) => {
+        const base = P(sd * 11.6, 0, z), topP = P(sd * 11.6, 6.2, z), head = P(sd * 10.4, 6.2, z), pool = P(sd * 10.4, 0, z);
+        const r = (FOC * 0.35) / z;
+        return (
+          <g key={`${z}${sd}`}>
+            <ellipse cx={pool[0]} cy={pool[1]} rx={r * 8} ry={r * 2.4} fill="url(#s4lamp)" opacity={0.7} />
+            <path d={`M${head[0] - r * 0.6} ${head[1]} L${pool[0] - r * 5} ${pool[1]} L${pool[0] + r * 5} ${pool[1]} L${head[0] + r * 0.6} ${head[1]} Z`} fill="url(#s4cone)" />
+            <path d={`M${base[0]} ${base[1]} L${topP[0]} ${topP[1]} L${head[0]} ${head[1]}`} stroke="#0c0e14" strokeWidth={Math.max(1.2, r * 0.5)} fill="none" />
+            <circle cx={head[0]} cy={head[1]} r={Math.max(1.5, r)} fill="#fff1cc" />
+            <circle cx={head[0]} cy={head[1]} r={r * 5} fill="url(#s4lamp)" />
+          </g>
+        );
+      }))}
+      {/* GCPD cruisers flanking the bus (lightbars alternate red/blue, glow on the wet street) */}
+      {[{ x0: -9.5, z0: 52, rot: 18 }, { x0: 4.2, z0: 34, rot: -24 }].map((c, i) => {
+        const g0 = P(c.x0 + 0.9, 0, c.z0 + 2.2), gr = (FOC * 3.5) / c.z0;
+        const red = (i === 0) === led;
+        return (
+          <g key={i}>
+            <ellipse cx={g0[0]} cy={g0[1]} rx={gr * 1.6} ry={gr * 0.5} fill={red ? "url(#s4red)" : "url(#s4blue)"} opacity={0.55} />
+            <rect x={g0[0] - gr * 0.25} y={g0[1]} width={gr * 0.5} height={gr * 1.6} fill={red ? "url(#s4red)" : "url(#s4blue)"} opacity={0.35} />
+            <Box x0={c.x0} x1={c.x0 + 1.9} z0={c.z0} z1={c.z0 + 4.6} h={1.45} rotDeg={c.rot} top="#d8dce4" side="#14161e" back="#0e1018">
+              {(pp) => (
+                <g>
+                  <path d={poly([pp(c.x0 + 0.15, 1.46, c.z0 + 1.6), pp(c.x0 + 1.75, 1.46, c.z0 + 1.6), pp(c.x0 + 1.75, 1.46, c.z0 + 3.0), pp(c.x0 + 0.15, 1.46, c.z0 + 3.0)])} fill="#1a2030" />
+                  <path d={poly([pp(c.x0 + 0.2, 1.5, c.z0 + 2.1), pp(c.x0 + 0.95, 1.5, c.z0 + 2.1), pp(c.x0 + 0.95, 1.5, c.z0 + 2.4), pp(c.x0 + 0.2, 1.5, c.z0 + 2.4)])} fill={led ? "#ff3a3a" : "#5a1414"} />
+                  <path d={poly([pp(c.x0 + 0.95, 1.5, c.z0 + 2.1), pp(c.x0 + 1.7, 1.5, c.z0 + 2.1), pp(c.x0 + 1.7, 1.5, c.z0 + 2.4), pp(c.x0 + 0.95, 1.5, c.z0 + 2.4)])} fill={led ? "#14204a" : "#4a7aff"} />
+                  {(() => { const lr = pp(c.x0 + 0.55, 1.6, c.z0 + 2.25), lb = pp(c.x0 + 1.35, 1.6, c.z0 + 2.25); return <g><circle cx={lr[0]} cy={lr[1]} r={gr * 0.7} fill="url(#s4red)" opacity={led ? 0.9 : 0.15} /><circle cx={lb[0]} cy={lb[1]} r={gr * 0.7} fill="url(#s4blue)" opacity={led ? 0.15 : 0.9} /></g>; })()}
+                </g>
+              )}
+            </Box>
+          </g>
+        );
+      })}
+      {/* the school bus, pulled over at an angle — readable size, windows, rear emergency door, flashing red lamp */}
+      {(() => {
+        const x0 = -3.4, z0 = 40, rot = 14;
+        return (
+          <g>
+            <ellipse cx={P(-2.1, 0, 46)[0]} cy={P(-2.1, 0, 46)[1]} rx={160} ry={40} fill="url(#s4lamp)" opacity={0.35} />
+            <Box x0={x0} x1={x0 + 2.55} z0={z0} z1={z0 + 11} h={3.1} rotDeg={rot} top="#e0b23a" side="#c9981e" back="#b8860e">
+              {(pp) => (
+                <g>
+                  {/* side windows */}
+                  {Array.from({ length: 7 }).map((_, i) => { const za = z0 + 1.2 + i * 1.35, zb = za + 1.0; return <path key={i} d={poly([pp(x0 + 2.55, 1.75, za), pp(x0 + 2.55, 2.75, za), pp(x0 + 2.55, 2.75, zb), pp(x0 + 2.55, 1.75, zb)])} fill={i === 3 ? "#ffe8b0" : "#2a3048"} stroke="#141008" strokeWidth={1.5} />; })}
+                  <path d={`M${pp(x0 + 2.55, 1.2, z0)[0]} ${pp(x0 + 2.55, 1.2, z0)[1]} L${pp(x0 + 2.55, 1.2, z0 + 11)[0]} ${pp(x0 + 2.55, 1.2, z0 + 11)[1]}`} stroke="#141008" strokeWidth={4} />
+                  {/* rear: emergency door + lamps */}
+                  <path d={poly([pp(x0 + 0.8, 0.4, z0), pp(x0 + 0.8, 2.8, z0), pp(x0 + 1.75, 2.8, z0), pp(x0 + 1.75, 0.4, z0)])} fill="#a87a10" stroke="#141008" strokeWidth={2} />
+                  <path d={poly([pp(x0 + 0.9, 1.8, z0), pp(x0 + 0.9, 2.7, z0), pp(x0 + 1.65, 2.7, z0), pp(x0 + 1.65, 1.8, z0)])} fill="#2a3048" />
+                  {(() => { const l1 = pp(x0 + 0.3, 2.85, z0), l2 = pp(x0 + 2.25, 2.85, z0); return <g><circle cx={l1[0]} cy={l1[1]} r={led ? 6 : 3.5} fill={led ? "#ff2a2a" : "#6a1010"} /><circle cx={l2[0]} cy={l2[1]} r={led ? 3.5 : 6} fill={led ? "#6a1010" : "#ff2a2a"} /><circle cx={led ? l1[0] : l2[0]} cy={l1[1]} r={30} fill="url(#s4red)" opacity={0.7} /></g>; })()}
+                  {/* the wire on the door handle */}
+                  {(() => { const h1 = pp(x0 + 1.75, 1.3, z0), h2 = pp(x0 + 2.55, 1.0, z0 + 0.6); return <path d={`M${h1[0]} ${h1[1]} Q${(h1[0] + h2[0]) / 2} ${h1[1] + 10} ${h2[0]} ${h2[1]}`} stroke="#d0d0d0" strokeWidth={1.6} fill="none" opacity={0.8} />; })()}
+                  <path d={poly([pp(x0, 3.1, z0 + 0.4), pp(x0 + 2.55, 3.1, z0 + 0.4), pp(x0 + 2.55, 3.1, z0 + 0.8), pp(x0, 3.1, z0 + 0.8)])} fill="#f4d470" opacity={0.6} />
+                </g>
+              )}
+            </Box>
+          </g>
+        );
+      })()}
+      <rect x={0} y={0} width={1920} height={1080} fill="#2a1a3a" opacity={0.12 + flash * 0.02} />
+    </svg>
+  );
+};
+const shadeHex = (c: string) => { const n = parseInt(c.slice(1), 16); const r = ((n >> 16) & 255) * 0.7, g = ((n >> 8) & 255) * 0.7, b = (n & 255) * 0.7; return `rgb(${r | 0},${g | 0},${b | 0})`; };
+
 /* ============ Scene 4 — Wire on locked bus; Joker watches unseen ============ */
 export const Scene04: React.FC = () => {
   const f = useCurrentFrame();
@@ -272,27 +563,9 @@ export const Scene04: React.FC = () => {
       </Shot>
       <Shot from={cS} to={sceneDur(4) + 1}>
         <Stage cam={{ x: ci(f, [cS, sceneDur(4)], [-30, 30]), y: 0, zoom: ci(f, [cS, sceneDur(4)], [1.05, 1.12]) }}>
-          <Plane p={0.2}><Sky variant="storm" seed={8} horizonY={500} /></Plane>
-          <Plane p={0.35}><DecoSkyline seed={21} baseY={520} hMin={200} hMax={460} haze={0.5} litP={0.2} /></Plane>
-          {/* street canyon far below */}
-          <Plane p={0.6}>
-            <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
-              <defs><linearGradient id="cany" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1a2438" /><stop offset="1" stopColor="#05070c" /></linearGradient></defs>
-              <path d="M0 520 L700 520 L820 1080 L0 1080 Z" fill="url(#cany)" />
-              <path d="M1920 520 L1150 520 L1040 1080 L1920 1080 Z" fill="url(#cany)" />
-              <path d="M700 520 L1150 520 L1040 1080 L820 1080 Z" fill="#0d1220" />
-              {Array.from({ length: 30 }).map((_, i) => <rect key={i} x={rand(i) * 640} y={560 + rand(i * 3) * 480} width={10} height={14} fill="#f2cf7a" opacity={0.6} />)}
-              {Array.from({ length: 30 }).map((_, i) => <rect key={i} x={1180 + rand(i * 5) * 700} y={560 + rand(i * 7) * 480} width={10} height={14} fill="#f2cf7a" opacity={0.6} />)}
-              {/* tiny bus + flashing lights */}
-              <rect x={880} y={800} width={110} height={34} rx={4} fill="#c99a20" />
-              {Array.from({ length: 5 }).map((_, i) => <rect key={i} x={886 + i * 20} y={804} width={14} height={12} fill="#2a2010" />)}
-              <circle cx={985} cy={812} r={led ? 6 : 3} fill="#ff2a2a" />
-              <defs><radialGradient id="s4g"><stop offset="0" stopColor="#ffe2a6" stopOpacity="0.55" /><stop offset="1" stopColor="#ffe2a6" stopOpacity="0" /></radialGradient></defs>
-              {[[860, 760], [1010, 900], [900, 980]].map(([lx, ly], i) => <g key={i}><circle cx={lx} cy={ly} r={30} fill="url(#s4g)" /><circle cx={lx} cy={ly} r={3.5} fill="#fff1cc" /></g>)}
-              <ellipse cx={935} cy={817} rx={110} ry={40} fill="url(#s4g)" opacity={0.5} />
-              <circle cx={960} cy={860} r={5} fill={led ? "#ff3030" : "#3060ff"} /><circle cx={975} cy={860} r={5} fill={led ? "#3060ff" : "#ff3030"} />
-            </svg>
-          </Plane>
+          <Plane p={0.2}><Sky variant="storm" seed={8} horizonY={480} /></Plane>
+          <Plane p={0.35}><DecoSkyline seed={21} baseY={560} hMin={120} hMax={300} haze={0.55} litP={0.2} /></Plane>
+          <Plane p={0.6}><S4Canyon led={led} /></Plane>
           <Plane p={0.8}><Rain count={160} opacity={0.25} speed={30} len={30} /></Plane>
           <Plane p={1.2}>
             {/* rooftop parapet he leans on */}
@@ -328,7 +601,8 @@ export const Scene05: React.FC = () => {
   const polish = Math.sin(f * 0.35);
   const glint = ci(f, [cB, cB + 6, cB + 18], [0, 1, 0]);
   const S = 1.9, X = 760, Y = 1330;
-  const bx = X + 24 * S, by = Y - (198 + 106) * S;
+  const [bx, by] = anchor("alex", X, Y, S, 1, "badge");
+  const rub: [number, number] = [bx + 34 + polish * 10, by + 46 + Math.cos(f * 0.35) * 6];
   return (
     <Stage cam={{ x: ci(f, [0, sceneDur(5)], [0, 30]), y: 0, zoom: ci(f, [0, sceneDur(5)], [1.0, 1.08]) }}>
       <Plane p={0.2}><Sky variant="dusk" seed={5} horizonY={760} moon={[1500, 220, 36]} /></Plane>
@@ -336,7 +610,7 @@ export const Scene05: React.FC = () => {
       <Plane p={0.55}><DecoSkyline seed={33} baseY={820} hMin={200} hMax={420} haze={0.15} hazeColor="#5a3a50" light="#8a5a5a" body="#1a1018" litP={0.35} rimSide="right" /></Plane>
       <Plane p={1}>
         <Character id="s5alex" kind="alex" x={X} y={Y} scale={S} facing={1} lightSide={1} rim="#ffb080" nightTint={0.12} silhouette={0.05}
-          pose={{ armNear: [22 + polish * 5, 122 + polish * 6], handNear: "fist", armFar: [-8, 14], head: -4 + ci(f, [cB - 10, cB], [0, 6]), smile: 0.45, brow: 0.3, eyeY: ci(f, [cB - 10, cB], [-0.3, 0.8]), blink: blinkAt(f, 70, 30), bob: breathe(f, 0.45, 1.5) }} />
+          reachNear={rub} pose={{ handNear: "fist", armFar: [-8, 14], head: -4 + ci(f, [cB - 10, cB], [0, 6]), smile: 0.45, brow: 0.3, eyeY: ci(f, [cB - 10, cB], [-0.3, 0.8]), blink: blinkAt(f, 70, 30), bob: breathe(f, 0.45, 1.5) }} />
         {glint > 0 && (
           <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, mixBlendMode: "screen" }}>
             <g transform={`translate(${bx} ${by}) rotate(${f * 4}) scale(${glint})`}>
@@ -512,6 +786,16 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
       <rect width="1920" height="1080" fill="url(#flBg)" />
       <g style={{ mixBlendMode: "screen" }}>{Array.from({ length: 22 }).map((_, i) => <circle key={i} cx={(((rand(i) * 2100 - f * (0.6 + rand(i * 2) * 1.6)) % 2100) + 2100) % 2100 - 90} cy={120 + rand(i * 3) * 420 + Math.sin(f * 0.04 + i) * 8} r={18 + rand(i * 5) * 46} fill="#ffcf70" opacity={0.1 + rand(i * 9) * 0.18} />)}</g>
       <g transform={`translate(${860 + Math.sin(f * 0.05) * 14} ${560 + Math.sin(f * 0.083) * 8}) rotate(${-8 + Math.sin(f * 0.04) * 2.5 + shake * Math.sin(f * 2.2) * 4})`}>
+        {/* sleeve: dress-uniform cuff + forearm running off the bottom-left edge of the frame (never ends mid-air) */}
+        <path d="M-330 40 L-1500 520 L-1300 1100 L-170 214 Q-210 140 -330 40 Z" fill="#1d2b52" stroke="#0a0a0e" strokeWidth={5} strokeLinejoin="round" />
+        <path d="M-330 40 L-1500 520 L-1470 600 L-300 96 Z" fill="#33467a" opacity={0.55} />
+        <path d="M-200 190 L-1350 1000" stroke="#0e1530" strokeWidth={40} opacity={0.5} />
+        <path d="M-372 60 L-212 234" stroke="#d9b24a" strokeWidth={14} />
+        <path d="M-412 78 L-256 250" stroke="#d9b24a" strokeWidth={6} opacity={0.85} />
+        {/* back layer: wrist + palm heel behind/below the barrel, thumb base */}
+        <path d="M-340 40 C-350 110 -300 190 -200 214 C-120 222 -40 196 -10 150 C10 110 0 70 -20 40 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
+        <path d="M-300 150 Q-200 196 -60 170" stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
+        <path d="M-330 40 C-300 -10 -250 -40 -200 -48 L-190 0 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
         {beam > 0 && <path d="M330 -40 L1500 -420 L1500 420 L330 40 Z" fill="url(#flBeam)" opacity={beam} style={{ mixBlendMode: "screen" }} />}
         <rect x={-460} y={-58} width={680} height={116} rx={18} fill="url(#flM)" stroke="#0a0a0e" strokeWidth={5} />
         {Array.from({ length: 22 }).map((_, i) => <path key={i} d={`M${-440 + rand(i) * 640} ${-50 + rand(i * 3) * 100} l${10 + rand(i * 5) * 40} ${(rand(i * 7) - 0.5) * 12}`} stroke="#eef" strokeWidth={1.3} opacity={0.35} />)}
@@ -521,20 +805,30 @@ const FlashlightCloseup: React.FC<{ beam: number; shake: number; sw: number }> =
         {/* loose switch */}
         <rect x={-40} y={-74} width={90} height={20} rx={6} fill="#1a1a1e" />
         <rect x={-30 + sw * 40} y={-82} width={30} height={22} rx={5} fill="#3a3a40" stroke="#0a0a0e" strokeWidth={3} />
-        {/* hand: palm behind, four fingers wrapping the barrel, thumb on the switch */}
-        <path d="M-330 60 C-360 120 -300 200 -160 210 L-30 200 C10 160 0 90 -20 58 Z" fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
-        <rect x={-560} y={60} width={260} height={150} fill="#1d2b52" stroke="#0a0a0e" strokeWidth={4} />
-        <rect x={-330} y={64} width={30} height={142} fill="#d9b24a" opacity={0.85} />
-        {[0, 1, 2, 3].map((i) => (
-          <g key={i}>
-            <path d={`M${-270 + i * 62} 70 C${-284 + i * 62} 20 ${-280 + i * 62} -40 ${-262 + i * 62} -62 C${-250 + i * 62} -76 ${-222 + i * 62} -74 ${-216 + i * 62} -58 C${-226 + i * 62} -30 ${-220 + i * 62} 30 ${-214 + i * 62} 72 Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
-            <path d={`M${-262 + i * 62} -40 q12 -6 26 0`} stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.7} />
-            <path d={`M${-264 + i * 62} 10 q14 -4 28 0`} stroke="#5a3420" strokeWidth={2.5} fill="none" opacity={0.5} />
-            <path d={`M${-258 + i * 62} -64 q10 -4 18 0 l-2 10 q-8 -3 -14 0 Z`} fill="#e8c0a0" opacity={0.6} />
-          </g>
-        ))}
-        <path d={`M-30 70 C-20 0 ${-30 + sw * 30} -70 ${-6 + sw * 30} -96 C${12 + sw * 30} -112 ${40 + sw * 30} -100 ${36 + sw * 30} -80 C${20 + sw * 30} -60 10 0 18 60 Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} />
-        <path d={`M${0 + sw * 30} -98 q14 -6 26 2 l-4 10 q-10 -6 -20 -2 Z`} fill="#e8c0a0" opacity={0.6} />
+        {/* thumb lies along the top of the barrel and presses the switch (from behind the barrel's top edge) */}
+        <path d={`M-210 -46 C-160 -66 ${-90 + sw * 20} -76 ${-30 + sw * 34} -84 C${-12 + sw * 34} -88 ${8 + sw * 34} -84 ${8 + sw * 34} -72 C${6 + sw * 34} -62 ${-20 + sw * 34} -58 ${-60 + sw * 20} -54 C-120 -48 -170 -40 -210 -30 Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
+        <path d={`M${-26 + sw * 34} -86 C${-10 + sw * 34} -90 ${4 + sw * 34} -86 ${5 + sw * 34} -76 C${-6 + sw * 34} -78 ${-18 + sw * 34} -78 ${-28 + sw * 34} -76 Z`} fill="#e9c4a6" stroke="#5a3420" strokeWidth={1.5} />
+        <path d={`M-120 -62 q10 4 20 0`} stroke="#5a3420" strokeWidth={2} fill="none" opacity={0.6} />
+        {/* four tapered fingers wrap from under the barrel up its near face; index (front) longest-but-one, middle longest, pinky shortest */}
+        {[
+          { x: -78, w: 54, top: -6 },
+          { x: -136, w: 56, top: -16 },
+          { x: -192, w: 53, top: -8 },
+          { x: -242, w: 46, top: 12 },
+        ].map((q, i) => {
+          const b0 = 96, mid = (b0 + q.top) / 2 + 6;
+          const wl = q.w / 2, wt = q.w * 0.4;
+          return (
+            <g key={i}>
+              <path d={`M${q.x - wl} ${b0} C${q.x - wl - 4} ${mid + 20} ${q.x - wt - 2} ${q.top + 30} ${q.x - wt} ${q.top + 14} Q${q.x - 2} ${q.top - 10} ${q.x + wt} ${q.top + 12} C${q.x + wt + 3} ${q.top + 30} ${q.x + wl + 3} ${mid + 20} ${q.x + wl} ${b0} Z`} fill="url(#flSkin)" stroke="#0a0a0e" strokeWidth={4} strokeLinejoin="round" />
+              <path d={`M${q.x - wl * 0.7} ${mid + 6} q${wl * 0.7} 7 ${wl * 1.4} 0`} stroke="#5a3420" strokeWidth={2.4} fill="none" opacity={0.7} />
+              <path d={`M${q.x - wt * 0.8} ${q.top + 30} q${wt * 0.8} 5 ${wt * 1.6} 0`} stroke="#5a3420" strokeWidth={2} fill="none" opacity={0.55} />
+              <path d={`M${q.x + wt * 0.2} ${q.top + 6} Q${q.x + wt * 0.85} ${q.top + 16} ${q.x + wl * 0.8} ${b0 - 10}`} stroke="#f0caa8" strokeWidth={3} fill="none" opacity={0.45} />
+              <path d={`M${q.x - wl} ${b0 - 4} Q${q.x} ${b0 + 10} ${q.x + wl} ${b0 - 4}`} stroke="#0a0a0e" strokeWidth={3} fill="none" opacity={0.5} />
+            </g>
+          );
+        })}
+        <path d="M-280 40 Q-160 52 -40 40" stroke="#000" strokeWidth={10} opacity={0.18} fill="none" />
               </g>
     </svg>
   );

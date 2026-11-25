@@ -372,76 +372,124 @@ export const JokerProfile: React.FC<{ x: number; y: number; scale?: number; turn
   const f = useCurrentFrame();
   const bounce = laugh * Math.abs(Math.sin(f * 0.55)) * 6;
   const o = "#07050a";
-  const skin = "#ebe6f4", skinSh = "#9d92bd", suit = "#8a4bb0", suitSh = "#4a2068", hat = "#7a3a9e", hatSh = "#3c1652", hair = "#3a9a44", hairSh = "#1d5a26";
-  const g = 26 * turn; // grin pull toward camera
+  const skin = "#ebe6f4", skinSh = "#a59ac4", skinD = "#6e6290", suit = "#8a4bb0", suitSh = "#4a2068", suitL = "#b47ad6", hat = "#7a3a9e", hatSh = "#3c1652", hair = "#3a9a44", hairSh = "#1d5a26";
+  const glove = "#3a1a50", gloveL = "#7a4a9a", gloveS = "#1e0c2c";
+  const g = 14 * turn; // grin pulls wider as he turns toward camera
+  const open = 6 + laugh * 10;
+  const blink = (() => { const t = (f + 31) % 92; return t < 3 ? 1 - Math.abs(t - 1.5) / 1.5 : 0; })();
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
       <defs>
-        <linearGradient id="jkSuit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor={suitSh} /><stop offset="0.55" stopColor={suit} /><stop offset="1" stopColor="#b47ad6" /></linearGradient>
+        <linearGradient id="jkSuit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor={suitSh} /><stop offset="0.55" stopColor={suit} /><stop offset="1" stopColor={suitL} /></linearGradient>
         <linearGradient id="jkRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0.7" stopColor="#5aff8a" stopOpacity="0" /><stop offset="1" stopColor="#7affa0" stopOpacity="0.55" /></linearGradient>
       </defs>
       <g transform={`translate(${x} ${y + bounce}) scale(${scale})`}>
-        {/* shoulders / suit */}
+        {/* jacket: shoulders, peaked lapels, orange shirt, teal bow tie, boutonniere */}
         <path d="M-230 520 C-226 330 -190 214 -110 168 L-40 132 L70 142 C150 166 206 240 226 520 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
         <path d="M-110 168 C-84 236 -60 300 -40 520 L-86 520 C-104 340 -124 260 -150 210 Z" fill={suitSh} opacity={0.7} />
-        <path d="M30 150 L80 300 L110 160 Z" fill="#b47ad6" stroke={o} strokeWidth={2.5} />
-        <path d="M-20 132 L40 132 L60 176 L10 190 Z" fill="#f08c1e" stroke={o} strokeWidth={2.5} />
-        <path d="M44 168 l30 -14 l-6 26 Z M44 168 l-26 -10 l4 24 Z" fill="#26b3a0" stroke={o} strokeWidth={2} />
-        {/* neck */}
-        <path d="M-46 70 C-44 100 -40 130 -36 150 L36 150 C34 130 36 110 44 96 Z" fill={skinSh} stroke={o} strokeWidth={3} />
-        <path d="M-150 176 C-130 120 -90 92 -52 96 C-40 120 -20 136 20 140 L64 128 C70 140 72 152 66 166 C20 176 -60 176 -150 176 Z" fill={suitSh} stroke={o} strokeWidth={3} />
-        <g transform={`rotate(${-3 * turn - laugh * 2 * Math.sin(f * 0.55)})`}>
-          {/* head: back of skull + profile with long chin */}
-          <path d="M-74 -44 C-92 0 -84 46 -58 84 C-30 112 10 120 40 134 C58 146 78 158 92 156 C100 150 96 132 90 116 C104 108 108 96 104 86 C112 78 112 66 106 60 C118 52 126 40 124 30 C110 22 96 10 88 -6 C84 -24 80 -40 74 -52 Z" fill={skin} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
-          {/* hard two-tone shadow on the averted side */}
-          <path d="M-74 -44 C-92 0 -84 46 -58 84 C-30 112 10 120 40 134 C30 112 18 88 10 60 C0 30 -10 0 -16 -40 Z" fill={skinSh} />
-          <path d="M104 86 C112 78 112 66 106 60 L118 46" stroke="url(#jkRim)" strokeWidth={6} fill="none" />
-          {/* ear */}
-          <path d="M-24 4 C-40 -6 -48 18 -40 34 C-34 46 -20 44 -18 34 Z" fill={skinSh} stroke={o} strokeWidth={2.5} />
-          {/* the grin: lips + teeth stretching back along the cheek */}
-          <path d={`M106 62 C90 70 66 66 ${40 - g} ${44 - g * 0.6} C${46 - g} ${62} 70 ${92 + laugh * 6} 104 86 Z`} fill="#c8202c" stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
-          <path d={`M102 66 C88 72 68 70 ${46 - g} ${52 - g * 0.5} C${52 - g} ${62} 72 ${84 + laugh * 6} 100 80 Z`} fill="#e9dc9a" />
-          {[56, 66, 76, 86, 95].map((tx, i) => <path key={i} d={`M${tx - g * (1 - i / 5) * 0.4} ${56 + i * 2} l2 ${18 + laugh * 4}`} stroke="#8a7a40" strokeWidth={1.6} />)}
-          <path d={`M${40 - g} ${44 - g * 0.6} q-8 -4 -10 -14`} stroke={o} strokeWidth={2.6} fill="none" />
-          {/* eye under a heavy lid */}
-          <path d="M60 -16 C72 -24 86 -20 92 -12 C82 -6 70 -6 60 -16 Z" fill="#f4e06a" stroke={o} strokeWidth={2.4} />
-          <circle cx={84} cy={-13} r={3} fill={o} />
-          <path d="M54 -22 C70 -34 90 -30 98 -18" stroke={o} strokeWidth={4} fill="none" />
-          {/* slicked green hair: nape + sideburn under the brim */}
-          <path d="M-80 -54 C-96 -10 -92 40 -66 70 C-58 40 -50 20 -40 6 C-30 -10 -10 -24 30 -36 L60 -56 Z" fill={hair} stroke={o} strokeWidth={3} strokeLinejoin="round" />
-          <path d="M-80 -54 C-96 -10 -92 40 -66 70 C-72 30 -70 -10 -56 -44 Z" fill={hairSh} />
-          {[-60, -44, -28].map((hx) => <path key={hx} d={`M${hx} -40 Q${hx - 12} 0 ${hx - 6} 40`} stroke={hairSh} strokeWidth={3} fill="none" />)}
+        <path d="M-14 140 L60 140 L96 330 L40 400 L10 360 Z" fill="#f08c1e" stroke={o} strokeWidth={2.5} />
+        <path d="M40 160 L52 330 M20 200 L28 360" stroke="#b05a0a" strokeWidth={2} opacity={0.6} />
+        {/* far lapel */}
+        <path d="M-20 142 L-6 220 L-30 236 L10 400 L-44 400 L-70 196 Z" fill={suitSh} stroke={o} strokeWidth={2.5} strokeLinejoin="round" />
+        {/* near lapel: peaked, with the notch */}
+        <path d="M66 140 C96 150 120 166 136 186 L176 170 L160 224 L130 238 L70 420 L40 400 L76 250 L58 214 Z" fill={suit} stroke={o} strokeWidth={2.5} strokeLinejoin="round" />
+        <path d="M136 186 L176 170 L160 224" stroke={suitL} strokeWidth={2} fill="none" opacity={0.8} />
+        <path d="M90 250 L70 400" stroke={suitL} strokeWidth={3} opacity={0.5} />
+        <g transform="translate(124 262)"><circle r={13} fill="#f4f0f8" stroke={o} strokeWidth={2} />{[0, 72, 144, 216, 288].map((r) => <ellipse key={r} cx={0} cy={-7} rx={4} ry={7} fill="#ffffff" stroke="#c8c0d8" strokeWidth={1} transform={`rotate(${r})`} />)}<circle r={4} fill="#f4c020" /></g>
+        <path d="M20 168 l34 -16 l-6 30 Z M20 168 l-30 -12 l4 28 Z" fill="#26b3a0" stroke={o} strokeWidth={2} strokeLinejoin="round" />
+        <circle cx={20} cy={168} r={6} fill="#1a8a7a" stroke={o} strokeWidth={2} />
+        {/* neck (in shadow under the jaw) + collar */}
+        <path d="M-40 70 C-40 100 -36 126 -30 146 L40 146 C36 126 40 108 50 96 Z" fill={skinSh} stroke={o} strokeWidth={3} />
+        <path d="M-30 146 L-8 120 L12 150 Z M40 146 L22 118 L12 150 Z" fill="#f08c1e" stroke={o} strokeWidth={2} strokeLinejoin="round" />
+        <g transform={`rotate(${-3 * turn - laugh * 2 * Math.sin(f * 0.55)} 0 60)`}>
+          {/* back hair (slicked, green) behind the ear */}
+          <path d="M-86 -56 C-100 -10 -96 44 -70 92 C-56 100 -44 96 -40 84 C-48 50 -50 20 -40 -8 C-30 -30 -4 -44 40 -52 L60 -64 Z" fill={hair} stroke={o} strokeWidth={3} strokeLinejoin="round" />
+          {/* face in profile: forehead, brow ridge, long sharp nose, jutting pointed chin, jaw angle well behind the cheek */}
+          <path d="M-40 -60 C0 -66 40 -68 70 -64 C88 -52 96 -38 98 -24 C102 -20 102 -14 98 -8 C110 4 124 16 136 24 C126 30 114 34 104 34 C108 40 110 46 108 52 C112 70 112 86 106 96 C112 112 120 130 124 150 C112 160 96 164 80 160 C50 150 18 128 -8 108 C-20 98 -24 80 -24 60 C-28 30 -34 0 -40 -20 Z" fill={skin} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
+          {/* hard cel shadow: back plane of the face (behind the cheekbone) */}
+          <path d="M-40 -20 C-34 0 -28 30 -24 60 C-24 80 -20 98 -8 108 C18 128 50 150 80 160 C56 138 40 116 32 92 C26 70 30 44 46 26 C30 10 4 -6 -40 -20 Z" fill={skinSh} />
+          {/* cheekbone ridge + hollow under it */}
+          <path d="M46 26 C60 18 78 18 92 24" stroke={skinD} strokeWidth={3} fill="none" strokeLinecap="round" />
+          <path d="M44 30 C36 46 34 64 40 80" stroke={skinD} strokeWidth={2} fill="none" opacity={0.6} />
+          {/* jaw line accent + chin crease */}
+          <path d="M-6 106 C24 128 54 148 80 158" stroke={skinD} strokeWidth={2} fill="none" opacity={0.7} />
+          <path d="M104 118 q-10 6 -14 18" stroke={skinD} strokeWidth={2} fill="none" />
+          {/* nose shading + nostril */}
+          <path d="M98 -6 C108 6 120 16 132 24" stroke="#ffffff" strokeWidth={3} opacity={0.5} fill="none" />
+          <path d="M104 30 q-6 -2 -8 -8" stroke={o} strokeWidth={2} fill="none" />
+          {/* the grin: wide red lips, two rows of teeth, corner far back on the cheek */}
+          <path d={`M${110} ${50} C92 ${58} 64 ${58} ${30 - g} ${44 - g * 0.4} C${36 - g} ${66 + open * 0.3} 64 ${88 + open} 104 ${92 + open * 0.4} C112 ${80} 112 ${62} 110 50 Z`} fill="#c8202c" stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          <path d={`M106 ${55} C90 ${62} 66 ${62} ${38 - g} ${50 - g * 0.4} C${44 - g} ${62} 68 ${70} 104 ${68} Z`} fill="#f4ecc8" stroke={o} strokeWidth={1.6} />
+          <path d={`M${42 - g} ${58 + open * 0.2} C${54 - g * 0.5} ${70 + open} 76 ${80 + open} 102 ${84 + open * 0.4} C104 ${78} 104 ${74} 104 ${72 + open * 0.4} C80 ${74 + open * 0.4} 60 ${68 + open * 0.4} ${42 - g} ${58 + open * 0.2} Z`} fill="#f4ecc8" stroke={o} strokeWidth={1.6} />
+          <path d={`M${40 - g} ${54} C60 ${66 + open * 0.2} 84 ${70 + open * 0.3} 104 ${70 + open * 0.2}`} stroke="#3a0a10" strokeWidth={open * 0.5} fill="none" strokeLinecap="round" />
+          {[52, 62, 72, 82, 92, 100].map((tx, i) => <path key={i} d={`M${tx - g * (1 - i / 6) * 0.5} ${57 + i * 0.8} l1 ${8}`} stroke="#9a8a5a" strokeWidth={1.4} />)}
+          {[60, 72, 84, 96].map((tx, i) => <path key={`l${i}`} d={`M${tx} ${76 + open * 0.6} l1 ${-7}`} stroke="#9a8a5a" strokeWidth={1.4} />)}
+          <path d={`M${30 - g} ${44 - g * 0.4} q-10 -2 -14 -16 M${30 - g} ${44 - g * 0.4} q-8 8 -8 20`} stroke={o} strokeWidth={2.6} fill="none" strokeLinecap="round" />
+          {/* eye: yellow almond under a heavy lid, thin arched brow */}
+          <g transform={`translate(74 -16) scale(1 ${1 - blink * 0.9})`}>
+            <path d="M-14 0 C-6 -9 8 -8 16 2 C6 6 -6 6 -14 0 Z" fill="#f4e06a" stroke={o} strokeWidth={2.4} />
+            <circle cx={8} cy={0} r={3.2} fill={o} />
+            <path d="M-16 -2 C-6 -12 8 -11 18 0" stroke={o} strokeWidth={4} fill="none" strokeLinecap="round" />
+          </g>
+          <path d="M56 -38 C70 -50 92 -46 104 -30" stroke={o} strokeWidth={3} fill="none" strokeLinecap="round" />
+          <path d="M60 -6 C68 0 78 2 88 0" stroke={skinD} strokeWidth={1.6} fill="none" opacity={0.6} />
+          {/* ear: behind the jaw hinge (ramus), in front of the slicked back hair */}
+          <path d="M-30 8 C-46 2 -56 16 -54 34 C-52 54 -42 66 -30 64 C-24 60 -22 50 -26 42 C-22 30 -22 18 -30 8 Z" fill={skinSh} stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          <path d="M-34 18 C-44 18 -46 34 -42 46 C-38 54 -32 52 -32 46" stroke={skinD} strokeWidth={2} fill="none" />
+          {/* sideburn in front of the ear */}
+          <path d="M-40 -20 C-30 -10 -22 6 -20 24 L-26 26 C-30 8 -36 -6 -48 -16 Z" fill={hair} stroke={o} strokeWidth={2} />
+          {[-66, -52].map((hx) => <path key={hx} d={`M${hx} -44 Q${hx - 10} 10 ${hx - 2} 60`} stroke={hairSh} strokeWidth={3} fill="none" />)}
+          <path d="M-86 -56 C-100 -10 -96 44 -70 92 C-78 50 -76 0 -62 -44 Z" fill={hairSh} />
+          <path d="M106 -24 C112 -8 126 10 136 24" stroke="url(#jkRim)" strokeWidth={5} fill="none" />
           {/* fedora */}
           <ellipse cx={14} cy={-62} rx={178} ry={36} fill={hatSh} stroke={o} strokeWidth={3.2} transform="rotate(-7 14 -62)" />
           <path d="M-150 -50 C-80 -36 90 -60 180 -86 L184 -76 C100 -46 -60 -24 -150 -44 Z" fill={hat} opacity={0.9} />
-          {/* fedora crown: tapered, centre-dented teardrop with front pinches (not a round bowler) */}
           <path d="M-86 -66 C-90 -110 -84 -146 -66 -166 C-40 -178 -14 -168 4 -156 C24 -170 56 -178 78 -162 C96 -140 98 -110 94 -84 C40 -70 -40 -64 -86 -66 Z" fill={hat} stroke={o} strokeWidth={3.2} strokeLinejoin="round" />
           <path d="M-86 -66 C-90 -110 -84 -146 -66 -166 C-56 -150 -52 -110 -48 -66 Z" fill={hatSh} />
           <path d="M4 -156 C2 -136 6 -118 12 -104" stroke={hatSh} strokeWidth={5} fill="none" strokeLinecap="round" />
           <path d="M60 -150 C70 -132 74 -118 72 -100" stroke={hatSh} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.85} />
-          <path d="M-58 -156 C-50 -136 -48 -118 -50 -100" stroke={hatSh} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
           <path d="M-84 -90 C-40 -84 50 -92 94 -104 L94 -84 C40 -70 -40 -64 -86 -66 Z" fill="#2a0e3a" />
         </g>
-        {/* bare chalk-white hand holding the card between two fingers */}
-        <g transform={`translate(200 250) rotate(${-14 + laugh * 4 * Math.sin(f * 0.55)})`}>
-          {card < 0.5 && (
-            <g transform={`translate(26 -92) scale(${Math.max(0.12, Math.cos(card * Math.PI))} 1)`}>
-              <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#7a1a24" stroke={o} strokeWidth={3} />
-              <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#e8c060" strokeWidth={2} />
-              {Array.from({ length: 5 }).map((_, k) => <path key={k} d={`M-30 ${-44 + k * 20} l10 10 l10 -10 l10 10 l10 -10 l10 10 l10 -10`} stroke="#e8c060" strokeWidth={1.6} fill="none" opacity={0.7} />)}
-            </g>
-          )}
-          <g transform={`translate(26 -92) scale(${card >= 0.5 ? Math.max(0.12, -Math.cos(card * Math.PI)) : 0} 1)`}>
-            <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#f5efe2" stroke={o} strokeWidth={3} />
-            <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#c8202c" strokeWidth={2} />
-            <text x={0} y={-24} textAnchor="middle" fontFamily={DISPLAY} fontSize={26} letterSpacing={3} fill="#c8202c">JOKER</text>
-            <path d="M-18 6 q18 -26 36 0 q-6 22 -18 26 q-12 -4 -18 -26 Z" fill="#2a8a3a" />
-            <path d="M-10 28 q10 10 20 0" stroke="#c8202c" strokeWidth={3} fill="none" />
-            <path d="M-26 -4 l10 -18 l8 14 l8 -16 l8 16 l8 -14 l10 18 Z" fill="#8a4bb0" />
+        {/* gloved 5-finger hand: card pinched between index (front) and middle (behind) fingers */}
+        <g transform={`translate(196 236) rotate(${-10 + laugh * 4 * Math.sin(f * 0.55)})`}>
+          {/* sleeve + shirt cuff, running down behind the parapet */}
+          <path d="M-36 40 C-60 90 -90 160 -110 240 L-10 260 C0 180 10 110 30 44 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
+          <path d="M-38 34 L32 40 L30 54 L-42 48 Z" fill="#f08c1e" stroke={o} strokeWidth={2} />
+          {/* middle finger (behind the card) */}
+          <path d="M-12 -18 C-14 -50 -14 -80 -12 -100 Q-4 -112 6 -100 C8 -80 8 -50 8 -18 Z" fill={glove} stroke={o} strokeWidth={2.6} />
+          {/* card */}
+          <g transform="translate(30 -150) rotate(14)">
+            {card < 0.5 && (
+              <g transform={`scale(${Math.max(0.12, Math.cos(card * Math.PI))} 1)`}>
+                <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#7a1a24" stroke={o} strokeWidth={3} />
+                <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#e8c060" strokeWidth={2} />
+                {Array.from({ length: 5 }).map((_, k) => <path key={k} d={`M-30 ${-44 + k * 20} l10 10 l10 -10 l10 10 l10 -10 l10 10 l10 -10`} stroke="#e8c060" strokeWidth={1.6} fill="none" opacity={0.7} />)}
+              </g>
+            )}
+            {card >= 0.5 && (
+              <g transform={`scale(${Math.max(0.12, -Math.cos(card * Math.PI))} 1)`}>
+                <rect x={-44} y={-62} width={88} height={124} rx={8} fill="#f5efe2" stroke={o} strokeWidth={3} />
+                <rect x={-36} y={-54} width={72} height={108} rx={5} fill="none" stroke="#c8202c" strokeWidth={2} />
+                <text x={0} y={-24} textAnchor="middle" fontFamily={DISPLAY} fontSize={26} letterSpacing={3} fill="#c8202c">JOKER</text>
+                <path d="M-18 6 q18 -26 36 0 q-6 22 -18 26 q-12 -4 -18 -26 Z" fill="#2a8a3a" />
+                <path d="M-10 28 q10 10 20 0" stroke="#c8202c" strokeWidth={3} fill="none" />
+                <path d="M-26 -4 l10 -18 l8 14 l8 -16 l8 16 l8 -14 l10 18 Z" fill="#8a4bb0" />
+              </g>
+            )}
           </g>
-          <path d="M-40 40 C-46 0 -30 -30 -6 -40 L30 -54 C40 -56 46 -46 38 -40 L12 -26 L40 -40 C52 -44 56 -32 46 -26 L16 -8 C10 20 -4 44 -40 40 Z" fill={skin} stroke={o} strokeWidth={3} />
-          <path d="M-40 40 C-60 70 -80 100 -96 140 L-30 150 C-20 110 -10 80 -2 44 Z" fill="url(#jkSuit)" stroke={o} strokeWidth={3} />
-          <path d="M-44 36 L0 42" stroke="#f5efe2" strokeWidth={8} />
+          {/* palm / back of the hand */}
+          <path d="M-36 40 C-40 10 -36 -12 -26 -22 L28 -22 C36 -6 36 20 30 44 Z" fill={glove} stroke={o} strokeWidth={2.8} strokeLinejoin="round" />
+          {/* ring + pinky curled into the palm */}
+          <path d="M-30 -18 C-40 -26 -46 -10 -40 4 C-36 12 -28 12 -24 4 Z" fill={glove} stroke={o} strokeWidth={2.4} />
+          <path d="M-20 -22 C-30 -34 -38 -16 -32 -2 C-28 6 -20 6 -16 -2 Z" fill={glove} stroke={o} strokeWidth={2.4} />
+          {/* thumb folded over the curled fingers */}
+          <path d="M28 18 C16 10 0 4 -18 2 Q-26 4 -22 12 C-6 18 10 26 26 32 Z" fill={glove} stroke={o} strokeWidth={2.6} strokeLinejoin="round" />
+          {/* index finger in front of the card */}
+          <path d="M12 -18 C14 -48 18 -74 22 -92 Q30 -102 36 -90 C34 -70 32 -46 30 -18 Z" fill={glove} stroke={o} strokeWidth={2.6} />
+          {/* glove stitching + rim light */}
+          <path d="M-8 -10 V30 M10 -10 V30" stroke={gloveL} strokeWidth={1.4} opacity={0.6} />
+          <path d="M30 -18 C34 -48 32 -72 34 -90 M30 44 C36 20 36 -6 28 -22" stroke={gloveL} strokeWidth={2.5} fill="none" opacity={0.7} />
+          <path d="M-36 40 C-40 10 -36 -12 -26 -22" stroke={gloveS} strokeWidth={4} fill="none" opacity={0.7} />
         </g>
       </g>
     </svg>

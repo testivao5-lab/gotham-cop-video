@@ -120,17 +120,23 @@ export const FadeIn: React.FC<{ frames?: number; color?: string }> = ({ frames =
 };
 
 /** one-shot sound effect at a local frame (files are generated in CI by scripts/sfx.py) */
-/** SafeSFX: every effect clamped to 8%..15% so it never fights the narration (master = 1.0) */
-export const sfxGain = (g: number) => Math.max(0.08, Math.min(0.15, g * 0.27));
+/** SafeSFX (overhaul audio caps): point SFX 0.04..0.08, nothing above 0.08; narration master = 1.0 */
+export const sfxGain = (g: number) => Math.max(0.04, Math.min(0.08, g * 0.15));
+/** ambience beds 0.03..0.05 */
+export const bedGain = (g: number) => Math.max(0.03, Math.min(0.05, g * 0.3));
+/** fade envelope over frames [0, 18, dur-18, dur] for every sound */
+export const FADE = 18;
+export const fadeEnv = (fr: number, dur: number, fade = FADE) => Math.max(0, Math.min(1, fr / fade, (dur - fr) / fade));
+const SFX_DUR = 24 * 8;
 export const Sfx: React.FC<{ name: string; at: number; gain?: number }> = ({ name, at, gain = 0.5 }) => (
-  <Sequence from={Math.max(0, Math.round(at))} durationInFrames={24 * 8} layout="none" name={`sfx:${name}`}>
-    <Audio src={staticFile(`sfx/${name}.wav`)} volume={sfxGain(gain)} />
+  <Sequence from={Math.max(0, Math.round(at))} durationInFrames={SFX_DUR} layout="none" name={`sfx:${name}`}>
+    <Audio src={staticFile(`sfx/${name}.wav`)} volume={(fr) => sfxGain(gain) * fadeEnv(fr, SFX_DUR)} />
   </Sequence>
 );
 
-/** looping ambience bed for the length of a scene/shot; fadeIn/fadeOut 0 = seamless with neighbour */
-export const Bed: React.FC<{ name: string; from?: number; to: number; gain?: number; fadeIn?: number; fadeOut?: number }> = ({ name, from = 0, to, gain = 0.15, fadeIn = 6, fadeOut = 6 }) => (
+/** looping ambience bed for the length of a scene/shot, always with 18-frame fades */
+export const Bed: React.FC<{ name: string; from?: number; to: number; gain?: number; fadeIn?: number; fadeOut?: number }> = ({ name, from = 0, to, gain = 0.15, fadeIn = FADE, fadeOut = FADE }) => (
   <Sequence from={from} durationInFrames={Math.max(1, to - from)} layout="none" name={`bed:${name}`}>
-    <Audio src={staticFile(`sfx/${name}.wav`)} loop volume={(fr) => sfxGain(gain) * Math.min(1, fadeIn ? fr / fadeIn : 1, fadeOut ? (to - from - fr) / fadeOut : 1)} />
+    <Audio src={staticFile(`sfx/${name}.wav`)} loop volume={(fr) => bedGain(gain) * Math.max(0, Math.min(1, fr / Math.max(1, fadeIn), (to - from - fr) / Math.max(1, fadeOut)))} />
   </Sequence>
 );
